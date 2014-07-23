@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<widgets>
+    <new_products type="catalog/product_widget_new" translate="name description" module="catalog">
+        <name>Catalog New Products List</name>
+        <description>List of Products that are set as New</description>
+        <is_email_compatible>1</is_email_compatible>
+        <parameters>
+            <products_count translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <value>5</value>
+                <label>Number of Products to Display</label>
+                <type>text</type>
+            </products_count>
+            <template>
+                <required>1</required>
+                <visible>1</visible>
+                <label>Template</label>
+                <type>select</type>
+                <value>catalog/product/widget/new/content/new_grid.phtml</value>
+                <values>
+                    <default translate="label">
+                        <value>catalog/product/widget/new/content/new_grid.phtml</value>
+                        <label>New Products Grid Template</label>
+                    </default>
+                    <list translate="label">
+                        <value>catalog/product/widget/new/content/new_list.phtml</value>
+                        <label>New Products List Template</label>
+                    </list>
+                    <listWithSlide translate="label">
+                        <value>catalog/product/widget/new/content/new_list_slide.phtml</value>
+                        <label>Shop New Products List Template(With Slide)</label>
+                    </listWithSlide>
+                </values>
+            </template>
+            <cache_lifetime translate="label description">
+                <label>Cache Lifetime (Seconds)</label>
+                <description>86400 by default, if not set. To refresh instantly, Clear the Blocks HTML Output Cache.</description>
+                <visible>1</visible>
+                <type>text</type>
+            </cache_lifetime>
+        </parameters>
+    </new_products>
+</widgets>

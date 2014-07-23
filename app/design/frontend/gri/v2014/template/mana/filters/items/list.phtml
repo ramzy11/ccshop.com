@@ -1,0 +1,165 @@
+<?php
+/**
+ * @category    Mana
+ * @package     Mana_Filters
+ * @copyright   Copyright (c) http://www.manadev.com
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+/**
+ * Template for showing options for filter as a HTML list
+ * @author Mana Team
+ * Injected instead of standard catalog/layer/filter.phtml in Mana_Filters_Block_Filter_Attribute constructor.
+ * This template is overridden by copying (template body was pasted from catalog/layer/filter.phtml
+ * and modified as needed). All changes are marked with comments.
+ */
+/* @var $this Mana_Filters_Block_Filter */
+$items = $this->getItems();
+
+$count = count($items) + 1;
+$rowLimit = $this->getRowLimit();
+$rowLimit or $rowLimit = 6;
+$cols = ceil($count / $rowLimit);
+$i = 1;
+?>
+
+<?php
+$helper = $this->helper('gri_colorfilter');
+$colorFilter = $helper->getActiveColor();
+$image = $colorFilter->getImage();
+
+$storeCode = Mage::app()->getStore()->getCode();
+$colorImages = $helper->getStoreImages($colorFilter->getCollection()->getData(),$storeCode);
+
+$colorImageUrls = array();
+$colorImageWidth = $helper->getImageWidth();
+$colorImageHeight = $helper->getImageHeight();
+foreach($colorImages as $k => $v){
+    $colorImageUrls[strtolower($v['label'])] = $helper->getImageUrl($v['image']);
+}
+?>
+
+<div class="filter-<?php echo $cols; ?>-cols clearer">
+<ol class="m-filter-item-list filter">
+	<li class="m-selected-ln-item" style="display:none;">
+		<input type="checkbox" name ="filter-item" <?php if($this->getSelectedSeoValues()==="") echo "checked=checked"?> onclick="sendFilter('<?php echo $this->getRemoveUrl();?>')" id="filter-<?php echo $this->getFilter()->getFilterOptions()->getCode(); ?>-all"/>
+		<label for="filter-<?php echo $this->getFilter()->getFilterOptions()->getCode(); ?>-all"><?php echo $this->__("View All")?></label>
+	</li>
+
+
+<?php foreach ($items as $_item): ?>
+    <?php
+        if($_item->getCount() < 1) continue;
+        if($_item->getMSelected())
+            $url = $_item->getRemoveUrl();
+        else
+            $url = $_item->getUrl();
+    ?>
+    <?php if ($i >= $rowLimit) { $i = 0; ?>
+    </ol>
+    <ol class="m-filter-item-list filter">
+    <?php } ++$i; ?>
+        <li class="m-filter-item">
+            <?php $filterCode = $this->getFilter()->getFilterOptions()->getCode(); ?>
+            <?php // color filter?>
+            <?php if($filterCode == 'color_filter_1'):?>
+                <?php // MANA BEGIN ?>
+                <?php if ($_item->getMSelected()): ?>
+                    <a href="javascript:;"
+                        onclick="sendFilter('<?php echo $this->urlEscape($url);?>')"  class = "color-selected" >
+                        <img width="<?php echo $colorImageWidth?>" height="<?php echo $colorImageHeight ?>"
+                             src="<?php if(isset($colorImageUrls[strtolower($_item->getLabel())])) echo $colorImageUrls[strtolower($_item->getLabel())];?>"
+                             for="filter-<?php echo $this->getFilter()->getFilterOptions()->getCode(); ?>-<?php echo $_item->getValue(); ?>"title="<?php echo $_item->getLabel()?>" /></a>
+                <?php else : ?>
+                    <?php if ($_item->getCount() > 0): ?>
+                        <a href="javascript:;"
+                           onclick="sendFilter('<?php echo $this->urlEscape($url);?>')">
+                            <img width="<?php echo $colorImageWidth; ?>" height="<?php echo $colorImageHeight; ?>"
+                                 src="<?php if(isset($colorImageUrls[strtolower($_item->getLabel())])) echo $colorImageUrls[strtolower($_item->getLabel())];?>"
+                                 for="filter-<?php echo $this->getFilter()->getFilterOptions()->getCode(); ?>-<?php echo $_item->getValue(); ?>"title="<?php echo $_item->getLabel()?>" /></a>
+                    <?php //else: echo $_item->getLabel() ?>
+                    <?php endif; ?>
+                <?php endif; ?>
+            <?php // MANA END ?>
+
+        <?php // brand filter?>
+        <?php elseif($filterCode == 'brand'): ?>
+            <?php // MANA BEGIN ?>
+            <?php if ($_item->getMSelected()): ?>
+                <a href="javascript:;" id="filter-<?php echo $filterCode; ?>-<?php echo $_item->getValue(); ?>" class="brand-selected"
+                   title="<?php echo $_item->getLabel() ?>" for="filter-<?php echo $this->getFilter()->getFilterOptions()->getCode(); ?>-<?php echo $_item->getValue(); ?>"
+                   onclick="sendFilter('<?php echo $this->urlEscape($url);?>')">
+                    <?php echo $_item->getLabel() ?></a>
+            <?php else : ?>
+                <?php if ($_item->getCount() > 0): ?>
+                    <a href="javascript:;" id="filter-<?php echo $filterCode; ?>-<?php echo $_item->getValue(); ?>"
+                       title="<?php echo $_item->getLabel() ?>" for="filter-<?php echo $this->getFilter()->getFilterOptions()->getCode(); ?>-<?php echo $_item->getValue(); ?>"
+                       onclick="sendFilter('<?php echo $this->urlEscape($url);?>')">
+                        <?php echo $_item->getLabel() ?></a>
+                <?php else: echo $_item->getLabel() ?>
+                <?php endif; ?>
+            <?php endif; ?>
+            <?php // MANA END ?>
+
+        <?php // price filter?>
+        <?php elseif($filterCode == 'price'): ?>
+
+        <input type="checkbox" name ="filter-item"  <?php if($_item->getMSelected()) echo "checked=checked"?> onclick="sendFilter('<?php echo $this->urlEscape($url);?>')" id="filter-<?php echo $filterCode; ?>-<?php echo $_item->getValue(); ?>"/>
+        <?php // MANA BEGIN ?>
+        <?php if ($_item->getMSelected()): ?>
+            <label class="m-selected-filter-item"><?php echo $_item->getLabel(); ?></label>
+            <?php else : ?>
+            <?php if ($_item->getCount() > 0): ?>
+                <label href="<?php echo $this->urlEscape($_item->getUrl()) ?>" title="<?php echo $_item->getLabel() ?>" for="filter-<?php echo $this->getFilter()->getFilterOptions()->getCode(); ?>-<?php echo $_item->getValue(); ?>"><?php echo $_item->getLabel() ?></label>
+                <?php else: echo $_item->getLabel() ?>
+                <?php endif; ?>
+            <?php endif; ?>
+
+        <?php // MANA END ?>
+
+        <?php // size filter?>
+        <?php elseif($filterCode == 'size_clothing' || $filterCode == 'size_shoes'): ?>
+        <?php // MANA BEGIN ?>
+        <?php if ($_item->getMSelected()): ?>
+                <a href="javascript:;"
+                   onclick="sendFilter('<?php echo $this->urlEscape($url) ?>')" class="filter-item-size size-selected" title="<?php echo $_item->getLabel() ?>"
+                   for="filter-<?php echo $this->getFilter()->getFilterOptions()->getCode(); ?>-<?php echo $_item->getValue(); ?>">
+                    <?php echo $_item->getLabel() ?></a>
+            <?php else : ?>
+                <?php if ($_item->getCount() > 0): ?>
+                    <a href="javascript:;"
+                       onclick="sendFilter('<?php echo $this->urlEscape($url) ?>')" class="filter-item-size" title="<?php echo $_item->getLabel() ?>"
+                       for="filter-<?php echo $this->getFilter()->getFilterOptions()->getCode(); ?>-<?php echo $_item->getValue(); ?>">
+                        <?php echo $_item->getLabel() ?></a>
+                <?php else: echo $_item->getLabel() ?>
+                <?php endif; ?>
+            <?php endif; ?>
+        <?php // MANA END ?>
+
+        <?php // else filter?>
+        <?php else: ?>
+        <?php // MANA BEGIN ?>
+        <?php if ($_item->getMSelected()): ?>
+            <a href="javascript:;" id="filter-<?php echo $filterCode; ?>-<?php echo $_item->getValue(); ?>" class="filter-item-selected"
+               title="<?php echo $_item->getLabel() ?>" for="filter-<?php echo $this->getFilter()->getFilterOptions()->getCode(); ?>-<?php echo $_item->getValue(); ?>"
+               onclick="sendFilter('<?php echo $this->urlEscape($url);?>')" >
+                <?php echo $_item->getLabel() ?></a>
+        <?php else : ?>
+            <?php if ($_item->getCount() > 0): ?>
+                <a href="javascript:;" id="filter-<?php echo $filterCode; ?>-<?php echo $_item->getValue(); ?>"
+                   title="<?php echo $_item->getLabel() ?>" for="filter-<?php echo $this->getFilter()->getFilterOptions()->getCode(); ?>-<?php echo $_item->getValue(); ?>"
+                   onclick="sendFilter('<?php echo $this->urlEscape($url);?>')" >
+                    <?php echo $_item->getLabel() ?></a>
+            <?php else: echo $_item->getLabel() ?>
+            <?php endif; ?>
+        <?php endif; ?>
+        <?php // MANA END ?>
+
+        <?php endif;?>
+    </li>
+<?php endforeach ?>
+</ol>
+</div>
+<?php echo Mage::helper('mana_core')->getNamedHtml('mana_filters/markup', 'after_items', array('block' => $this)) ?>
+<?php if ($this->getFilterOptions()->getCode() == 'size_filter_1') { ?>
+<div class="size-link"><?php echo $this->__('View <a href="%s">size chart</a>', $this->getUrl('customer-service/size-chart')); ?></div>
+<?php } ?>

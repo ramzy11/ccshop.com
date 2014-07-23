@@ -1,0 +1,98 @@
+<?php
+/**
+ * Magento Enterprise Edition
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Magento Enterprise Edition License
+* that is bundled with this package in the file LICENSE_EE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://www.magentocommerce.com/license/enterprise-edition
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@magentocommerce.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade Magento to newer
+* versions in the future. If you wish to customize Magento for your
+* needs please refer to http://www.magentocommerce.com for more information.
+*
+* @category    design
+* @package     enterprise_default
+* @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+* @license     http://www.magentocommerce.com/license/enterprise-edition
+*/
+
+/**
+ * Shoping cart sidebar
+*
+* @var $this Mage_Checkout_Block_Cart_Sidebar
+*/
+?>
+<div class="top-cart-container">
+	<div class="top-cart">
+	<?php $_cartQty = $this->getSummaryCount() * 1; ?>
+	<?php if ($_cartQty > 0): ?>
+	    <?php $_myCart = $this->__('<span>%s</span> Items', $_cartQty) ?>
+	<?php else: ?>
+	    <?php $_myCart = $this->__('<span>0</span> Item') ?>
+	<?php endif ?>
+	<?php if ($this->getIsLinkMode() || !$this->getIsNeedToDisplaySideBar()):?>
+	    <div class="block-title no-items">
+	        <ul class="links cart-link">
+	            <li ><a href="<?php echo $this->getUrl('checkout/cart'); ?>"><?php echo $_cartQty ?></a></li>
+	        </ul>
+	    </div>
+	<?php else:?>
+	    <div class="block-title<?php if(!$_cartQty) { echo (' no-items'); } ?>">
+	        <strong id="cartHeader" class="links"><a href="<?php echo $this->getUrl('checkout/cart'); ?>"><?php echo $_cartQty ?></a></strong>
+	    </div>
+	    <div id="topCartContent" class="block-content" style="display:none">
+	        <div class="inner-wrapper"><?php // extra div to smooth slideUp and slideDown ?>
+	        <?php $_items = $this->getRecentItems() ?>
+	        <?php if(count($_items)): ?>
+	        	<!--<div class="cart-summary"><div><?php echo $_myCart;?></div></div>-->
+	            <table id="mini-cart" class="mini-products-list">
+	            <?php /*<tr>
+	            <th><?php echo $this->__('Product');?></th>
+	            <th colspan="2" class="price"><?php echo $this->__('Price');?></th>
+	            </tr> */ ?>
+	            <?php foreach($_items as $_item): ?>
+	                <?php echo $this->getItemHtml($_item) ?>
+	            <?php endforeach; ?>
+	            </table>
+	        <?php else: ?>
+	            <p class="cart-empty a-center">
+	                <?php echo $this->__('You have no items in your shopping cart.') ?>
+	            </p>
+	        <?php endif ?>
+	        <?php if($_cartQty && $this->isPossibleOnepageCheckout()): ?>
+	            <p class="subtotal">
+	                <span class="label"><?php echo $this->__('Cart Subtotal:') ?></span> <?php echo Mage::helper('checkout')->formatPrice($this->getSubtotal()) ?><?php if ($_subtotalInclTax = $this->getSubtotalInclTax()): ?> / <?php echo Mage::helper('checkout')->formatPrice($_subtotalInclTax) ?> <?php echo Mage::helper('tax')->getIncExcText(true) ?><?php endif; ?>
+	            </p>
+	            <div class="actions">
+	                <?php echo $this->getChildHtml('extra_actions') ?>
+	                <button class="button" type="button" onclick="setLocation('<?php echo $this->getUrl('checkout/cart'); ?>')"><span><span><?php echo $this->__('Go to Shopping Cart') ?></span></span></button>
+	            </div>
+	        <?php endif ?>
+	        </div>
+	    </div>
+	<?php endif;?>
+	</div>
+</div>
+<script type="text/javascript">decorateList('mini-cart', 'none-recursive')</script>
+<script type="text/javascript">
+    (function($){
+        var obj = $(".top-cart"), dropDown = $("#topCartContent");
+        obj.hoverDropDown(dropDown).find(".close-btn").click(function(){
+            dropDown.hide();
+        });
+        <?php if ($this->getRequest()->getParam('isAjax')) { ?>
+        obj.mouseenter();
+        obj.data("timer", setTimeout(function(){
+            obj.mouseleave();
+        }, 5000));
+        <?php } ?>
+    })(jQuery);
+</script>

@@ -1,0 +1,53 @@
+<?php /* @var $this Mage_Catalog_Block_Product_Widget_New */ ?>
+<?php /* @var $collection ProxiBlue_DynCatProd_Model_Resource_Product_Collection */ ?>
+<?php $collection = $this->getProductCollection(); ?>
+<?php $collection = $collection->getItems(); ?>
+<?php if(count($collection)):?>
+    <div class="shop-new-in" id="shop-new-in">
+        <h2><span><?php echo $this->__('Shop New In')?></span></h2>
+        <a class="prev" href="javascript:void(0);" style="cursor: pointer;">&lt;</a>
+        <div class="jcarousel">
+            <ul class="slider clearer">
+                <?php foreach($collection as $product) { ?>
+                    <li class="item slide">
+                        <?php
+                            echo Mage::helper('gri_catalogcustom/product')->getProductListItemBlock()
+                                ->setProduct($product)
+                                ->setShowActions(FALSE)
+                                ->setShowColorSwatch(FALSE)
+                                //->setImageWidth(176)
+                                //->setImageHeight(217)
+                                ->toHtml() ;
+                        ?>
+                    </li>
+                <?php } ?>
+            </ul>
+        </div>
+        <a class="next" href="javascript:void(0);" style="cursor: pointer;">&gt;</a>
+    </div>
+
+    <script type="text/javascript" src="<?php echo Mage::getBaseUrl('js').'jquery/jquery.iosslider.min.js' ?>"></script>
+    <script type="text/javascript">
+        (function($) {
+            var scroll = $('#shop-new-in .jcarousel'), slider = scroll.children('ul');
+            slider.css({height: slider.children('li').height()});
+            scroll.iosSlider({
+                snapToChildren: true,
+                infiniteSlider:true,
+                navNextSelector: scroll.siblings('.next'),
+                navPrevSelector: scroll.siblings('.prev')
+            });
+        })(jQuery);
+    </script>
+    <script type="text/javascript">
+        decorateGeneric($$('ul.slider li'), ['odd','even','first','last']);
+    </script>
+<?php endif;?>
+
+
+
+
+
+
+
+

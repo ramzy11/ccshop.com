@@ -1,0 +1,144 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product description template
+ *
+ * @see Mage_Catalog_Block_Product_View_Description
+ */
+/* @var $this Mage_Catalog_Block_Product_View_Description */
+$product = $this->getProduct();
+$pid = $product->getId();
+/* @var $productHelper Gri_CatalogCustom_Helper_Product */
+$productHelper = Mage::helper('gri_catalogcustom/product');
+/* @var $outputHelper Mage_Catalog_Helper_Output */
+$outputHelper = $this->helper('catalog/output');
+$attributes = $this->getAttributes();
+$attributes or $attributes = array(
+    // Shoes
+    11 => array(
+        'material',
+        'insole_material',
+        'toe_box_shape',
+        'trend',
+        'occasion',
+    ),
+    // Clothing
+    9 => array(
+        'material',
+        'with_lining',
+        'with_accessories',
+    ),
+    // Bag
+    10 => array(
+        'material',
+        'with_accessories',
+        'internal_structure',
+        'closure',
+    ),
+);
+?>
+<?php
+$_description = $product->getDescription();
+$_sizeNFit = $product->getSizeN_fit();
+$_fittingReport = $product->getFittingReport();
+?>
+<div id="tab_box<?php echo $pid; ?>" class="tab_box">
+    <ul class="clearer tab-header">
+        <li class="th-details"><a href="#tabs-1-<?php echo $pid; ?>"><?php echo $outputHelper->__($productHelper->isGift($product) ? 'Details' : 'Style Details'); ?></a></li>
+        <?php if ($product->getTypeId() != 'grouped') { ?>
+        <li class="th-snf<?php if (!$_sizeNFit) { ?> no-display<?php }?>"><a href="#tabs-2-<?php echo $pid; ?>"><?php echo $this->__('Size & Fit'); ?></a></li>
+        <li class="th-fitting<?php if (!$_fittingReport) { ?> no-display<?php }?>"><a href="#tabs-4-<?php echo $pid; ?>"><?php echo $this->__('Fitting Report'); ?></a></li>
+        <?php } ?>
+        <?php if (!$this->getHideReview()) { ?>
+        <li class="th-review"><a href="#tabs-5-<?php echo $pid; ?>"><?php echo $this->__('Review'); ?></a></li>
+        <?php } ?>
+    </ul>
+    <div id="tabs-1-<?php echo $pid; ?>">
+        <div class="container scroll-pane">
+            <div class="child">
+                <?php if ($_description): ?>
+                <div class="description-content">
+                    <?php echo $outputHelper->productAttribute($product, $_description, 'description') ?>
+                </div>
+                <?php endif; ?>
+                <?php if (isset($attributes[$product->getAttributeSetId()])) { ?>
+                <ul>
+                <?php foreach ($attributes[$product->getAttributeSetId()] as $code) {
+                    /* @var $attribute Gri_CatalogCustom_Model_Resource_Eav_Attribute */
+                    $attribute = $product->getResource()->getAttribute($code);
+                    if ($attribute->getSourceModel()) { ?>
+                    <li><?php echo $attribute->getStoreLabel(); ?>:
+                        <?php echo $product->getAttributeText($code); ?></li>
+                    <?php } else if ($product->getData($code)) { ?>
+                    <li><?php echo $attribute->getStoreLabel(); ?>:
+                        <?php echo $outputHelper->productAttribute($product, $product->getData($code), $code); ?></li>
+                    <?php } ?>
+                <?php } ?>
+                </ul>
+                <?php } ?>
+            </div>
+        </div>
+    </div>
+    <?php if ($product->getTypeId() != 'grouped') { ?>
+    <div id="tabs-2-<?php echo $pid; ?>">
+        <div class="container scroll-pane">
+            <?php echo $outputHelper->productAttribute($product, $_sizeNFit, 'size_n_fit'); ?>
+        </div>
+    </div>
+    <div id="tabs-4-<?php echo $pid; ?>">
+        <div class="container scroll-pane">
+            <?php echo $outputHelper->productAttribute($product, $_fittingReport, 'fitting_report'); ?>
+        </div>
+    </div>
+    <?php } ?>
+    <?php if (!$this->getHideReview()) { ?>
+    <div id="tabs-5-<?php echo $pid; ?>">
+        <div class="container scroll-pane">
+            <div class="child">
+                <?php echo $this->getChildHtml('review'); ?>
+            </div>
+        </div>
+    </div>
+    <?php } ?>
+</div>
+<?php if (!$this->getDisableTabsScript()) { ?>
+<script type="text/javascript">
+    (function($) {
+        $("#tab_box<?php echo $pid; ?>" ).tabs({
+            show : function(event, ui) {
+                $(ui.panel).find('.scroll-pane').jScrollPane();
+            }
+        });
+
+        <?php if (!$this->getHideReview()) { ?>
+        $('.review_button').fancybox({
+            padding:0
+        });
+        <?php } ?>
+    })(jQuery);
+</script>
+<?php } ?>

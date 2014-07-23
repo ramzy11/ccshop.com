@@ -1,0 +1,19 @@
+<?php /* @var $this Mage_Customer_Block_Account_Dashboard */ ?>
+<?php $_customerHelper = Mage::helper('gri_customer');?>
+<div class="dashboard">
+    <div class="page-title">
+        <h1><?php echo $_customerHelper->__('Dashboard') ?></h1><a href="javascript:void(0)" class="dashboard-dropdown-menu"></a>
+    </div>
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <?php echo $this->getChildHtml('hello') ?>
+    <?php echo $this->getChildHtml('membership') ?>
+    <div class="box-account box-info">
+        <?php /* Extensions placeholder */ ?>
+        <?php echo $this->getChildHtml('customer.account.dashboard.extra') ?>
+        <?php echo $this->getChildHtml('info') ?>
+        <?php echo $this->getChildHtml('address') ?>
+    </div>
+    <?php echo $this->getChildHtml('info1') ?>
+    <?php echo $this->getChildHtml('info2') ?>
+    <?php echo $this->getChildHtml('top') ?>
+</div>

@@ -1,0 +1,32 @@
+<?php
+/* @var $this Mage_Checkout_Block_Onepage_Shipping_Method */
+?>
+<form id="co-shipping-method-form" action="">
+    <div id="checkout-shipping-method-load" class="clearer">
+        <?php echo $this->getChildHtml('available') ?>
+    </div>
+    <div class="package">
+        <?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('checkout-package')->toHtml(); ?>
+    </div>
+    <script type="text/javascript">
+    //<![CDATA[
+        var shippingMethod = new ShippingMethod('co-shipping-method-form', "<?php echo $this->getUrl('checkout/onepage/saveShippingMethod') ?>");
+    //]]>
+    </script>
+    <div id="onepage-checkout-shipping-method-additional-load">
+        <?php echo $this->getChildHtml('additional') ?>
+    </div>
+    <div class="buttons-set" id="shipping-method-buttons-container">
+        <button type="button" class="button" onclick="shippingMethod.save(); pageTracker._trackPageview('/checkout/Shipping.html');"><span><span><?php echo $this->__('Continue') ?></span></span></button>
+        <span id="shipping-method-please-wait" class="please-wait" style="display:none;">
+            <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->__('Loading next step...') ?>" title="<?php echo $this->__('Loading next step...') ?>" class="v-middle" /> <?php echo $this->__('Loading next step...') ?>
+        </span>
+    </div>
+</form>
+<div class="address-ajax-loader no-display">
+    <div class="mask"></div>
+    <div class="content">
+        <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $label = $this->__('Loading address...'); ?>" title="<?php echo $label; ?>" class="v-middle" />
+        <?php echo $label; ?>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<?php
+/* @var $this Gri_CatalogCustom_Block_Product_List_Toolbar */
+/* @var $cookie Mage_Core_Model_Cookie */
+$cookie = Mage::app()->getCookie();
+$isAjax = $this->getRequest()->getParam('isAjax');
+
+$attribute = '------filter-sortby------';
+!$isAjax && $cookie->delete($attribute);
+
+$dir = $this->getRequest()->getParam('dir') ;
+
+$display = (($isAjax && $cookie->get($attribute)) || $dir ) ? 'block' : 'none';
+$filterOpen = $display == 'block' ? 'filter-open' : '';
+?>
+<div class="sort-by sf-sortby">
+    <?php $this->setDefaultDirection('desc');?>
+    <div attribute="filter-sortby" class="sf-sortby-name <?php echo $filterOpen ?> "><a href="javascript:;" class="sf-sortby-title"><?php echo $this->__('Sort by') ;?></a></div>
+    <?php /* <a href="javascript:void(0)" class="sort_by_title"><?php echo $this->geSortByTitle();?></a> */ ?>
+
+    <?php // ------sf-sortby------ ?>
+    <div class="sf-sortby-value" style="display:<?php echo $display; ?>">
+        <?php foreach ($this->getAvailableOrders() as $_key => $_order): ?>
+        <?php if (!is_array($_order)) : ?>
+            <div class="sortby-content">
+                <a href="javascript:;"
+                   onclick="sendFilter('<?php echo $this->getOrderUrl($_key, 'desc');?>')" id="sort_by_<?php echo $_key; ?>"
+                   <?php if ($this->isOrderNow($_key, 'desc')) { echo 'class="sortby-selected"';}?> >
+                <?php echo $this->__($_order) ?></a>
+            </div>
+            <?php else : ?>
+            <?php foreach ($_order as $_suborder) : ?>
+                <div class="sortby-content">
+                    <a href="javascript:;" onclick="sendFilter('<?php echo $this->getOrderUrl($_key, $_suborder['dir']);?>')"
+                       id="sort_by_<?php echo $_key . '_' . $_suborder['dir']; ?>"
+                       <?php if ($this->isOrderNow($_key, $_suborder['dir'])) { echo 'class="sortby-selected"';}?> >
+                    <?php echo $this->__($_suborder['label']) ?></a>
+                </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        <?php endforeach?>
+    </div>
+</div>

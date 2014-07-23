@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    Gri
+ * @package     Gri_Adminhtml
+ * @author		Jack Yu <jack_yu@griretail.com>
+ */
+-->
+<config>
+    <modules>
+        <Gri_Adminhtml>
+            <version>0.1.0</version>
+        </Gri_Adminhtml>
+    </modules>
+    <global>
+        <blocks>
+            <adminhtml>
+                <rewrite>
+                    <newsletter_subscriber_grid>Gri_Adminhtml_Block_Newsletter_Subscriber_Grid</newsletter_subscriber_grid>
+                </rewrite>
+				<rewrite>
+					<sales_order_grid>Gri_Adminhtml_Block_Sales_Order_Grid</sales_order_grid>
+				</rewrite>
+				<rewrite>
+					<customer_grid>Gri_Adminhtml_Block_Customer_Grid</customer_grid>
+				</rewrite>
+            </adminhtml>
+        </blocks>
+     </global>
+</config>

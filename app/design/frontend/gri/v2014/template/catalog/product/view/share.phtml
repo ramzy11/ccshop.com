@@ -1,0 +1,156 @@
+<?php
+  /* @var $this Gri_CatalogCustom_Block_Product_View_Share */
+  $_product = $this->getProduct();
+  $_helper = $this->helper('catalog/output');
+
+  $facebookApiKey = Mage::getSingleton('inchoo_facebook/config')->getApiKey();
+  $facebookSecret = Mage::getSingleton('inchoo_facebook/config')->getSecret();
+  $facebook_enabled = Mage::getSingleton('inchoo_facebook/config')->isEnabled();
+  $redirect_url = Mage::helper('core/url')->getCurrentUrl();
+  $facebookShareUrl = Mage::getSingleton('inchoo_facebook/config')->getShareUrl();
+
+  $weiboApiKey = Mage::getSingleton('inchoo_weibo/config')->getApiKey();
+  $weiboSecret = Mage::getSingleton('inchoo_weibo/config')->getSecret();
+  $weiboShareUrl = Mage::getSingleton('inchoo_weibo/config')->getShareUrl();
+
+  $defaultCountryCode = Mage::helper('core')->getDefaultCountry();
+?>
+<div class="share-buttons">
+    <!--facebook-->
+    <div id="fb-root"></div>
+    <?php if(Mage::helper('inchoo_facebook')->isEnabledShareAndFollowUs()): ?>
+    <a id="facebook-share" target="_blank" href="javascript:;"><img src="<?php echo $this->getSkinUrl('images/share/facebook_grey.png'); ?>"></a>
+    <script type="text/javascript">
+        function openNewWindow(url) {
+            var top = (document.body.clientHeight - 380) / 2;
+            var left = (document.body.clientWidth - 560) / 2;
+            window.open(url, 'weibosharewindow', 'height=400, width=570, toolbar =no, menubar=no, scrollbars=yes, resizable=no,top=' + top + ',left=' + left + ', location=no, status=no');
+            return false;
+        }
+        var shareProductDesc = <?php echo $this->filterStr($_product->getDescription()); ?>;
+        var shareProductName = <?php echo $this->filterStr($_product->getName()); ?>;
+        var shareProductImg = jQuery("#magiatecolorswatch-image").attr("src");
+
+        (function($){
+            var href = '';
+            $('#facebook-share').bind('click', function(){
+                href = '<?php echo $facebookShareUrl; ?>?s=100&';
+                href += 'p[images][0]=' + shareProductImg + '&';
+                href += 'p[summary]=' + shareProductDesc + '&';
+                href += 'p[title]=' + shareProductName + '&';
+                href += 'p[url]=' + window.location.href;
+                href = encodeURI(href);
+
+                openNewWindow(href);
+                return false;
+            })
+        })(jQuery);
+    </script>
+    <?php endif; ?>
+
+    <!--Twitter-->
+    <?php if(Mage::helper('gri_customer')->enabledTwitter()):?>
+    <a id="twitter-share"  href="javascript:;" onclick="openTwitterWindow('<?php echo Mage::helper('gri_customer')->getTwitterShareUrl()?>')" >
+        <img src="<?php echo $this->getSkinUrl('images/share/twitter_grey.png'); ?>">
+    </a>
+    <script type="text/javascript" >
+        <?php if(1 == 0): ?>
+        /**
+         * https://dev.twitter.com/docs/tweet-button
+         * url	 URL of the page to share
+         * via	 Screen name of the user to attribute the Tweet to
+         * text	 Default Tweet text
+         * related	Related accounts
+         * count   Count box position
+         * lang	The  language for the Tweet Button
+         * counturl	 URL to which your shared URL resolves
+         * hashtags	 Comma separated hashtags appended to tweet text
+         * size	 The size of the rendered button
+         */
+        <?php endif;?>
+        function openTwitterWindow(url) {
+            var i ="<?php echo $_product->getProductUrl(); ?>";
+            var b = "?original_referer="+encodeURIComponent(i) +
+                     "&url="+encodeURIComponent(i) +
+                     "&text=" + shareProductDesc;
+            var top = (document.body.clientHeight - 380) / 2;
+            var left = (document.body.clientWidth - 560) / 2;
+            url = url + b;
+
+            window.open(url, 'twittersharewindow', 'height=400, width=570, toolbar =no, menubar=no, scrollbars=yes, resizable=no,top=' + top + ',left=' + left + ', location=no, status=no');
+        }
+    </script>
+    <?php endif;?>
+
+    <!--Pinterest-->
+    <?php if(Mage::helper('gri_customer')->enabledPinterest()):?>
+    <a id="pinterest-share" href="javascript:;" onclick="openPinterestWindow('<?php echo Mage::helper('gri_customer')->getPinterestShareUrl()?>')">
+        <img src="<?php echo $this->getSkinUrl('images/share/pinterest_grey.png'); ?>">
+    </a>
+    <script type="text/javascript">
+        /**
+         *  http://pinterest.com/pin/create/button/?
+         *  media = &
+         *  url =  &
+         *  description =
+         *
+         */
+        function openPinterestWindow(url) {
+            var i = "<?php echo $_product->getProductUrl(); ?>";
+            var b = "?media=" + shareProductImg + '&name=' + shareProductName + '&url='+encodeURIComponent(i) + "&description=" + shareProductDesc;
+            var top = (document.body.clientHeight - 380) / 2;
+            var left = (document.body.clientWidth - 560) / 2;
+            url = url + b;
+
+            window.open(url, 'twittersharewindow', 'height=400, width=570, toolbar =no, menubar=no, scrollbars=yes, resizable=no,top=' + top + ',left=' + left + ', location=no, status=no');
+        }
+    </script>
+    <?php endif;?>
+
+    <!--weibo-->
+    <?php  if(Mage::helper('inchoo_weibo')->isEnabledShareAndFollowUs()): ?>
+        <a id="weibo-share" href="javascript:;" onclick="openWind('<?php echo $weiboShareUrl;?>?appkey=<?php echo $weiboApiKey; ?>')">
+            <?php   if($defaultCountryCode != 'CN'): ?>
+                <img src="<?php echo $this->getSkinUrl('images/share/weibo_grey.png'); ?>"/>
+            <?php else:?>
+                <img src="<?php echo $this->getSkinUrl('images/share/weibo_color.png'); ?>"/>
+            <?php endif;?>
+        </a>
+        <script type="text/javascript">
+            function openWind(url) {
+                var i ="<?php echo $_product->getProductUrl(); ?>";
+                var b = "&title=" + shareProductName + "&pic=" + shareProductImg + "&url="+encodeURIComponent(i);
+                var top = (document.body.clientHeight - 380) / 2;
+                var left = (document.body.clientWidth - 560) / 2;
+
+                url = url + b;
+
+                window.open(url, 'weibosharewindow', 'height=400, width=570, toolbar =no, menubar=no, scrollbars=yes, resizable=no,top=' + top + ',left=' + left + ', location=no, status=no');
+            };
+        </script>
+    <?php endif; ?>
+
+    <!--Email-->
+    <a id="email-share" href="<?php echo $this->getUrl('sendfriend/product/send', array('id' => $_product->getId(), 'cat_id' => $_product->getCategoryId())); ?>">
+        <img class="rig_space" src="<?php echo $this->getSkinUrl('images/share/email_grey.png'); ?>">
+    </a>
+
+    <?php  if($defaultCountryCode != 'CN'): ?>
+     <script type="text/javascript">
+       (function($){
+          $('#facebook-share,#twitter-share,#pinterest-share,#weibo-share,#email-share').hover(
+            function(event){
+               var id = $(this).attr('id');
+                id = id.split('-')[0];
+                $(this).find('img').attr('src','<?php echo $this->getSkinUrl("images/share/")?>'+id+'_color.png');
+            },
+            function(event){
+                var id = $(this).attr('id');
+                id = id.split('-')[0];
+                $(this).find('img').attr('src','<?php echo $this->getSkinUrl("images/share/")?>'+id+'_grey.png');
+            }
+         )
+       })(jQuery)
+    </script>
+  <?php endif;?>
+</div>

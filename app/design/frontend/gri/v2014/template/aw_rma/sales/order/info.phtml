@@ -1,0 +1,59 @@
+<?php
+/* @var $this Mage_Sales_Block_Order_Info */
+/* @var $_griSalesHelper Gri_Sales_Helper_Data */
+$_griSalesHelper = $this->helper('gri_sales');
+$_order = $this->getOrder();
+
+/* @var $locale Mage_Core_Model_Locale */
+$locale = Mage::getSingleton('core/locale') ;
+$createdAt = $locale->date($_order->getCreatedAt(),Varien_Date::DATE_INTERNAL_FORMAT)->toString(Varien_Date::DATE_INTERNAL_FORMAT);
+?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<div class="page-title title-buttons" xmlns="http://www.w3.org/1999/html">
+    <h1><?php echo $this->__('Orders') ?></h1><a href="javascript:void(0)" class="dashboard-dropdown-menu"></a>
+</div>
+<div class="account-order-left">
+    <div class="order-detail">
+        <h1><?php echo $_griSalesHelper->__('Order Detail') ?></h1>
+        <p><?php echo $_griSalesHelper->__('Order No.: #%s',$_order->getRealOrderId()) ?></p>
+
+        <p><?php echo $_griSalesHelper->__('Date: %s', $createdAt) ?></p>
+        <p><?php echo $_griSalesHelper->__('Recipient: %s',$_order->getShippingAddress()->getName()) ?></p>
+        <p><?php echo $_griSalesHelper->__('Order Total: %s',$_order->formatPrice($_order->getGrandTotal())) ?></p>
+        <p><?php echo $_griSalesHelper->__('Order Status: %s',$_order->getStatusLabel()) ?></p>
+        <p><a href="<?php echo $this->getPrintUrl($_order) ?>" class="link-print-order" onclick="this.target='_blank';"><?php echo $_griSalesHelper->__('Print Order') ?></a></p>
+        <p><a href="javascript:;" class="view-order-confirmation"><?php echo $this->__('View Order Detail') ?></a></p>
+    </div>
+    <div class="shipping-detail">
+        <h1><?php echo $this->__('Shipping Detail') ?></h1>
+        <p>
+             <?php echo $this->__('Tracking No.:') ?>
+             <?php
+                 if ($count = $_order->getTracksCollection()->count()) {
+                     foreach($_order->getTracksCollection() as $track) {
+                         echo  $count > 1 ? $track->getTrackNumber().',' : $track->getTrackNumber() ;
+                     }
+                 }
+             ?>
+        </p>
+        <a href="<?php echo $this->getTrackUrl($_order) ?>"><?php echo $_griSalesHelper->__('Track My Order') ?></a>
+    </div>
+    <div class="buttons">
+        <?php /* <?php if ($_order->getStatus() == 'pending') if ($_payUrl = $_griSalesHelper->getPaymentUrl($_order)) { ?>
+            <a href="<?php echo $_payUrl ?>" class="link-payment"><?php echo $this->__('Pay') ?></a>
+        <?php } ?> */?>
+
+        <?php if ($_payNowUrl = $_griSalesHelper->getPayNowUrl($_order)) { ?>
+            <p><a href="<?php echo $_payNowUrl ?>" class="link-pay-now"><?php echo $_griSalesHelper->__('Pay Now') ?></a></p>
+        <?php } else if ($this->helper('sales/reorder')->canReorder($_order)) { ?>
+            <p><a href="<?php echo $this->getReorderUrl($_order) ?>" class="link-reorder"><?php echo $_griSalesHelper->__('Reorder') ?></a></p>
+        <?php }?>
+
+        <?php if (Mage::helper('awrma')->isEnabled() && Mage::helper('awrma')->isAllowedForOrder($_order)) : ?>
+            <p><a href="<?php echo $this->getUrl('awrma/customer_rma/createfororder/', array('order_id' => $_order->getIncrementId())) ?>" class="link-rma"><?php echo $_griSalesHelper->__('Return / Exchange Request') ?></a></p>
+        <?php endif ?>
+
+        <p class="back-link"><a href="<?php echo $_griSalesHelper->getBackUrl() ?>"><?php echo $_griSalesHelper->__('Back') ?></a></p>
+    </div>
+</div>
+

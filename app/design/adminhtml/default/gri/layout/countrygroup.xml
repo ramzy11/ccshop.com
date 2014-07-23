@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+ <adminhtml_countrygroup_index>
+      <referense name="head">
+            <action method="setTitle" translate="title"><title>Country Group</title></action>
+      </referense>
+       <reference name="menu">
+            <action method="setActive"><menupath>catalogcustom/country_group</menupath></action>
+        </reference>
+      <reference name="content">
+        <block type="gri_countrygroup/adminhtml_countrygroup" name="countrygroup"  >
+           <block type="adminhtml/store_switcher" name="store_switcher">
+                <action method="setUseConfirm"><params>0</params></action>
+            </block>
+        </block>
+    </reference> 
+   </adminhtml_countrygroup_index>
+   <adminhtml_countrygroup_edit>
+         <update handle="editor"/>
+        <reference name="content">
+            <block type="gri_countrygroup/adminhtml_edit" name="countrygroup_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="adminhtml/store_switcher" name="store_switcher" before="-"></block>
+            <block type="gri_countrygroup/adminhtml_tabs" name="countrygroup_tabs"></block>
+        </reference>
+  </adminhtml_countrygroup_edit>
+  <adminhtml_countrygroup_new>
+        <update handle="adminhtml_countrygroup_edit"/>
+  </adminhtml_countrygroup_new>
+</layout>

@@ -1,0 +1,25 @@
+<?php
+/* @var $this Mage_Adminhtml_Block_Sales_Order_Comments_View */
+/* @var $_entity Gri_Sales_Model_Order_Creditmemo */
+?>
+<?php if ($_entity = $this->getEntity()) { ?>
+<ul class="note-list">
+    <?php foreach ($_entity->getCommentsCollection(TRUE) as $_comment): ?>
+    <li>
+        <strong><?php echo $this->helper('core')->formatDate($_comment->getCreatedAtDate(), 'medium') ?></strong>
+        <?php echo $this->helper('core')->formatTime($_comment->getCreatedAtDate(), 'medium') ?><span class="separator">|</span>
+        <small><?php echo $this->helper('sales')->__('Customer') ?>
+            <strong class="subdue">
+                <?php if ($_comment->getIsCustomerNotified()): ?>
+                    <?php echo $this->helper('sales')->__('Notified') ?>
+                    <img src="<?php echo $this->getSkinUrl('images/ico_success.gif') ?>" width="16" height="16" alt=""/>
+                <?php else: ?>
+                    <?php echo $this->helper('sales')->__('Not Notified') ?>
+                <?php endif; ?>
+            </strong></small>
+        <br/>
+        <?php echo $this->escapeHtml($_comment->getComment(), array('b', 'br', 'strong', 'i', 'u')) ?>
+    </li>
+    <?php endforeach; ?>
+</ul>
+<?php } ?>

@@ -1,0 +1,97 @@
+<!--@subject Welcome, {{var customer.name}}! @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"htmlescape var=$customer.name":"Customer Name",
+"store url=\"customer/account/\"":"Customer Account Url"}
+@-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+<body style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+<div style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+<table style="margin:0 auto; width:650px;color:#333;background: #fff;border-top:10px solid #000000;border-bottom:10px solid #000000;border-left:20px solid #000000;border-right:20px solid #000000;" cellspacing="0" cellpadding="0" >
+        <tr>
+            <td>
+                <!-- [ header starts here] -->
+                <table style="margin:0 auto;width:650px;border:0;" cellspacing="0" cellpadding="0" >
+                    <tr>
+                        <td style="height:70px;" colspan="3"><div style="width:650px;">
+            <div style="width:193px; height:56px;padding-left:228px;">
+                <a title="Magento Commerce" href="{{store url='/'}}"><img alt="Magento Commerce" src="{{skin url='images/logo_chi.png' _area='frontend'}}"></a>
+            </div>
+            <div style="margin:0 auto;border-top:4px solid #000000;">
+                <ul style="margin:0px;">
+                    <li style="float:left;list-style:none;padding:6px 18px;margin:0px"><a style="text-decoration:none;" href="{{store url='shoes/new-arrivals.html'}}"><span style=" font-size: 15px;font-weight: bold;color:#333;">新品</span></a></li>
+                    <li style="float:left;list-style:none;padding:6px 18px;margin:0px"><a style="text-decoration:none;" href="{{store url='ninewest.html'}}"><span style=" font-size: 15px;font-weight: bold;color:#333;">品牌</span></a></li>
+                    <li style="float:left;list-style:none;padding:6px 18px;margin:0px"><a style="text-decoration:none;" href="{{store url='shoes/new-arrivals.html'}}"><span style=" font-size: 15px;font-weight: bold;color:#333;">鞋履</span></a></li>
+                    <li style="float:left;list-style:none;padding:6px 18px;margin:0px"><a style="text-decoration:none;" href="{{store url='clothing/new-arrivals.html'}}"><span style=" font-size: 15px;font-weight: bold;color:#333;">服装</span></a></li>
+                    <li style="float:left;list-style:none;padding:6px 18px;margin:0px"><a style="text-decoration:none;" href="{{store url='accessories/new-arrivals.html'}}"><span style=" font-size: 15px;font-weight: bold;color:#333;">配饰</span></a></li>
+                    <li style="float:left;list-style:none;padding:6px 18px;margin:0px"><a style="text-decoration:none;" href="{{store url='as-seen-in'}}"><span style=" font-size: 15px;font-weight: bold;color:#333;">媒体报道</span></a></li>
+                    <li style="float:left;list-style:none;padding:6px 18px;margin:0px"><a style="text-decoration:none;" href="{{store url='events'}}"><span style=" font-size: 15px;font-weight: bold;color:#333;">活动</span></a></li>
+                </ul>
+            </div>
+            </div>
+                    </tr>
+                    <!-- [ middle starts here] -->
+                    <tr>
+                        <td valign="top">
+                            <h1 style="font-size:22px; font-weight:normal; line-height:22px; margin:0 0 11px 0;cplor:#fff;">亲爱的{{htmlescape var=$customer.name}},</h1>
+                            <p style="font-size:12px; line-height:16px; margin:0 0 16px 0;">欢迎光临{{var store.getFrontendName()}}！在使用我们网站的过程中，如果您需要登录，请点击每个页面上方的“<a href="{{store url="customer/account/"}}" style="color:#000;">登录</a>”或“<a href="{{store url="customer/account/"}}" style="color:#000;">我的账户</a>” 链结，然后输入您的电子邮箱地址及密码。</p>
+                            <p style="font-size:12px; line-height:16px; margin:0 0 8px 0;">在登录账户以后，您可以：</p>
+                            <ul style="font-size:12px; line-height:16px; margin:0 0 16px 0; padding:0;">
+                                <li style="list-style:none inside; padding:0 0 0 10px;">&ndash; 在购买产品时更快完成购物流程</li>
+                                <li style="list-style:none inside; padding:0 0 0 10px;">&ndash; 查看订单状态</li>
+                                <li style="list-style:none inside; padding:0 0 0 10px;">&ndash; 查看过往订单</li>
+                                <li style="list-style:none inside; padding:0 0 0 10px;">&ndash; 对您的账户信息进行修改</li>
+                                <li style="list-style:none inside; padding:0 0 0 10px;">&ndash; 修改密码</li>
+                                <li style="list-style:none inside; padding:0 0 0 10px;">&ndash; 保存备用地址（为您的家人或朋友送货！）</li>
+                                <li style="list-style:none inside; padding:0 0 0 10px;">&ndash; 查看我的收藏</li>
+                                <li style="list-style:none inside; padding:0 0 0 10px;">&ndash; 申请退换货</li>
+                            </ul>
+                            <p style="font-size:12px; line-height:16px; margin:0;">如果您对您的账户或其他方面有问题，请您通过电邮 <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#000;">{{config path='trans_email/ident_support/email'}}</a> 电话 {{config path='general/store_information/phone'}}.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;"><center><p style="font-size:12px; margin:0;">感谢您对<strong>{{var store.getFrontendName()}}</strong>的关注与支持，祝您购物愉快！</p></center></td>
+                    </tr>
+                </table>
+                <tbody><tr><td>
+                        <table cellspacing="0" cellpadding="0" style="padding:15px;border:0; background-color:#FFFFFF;">
+                            <tbody><tr>
+                                    <td colspan="3">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:0 10px;width:33%; text-align:top;"><p align="center">
+                                            <span class="style2"><a style="color:#000;text-decoration: none;" target="_blank" href="{{store url='vip'}}">FREE SHIPPING</a></span><br>
+                                            <em class="style1">on orders over <strong>600<br>
+                                                </strong>within Hong Kong</em></p></td>
+                                    <td style="border-left:1px solid #d8d8d8; border-right:1px solid #d8d8d8; padding:0 10px;width:36%; text-align:top; "><p align="center"><span class="style2"><a style="color:#000;text-decoration: none;" target="_blank" href="{{store url='shoes/new-arrivals.html'}}">NEW IN</a></span> <br>
+                                            <span class="style1">Sign up and <strong>be the first to know </strong>about our sales and offers</span><span class="style1"><br>
+                                            </span></p>      </td>
+                                    <td style="padding:0 10px;width:31%;text-align:top;"><p align="center"><span class="style2"><a style="color:#000;text-decoration: none;" target="_blank" href="{{store url='events'}}">UPCOMING EVENTS</a></span> <br>
+                                            <span class="style1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span></p></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"><p style="padding:20px 0;" align="center" class="style6">Connect with Us <a style="color:#000;" target="_blank" href="http://www.facebook.com"><img width="15" height="16" alt="Facebook" src="{{skin_url="edm_images/a-fb.jpg" _area='frontend'}}" ></a> <a target="_blank" href="http://www.twitter.com"><img width="15" height="16" alt="Twitter" src="{{skin_url="edm_images/b-twit.jpg" _area='frontend'}}"></a> <a target="_blank" href="http://www.youtube.com"><img alt="Youtube" src="{{skin_url="edm_images/c-utube.jpg" _area='frontend'}}"></a> <a target="_blank" href="http://www.pinterest.com"><img alt="P" src="{{skin url="edm_images/d.jpg" _area='frontend'}}"></a>  <a target="_blank" href="http://www.weibo.com"><img width="17" height="17" alt="Weibo" src="{{skin url="edm_images/e-wb.jpg" _area='frontend'}}"></a></p></td>
+                                </tr>
+                                <tr>
+                                    <td valign="top" colspan="3"><p style="text-align: left;font-size: 10px;line-height:16px;" class="style3">This email was sent to you as you have registered with CENTRAL CENTRAl SHOP.<br>
+                                            Please do not reply this email. For any inquiry or concern, please email to <a style="color:#000;" href="mailto:cs@centtralcentralshop.cn">cs@centtralcentralshop.cn</a>.
+                                            <br>
+                                            To unsubscribe and stop receiving further updates, please <a style="color:#000;" target="_blank" href="#">click here</a>.
+                                            <br>
+                                            Please add <a style="color:#000;" href="mailto:xxx@centtralcentralshop.cn">xxx@centtralcentralshop.cn</a> to your Address Book or Safe Sender List to ensure the delivery of our emails to your inbox.</p>
+                                        <p style="text-align: left;font-size: 10px;padding: 9px 0;">&copy; 2013 www.CENTRALCENTRALSHOP.cn All rights reserved </p></td>
+                                </tr>
+                            </tbody></table>
+                    </td></tr></tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>

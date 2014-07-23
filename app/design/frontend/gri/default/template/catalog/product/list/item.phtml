@@ -1,0 +1,125 @@
+<?php
+/* @var $this Gri_CatalogCustom_Block_Product_List_Item */
+$product = $this->getProduct();
+
+$pdata = $product->getData();
+//$product->load(null);
+/* @var $swatchHelper Magiatec_Colorswatch_Helper_Swatch */
+$swatchHelper = Mage::helper('magiatecolorswatch/swatch');
+$_helper = $this->helper('catalog/output');
+$imageWidth = $this->getImageWidth();
+$imageHeight = $this->getImageHeight();
+$swatchHelper->setCurrentProduct($product);
+/* @var $productHelper Gri_CatalogCustom_Helper_Product */
+$productHelper = Mage::helper('gri_catalogcustom/product');
+$productUrl = $this->getProductUrl($product);
+$shopNowUrl = $this->getShopNowUrl($product);
+$shopNowOnclick = $this->getShopNowOnclick();
+/* @var $flashSaleHelper Gri_FlashSale_Helper_Data */
+$flashSaleHelper = Mage::helper('gri_flashsale');
+$flashSaleHelper->getRemoveUnavailableOptions() or $product->setFinalPrice(NULL);
+$showMoreSwatches = $this->getShowMoreSwatches();
+$maxSwatches = $this->getMaxSwatches();
+$limited_edition = $pdata['limited_edition'];
+
+unset($pdata);
+?>
+<?php if ($classes = $productHelper->getRibbonClass($product)) { ?>
+<div class="<?php echo implode(' ', $classes); ?>"></div>
+<?php } ?>
+<div class="product_image">
+    <a href="<?php echo $productUrl ? $productUrl : 'javascript:;'; ?>" title="<?php echo $this->stripTags($this->getImageLabel($product, 'small_image'), null, true) ?>" class="product-image">
+        <img src="<?php echo $this->helper('catalog/image')->init($product, 'small_image')->resize($imageWidth, $imageHeight); ?>"
+        alt="<?php echo $this->stripTags($this->getImageLabel($product, 'small_image'), null, true) ?>" />
+    </a>
+</div>
+
+<?php if ($swatchHelper->isApplicable()) { ?><div class="product_style"><?php } ?>
+<?php if ($swatchHelper->isApplicable()) {
+    $options = $swatchHelper->getConfigurableOptions($product);
+    $flashSaleHelper->removeUnavailableOptions($product, $options);
+    $i = 0;
+?>
+<ul class="options">
+    <?php foreach ($options as $option) { ?>
+    <li image="<?php echo $this->helper('catalog/image')->init($product, 'small_image', $option['main_image'])->resize($imageWidth, $imageHeight); ?>" price="<?php echo $option['price']; ?>" title="<?php echo $option['label']; ?>" option="<?php echo $option['attribute_id']; ?>-<?php echo $option['id']; ?>" class="<?php if ($showMoreSwatches && $i >= $maxSwatches) { ?>more-swatch<?php } ?>">
+        <a href="<?php echo $swatchHelper->getSwatchUrl($productUrl, $option); ?>">
+        <?php if (isset($option['swatch']) && $option['swatch']) { ?>
+        <img src="<?php echo $option['swatch']; ?>" alt="<?php echo $option['label']; ?>"/>
+        <?php } ?>
+        </a>
+    </li>
+    <?php if (++$i >= $maxSwatches && !$showMoreSwatches) break;} ?>
+</ul>
+<?php if (count($options) > $maxSwatches) { ?>
+<div class="more-colors">
+    <a href="<?php echo $productUrl ? $productUrl : 'javascript:;'; ?>" title="<?php echo $this->__('More colors'); ?>"></a>
+</div>
+<?php } ?>
+    <?php } ?>
+<?php if ($swatchHelper->isApplicable()) { ?></div><?php } ?>
+<div class="product_description">
+    <p class="brand-name"><?php echo $brandName = $product->getAttributeText('brand'); ?></p>
+
+    <p class="product-name"><?php echo $name = $_helper->productAttribute($product, $product->getName(), 'name'); ?></p>
+	
+	<?php 
+		if($limited_edition == '1') { 
+	?>
+	<p class="limited"><?php echo $this->__('Limited Edition');?></p>
+	<?php 
+		} 
+	?>
+    <?php /*if ($product->getRatingSummary()): ?>
+    <?php echo $this->getReviewsSummaryHtml($product, 'short') ?>
+    <?php endif;*/ ?>
+    <?php if ($this->showPrice()) { ?>
+    <?php echo $this->getPriceHtml($product, true) ?>
+    <?php } ?>
+    <?php if ($this->showRewardPoints()) { ?>
+    <div class="reward-points"><?php echo $this->getRewardPointsHtml($product) ?></div>
+    <?php } ?>
+</div>
+
+<?php if ($this->showActions()) { ?>
+<div class="actions">
+    <?php if ($product->isSaleable()) { ?>
+       <?php if ($this->useShopNow()) { ?>
+           <a class="shop-now" href="<?php echo $shopNowUrl; ?>" <?php if ($shopNowOnclick) { ?>onclick="<?php echo $shopNowOnclick; ?>" <?php } ?>><?php echo $this->__($this->getShopNowLabel()) ?></a>
+       <?php } else { ?>
+           <a class="add-to-cart" href="<?php echo $this->getAddToCartUrl($product) ?>"><?php echo $this->__('Add to Cart') ?></a>
+       <?php } ?>
+    <?php } else if ($productUrl) { ?>
+           <a class="shop-now shop-sold-out" href="<?php echo $productUrl; ?>"><?php echo $this->__('Notify Me') ?></a>
+    <?php } else {/* ?>
+        <a class="shop-now shop-sold-out"><?php echo $this->__('Sold Out') ?></a>
+    <?php */} ?>
+        <?php
+            if(count( Mage::helper('giftpromo')->getAllGiftsForProduct($product, false, false)) || count(Mage::getModel('giftpromo/product')->load($product->getId())->getGiftProductIds()))
+            {
+                echo $this->getLayout()
+                          ->createBlock('giftpromo/product_list_icon')
+                          ->setProduct($product)
+                          ->setTemplate('giftpromo/catalog/product/list/icon.phtml')
+                          ->setIgnoreRules(false)->toHtml();
+            }
+        ?>
+</div>
+<?php } ?>
+
+<?php if ($this->getShowSpConfig() && $swatchHelper->isApplicable()) { ?>
+<script type="text/javascript">
+//<![CDATA[
+    var spConfig<?php echo $product->getId(); ?> = <?php echo $swatchHelper->getConfigurableBlock()->getJsonConfig(); ?>;
+//]]>
+</script>
+<?php } ?>
+<?php if ($this->getShowDescription()) { ?>
+<div id="item-description-<?php echo $product->getId(); ?>" class="item-description">
+    <div class="item-header">
+        <?php echo $brandName; ?> - <?php echo $name; ?>
+    </div>
+    <div id="item-media-<?php echo $product->getId(); ?>" class="item-media"><?php echo $this->getMediaHtml(); ?></div>
+    <?php echo $this->getDescriptionHtml(); ?>
+</div>
+<?php } ?>

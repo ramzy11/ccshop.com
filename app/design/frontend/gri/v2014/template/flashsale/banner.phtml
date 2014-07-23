@@ -1,0 +1,50 @@
+<?php
+/* @var $this Mage_Core_Block_Template */
+/* @var $helper Gri_FlashSale_Helper_Data */
+/* @var $currentStore Mage_Core_Model_Store */
+$helper = $this->helper('gri_flashsale');
+$flashSale = $helper->getActiveFlashSale();
+$currentStore = Mage::app()->getStore();
+
+// If image or small image is not uploaded, use opponent
+$flashSale->getImage() or $flashSale->setImage($flashSale->getSmallImage());
+$flashSale->getSmallImage() or $flashSale->setSmallImage($flashSale->getImage());
+$flashSale->getMobileImage() or $flashSale->setMobileImage($flashSale->getMobileSmallImage());
+$flashSale->getMobileSmallImage() or $flashSale->setMobileSmallImage($flashSale->getMobileImage());
+
+$flashSale->getImageCht() or $flashSale->setImageCht($flashSale->getSmallImageCht());
+$flashSale->getSmallImage() or $flashSale->setSmallImageCht($flashSale->getImageCht());
+$flashSale->getMobileImageCht() or $flashSale->setMobileImageCht($flashSale->getSmallImageCht());
+$flashSale->getMobileSmallImage() or $flashSale->setMobileSmallImageCht($flashSale->getMobileImageCht());
+
+
+if($currentStore->getStoreId() == 1) { // 中文
+    $image = $flashSale->getImageCht();
+    $mobileImage = $flashSale->getMobileImageCht(); // Mobile Banner
+} else {
+    $image = $flashSale->getImage();
+    $mobileImage = $flashSale->getMobileImage(); // Mobile Banner
+}
+
+if($this->getUseSmallImage()) {  // show images in homepage
+    $image = $currentStore->getStoreId() == 1 ? $flashSale->getSmallImageCht() : $flashSale->getSmallImage();
+    $mobileImage = $currentStore->getStoreId() == 1 ? $flashSale->getMobileSmallImageCht() : $flashSale->getMobileSmallImage();
+}
+
+if ($flashSale->getId()): ?>
+    <div class="flash_ban_area clearer">
+        <div class="banner-title"><?php echo $helper->__('Flash Sale'); ?>  <?php echo $this->getChildHtml('flash.sale.count.down.mobile'); ?></div>
+        <div class="banner-image">
+            <a>
+                <?php if ($image): ?>
+                    <img src="<?php echo $helper->getImageUrl($image); ?>" alt="<?php $flashSale->getTitle(); ?>" />
+                    <img id="mobile-image" src="<?php echo $helper->getImageUrl($mobileImage); ?>" alt="<?php $flashSale->getTitle(); ?>" />
+                <?php else: ?>
+                    <?php echo $helper->__('Flash Sale'); ?>
+                <?php endif; ?>
+            </a>
+        </div>
+        <div class="flash_sal_time"><?php echo $this->getChildHtml('flash.sale.count.down'); ?></div>
+        <?php echo $this->getChildHtml('flash.sale.terms.and.condition'); ?>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,50 @@
+<?php
+/* @var $this Gri_Hamper_Block_Adminhtml_Catalog_Product_Edit_Tab_Hamper */
+?>
+<script type="text/javascript">
+if(typeof Bundle=='undefined') {
+    Bundle = {};
+}
+</script>
+
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Pick Limitation') ?></h4>
+    </div>
+    <fieldset>
+        <table cellspacing="0" class="form-list">
+            <tr>
+                <td class="label"><label for="hamper_pick_limit"><?php echo $this->__('Items to Pick (0 for no limitation)') ?></label></td>
+                <td class="value">
+                    <input type="text" <?php if ($this->isReadonly()): ?>disabled="disabled" <?php endif;?>id="hamper_pick_limit" name="<?php echo $this->getFieldSuffix() ?>[hamper_pick_limit]" value="<?php echo (int)$this->getProduct()->getHamperPickLimit(); ?>" class="input-text" />
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</div>
+<div class="entry-edit custom-options bundle" id="product_bundle_container">
+    <div class="entry-edit-head">
+        <h4><?php echo $this->__('Hamper Items') ?></h4>
+        <div class="right"><?php echo $this->getAddButtonHtml() ?></div>
+    </div>
+
+    <div id="product_options_container" class="box">
+        <div id="product_bundle_container_top"></div>
+        <?php echo $this->getOptionsBoxHtml() ?>
+    </div>
+</div>
+
+<script type="text/javascript">
+// re-bind form elements onchange
+varienWindowOnload(true);
+<?php if ($this->isReadonly()):?>
+$('product_bundle_container').select('input', 'select', 'textarea', 'button').each(function(input){
+    input.disabled = true;
+    if (input.tagName.toLowerCase() == 'button') {
+        input.addClassName('disabled');
+    }
+});
+<?php endif; ?>
+</script>
+
+<div><input type="hidden" name="affect_bundle_product_selections" value="1" /></div>

@@ -1,0 +1,22 @@
+<?php
+/* @var $this Gri_Page_Block_Shop */
+?>
+<?php if($shop = $this->getShop()):?>
+<div class="shop-banner border-bottom">
+    <div class="shop-image">
+        <a href="javascript:void(0)" title="<?php echo $shop->getName()?>" class="title-image">
+            <?php
+                $shopImageName = $shop->getImage();
+                $imageUrl = $this->getImageUrl($shopImageName);
+                $imageDir = $this->getImageDir($shopImageName);
+            ?>
+            <?php if(is_file($imageDir)){ ?>
+                <img src="<?php echo $imageUrl?>" title="<?php echo $shop->getName();?>" />
+            <?php }else{ ?>
+                <span class="shop-title"><?php echo $shop->getName();?></span>
+            <?php } ?>
+        </a>
+        <a href="javascript:void(0)" class="banner-arrow"></a>
+    </div>
+</div>
+<?php endif;?>

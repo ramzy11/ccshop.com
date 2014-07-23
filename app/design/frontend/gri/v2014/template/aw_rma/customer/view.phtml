@@ -1,0 +1,220 @@
+<?php
+/**
+* aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE-COMMUNITY.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento COMMUNITY edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Rma
+ * @version    1.3.1
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE-COMMUNITY.txt
+ */
+?>
+<?php
+$_rmaRequest = $this->getRMARequest();
+$rmaHelper = Mage::helper('awrma');
+?>
+
+<div id="messages">
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+</div>
+
+<script type="text/javascript">
+    var awrmaConfirmText = '<?php echo $this->getPreparedJSConfirmText() ?>';
+</script>
+<div class="awrma-account">
+    <?php if ($_rmaRequest) : ?>
+        <?php $_order = Mage::getModel('sales/order')->loadByIncrementId($_rmaRequest->getOrderId()) ?>
+        <div class="page-title">
+            <h1><?php echo $rmaHelper->__('Return / Exchange')?></h1><a href="javascript:void(0)" class="dashboard-dropdown-menu"></a>
+        </div>
+        <div class="awrma-account-left">
+            <div class="awrma-account-left-title"><h2><?php echo $this->__('Request Detail')?></h2></div>
+            <div class="awrma-account-left-detail">
+                <div class="awrma-account-detail-info">
+                    <ul>
+                        <li><?php echo $this->__('Ticket No.')?>:
+                            <?php if ($this->getGuestMode()) : ?>
+                                <?php echo $_rmaRequest->getOrderId() ?>
+                            <?php else : ?>
+                                <a href="<?php echo $this->getUrl('sales/order/view', array('order_id' => $_order->getId())) ?>">#<?php echo $_rmaRequest->getOrderId() ?></a>
+                            <?php endif ?></li>
+                        <li><?php echo $this->__('Date')?>:
+                            <?php echo $this->formatDate($_rmaRequest->getCreatedAt()) ?></li>
+                        <li><?php echo $this->__('Request Status')?>:
+                            <?php echo Mage::getModel('awrma/entitystatus')->load($_rmaRequest->getStatus())->getName() ?></li>
+                    </ul>
+                </div>
+                <div class="confirm-shipping"><a href="#"><?php echo $this->__('Confirm Shipping')?></a></div>
+
+                <div class="view-order"><a href="javascript:void(0);"><?php echo $rmaHelper->__('View Order')?></a></div>
+
+                <?php if ($_rmaRequest->getIsActive()) : ?>
+                <div class="cancel-request">
+                    <?php if ($_rmaRequest->getStatus() != Mage::helper('awrma/status')->getPackageSentStatusId()) : ?>
+                        <a href="<?php echo $this->getCancelUrl() ?>" class="cancel-request"
+                           onclick="return confirm('<?php echo $this->__('Are you sure you would like to cancel this RMA?') ?>')"
+                           class="link-awrma-cancel"><?php echo $this->__('Cancel Request') ?></a>
+                    <?php endif ?>
+                </div>
+                <?php endif ?>
+
+
+                <div class="back"><a href="<?php echo $this->getUrl('awrma/customer_rma/list')?>"><span><?php echo $this->__('Back')?></span></span></a></div>
+            </div>
+        </div>
+
+
+        <div class="awrma-account-right">
+            <div class="awrma-account-right-top">
+                <div class="return-request-title">
+                    <h2><?php echo $this->__('Return Request')?></h2>
+                </div>
+
+                <div class="your-order">
+                    <h3><?php echo $this->__('Your Order')?></h3>
+                    <p><?php echo $this->__('Order No.#%s on %s, %s',$_rmaRequest->getOrderId(),$this->formatDate($_rmaRequest->getCreatedAt()),Mage::helper('core')->currency($_order->getGrandTotal(),true,false)) ?></p>
+                </div>
+
+                <div class="request-items">
+                    <h3><?php echo $this->__('Item(s) Needed To Return') ?></h3>
+                    <table id="awrma-requested-items" class="data-table">
+                        <col />
+                        <col width="1" />
+                        <col width="1"/>
+                        <thead>
+                            <tr>
+                                <th class="first"><?php echo $this->__('Item Description') ?></th>
+                                <th><?php echo $this->__('Ref No.') ?></th>
+                                <th><?php echo $this->__('Color') ?></th>
+                                <th><?php echo $this->__('Size') ?></th>
+                                <th class="last"><?php echo $this->__('Quantity') ?></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $_requestedItems = $_rmaRequest->getOrderItems() ?>
+                            <?php foreach (Mage::helper('awrma')->getItemsHtml($_rmaRequest, array('view_only' => true, 'items' => array_keys($_requestedItems))) as $item) : ?>
+                                <?php echo $item ?>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div class="request-type">
+                    <?php if (Mage::helper('awrma')->getTypeLabel($_rmaRequest->getRequestType())) : ?>
+                        <h3><?php echo $this->__('Request Type') ?></h3>
+                        <p><?php echo Mage::helper('awrma')->getTypeLabel($_rmaRequest->getRequestType()) ?></p>
+                    <?php endif ?>
+                </div>
+
+
+                <div class="package-opened">
+                    <?php /*
+                    <div class="field">
+                        <h3><?php echo $this->__('Status') ?></h3>
+                        <p><?php echo Mage::getModel('awrma/entitystatus')->load($_rmaRequest->getStatus())->getName() ?></p>
+                    </div>*/ ?>
+                    <?php if (Mage::helper('awrma')->getTypeLabel($_rmaRequest->getRequestType())) : ?>
+                        <h3><?php echo $this->__('Package Opened') ?></h3>
+                        <p><?php echo Mage::getModel('awrma/source_packageopened')->getOptionLabel($_rmaRequest->getPackageOpened()) ?></p>
+                    <?php endif ?>
+                </div>
+            </div>
+
+            <div class="awrma-leave-message">
+                <?php if ($_rmaRequest->getIsActive()) : ?>
+                    <?php $_formData = $this->getFormData() ?>
+                    <form method="post" id="awrma-comment-form" action="<?php echo $this->getCommentUrl() ?>" enctype="multipart/form-data">
+                        <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo Mage::helper('awrma/config')->getMaxAttachmentsSize() ?>" />
+                        <?php echo $this->getBlockHtml('formkey') ?>
+                        <ul class="form-list">
+                            <li class="wide">
+                                <label for="awrma-comment-text" class="required"><?php echo $this->__('Leave a message') ?></label>
+                                <div class="input-box">
+                                    <textarea name="comment" id="awrma-comment-text" class="required-entry"><?php if ($_formData && isset($_formData['comment']))
+                                            echo $_formData['comment'] ?></textarea>
+                                </div>
+                            </li>
+                            <li class="fields">
+                                <div class="field attachment">
+                                    <div class="input-box">
+                                        <input type="file" id="awrma-file-upload" name="attachedfile" />
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="buttons-set">
+                            <button type="submit" title="<?php echo $this->__('Submit') ?>" class="button" id="awrma-comment-submit">
+                                <span><span><?php echo $this->__('Submit') ?></span></span>
+                            </button>
+                        </div>
+                    </form>
+                    <script type="text/javascript">
+                        var commentForm = new VarienForm('awrma-comment-form', true);
+                        var commentControl = new AWRMACommentFormControl(commentForm);
+                    </script>
+                <?php endif ?>
+            </div>
+
+            <div class="awrma-account-right-bottom">
+                <?php if (!(!$_rmaRequest->getIsActive() && (!$this->getComments() || !$this->getComments()->getSize()))) : ?>
+                    <div class="rma-comments">
+                        <h2 class="rma-comments-title"><?php echo $_rmaRequest->getIsActive() ? $this->__('Leave Comment') : $this->__('Messages History') ?></h2>
+                            <?php if ($this->getComments() && $this->getComments()->getSize()) : ?>
+                            <ul class="awrma-comments-list">
+                                <?php foreach ($this->getComments() as $_comment) : ?>
+                                    <li>
+                                        <div class="rma-comments-content">
+                                            <?php echo $_comment->getText() ?>
+                                        </div>
+                                        <div class="rma-comments-author">
+                                            <?php if ($_comment->getOwner() == AW_Rma_Model_Source_Owner::CUSTOMER) : ?>
+                                                <?php echo $this->__('%s, %s at %s',
+                                                    $_rmaRequest->getCustomerName(),
+                                                    $this->formatDate($_comment->getCreatedAt(), 'long')
+                                                    ,$this->formatTime($_comment->getCreatedAt()))?>
+                                            <?php else : ?>
+                                                <?php echo $this->__('%s, %s at %s',
+                                                    $this->__(Mage::getSingleton('awrma/source_owner')->getOptionLabel($_comment->getOwner())),
+                                                    $this->formatDate($_comment->getCreatedAt(), 'long')
+                                                    ,$this->formatTime($_comment->getCreatedAt()))?>
+                                            <?php endif ?>
+                                        </div>
+
+                                        <?php if ($_comment->getAttachments()) : ?>
+                                            <div class="rma-comments-attachments>
+                                            <a href="<?php echo $this->getDownloadUrl($_comment) ?>"><?php echo $_comment->getAttachments() ?></a> (<?php echo Mage::helper('awrma/files')->getTextSize($_comment->getAttachments()) ?>)
+                                            </div>
+                                        <?php endif ?>
+                                    </li>
+                                <?php endforeach ?>
+                            </ul>
+                        <?php endif; ?>
+                    </div>
+                <?php endif ?>
+            </div>
+
+
+            <script type="text/javascript">
+                decorateTable('awrma-requested-items');
+            </script>
+        </div>
+<?php endif ?>
+</div>

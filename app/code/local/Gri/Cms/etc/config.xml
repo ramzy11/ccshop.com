@@ -1,0 +1,232 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento Gri Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Gri Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/gri-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Gri
+ * @package     Gri_Cms
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/gri-edition
+ */
+-->
+<config>
+    <modules>
+        <Gri_Cms>
+             <version>1.8.19</version>
+        </Gri_Cms>
+    </modules>
+    <global>
+        <models>
+            <gri_cms>
+                <class>Gri_Cms_Model</class>
+                <resourceModel>gri_cms_mysql4</resourceModel>
+            </gri_cms>
+            <gri_cms_mysql4>
+                <class>Gri_Cms_Model_Mysql4</class>
+                <entities>
+                    <page_version><table>gri_cms_page_version</table></page_version>
+                    <page_revision><table>gri_cms_page_revision</table></page_revision>
+                    <increment><table>gri_cms_increment</table></increment>
+                    <hierarchy_metadata>
+                        <table>gri_cms_hierarchy_metadata</table>
+                    </hierarchy_metadata>
+                    <hierarchy_node>
+                        <table>gri_cms_hierarchy_node</table>
+                    </hierarchy_node>
+                    <hierarchy_lock>
+                        <table>gri_cms_hierarchy_lock</table>
+                    </hierarchy_lock>
+                </entities>
+            </gri_cms_mysql4>
+            <cms_resource>
+                <rewrite>
+                    <block>Gri_Cms_Model_Resource_Block</block>
+                </rewrite>
+            </cms_resource>
+        </models>
+        <blocks>
+            <gri_cms>
+                <class>Gri_Cms_Block</class>
+            </gri_cms>
+            <cms>
+                <rewrite>
+                    <page>Gri_Cms_Block_Page</page>
+                </rewrite>
+            </cms>
+        </blocks>
+        <helpers>
+            <gri_cms>
+                <class>Gri_Cms_Helper</class>
+            </gri_cms>
+        </helpers>
+        <resources>
+            <gri_cms_setup>
+                <setup>
+                    <module>Gri_Cms</module>
+                    <class>Gri_Cms_Model_Mysql4_Setup</class>
+                </setup>
+            </gri_cms_setup>
+        </resources>
+        <events>
+            <cms_controller_router_match_before>
+                <observers>
+                    <gri_cms>
+                        <class>gri_cms/observer</class>
+                        <method>cmsControllerRouterMatchBefore</method>
+                    </gri_cms>
+                </observers>
+            </cms_controller_router_match_before>
+        </events>
+        <gri_cms>
+            <hierarchy>
+                <menu>
+                    <layouts>
+                        <content module="gri_cms" translate="label">
+                            <label>Content</label>
+                            <layout_handle>gri_cms_hierarchy_menu_content</layout_handle>
+                            <is_default>1</is_default>
+                        </content>
+                        <left_column module="gri_cms" translate="label">
+                            <label>Left Column</label>
+                            <layout_handle>gri_cms_hierarchy_menu_left_column</layout_handle>
+                            <page_layout_handles>
+                                <page_two_columns_left/>
+                                <page_three_columns/>
+                            </page_layout_handles>
+                        </left_column>
+                        <right_column module="gri_cms" translate="label">
+                            <label>Right Column</label>
+                            <layout_handle>gri_cms_hierarchy_menu_right_column</layout_handle>
+                            <page_layout_handles>
+                                <page_two_columns_right/>
+                                <page_three_columns/>
+                            </page_layout_handles>
+                        </right_column>
+                    </layouts>
+                </menu>
+            </hierarchy>
+        </gri_cms>
+    </global>
+    <frontend>
+        <events>
+            <cms_page_render>
+                <observers>
+                    <gri_cms>
+                        <class>gri_cms/observer</class>
+                        <method>affectCmsPageRender</method>
+                    </gri_cms>
+                </observers>
+            </cms_page_render>
+        </events>
+    </frontend>
+    <adminhtml>
+        <layout>
+            <updates>
+                <gri_cms>
+                    <file>gri/cms.xml</file>
+                </gri_cms>
+            </updates>
+        </layout>
+        <events>
+            <adminhtml_cms_page_edit_tab_main_prepare_form>
+                <observers>
+                    <gri_cms>
+                        <class>gri_cms/observer</class>
+                        <method>onMainTabPrepareForm</method>
+                    </gri_cms>
+                </observers>
+            </adminhtml_cms_page_edit_tab_main_prepare_form>
+            <cms_page_save_before>
+                <observers>
+                    <gri_cms>
+                        <class>gri_cms/observer</class>
+                        <method>cmsPageSaveBefore</method>
+                    </gri_cms>
+                </observers>
+            </cms_page_save_before>
+            <cms_page_save_after>
+                <observers>
+                    <gri_cms>
+                        <class>gri_cms/observer</class>
+                        <method>cmsPageSaveAfter</method>
+                    </gri_cms>
+                </observers>
+            </cms_page_save_after>
+            <admin_user_delete_after>
+                <observers>
+                    <gri_cms>
+                        <class>gri_cms/observer</class>
+                        <method>adminUserDeleteAfter</method>
+                    </gri_cms>
+                </observers>
+            </admin_user_delete_after>
+            <cms_page_get_available_statuses>
+                <observers>
+                    <gri_cms>
+                        <class>gri_cms/observer</class>
+                        <method>modifyPageStatuses</method>
+                    </gri_cms>
+                </observers>
+            </cms_page_get_available_statuses>
+            <cms_page_delete_after>
+                <observers>
+                    <gri_cms>
+                        <class>gri_cms/observer</class>
+                        <method>cmsPageDeleteAfter</method>
+                    </gri_cms>
+                </observers>
+            </cms_page_delete_after>
+        </events>
+        <translate>
+            <modules>
+                <Gri_Cms>
+                     <files>
+                          <default>Gri_Cms.csv</default>
+                     </files>
+                </Gri_Cms>
+            </modules>
+        </translate>
+    </adminhtml>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <gri_cms before="Mage_Adminhtml">Gri_Cms_Adminhtml</gri_cms>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <default>
+        <cms>
+            <hierarchy>
+                <enabled>1</enabled>
+                <metadata_enabled>1</metadata_enabled>
+                <lock_timeout>180</lock_timeout>
+                <menu_layout>content</menu_layout>
+            </hierarchy>
+            <content>
+                <versioning>1</versioning>
+            </content>
+        </cms>
+    </default>
+</config>

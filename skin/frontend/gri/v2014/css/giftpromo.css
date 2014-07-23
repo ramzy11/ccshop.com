@@ -1,0 +1,84 @@
+.cart .giftselect{border:1px solid #cec3b6;background:#fafaec;padding:12px 15px;display:inline-block;height:100%;padding-bottom:24px;}
+.cart .giftselect h2{font-size:13px;font-weight:bold;color:#D12C01}
+.cart .giftselect p{line-height:1.1;}
+.cart .giftselect .product-image{display:block;margin-right:11px;margin-left:11px;}
+.cart .giftselect .price-box .msrp-price{display:none;}
+.cart .giftselect .item .price-box{clear:both;}
+.cart .giftselect .product-name{font-weight:bold;padding-bottom:10px;min-height:32px;text-align:center;float:none;clear:both;}
+.cart .giftselect li.item{float:left!important;width:180px;text-align:center;margin-top:10px;border:1px solid rgb(196, 192, 192);padding:5px;background:white;}
+.cart .giftselect li.item button{clear:both;float:none !important;margin-top:5px;}
+.cart .giftselect .link-compare{font-weight:normal;}
+.cart .giftselect ul{float:left;width:867px;}
+.cart .crosssell li.item:after{display:block;content:".";clear:both;font-size:0;line-height:0;height:0;overflow:hidden;}
+.cart .title-buttons .checkout-types li{float:none;}
+.cart .giftselect .product-options{padding:0px;clear:both;margin:0px;}
+.cart .giftselect .product-options dt{padding:0px;width:100%;}
+.cart .giftselect .product-options dt label{clear:both;float:left;}
+.cart .giftselect .product-options dd{margin:0px;border-bottom:none;}
+.cart .giftselect .product-options p.required{position:relative;right:10px;top:0px;}
+.cart .giftselect .product-options .minimal-price-link{display:none;}
+#downloadable-links-list{width:150px;clear:both;float:none;}
+#downloadable-links-list span{float:left;}
+#downloadable-links-list .required{display:none;}
+.cart .giftselect .required{clear:both;}
+
+
+/************************************** MORE **************************************************************************************************************************/
+
+/* product detail page gift select */
+.catalog-product-view .freegift{width:110px;position: absolute;right: 0;margin:0 10px;}
+.catalog-product-view .freegift .gift-product-box{position:relative;}
+.catalog-product-view .freegift h1{text-transform: uppercase;color:#EA1E79;font:15px Futura Hv Bt,"Microsoft YaHei","微軟雅黑";margin-bottom: 20px;margin-top: 0;}
+.catalog-product-view .freegift .gift-product-box .jcarousel{height: 150px;overflow: hidden;}
+.catalog-product-view .freegift .gift-product-box .slider{width:100% !important;position: relative;}
+.catalog-product-view .freegift .gift-product-box .slider li{height: auto;}
+.catalog-product-view .freegift .iosSlider{ height: 80px; }
+.catalog-product-view .freegift .free-gift-description{color: #333;font: 13px Arial;}
+.catalog-product-view .freegift .iosSlider .item .thumbnail{}
+.catalog-product-view .freegift .iosSlider .item .block{display:inline-block;border:1px solid #e4e4e4;margin: 0;}
+.catalog-product-view .freegift .iosSlider .item .detail{padding-top:5px;padding-left:20px;font-size:12px;}
+.catalog-product-view .freegift .iosSlider .item .detail p{padding:0;margin:0;}
+.catalog-product-view .freegift .iosSlider .item .detail p.as-gift .price{padding-right:5px;text-decoration:line-through;font-weight:bold;}
+.catalog-product-view .freegift .iosSlider .item .detail p.as-gift .special-price{padding-right:5px;font-weight:bold;text-decoration:none;text-transform:uppercase;color:#e34638;}
+.catalog-product-view .freegift .iosSlider .item .detail p.as-gift .special-price .price{padding-right:5px;font-weight:bold;text-decoration:none;}
+.catalog-product-view .freegift .iosSlider .item .detail p.as-available .price{padding-right:5px;font-weight:bold;}
+
+.catalog-product-view .available-product-list{  }
+
+.catalog-product-view .gift-product-box .prev{background:url("../images/arrow/arrow-up.jpg") no-repeat scroll;text-indent:-9999px;display: block;width: 16px;height: 10px;margin: 15px auto;}
+.catalog-product-view .gift-product-box .next{background:url("../images/arrow/arrow-down.jpg") no-repeat scroll;display: block;text-indent:-9999px;width: 16px;height: 10px;margin: 15px auto;}
+
+/* checkout select gift */
+.mid_lef_tot{float:left;width:410px;height:302px;overflow:hidden;}
+
+/* shopping cart  select item  */
+.checkout-cart-index .checkout-freegift{padding:0 10px 20px 0;}
+.checkout-cart-index .checkout-freegift .gift-product-box{border:1px #b1b1b1 solid;padding:0 0 20px 20px;position:relative;}
+.checkout-cart-index .checkout-freegift h1{font-size:14px;font-weight:bold;padding-top:10px;background:url('../images/giftpromo/gift-icon-black.png') no-repeat 0 ;padding-left:20px;text-transform:uppercase;}
+.checkout-cart-index .checkout-freegift .iosSlider{}
+.checkout-cart-index .checkout-freegift .checkout-freegift-description{margin:0;padding:0;}
+.checkout-cart-index .checkout-freegift .iosSlider .item .thumbnail{padding:1px 1px 1px 1px;}
+.checkout-cart-index .checkout-freegift .iosSlider .item .block{display:inline-block;border:none;}
+.checkout-cart-index .checkout-freegift .iosSlider .item .detail{padding-top:5px;}
+.checkout-cart-index .checkout-freegift .iosSlider .item .detail p{padding:0;margin:0;}
+.checkout-cart-index .checkout-freegift .iosSlider .item .detail .price{padding-right:5px;text-decoration:line-through;font-weight:bold;}
+.checkout-cart-index .checkout-freegift .iosSlider .item .detail .free{text-transform:uppercase;color:#f00;font-weight:bold;}
+.checkout-cart-index .checkout-freegift .iosSlider .item .detail .free .price{text-decoration:none;}
+.checkout-cart-index .checkout-freegift .iosSlider .item .detail button.btn-cart{font-size:14px;font-weight:bold;margin-top:15px;background-color:#000;padding:5px 18px 5px 15px;height:24px;color:#fff;}
+.checkout-cart-index .checkout-freegift .iosSlider .item .detail button.btn-cart:hover{background-color:#949494;color:#fff;}
+.checkout-cart-index .checkout-freegift .blank{height:15px;}
+.checkout-cart-index .checkout-freegift .gift-product-box .prev
+{background:url("../images/banner_nav_grey.png") no-repeat scroll left center transparent;border:none;height:57px;left:0;margin-top:-28px;position:absolute;text-indent:-9999px;top:64%;width:21px;z-index:1;}
+.checkout-cart-index .checkout-freegift .gift-product-box .next{background:url("../images/banner_nav_grey.png") no-repeat scroll right center transparent;
+    height:57px;margin-top:-28px;position:absolute;right:0;text-indent:-9999px;top:64%;width:21px;z-index:1;}
+.checkout-cart-index .checkout-freegift .product-options p.required{top:26px;}
+.checkout-cart-index .cart_item .del{text-decoration:line-through;font-weight:bolder;}
+.checkout-cart-index .cart_item .free{text-transform:uppercase;color:#f00;font-weight:bold;}
+
+.top-cart #topCartContent .topCartFreeGift{}
+.top-cart #topCartContent .topCartFreeGift .product-image{}
+.top-cart #topCartContent .topCartFreeGift .gift-product-name{padding-right:45px;}
+.top-cart #topCartContent .topCartFreeGift .gift-qty{font-weight:bold;}
+.top-cart #topCartContent .topCartFreeGift .x{padding:0 3px;}
+.top-cart #topCartContent .topCartFreeGift .btn-remove{display:inline-block;width:11px;height:11px;font-size:0;padding-right:16px;line-height:0;background:url(../images/btn_remove.gif) 0 0 no-repeat;overflow:hidden;margin-top:3px;}
+.top-cart #topCartContent .topCartFreeGift .line-through{text-decoration:line-through;}

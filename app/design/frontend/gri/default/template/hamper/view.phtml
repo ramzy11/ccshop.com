@@ -1,0 +1,67 @@
+<?php
+/* @var $this Mage_Catalog_Block_Product_View */
+$_product = $this->getProduct();
+$pid = $_product->getId();
+/* @var $hamperBlock Gri_Hamper_Block_View */
+$hamperBlock = $this->getLayout()->createBlock('hamper/view', 'hamper.view', array('parent_block' => $this));
+?>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<script type="text/javascript">
+    var optionsPrice<?php echo $pid; ?> = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+    _('.breadcrumbs').hide();
+</script>
+
+<form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form-<?php echo $pid; ?>" class="hamper-form">
+    <div class="no-display">
+        <input type="hidden" name="product" value="<?php echo $pid ?>" />
+        <input type="hidden" name="qty" value="1" />
+    </div>
+<?php echo $hamperBlock->toHtml(); ?>
+</form>
+<script type="text/javascript">
+    //<![CDATA[
+    var productAddToCartForm<?php echo $pid; ?> = new VarienForm('product_addtocart_form-<?php echo $pid; ?>');
+    productAddToCartForm<?php echo $pid; ?>.submit = function(button, url) {
+        if (this.validator.validate()) {
+            var form = this.form,
+                oldUrl = form.action;
+            if (url) {
+                form.action = url;
+//                form.target = '_blank';
+            }
+            var e = null;
+            try {
+                this.form.submit();
+            } catch (e) {
+            }
+            this.form.action = oldUrl;
+            if (e) {
+                throw e;
+            }
+        }
+    }.bind(productAddToCartForm<?php echo $pid; ?>);
+
+    productAddToCartForm<?php echo $pid; ?>.submitLight = function(button, url){
+        if(this.validator) {
+            var nv = Validation.methods;
+            delete Validation.methods['required-entry'];
+            delete Validation.methods['validate-one-required'];
+            delete Validation.methods['validate-one-required-by-name'];
+            // Remove custom datetime validators
+            for (var methodName in Validation.methods) {
+                if (methodName.match(/^validate-datetime-.*/i)) {
+                    delete Validation.methods[methodName];
+                }
+            }
+
+            if (this.validator.validate()) {
+                if (url) {
+                    this.form.action = url;
+                }
+                this.form.submit();
+            }
+            Object.extend(Validation.methods, nv);
+        }
+    }.bind(productAddToCartForm<?php echo $pid; ?>);
+    //]]>
+</script>

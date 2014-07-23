@@ -1,0 +1,77 @@
+<!--@subject CentralCentralShop.com - 您的訂單  (訂單號:{{var order.increment_id}}) @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"htmlescape var=$order.getCustomerName()":"Customer Name",
+"var store.getFrontendName()":"Store Name",
+"store url=\"customer/account/\"":"Customer Account Url",
+"var order.increment_id":"Order Id",
+"var order.getCreatedAtFormated('long')":"Order Created At (datetime)",
+"var order.getBillingAddress().format('html')":"Billing Address",
+"var payment_html":"Payment Details",
+"var order.getShippingAddress().format('html')":"Shipping Address",
+"var order.getShippingDescription()":"Shipping Description",
+"layout handle=\"sales_email_order_items\" order=$order":"Order Items Grid",
+"var order.getEmailCustomerNote()":"Email Order Note"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+{{block type='core/template' area='frontend' template='email/header.phtml'}}
+<p style="font-size:16px; font-weight:normal; line-height:22px; margin:0 0 11px 0;color:#000;">親愛的 {{htmlescape var=$order.getCustomerName()}},</p>
+<p style="font-size:12px; line-height:22px; margin:0;">感謝您於CentralCentralShop.com 購物，以下是您的訂單信息：</p>
+<p style="font-size:13px; font-weight:normal;">訂單號:{{var order.increment_id}}</p>
+<p style="font-size:13px; font-weight:normal;">日期:{{var order.getCreatedAtFormated('long')}}</p>
+<tr>
+    <td>
+        {{layout handle="sales_email_order_items" order=$order}}
+        <br/>
+        <table cellspacing="0" cellpadding="0" border="0" width="580" align="center">
+            <thead>
+            <tr>
+                <th align="left" width="325" bgcolor="#EAEAEA" style="font-size:13px; padding:5px 9px 6px 9px; line-height:22px;">配送信息</th>
+                <th width="10"></th>
+                <th align="left" width="325" bgcolor="#EAEAEA" style="font-size:13px; padding:5px 9px 6px 9px; line-height:22px;">支付方式</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td rowspan="3" valign="top" style="font-size:12px; padding:7px 9px 9px 9px; border-left:1px solid #EAEAEA; border-bottom:1px solid #EAEAEA; border-right:1px solid #EAEAEA;">
+                    <p>{{var order.getShippingAddress().format('html')}}</p>
+                    {{depend order.remarks}}<p>Remarks: {{var order.remarks}}</p>{{/depend}}
+                </td>
+                <td>&nbsp;</td>
+                <td valign="top" style="font-size:12px; padding:7px 9px 9px 9px; border-left:1px solid #EAEAEA; border-bottom:1px solid #EAEAEA; border-right:1px solid #EAEAEA;">
+                    {{var payment_html}}
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <th align="left" width="325" bgcolor="#EAEAEA" style="font-size:13px; padding:5px 9px 6px 9px; line-height:22px;">配送方式</th>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td valign="top" style="font-size:12px; padding:7px 9px 9px 9px; border-left:1px solid #EAEAEA; border-bottom:1px solid #EAEAEA; border-right:1px solid #EAEAEA;">
+                    {{var order.getShippingDescription()}}
+                    &nbsp;
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <br/>
+        {{depend order.getIsNotVirtual()}}
+
+        {{/depend}}
+        <p style="font-size:12px; margin:0 0 10px 0">{{var order.getEmailCustomerNote()}}</p>
+    </td>
+</tr>
+<tr>
+    <td valign="top" align="left" bgcolor="#ffffff" style="padding:0 35px;margin:0;">
+        <p style="font-size:12px; line-height:22px; margin:0;">想了解更多我們的配送服務，請查看<a href="{{store url='customer-service/shipping-delivery'}}" style="color:#000;">配送方式</a></p>
+        <p style="font-size:12px; line-height:22px; margin:0;color:#000;">您可隨時登錄您的會員帳戶查看訂單最新狀態。如有任何疑問，歡迎透過電郵{{config path='trans_email/ident_support/email'}} 或電話 {{config path='general/store_information/phone'}}聯絡客戶服務部，我們將第一時間為您解答。</p>
+        <br />
+        <br />
+    </td>
+</tr>
+{{block type='core/template' area='frontend' template='email/footer.phtml'}}

@@ -1,0 +1,212 @@
+<?php
+/**
+ * @var $this Mage_Page_Block_Html_Header
+ */
+$session = Mage::getSingleton('customer/session');
+$customerHelper = Mage::helper('gri_customer');
+
+/* @var $this Gri_CatalogSearch_Block_Top_Search */
+/* @var $catalogSearchHelper Mage_Catalogsearch_Helper_Data */
+$catalogSearchHelper =  $this->helper('gri_catalogsearch/advanced');
+?>
+<div class="shadow"></div>
+<div class="swipe">
+    <div class="swipe-menu">
+        <?php // search ?>
+        <?php echo $this->getChildHtml('topSearch_swipe') ?>
+
+        <?php // menu content ?>
+        <?php echo $this->getChildHtml('topMenu') ?>
+
+        <div class="swipe-menu-bottom">
+            <?php // Home ?>
+            <div class="home-link-swipe">
+                <a href="<?php echo $this->getBaseUrl() ?>" title="<?php echo $customerHelper->__('Home') ?>" class="home-link"><?php echo $customerHelper->__('Home') ?></a>
+            </div>
+
+            <?php // sign in/join ?>
+            <?php echo $this->getChildHtml('top.links.swipe') ?>
+
+            <?php if($session->isLoggedIn()):?>
+                <div class="account-link-swipe">
+                    <a href="<?php echo $this->getUrl('customer/account') ?>" title="<?php echo $customerHelper->__('My Account') ?>" class="account-link"><?php echo $customerHelper->__('My Account') ?></a>
+                </div>
+            <?php endif;?>
+
+            <?php if($session->isLoggedIn()):?>
+            <?php // wishlist ?>
+                <div class="wishlist-swipe">
+                    <a href="<?php echo $this->getUrl('wishlist') ?>" title="<?php echo $customerHelper->__('Wishlist') ?>" class="wishlist-link"><?php echo $customerHelper->__('Wishlist') ?></a>
+                </div>
+            <?php endif;?>
+
+            <?php // Information - footer link ?>
+            <div class="info-swipe">
+                <a href="javascript:void(0);" title="<?php echo $customerHelper->__('Information') ?>" class="info-link"><?php echo $customerHelper->__('Information') ?></a><strong></strong>
+                <div class="footer-link-swipe menu-lists">
+                    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer_links_swipe')->toHtml() ?>
+                </div>
+            </div>
+
+            <?php // news letter ?>
+            <div class="newsletter-swipe">
+                <a href="<?php echo $this->getUrl('subscribe/mobile') ?>" title="<?php echo $customerHelper->__('Subscribe to Newsletter') ?>" class="newsletter-link"><?php echo $customerHelper->__('Subscribe to Newsletter') ?></a>
+            </div>
+
+            <?php // download app ?>
+            <div class="download-app-swipe">
+                <a href="<?php echo $this->getUrl('app-info.html') ?>" title="<?php echo $customerHelper->__('Download Our CC App') ?>" class="download-app-link"><?php echo $customerHelper->__('Download Our CC App') ?></a>
+            </div>
+
+            <?php // ships to ?>
+            <?php echo $this->getChildHtml('ships_to_swipe') ?>
+
+            <?php // language ?>
+            <?php echo $this->getChildHtml('store_language_swipe') ?>
+
+        </div>
+        <div class="swipe-menu-footer"><?php // follow us ?>
+            <?php echo $this->getChildHtml('follow.us.swipe'); ?>
+        </div>
+    </div>
+</div>
+
+
+<div class="top-icon-menu">
+    <div class="swipe-control"><i class="icon-reorder"></i><i class="icon-back no-display"></i></div>
+    <?php if ($this->getIsHomePage()):?>
+        <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+    <?php else:?>
+        <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+    <?php endif?>
+    <?php /*
+    <div class="search-content">
+        <form id="search_mini_form" action="<?php echo $catalogSearchHelper->getResultUrl() ?>" method="get">
+            <div class="form-search">
+                <ul class="form-list">
+                    <li>
+                        <div class="input-box">
+                            <input type="text" name="name" onblur="if(this.value==''){this.value='<?php echo $catalogSearchHelper->getEscapedQueryText() ?>';}" onfocus="if(this.value=='<?php echo $catalogSearchHelper->getEscapedQueryText() ?>'){this.value='';}" value="<?php echo $catalogSearchHelper->getEscapedQueryText() ?>" class="input-text" maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength();?>" >
+                        </div>
+                    </li>
+                    <li>
+                        <div class="input-box">
+                            <button type="submit" title="<?php echo $this->__('Search') ?>" class="button"><span><span><?php echo $this->__('Search') ?></span></span></button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </form>
+    </div>
+     */  ?>
+    <div class="top-menu-search"></div>
+    <?php /*
+    <div class="search-content">
+        <form id="search_mini_form" action="<?php echo $catalogSearchHelper->getResultUrl() ?>" method="get">
+            <div class="form-search">
+                <ul class="form-list">
+                    <li>
+                        <div class="input-box">
+                            <input type="text" name="name" onblur="if(this.value==''){this.value='<?php echo $catalogSearchHelper->getEscapedQueryText() ?>';}" onfocus="if(this.value=='<?php echo $catalogSearchHelper->getEscapedQueryText() ?>'){this.value='';}" value="<?php echo $catalogSearchHelper->getEscapedQueryText() ?>" class="input-text" maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength();?>" >
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </form>
+    </div>
+
+    */ ?>
+
+
+    <div class="search-content">
+        <form id="search_mini_form" action="<?php echo $catalogSearchHelper->getResultUrl() ?>" method="get">
+            <div class="form-search">
+                <ul class="form-list">
+                    <li>
+                        <div class="input-box">
+                            <input type="text" name="name" onblur="if(this.value==''){this.value='<?php echo $catalogSearchHelper->getEscapedQueryText() ?>';}" onfocus="if(this.value=='<?php echo $catalogSearchHelper->getEscapedQueryText() ?>'){this.value='';}" value="<?php echo $catalogSearchHelper->getEscapedQueryText() ?>" class="input-text" maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength();?>" >
+                        </div>
+                    </li>
+                    <li class="no-display">
+                        <div class="input-box">
+                            <button type="submit" title="<?php echo $this->__('Search') ?>" class="button"><span><span><?php echo $this->__('Search') ?></span></span></button>
+                        </div>
+                    </li>
+                </ul>
+                <script type="text/javascript">
+                    //<![CDATA[
+                    var searchForm = new Varien.searchForm('search_mini_form', 'search', '<?php echo $this->__('Product Name / Style No') ?>');
+
+                    //]]>
+                </script>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="top-menu-cart"><?php echo $this->getChildHtml('topCartSwipe'); ?></div>
+    <span class="clear"></span>
+</div>
+<script type="text/javascript">
+    jQuery(function() {
+     var iconBack = jQuery(".icon-back") ,
+         iconReorder = jQuery(".icon-reorder"),
+         backLink = jQuery(".back-link"),
+         topIconMenu = jQuery(".top-icon-menu");
+    if(topIconMenu.css("display") == "block"){
+        if(backLink.length){
+            iconReorder.addClass("no-display")
+            iconBack.removeClass("no-display")
+            iconBack.click(function(){
+                window.history.back(-1);
+            })
+        }else{
+            iconReorder.removeClass("no-display");
+            iconBack.addClass("no-display");
+        }
+    }
+})
+</script>
+
+<div class="header-container">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+                <div class="header">
+                    <div class="header-border">
+                        <div class="quick-access">
+                            <?php echo $this->getChildHtml('ships_to') ?>
+                            <?php echo $this->getChildHtml('store_language') ?>
+                            <?php echo $this->getChildHtml('customer.links') ?>
+                        </div>
+                        <div class="header-buttons">
+                            <ul class="links">
+                                <li class="top-search first"><a href="javascript:void(0)" class="top-search-link"><?php echo $this->helper('gri_catalogcustom')->__('Search'); ?></a>
+                                    <?php echo $this->getChildHtml('topSearch_swipe') ?>
+                                </li>
+                                <li class="top-wishlist"><?php echo $this->getChildHtml('top_wishlist');?></li>
+                                <li class="top-cart last"><?php echo $this->getChildHtml('topCart'); ?></li>
+                            </ul>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <?php if ($this->getIsHomePage()):?>
+                    <h1 class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a></h1>
+                    <?php else:?>
+                        <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+                    <?php endif?>
+                    <!--<div class="f-right">
+                        <p class="welcome-msg"><?php /*echo $this->getWelcome() */?> <?php /*echo $this->getAdditionalHtml() */?></p>
+                    </div>-->
+                    <div class="clear"></div>
+                    <?php echo $this->getChildHtml('topContainer'); ?>
+                </div>
+            </div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+<?php echo $this->getChildHtml('topMenu') ?>
+<?php if(Mage::getSingleton('cms/page')->getIdentifier() == 'home'  && Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms' ) :  ?>
+       <?php echo ($this->getLayout()->createBlock('cms/block')->setBlockId('slider_1')->toHtml()); ?>
+<?php endif;  ?>

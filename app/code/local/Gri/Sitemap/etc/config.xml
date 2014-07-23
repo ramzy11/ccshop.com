@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Gri_Sitemap>
+            <version>1.0.0.0</version>
+        </Gri_Sitemap>
+    </modules>
+    <global>
+        <models>
+            <gri_sitemap>
+                <class>Gri_Sitemap_Model</class>
+            </gri_sitemap>
+            <sitemap>
+                <rewrite>
+                    <sitemap>Gri_Sitemap_Model_Sitemap</sitemap>
+                </rewrite>
+            </sitemap>
+        </models>
+    </global>
+</config>

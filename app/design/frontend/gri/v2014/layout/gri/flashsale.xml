@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/flashsale.css</stylesheet></action>
+        </reference>
+    </default>
+
+    <cms_index_index>
+        <reference name="root">
+            <reference name="head">
+                <action method="addJs"><script>jquery/jquery.countdown.js</script></action>
+            </reference>
+            <reference name="content">
+                <block type="core/template" name="flash.sale.banner" template="flashsale/home/banner.phtml" before="cms.wrapper">
+                    <action method="setUseSmallImage"><value>1</value></action>
+                    <block type="gri_flashsale/countDown" name="flash.sale.count.down" template="flashsale/count_down.phtml"/>
+                </block>
+            </reference>
+        </reference>
+    </cms_index_index>
+
+    <gri_flashsale_index_index>
+        <update handle="catalog_category_layered"/>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+            <reference name="head">
+                <action method="addJs"><script>jquery/jquery.countdown.js</script></action>
+            </reference>
+            <reference name="content">
+                <block type="core/template" name="flash.sale.banner" template="flashsale/banner.phtml" before="category.products">
+                    <block type="gri_flashsale/countDown" name="flash.sale.count.down" as="flash.sale.count.down" template="flashsale/count_down.phtml" />
+                    <block type="gri_flashsale/countDown" name="flash.sale.count.down.mobile" as="flash.sale.count.down.mobile" template="flashsale/count_down_mobile.phtml" />
+                    <block type="gri_flashsale/termsAndCondition" name="flash.sale.terms.and.condition" as="flash.sale.terms.and.condition" template="flashsale/terms_and_condition.phtml" />
+                </block>
+                <block type="mana_filters/view" name="mana.catalog.filternav" as="mana.catalog.filternav" after="flash.sale.banner" template="catalog/layer/flashsale/filterview.phtml">
+                    <block type="mana_filters/filterProductType" name="flashsale.product.type.filter" as="flashsale.size.and.color.filter.static" template="mana/filters/items/flashsale/size_and_color_static.phtml" />
+                    <block type="mana_filters/filterProductType" name="flashsale.product.type.filter" as="flashsale.product.type.filter" template="mana/filters/items/productType.phtml" />
+                </block>
+                <reference name="product_list">
+                    <action method="setColumnCount"><value>4</value></action>
+                    <reference name="product_list_toolbar">
+                        <action method="addPagerLimit"><mode>grid</mode><limit>16</limit></action>
+                        <action method="setDefaultGridPerPage"><value>16</value></action>
+                    </reference>
+                </reference>
+                <!--<block type="cms/block" name="terms_conditions">-->
+                    <!--<action method="setBlockId"><block_id>terms_conditions</block_id></action>-->
+                <!--</block>-->
+            </reference>
+        </reference>
+        <remove name="left"/>
+    </gri_flashsale_index_index>
+
+    <catalog_product_view>
+        <reference name="head">
+            <action method="addJs" ifconfig="flashsale/settings/enabled">
+                <script>gri/flashsale.js</script>
+                <params> order="1"</params>
+            </action>
+        </reference>
+        <reference name="product.info">
+            <block type="gri_flashsale/product_view_config" name="flash.sale.config" template="flashsale/product/view/config.phtml"/>
+        </reference>
+    </catalog_product_view>
+
+    <gri_catalogcustom_product_quickview>
+        <reference name="head">
+            <action method="addJs" ifconfig="flashsale/settings/enabled">
+                <script>gri/flashsale.js</script>
+                <params> order="1"</params>
+            </action>
+        </reference>
+        <reference name="product.info">
+            <block type="gri_flashsale/product_view_config" name="flash.sale.config" template="flashsale/product/view/config.phtml"/>
+        </reference>
+    </gri_catalogcustom_product_quickview>
+
+</layout>

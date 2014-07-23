@@ -1,0 +1,213 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento Gri Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Gri Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/gri-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Gri
+ * @package     gri_vip
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/gri-edition
+ */
+-->
+<config>
+    <sections>
+        <gri_vip translate="label" module="gri_vip">
+            <label>VIP</label>
+            <tab>customer</tab>
+            <sort_order>300</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>0</show_in_website>
+            <show_in_store>0</show_in_store>
+            <groups>
+                <general translate="label" module="gri_vip">
+                    <label>Enable/Disable OfflineVIP</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <enabled_offlinevip translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled_offlinevip>
+                    </fields>
+                </general>
+                <requirement translate="label" module="gri_vip">
+                    <label>VIP Requirement</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <silver_entry>
+                            <label>Silver Level Entry Requirement</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Purchase amount in last 24 hours to upgrade to this level. Default 2000.</comment>
+                        </silver_entry>
+                        <silver_upgrade>
+                            <label>Silver Level Upgrade Requirement</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Reward points gained in last 3 months to upgrade to this level. Default 3000.</comment>
+                        </silver_upgrade>
+                        <silver_renewal>
+                            <label>Silver Level Annual Renewal Requirement</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Reward points gained in last 12 months to keep in this level. Default 3000.</comment>
+                        </silver_renewal>
+                        <gold_entry>
+                            <label>Gold Level Entry Requirement</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Purchase amount in last 24 hours to upgrade to this level. Default 8000.</comment>
+                        </gold_entry>
+                        <gold_upgrade>
+                            <label>Gold Level Upgrade Requirement</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Reward points gained in last 12 months to upgrade to this level. Default 10000.</comment>
+                        </gold_upgrade>
+                        <gold_renewal>
+                            <label>Gold Level Annual Renewal Requirement</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Reward points gained in last 12 months to keep in this level. Default 10000.</comment>
+                        </gold_renewal>
+                    </fields>
+                </requirement>
+                <customer_groups translate="label" module="gri_vip">
+                    <label>VIP Level to Customer Group</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <general translate="label">
+                            <label>General</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_customer_group</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </general>
+                        <offlinevip translate="label">
+                            <label>Offline VIP</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_customer_group</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </offlinevip>
+                        <silver translate="label">
+                            <label>Silver</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_customer_group</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </silver>
+                        <gold translate="label">
+                            <label>Gold</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_customer_group</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </gold>
+                    </fields>
+                </customer_groups>
+                <discount translate="label" module="gri_vip">
+                    <label>VIP Discount Percent (%)</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <offlinevip translate="label">
+                            <label>Offline VIP</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </offlinevip>
+                        <silver translate="label">
+                            <label>Silver</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </silver>
+                        <gold translate="label">
+                            <label>Gold</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </gold>
+                        <update_vip_group_price translate="button_label">
+                            <label></label>
+                            <button_label>Update Vip Group Price</button_label>
+                            <frontend_model>gri_catalogcustom/adminhtml_catalogcustom_system_config_UpdateVipGroupPrices</frontend_model>
+                            <sort_order>28</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </update_vip_group_price>
+                    </fields>
+                </discount>
+            </groups>
+        </gri_vip>
+    </sections>
+</config>

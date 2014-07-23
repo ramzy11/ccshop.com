@@ -1,0 +1,404 @@
+@charset "utf-8";
+/* Simple fluid media
+   Note: Fluid media requires that you remove the media's height and width attributes from the HTML
+   http://www.alistapart.com/articles/fluid-images/ 
+*/
+img, object, embed, video {
+	max-width: 100%;
+}
+/* IE 6 does not support max-width so default to width 100% */
+.ie6 img {
+	width:100%;
+}
+
+.cms p {line-height:18px !important;}
+/*
+	Dreamweaver Fluid Grid Properties
+	----------------------------------
+	dw-num-cols-mobile:		5;
+	dw-num-cols-tablet:		9;
+	dw-num-cols-desktop:	15;
+	dw-gutter-percentage:	25;
+	
+	Inspiration from "Responsive Web Design" by Ethan Marcotte 
+	http://www.alistapart.com/articles/responsive-web-design
+	
+	and Golden Grid System by Joni Korpi
+	http://goldengridsystem.com/
+*/
+
+/*******         Phone(width:320px;)     **********/
+@media only screen and (max-width:700px){
+    .cms p {color:#808080 ! important;}
+    .cms h3{font: 20px Futura lt bt,"Microsoft YaHei","微軟雅黑";}
+    .cms h2{font-size: 20px;}
+    .cms h1{font-size:25px;}
+    .cms h4{font-size:16px;}
+    .cms-contact-us-html .cms-page-right{display: none;}
+    .cms{margin-bottom: 20px;}
+	.cms h1,h2,h3,h4,h5,h6 {padding:0; margin:0;}
+    #cms-vip-silver{width: 45%;float: left;}
+    #cms-vip-gold{width: 45%;float: right;}
+    #cms-faq-content h6{text-transform: uppercase;margin-bottom: 20px; font-family: futura_bk_btbook_italic !important;}
+	#cms-faq-content2 h6{text-transform: uppercase;margin-bottom: 20px; font-family: futura_bk_btbook_italic !important;}
+    #cms-faq-submenu,#cms-size-submenu,#cms-glossary-submenu{margin-bottom: 20px;}
+    #cms-faq-submenu h3 span,
+    #cms-size-submenu h3 span,
+    #cms-glossary-submenu h3 span{display: block;text-align: center;width: 100%;}
+    #cms-size-submenu h3 span a{text-decoration: none;}
+    #cms-size-chart table{border-spacing: 0;}
+	.cms-size-chart table{border:0px !important; background-color:#e3e3e3; border-spacing:1px !important;}
+	.cms-size-chart th {border: 0 !important;}
+	.cms-size-chart td {background-color:#ffffff; border:0 !important;}
+	.cms-size-chart th img.brand-img {display:none;}
+	.cms-size-chart .us {width:16%;}
+	.cms-size-chart .first {width:34%;}
+	.cms-size-chart .last {width:16%;}
+	.cms-size-chart .firsttd {width:17%;}
+    /*** CC Shop About***/
+    #cms-about-banner {clear: both;float: left;margin-left: 0;width: 100%;display: block;margin-bottom:20px;}
+    #cms-about-banner img{width: 100%;}
+    #cms-about-content {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    /*** CCshop store locator***/
+    #cms-store-content {clear: both;float: left;margin-left: 0;width: 100%;display: block;margin-top: 22px;}
+    #cms-store-banner {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-store-content h3,#cms-store-content2 h3 {margin-top:0; margin-bottom:20px;}
+    #cms-store-brands h5{margin-top: 0; font-size:15px;}
+    #cms-store-banner img{width: 100%}
+    #cms-store-content2 {clear: both;float: left;margin-left: 0;width: 100%;display: block;margin-top: 30px;}
+    #cms-store-brands{clear: both;float: left;margin-left: 0;width: 100%;display: block;margin-top: 30px;}
+	#cms-store-banner {text-align:center;}
+	#cms-store-banner a.prev {display:none;}
+	#cms-store-banner a.next {display:none;}
+	#cms-store-banner ul.pagination {margin-bottom:0;}
+    /***Payment Page***/
+    #cms-payment-content  {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-payment-banner {clear: both;float: left;margin-left: 0;width: 100%;display: block;text-align:center;margin-top:50px;}
+    /*** footer shipping n delivery, returns***/
+    #cms-delivery-content {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+	#cms-delivery-content ul li a{text-decoration:none;}
+	#cms-delivery-content h3{margin-bottom:10px;}
+	#cms-delivery-content table td.tline {font-size:0pt; background-color:#e3e3e3; padding:0 !important;}
+    #cms-delivery-content2 {clear: both;float: left;margin-left: 0;width: 100%;display: block;margin-top:40px}
+	#cms-delivery-content ul.number li, 
+	#cms-delivery-content2 ul.number li {list-style:number;}
+	
+    /*** footer faq ***/
+    #cms-faq-submenu{clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-faq-content {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-faq-submenu h3 a{text-decoration: none;color:#808080;}
+    #cms-faq-submenu h3 a:hover{text-decoration: underline;}
+	#cms-faq-content ul li {font-family: Arial, "微軟雅黑"; font-size:13px; list-style:disc;}
+	#cms-faq-content hr {margin-top:20px ! important;}
+    #cms-faq-content2 {clear: both;float: left;margin-left: 0;width: 100%;display: block;border-top: 1px solid #E3E3E3;padding-top:20px;margin-top:40px;}
+	#cms-faq-content2 hr {margin-top:20px ! important;}
+    /*** footer size chart***/
+    #cms-size-content {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-size-chart {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-size-submenu {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-size-submenu>h3{width: 120px;display: block;margin: 20px auto;}
+    /*** footer care n cleaning tips ***/
+    #cms-tips-content { clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-tips-banner {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    /*** footer glossary ***/
+    #cms-glossary-content {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-glossary-submenu {clear: both;float: left;margin-left: 0;width: 100%;display: block;margin-top: -20px;margin-bottom: 30px;}
+    #cms-glossary-submenu h3{font-size:24px;}
+    #cms-glossary-letter {font-family: BauerBodoniStd-Italic,"Microsoft YaHei","微軟雅黑"; clear: none;float: left;margin-left: 0%;width: 20%;display: block;font-size:40px !important;line-height: 100%; color:#000; }
+    #cms-glossary-word {clear: none;float: left;margin-left: 0%;width: 80%;display: block;-webkit-column-count:1; /* Chrome, Safari, Opera */-moz-column-count:1; /* Firefox */column-count:1;-webkit-column-gap:40px; /* Chrome, Safari, Opera */-moz-column-gap:40px; /* Firefox */column-gap:40px;/*margin-top: -15px;*/}
+	#cms-glossary-word h5{margin-bottom:5px;}
+	#cms-glossary-word p{margin-bottom:25px;}
+    /*** footer privacy ***/
+    #cms-privacy-content-left{clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-privacy-content-right {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+	#cms-privacy-content-right h5{font-size:15px;}
+	#cms-privacy-content-right h6{font-family: futura_bk_btbook_italic;font-size:15px; font-style:normal !important;}
+	#cms-privacy-content-right ul li {list-style: disc; font-size:13px; font-family:Arial ! important;}
+	#cms-privacy-content-right p {margin-top:13px !important;}
+    /*** footer app info ***/
+    #cms-app-banner {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-app-content{clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-app-apple {clear: both;float: left;margin-left: 0;display: block;width:100%;text-align:center;margin-bottom:40px;}
+	
+    #cms-app-android {clear: none;float: left;margin-left: 0%;display: block;width:100%;text-align:center;margin-bottom:40px;}
+    #cms-app-app {clear: both;float: left;margin-left: 0;width: 100%;display: block;margin-top:40px;}
+    #cms-app-qrcode {clear: both;float: left;margin-left: 0;width: 100%;display: block;margin:20px 0;}
+    #cms-app-icon {clear: both;float:left;margin-left: 0;width: 100%;display: block;text-align:center;}
+    #cms-app-icon img{float:none;margin-right:0px;}
+    #cms-app-icon #cms-app-name{float:none;}
+    /*** Brand about brand page ***/
+    #cms-brand-about-menu {clear: both;float: left;margin-left: 0;width: 100%;display: none;}
+    #cms-brand-about-banner {clear: both;float: left;margin-left: 0;width: 100%;display: block;margin-bottom:20px;}
+    #cms-brand-about-content {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    /***   Brand Page  ***/
+    .cms-page-view .col-left .vertnav-container{display: none;}
+    .cms-page-view .slmain,#store_content,.store_info_box{width: 100% !important;}
+    .store_content_box{margin-left: 0;}
+    .colfirst,.collast{width: 30% !important;}
+    .colmiddle{width: 40% !important;}
+    .find_store{float: none !important;margin-bottom: 20px;}
+    .cms-page-view .storeimg>img{width: 100%;}
+    .cms-page-view .about-brand{margin-bottom: -20px;}
+    .cms-page-view .about-brand h2{font-weight:bold;margin-top: 0;margin-bottom: 10px;}
+    .cms-page-view .vertnav-container{margin-bottom: 0;}
+    .catalog-category-view .col-main{width: 100%;margin-left: 0;}
+    #cms-vip-content{width:100% !important;margin-bottom: 50px;}
+    /***** Sitemap ***/
+    #cms-sitemap-menu{display: none;}
+    .cms-site-map, .cms-site-map-footer{width: 100% !important;}
+    #site-map li.level0, #site-map-footer li.level0{width:100% !important;min-height: inherit;}
+    /******  404 Page no found  *****/
+    #page-no-found{width:80%;margin:20% auto;text-align: center;}
+    #page-no-found h1{font:24px Futura bk bt,"Microsoft YaHei","微軟雅黑";margin-bottom:60px;}
+    #page-no-found p{font:20px Futura Hv bt,"Microsoft YaHei","微軟雅黑";color:#000; line-height:30px !important;}
+    #page-no-found span{font:18px futura_lt_btlight_italic,"Microsoft YaHei","微軟雅黑";margin-top:35px;}
+	
+	/*** Contact Us ***/
+	.contact .cms-page-left > h4 {margin-bottom:15px;}
+	.contact .cms-page-left {margin-bottom:40px !important;}
+	.contact .cms-page-left a.leave-us-message {display: block ! important; width:170px ! important;} 
+	.contact .cms-page-right .fieldset > h3{font-size:17px !important;}
+	
+	/** How to shop ***/
+	.shop .cms-page-right > h2 {margin-bottom: 0 !important;}
+	.shop .cms-page-right h3{margin-bottom:5px;margin-top:30px !important;}
+	.shop .cms-page-right .cms-page-details {margin-top:10px ! important; margin-bottom:0 !important;}
+	
+	/** cleaning & care **/
+	.shoes .cms-page-right > h2 {margin-bottom: 0 !important;}
+	.shoes .cms-page-right .cms-page-details {margin-top:10px ! important; margin-bottom:0 !important;}
+	
+	/*** VIP ***/
+	#cms-vip-content{width:100% !important;}
+	#cms-vip-silver{width:48% !important; margin-right:0 !important;}
+	#cms-vip-gold{width:48% !important; margin-left:4% !important;}
+	#cms-vip-content h5 {font-size:15px !important;}
+	#cms-vip-content2 h6 {font-family: futura_bk_btbook_italic !important;}
+	#cms-vip-content2 p {padding: 13px 0 !important;}
+	
+	/*** App Download ***/
+	#cms-app-name {color:#000;}
+	
+	div.slides .pagination {padding: 20px 0 20px 38% !important; min-height: 40px; }
+	div.slides a.prev{position: relative; float:left; top:-198px; z-index:1000; display:inline !important;}
+	div.slides a.next{position: relative; float:right; top:-198px; z-index:1000; display:inline !important;}
+	
+	.cms-flashsale-ss14 .page-title,
+	.cms-flashsale-ss14 .std{width:100% !important;}
+	.cms-flashsale-ss14-html .page-title,
+	.cms-flashsale-ss14-html.std{width:100% !important;}
+}
+
+/*******         Tablet(width:960px;)     **********/
+    /*******
+    @media only screen and (min-width:720px) and (max-width:959px){
+    #cms-about-banner {clear: both;float: left;margin-left: 0;width: 54.5%;display: block;}
+    #cms-about-content {clear: none;float: left;margin-left: 45.5%;width: 46%;display: block;position:relative;margin-top:-65%;background-color:#fff;padding:30px;}
+    #cms-store-content {clear: both;float: left;margin-left: 0;width: 100%;display: block;margin-top: 30px;}
+    #cms-store-banner {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-store-content2 {clear: both;float: left;margin-left: 0;width: 100%;display: block;margin-top: 30px;}
+    #cms-store-brands{clear: both;float: left;margin-left: 0;width: 100%;display: block;margin-top: 30px;}
+    #cms-payment-content  {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-payment-banner {clear: both;float: left;margin-left: 0;width: 100%;display: block;text-align:center;margin-top:50px;}
+    #cms-delivery-content {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-delivery-content2 {clear: both;float: left;margin-left: 0;width: 100%;display: block;margin-top:40px}
+    #cms-faq-content {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-faq-submenu{clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-faq-content2 {clear: both;float: left;margin-left: 0;width: 100%;display: block;border-top: 1px solid #E3E3E3;padding-top:20px;margin-top:40px;}
+    #cms-size-content {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-size-chart {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-size-submenu {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-tips-content {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-tips-banner {clear: both;float: right;margin-left: 0;width: 100%;display: block;text-align:center;}
+    #cms-glossary-content {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-glossary-submenu {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-glossary-letter {clear: none;float: left;margin-left: 0%;width: 15%;display: block;font-size:50px !important;}
+    #cms-glossary-word {clear: none;float: left;margin-left: 0%;width: 85%;display: block;-webkit-column-count:2; /* Chrome, Safari, Opera *//***-moz-column-count:2 /* Firefox *//***column-count:2;/***-webkit-column-gap:40px; /* Chrome, Safari, Opera *//***-moz-column-gap:40px; /* Firefox *//***column-gap:40px;}
+    #cms-privacy-content-left{clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-privacy-content-right {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-app-banner {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-app-content{clear: both;float: left;margin-left: 0;width: 100%;display: block;}
+    #cms-app-apple {clear: both;float: left;margin-left: 0;display: block;width:49%;text-align:center;margin-bottom:40px;}
+    #cms-app-android {clear: none;float: left;margin-left: 0%;display: block;width:49%;text-align:center;margin-bottom:40px;}
+    #cms-app-app {clear: both;float: left;margin-left: 0;width: 100%;display: block;margin-top:40px;}
+    #cms-app-qrcode {clear: both;float: left;margin-left: 0;width: 100%;display: block;margin:20px 20px 20px 0px;}
+    #cms-app-icon {clear: both;float: left;margin-left: 0%;display: block;width:90%;}
+    #cms-app-icon img{float:none;margin-right:0px;}
+    #cms-app-icon #cms-app-name{float:none;}
+    #cms-brand-about-menu {clear: both;float: left;margin-left: 0;width: 100%;display: none;}
+    #cms-brand-about-banner {clear: both;float: left;margin-left: 0;width: 54.5%;display: block;}
+    #cms-brand-about-content {clear: none;float: left;margin-left: 45.5%;width: 46%;display: block;position:relative;margin-top:-65%;background-color:#cms-brand-about-fff;padding:30px;}
+    }
+    *******/
+/*******         PC(min-width:1181px;)     **********/
+/*@media only screen and (min-width:1181px)*/
+    @media only screen and (min-width:700px){
+    .cms p {color:#808080 ! important;}
+	.cms h1,h2,h3,h4,h5,h6 {padding:0; margin:0;}
+    .cms h2 {line-height:30px ! important;}
+    .cms h4 {line-height:22px ! important;}
+	/*.cms-page-view .main .page-title{margin-bottom:11px;}*/
+
+    /**** ccshop about ***/
+    #cms-about-banner {clear: none;float: left;margin-right: 1.3513%;width: 100%;display: block;}
+    #cms-about-content {clear: none;float: left;margin-left: 51%;width: 50%;display: block;position:relative;margin-top:-75%;background-color:#fff;padding:30px 30px 20px 30px;}
+    #cms-about-content h2{margin:0;}
+	/*.cms-page-view .main .page-title{margin-bottom:11px;}*/
+    /**** ccshop store locator ***/
+    #cms-store-content {clear: none;float: left;width: 30%;display: block;}
+    #cms-store-content h3,#cms-store-content2 h3{margin-bottom: 15px;}
+    #cms-store-brands h5 {font-size:15px !important;}
+    #cms-store-banner {clear: none;float: left;width: 100%;display: block;margin-bottom: 30px;}
+    #cms-store-content2 {clear: none;float: left;margin-left: 2%;width: 30%;display: block;}
+    #cms-store-brands{clear: none;float: left;margin-left: 13%;width: 25%;display: block;padding-top: 10px;}
+	#cms-store-banner {text-align:center;}
+	#cms-store-banner a.prev {display:none;}
+	#cms-store-banner a.next {display:none;}
+	#cms-store-banner ul.pagination {margin-bottom:0; margin-top:20px !important;}
+    /**** cms payment ***/
+    #cms-payment-content  {clear: none;float: left;width: 42.5%;display: block;}
+    #cms-payment-banner {clear: none;float: left;margin-left: 1.3513%;width: 55.5%;display: block;text-align:center;margin-top:150px;}
+    /*** footer shipping n delivery, returns ***/
+    #cms-delivery-content {clear: none;float: left;width: 56%;display: block; margin-top:10px;}
+	#cms-delivery-content ul li a:hover{text-decoration:none;}
+    #cms-delivery-content2 {clear: none;float: right;margin-left: 8%;width: 36%;display: block;margin-top:10px;}
+	#cms-delivery-content > h3 {margin-top:0 !important; margin-bottom:10px;}
+	#cms-delivery-content table td.tline {font-size:0pt; background-color:#e3e3e3; padding:0 !important;}
+	#cms-delivery-content ul.number li, 
+	#cms-delivery-content2 ul.number li {list-style:number;}
+    /*** footer faq***/
+    #cms-faq-content {clear: both;float: left;margin-left: 0;width: 48%;display: block;}
+    #cms-faq-content h6,#cms-faq-content2 h6{font:15px Futura Bk Bt;text-transform: uppercase;margin-bottom: 10px;}
+	
+    #cms-faq-submenu{clear: none;float: left;margin-bottom: 30px;width: 100%;display: block;text-align: center;}
+    #cms-faq-submenu h3 a{text-decoration: none;color:#808080;}
+    #cms-faq-submenu h3 a:hover{text-decoration: underline;}
+    .cms-faq table{border-spacing: inherit}
+	#cms-faq-content ul li {font-family: Arial; font-size:13px; list-style-type: disc;}
+	#cms-faq-content a:hover {text-decoration:none;}
+    #cms-faq-content2 {clear: none;float: left;margin-left:4%;width:48%;display: block;border-top: 0px solid #E3E3E3;padding-top:0px;margin-top:0px;}
+    #cms-faq-shopping, #cms-faq-delivery, #cms-faq-returns, #cms-faq-customer_care {clear: none;float: left;width: 100%;display: block;}
+    /*** footer size chart***/
+	
+	#cms-size-submenu h3{text-align: center; margin-bottom:30px; margin-top:0;}
+    #cms-size-submenu h3 span a{text-decoration: none;}
+	#cms-size-content {clear: none;float: left;width: 32.5%;display: block;}
+    #cms-size-chart {clear: none;float: left;display: block;width:100%;}
+    #cms-size-submenu {clear: none;float: left;margin-left: 10%;margin-bottom: 30px;width: 57.5%;display: block;}
+	#cms-size-content ul li {color:#808080;}
+	.cms-size-chart table{border:0px !important; background-color:#e3e3e3; border-spacing:1px !important;}
+	.cms-size-chart th {border: 0 !important;}
+	.cms-size-chart td {background-color:#ffffff; border:0 !important;}
+	.cms-size-chart th span.brand-name {display:none;}
+	.cms-size-chart .us {width:10%;}
+	.cms-size-chart .first {width:30%;}
+	.cms-size-chart .last {width:30%;}
+	.cms-size-chart .firsttd {width:15%;}
+	/*.cms-size-chart table{border-spacing: inherit !important;}*/
+    /*** footer care n cleaning tips***/
+    #cms-tips-content {clear: none;float: right;margin-left: 9%;width: 42.5%;display: block;}
+    #cms-tips-banner {clear: none;float: left;width: 47.9%;display: block;text-align:center;}
+    /** footer glossary ***/
+    #cms-glossary-content {clear: none;float: left;margin-left: 1.3513%;width: 100%;display: block;}
+    #cms-glossary-submenu {clear: none;float: left;margin-left: 1.3513%;width: 100%;display: block;}
+    #cms-glossary-letter {font-family: BauerBodoniStd-Italic,"Microsoft YaHei","微軟雅黑" !important;  clear: none;float: left;margin-left: 0%;width: 15%;display: block;font-size:50px !important;line-height: 100%; color:#000; height:100px;}
+    #cms-glossary-word {clear: none;float: left;margin-left: 2%;width: 83%;display: block;-webkit-column-count:2; /* Chrome, Safari, Opera */-moz-column-count:2; /* Firefox */column-count:2; -webkit-column-gap:20px; /* Chrome, Safari, Opera */-moz-column-gap:20px; /* Firefox */column-gap:20px;}
+	#cms-glossary-word h5{margin-bottom:5px; font-size:15px;}
+	#cms-glossary-word p{margin-bottom:25px;}
+	#cms-glossary-submenu h3 a{text-decoration: none;}
+	.cms-glossary table{border-spacing: inherit !important;}
+    /***footer privacy***/
+    #cms-privacy-content-left{clear: both;float: left;width: 34%;display: block;}
+	#cms-privacy-content-left p {margin:0 0 13px 0 !important;}
+    #cms-privacy-content-right {clear: none;float: left;margin-left: 8%;width: 58%;display: block;}
+	#cms-privacy-content-right h5{font-size:15px;}
+	#cms-privacy-content-right ul li {list-style: disc; font-size:13px; font-family:Arial ! important;}
+	#cms-privacy-content-right h6{font-family: futura_bk_btbook_italic;font-size:15px; font-style:normal !important;}
+	#cms-privacy-content-right p {margin:13px 0 !important;}
+	#cms-privacy-content-right hr {margin-bottom:10px !important;}
+    /*** footer app info ***/
+    #cms-app-banner {clear: both;float: left;margin-left: 0;width: 64%;display: block;text-align:center;margin-top:50px;}
+    #cms-app-content{clear: none;float: left;margin-left: 1%;width: 35%;display: block;}
+    #cms-app-apple {clear: both;float: left;margin-left: 0;display: block;width:160px;text-align:center;margin-bottom:40px;margin-right: 5%;}
+    #cms-app-android {clear: none;float: left;margin-left: 0%;display: block;width:150px;text-align:center;margin-bottom:40px;}
+    #cms-app-app {clear: both;float: left;margin-left: 0;width: 100%;display: block;margin-top:40px;}
+	#cms-app-apple h5, #cms-app-android h5 {font-size:15px;}
+    #cms-app-qrcode {clear: both;float: left;margin-left: 0;width: 100%;display: block;margin:20px 0;}
+    #cms-app-icon {clear: both;float: left;margin-left: 0;width: 100%;display: block;text-align:left;}
+    #cms-app-icon img{float:left;margin-right:10px;}
+    #cms-app-icon #cms-app-name{float:left;}
+    /*** brand about brand page***/
+    #cms-brand-about-menu {clear: both;float: left;margin-left: 0;width: 25%;min-height:600px;display: block;}
+    #cms-brand-about-banner {clear: none;float: left;margin-top: 10px;margin-left: 1.3513%;width: 51.3%;display: block;}
+    #cms-brand-about-content {clear: none;float: left;margin-left: 65%;width: 50%;display: block;position:relative;margin-top:-60%;background-color:#fff;padding:30px;}
+	
+	/*** Contact Us Page ***/
+    .contact .cms-page-left p.cms-content-first {line-height:22px !important;}
+	.contact .cms-page-left {margin-top:35px !important; width:42% !important;}
+	.contact .cms-page-right {margin-top:35px !important; width:43% !important; margin-left:10% !important;}
+    .contact .cms-page-right h3 {margin-bottom:10px;}
+	.contact .cms-page-right .fieldset h3{font:20px "Microsoft YaHei","微軟雅黑"!important;}
+    .contact .cms-page-right .fieldset input {font-size:12px; color:#808080;}
+    .contact .cms-page-right .fieldset textarea#comment {font-size:12px; color:#808080;}
+    .contact .cms-page-left h4 {margin-bottom:15px !important;}
+    .contact .cms-page-left h2 {line-height:30px;}
+    .contact .cms-page-left a {text-decoration:none ! important; }
+
+	.contact #contactForm .form-list li.wide .input-box {width:95% !important;}
+	.contact #contactForm .buttons-set button.button{margin-right:5%;}
+	.contact #contactForm .form-list .last .input-box > input{width:50%; float:left; margin-right:0;}
+	.contact #contactForm .form-list .last .input-box > span#telinfo{height:34px; line-height:34px; display:inline; float:left; margin-left:15px;}
+	
+	/*** How to shop ***/
+	.shop .cms-page-left {width:44% !important;}
+	.shop .cms-page-left > h3 {line-height:30px !important;}
+	.shop .cms-page-left p.cms-content-first {line-height:22px !important;}
+	.shop .cms-page-right .cms-page-details {margin-top:0 ! important; margin-bottom:0 !important;}
+	.shop .cms-page-right {width:46% !important; margin-left:10% !important; margin-top:-10px !important;}	
+	.shop .cms-page-right > h2 {margin-bottom: 0 !important;}
+	.shop .cms-page-right h3{margin-bottom:5px;margin-top:30px !important;}
+	
+	/*** cleaning and care ***/
+	.shoes .cms-page-right > h2 {margin-bottom: 0 !important;}
+	.shoes .cms-page-right .cms-page-details {margin-top:20px ! important; margin-bottom:0 !important;}
+
+	/*** VIP ***/
+	#cms-vip-content{width:34% !important; margin-right:11% !important;}
+	#cms-vip-silver{width:200px !important; margin-right:4% !important;}
+	#cms-vip-gold{width:200px !important; margin-left:3% !important;}
+	#cms-vip-content h5 {font-size:15px !important;}
+	#cms-vip-content2 h6 {font-family: futura_bk_btbook_italic !important;}
+	#cms-vip-content2 p {padding: 13px 0 !important;}
+	
+	/*** App Download ***/
+	#cms-app-name {color:#000;}
+
+	/*** SiteMap ***/
+	.cms-site-map-footer ul li.nav-3-3 {text-transform:none;}
+	
+	/*****************/
+	.cms-contact-us-html .cms-page-right{display: block !important;}
+	.cms-menu-title .cms-menu li > strong {line-height:26px;} 
+	/*.cms-page-view .main .page-title {margin-bottom:11px;}*/
+
+	/*** CC-Mag Slider ***/
+	.mag-slider .slides_container .slide  img{width:100%; height:100%;}
+	.mag-slider .slides .pagination {padding: 20px 0 20px 47%; min-height: 40px;}
+	div.slides a.prev{position: relative; float:left; top:-352px; z-index:1000; display:inline !important;}
+	div.slides a.next{position: relative; float:right; top:-352px; z-index:1000; display:inline !important;}
+	
+	.cms-page-view .main .cms-menu-title .cms-menu li a span{font-family: Futura Bk Bt !important; font-size:15px ! important;}
+	.cms-page-view .main .cms-menu-title .cms-menu li > ul li  a span{font-family: Arial !important; font-size: 13px ! important;} 
+	
+	/*** brand about brand page***/
+    #cms-brand-about-banner-right {clear: none;float: left;margin-top: 10px;margin-left: 1.6963%;width: 64.4%;display: block;}
+    #cms-brand-about-content-right {clear: none;float: left;margin-left: 49.5%;width: 470px;display: block;position:relative;margin-top:-72.5%;background-color:#fff;padding:30px;}
+	#cms-brand-about-content-right h2{margin:0; font-family:Futura Hv Bt,"Microsoft YaHei","微軟雅黑"; font-size:25px; color:#333; line-height:30px;}	
+	#cms-brand-about-content-right h4{font: 18px futura_lt_btlight_italic,"Microsoft YaHei","微軟雅黑"; color:#808080; line-height:22px;}
+	#cms-brand-about-content-right p {font: 13px Arial; color:#808080;}
+	#cms-brand-about-content-right a {color:#808080; text-decoration:underline;}
+	
+	.cms-flashsale-ss14 .page-title,	.cms-flashsale-ss14 .std{width:100% !important;}
+	.cms-flashsale-ss14-html .page-title,	.cms-flashsale-ss14-html .std{width:100% !important;}
+	.cms-all-brands .page-title, .cms-all-brands .std{width:100% !important;}
+    }

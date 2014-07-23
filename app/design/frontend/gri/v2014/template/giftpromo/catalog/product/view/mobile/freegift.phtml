@@ -1,0 +1,90 @@
+<?php
+    /* @var $this Gri_CatalogCustom_Block_Product_View_Share */
+    $_product = $this->getProduct();
+    $_helper = $this->helper('catalog/output');
+    /* @var $_taxHelper Mage_Tax_Helper_Data */
+    $_taxHelper = $this->helper('tax');
+    $_coreHelper = $this->helper('core');
+
+    /* @var $giftProductsCollection Mage_Catalog_Model_Resource_Product_Link_Product_Collection */
+    $giftProducts = Mage::helper('giftpromo')->getAllGiftsForProduct($_product , false, false);
+    $giftProducts = count($giftProducts) ? $giftProducts :array();
+
+    /* @var $availableProducts Varien_Data_Collection  */
+    $availableProducts =  Mage::helper('giftpromo')->getAllProductsForGift($_product);
+    $availableProducts = count($availableProducts) ? $availableProducts : array();
+    $sum = count($giftProducts) + count($availableProducts);
+?>
+<?php if (count($giftProducts)): ?>
+    <div class="sf-freegift" style="display:none">
+        <h1><?php echo $this->__('Free Gift'); ?></h1>
+        <div class="gift-product-box">
+                <ul class="clearer">
+                    <!--gift products start-->
+                    <?php foreach ($giftProducts as $product): ?>
+                        <li class="item">
+                            <div class="gift-wrapper">
+                                <div class="block thumbnail">
+                                    <a target="_blank" href="<?php echo $this->helper('catalog/product')->getProductUrl($product) ?>">
+                                        <img src="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail')->resize(100,150); ?>" />
+                                    </a>
+                                    <span><?php echo $this->__('Order %s to get the free gift',$_product->getName()); ?></span>
+                                </div>
+                            </div>
+                        </li>
+                    <?php endforeach; ?>
+                    <!--gift products end-->
+                </ul>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php if (count($availableProducts)): ?>
+    <div class="freegift sf-gift" style="display:none">
+        <h1><?php echo $this->__('Get Free Gift'); ?></h1>
+        <div class="free-gift-description">
+            <p><?php echo $this->__('Available as a gift when purchased with the item(s) below.'); ?></p>
+        </div>
+        <div class="gift-product-box">
+            <?php if(count($availableProducts) > 1 ): ?>
+                <a href="javascript:;" class="prev"> < </a>
+            <?php endif;  ?>
+            <div class="iosSlider jcarousel mobile-group-product-<?php echo $_product->getId(); ?>">
+                <ul class="slider clearer">
+                    <!--available products -->
+                    <?php foreach ($availableProducts as $product): ?>
+                        <li class="item">
+                            <div class="block thumbnail">
+                                <a href="<?php echo $this->helper('catalog/product')->getProductUrl($product) ?>">
+                                    <img src="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail')->resize(70); ?>" />
+                                </a>
+                            </div>
+                        </li>
+                    <?php endforeach; ?>
+                    <!--Available Products End-->
+                </ul>
+            </div>
+            <?php if(count($availableProducts) > 1 ): ?>
+                <a href="javascript:;" class="next"> > </a>
+            <?php endif;  ?>
+        </div>
+    </div>
+<?php endif; ?>
+
+    <script type="text/javascript">
+        (function ($) {
+            $('.mobile-group-product-<?php echo $_product->getId(); ?>')
+                .jcarousel({vertical: false});
+
+            $('.mobile-group-product-<?php echo $_product->getId() ?> a.prev')
+                .on('inactive.jcarouselcontrol', function() {$(this).addClass('inactive');})
+                .on('active.jcarouselcontrol', function() {$(this).removeClass('inactive');})
+                .jcarouselControl({target: '-=1'});
+
+            $('.mobile-group-product-<?php echo $_product->getId() ?> a.next')
+                .on('inactive.jcarouselcontrol', function() {$(this).addClass('inactive');})
+                .on('active.jcarouselcontrol', function() {$(this).removeClass('inactive');})
+                .jcarouselControl({target: '+=1'});
+        })(jQuery);
+    </script>
+<?php  $_product = $_helper = $_taxHelper = $giftProducts = $availableProducts = $sum = NULL;  ?>

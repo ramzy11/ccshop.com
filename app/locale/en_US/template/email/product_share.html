@@ -1,0 +1,31 @@
+{* This is a comment block
+
+Available vars in this template:
+  - name            Recipient name
+  - email           Recipient Email address
+  - product_name    Product name
+  - product_url     Url for product
+  - product_image   Url for product small image (75 px)
+  - message         Sender custom message
+  - sender_name     Sender name
+  - sender_email    Sender email
+
+Use vars: {{var var_name}}
+*}<!--@subject Product Share with CentralCentralShop.com @--> 
+<!--@vars
+{"htmlescape var=$name":"Recipient Name",
+"var product_url":"Url for Product",
+"var product_name":"Product Name",
+"var message":"Sender Message"}
+@--> 
+{{block type='core/template' area='frontend' template='email/header.phtml'}}
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:18px;color:#000;">Dear {{htmlescape var=$name}},<br/>
+  <br/>
+  I would like to share the following product with you.<br/>
+  <a href="{{var product_url}}" style="color:#999;text-decoration:underline">{{var product_name}}</a><br />
+  <br />
+  Message: <br />
+  {{var message}} </p>
+<br />
+<br />
+{{block type='core/template' area='frontend' template='email/footer.phtml'}}

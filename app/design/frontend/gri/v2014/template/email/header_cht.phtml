@@ -1,0 +1,33 @@
+<?php
+/* @var $this Mage_Core_Block_Template */
+/* @var $emailHelper Gri_Core_Helper_Email */
+$emailHelper = Mage::helper('gri_core/email');
+?>
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+<td align="center" width="100%">
+<table width="650" cellpadding="0" cellspacing="0" border="0">
+    <!-- Central Central Logo -->
+    <tr>
+        <td height="92" style="text-align:center;"><a title="<?php echo $this->__('CC SHOP'); ?>" href="<?php echo $this->getUrl('/'); ?>"><img style="border:none;" src="<?php echo $emailHelper->getLogoUrl(); ?>" alt="<?php echo $emailHelper->getLogoAlt(); ?>" border="0"/></a></td>
+    </tr>
+    <!-- Categories Top -->
+    <tr>
+        <td width="650" height="11">
+            <span style="font-size:0pt"></span>
+            <table width="650" cellpadding="0" cellspacing="0" border="0">
+                <tbody>
+				<tr>
+					<td><a href="<?php echo $this->getUrl('/'); ?>new-arrivals.html" style="font-size:12px;font-family:Verdanna,Arial,San-Serif;text-decoration:none;color:#000000" target="_blank" alt="新品"><img src="<?php echo $this->getBaseUrl();?>media/email/images/zh_HK/new_arrivals.jpg" border="0" title="新品"/></a></td>
+					<td><a href="<?php echo $this->getUrl('/'); ?>all-brands/" style="font-size:12px;font-family:Verdanna,Arial,San-Serif;text-decoration:none;color:#000000" target="_blank" alt="品牌"><img src="<?php echo $this->getBaseUrl();?>media/email/images/zh_HK/brands.jpg" border="0" title="品牌"/></a></td>
+					<td><a href="<?php echo $this->getUrl('/'); ?>shoes.html" style="font-size:12px;font-family:Verdanna,Arial,San-Serif;text-decoration:none;color:#000000" target="_blank" alt="鞋履"><img src="<?php echo $this->getBaseUrl();?>media/email/images/zh_HK/shoes.jpg" border="0" title="鞋履"/></a></td>
+					<td><a href="<?php echo $this->getUrl('/'); ?>clothing.html" style="font-size:12px;font-family:Verdanna,Arial,San-Serif;text-decoration:none;color:#000000" target="_blank" alt="服裝"><img src="<?php echo $this->getBaseUrl();?>media/email/images/zh_HK/clothing.jpg" border="0" title="服裝"/></a></td>
+					<td><a href="<?php echo $this->getUrl('/'); ?>bags.html" style="font-size:12px;font-family:Verdanna,Arial,San-Serif;text-decoration:none;color:#000000" target="_blank" alt="包袋"><img src="<?php echo $this->getBaseUrl();?>media/email/images/zh_HK/bags.jpg" border="0" title="包袋"/></a></td>
+					<td><a href="<?php echo $this->getUrl('/'); ?>accessories.html" style="font-size:12px;font-family:Verdanna,Arial,San-Serif;text-decoration:none;color:#000000" target="_blank" alt="配飾"><img src="<?php echo $this->getBaseUrl();?>media/email/images/zh_HK/accessories.jpg" border="0" title="配飾"/></a></td>
+				</tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>

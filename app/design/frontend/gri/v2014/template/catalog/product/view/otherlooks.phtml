@@ -1,0 +1,36 @@
+<?php
+/* @var $this Gri_ShopByLook_Block_Product_View_OtherLooks */
+?>
+<?php $products = $this->getOtherLooks();?>
+<?php  $_helper = $this->helper('catalog/output');?>
+<h2><?php echo $this->__('All Looks')?></h2>
+<div class="other-looks scroll">
+    <a class="prev" href="javascript:void(0);"><?php echo $this->__('Prev'); ?></a>
+    <div class="iosSlider">
+        <ul class="slider clearer">
+        <?php if ($products) foreach ($products as $_product) { ?>
+            <li class="item">
+                <div class="product-image"><a title="<?php echo $_product->getName();?>" href="<?php echo $_product->getProductUrl()?>"><img alt="<?php echo $_product->getName();?>" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(207, 320); ?>" /></a></div>
+                <p><a title="<?php echo $_product->getName();?>" href="<?php echo $_product->getProductUrl()?>">
+                    <span class="brand"><?php echo $_product->getAttributeText('brand');?></span><br />
+                    <?php echo $_product->getName();?>
+                </a></p>
+            </li>
+        <?php } ?>
+        </ul>
+    </div>
+    <a class="next" href="javascript:void(0);"><?php echo $this->__('Next'); ?></a>
+    <?php if ($products->count() > 4) { ?>
+    <script type="text/javascript">
+        (function ($) {
+            var looks = $('.other-looks .iosSlider'), slider = looks.children('.slider');
+            slider.css({height:slider.children('.item').height()});
+            looks.iosSlider({
+                snapToChildren:true,
+                navNextSelector:looks.siblings('.next'),
+                navPrevSelector:looks.siblings('.prev')
+            });
+        })(jQuery);
+    </script>
+    <?php } ?>
+</div>

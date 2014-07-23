@@ -1,0 +1,185 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/* @var $this Mage_Checkout_Block_Onepage_Progress */
+?>
+<div class="block block-progress opc-block-progress">
+    <div class="block-title">
+        <strong><span><?php echo $this->__('Checkout Progress') ?></span></strong>
+    </div>
+    <div class="block-content">
+        <dl>
+        <?php //if ( $this->getCheckout()->getStepData('billing', 'is_show')): ?>
+        <?php if ($this->isStepComplete('billing') || $this->isStepComplete('shipping_method')): ?>
+            <dt class="complete">
+                <?php //echo $this->__('Billing Address') ?>
+                <?php echo $this->__('Shipping & Delivery') ?>
+<!--            <span class="separator">|</span><a href="#billing" onclick="checkout.gotoSection('billing'); return false;">--><?php //echo $this->__('Change') ?><!--</a>-->
+            </dt>
+            <dd class="complete">
+                <address>
+                    <?php // echo $this->getBilling()->format('html') ?>
+                    <?php /* @var $billingAddress Mage_Sales_Model_Quote_Address */
+                          $billingAddress = $this->getBilling();
+                          /* @var $country Mage_Directory_Model_Country */
+                          $country = $billingAddress->getCountryModel();
+
+                          $street = $billingAddress->getStreet();
+                          $street =  is_array($street) ? implode(',',$street) : '';
+                    ?>
+                    <div class="name">
+                        <div class="content"><?php echo ucfirst($billingAddress->getLastname()).' '.ucfirst($billingAddress->getFirstname()); ?></div>
+                    </div>
+                    <div class="address">
+                        <div class="content">
+                            <p><?php echo $street; ?></p>
+                            <p><?php echo $billingAddress->getCity(); ?>, <?php echo  $billingAddress->getRegion(); ?>, <?php echo $billingAddress->getPostcode(); ?></p>
+                            <p><?php echo $country->getName(); ?></p>
+                        </div>
+                    </div>
+                    <div class="contact">
+                        <?php echo $this->__('T: %s', $billingAddress->getTelephone())?>
+                    </div>
+                </address>
+                <div class="shipping-method">
+                    <?php if ($this->getCheckout()->getStepData('shipping_method', 'is_show')): ?>
+                        <?php if ($this->isStepComplete('shipping_method')): ?>
+                            <?php if ($this->getShippingMethod()): ?>
+                                <?php
+                                    $shippingDescription = $this->getShippingDescription();
+                                    $pos = strpos($shippingDescription, '-');
+                                    $shippingDescription = ($pos !== FALSE ? substr($shippingDescription, $pos+1) : $shippingDescription);
+                                    echo $this->escapeHtml($shippingDescription)
+                                ?>
+                                <?php $_excl = $this->getShippingPriceExclTax(); ?>
+                                <?php $_incl = $this->getShippingPriceInclTax(); ?>
+                                <?php if ($this->helper('tax')->displayShippingPriceIncludingTax()): ?>
+                                    <?php echo $_incl; ?>
+                                <?php else: ?>
+                                    <?php echo $_excl; ?>
+                                <?php endif; ?>
+                                <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                                   (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                                <?php endif; ?>
+                            <?php else: ?>
+                                <?php echo $this->__('Shipping method has not been selected yet') ?>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                </div>
+                <p class="change">
+                    <?php if($this->isStepComplete('billing') && !$this->isStepComplete('shipping_method')): ?>
+                        <a href="#billing" class="change" onclick="checkout.gotoSection('shipping_method'); return false;"><?php echo $this->__('Change') ?></a>
+                    <?php else: ?>
+                        <a href="#shipping_method" title="<?php echo $this->__('Change Shipping & Delivery'); ?>" onclick="checkout.gotoSection('shipping_method'); return false;"><?php echo $this->__('Change') ?></a>
+                    <?php endif; ?>
+                </p>
+            </dd>
+        <?php else: ?>
+            <dt>
+                <?php //echo $this->__('Billing Address'); ?>
+                <?php echo $this->__('Shipping & Delivery'); ?>
+            </dt>
+        <?php endif; ?>
+        <?php // endif; ?>
+
+
+        <?php if (0 && $this->getCheckout()->getStepData('shipping', 'is_show')): ?>
+        <?php if ($this->isStepComplete('shipping')): ?>
+            <dt class="complete">
+                <?php echo $this->__('Shipping Address') ?>
+                <span class="separator">|</span><a href="#payment" onclick="checkout.gotoSection('shipping');return false;"><?php echo $this->__('Change') ?></a>
+            </dt>
+            <dd class="complete">
+                <address><?php echo $this->getShipping()->format('html') ?></address>
+                <a href="#payment" class="change" onclick="checkout.gotoSection('shipping');return false;"><?php echo $this->__('Change') ?></a>
+            </dd>
+        <?php else: ?>
+            <dt>
+                <?php echo $this->__('Shipping Address') ?>
+            </dt>
+        <?php endif; ?>
+        <?php endif; ?>
+
+
+
+        <?php if (0 && $this->getCheckout()->getStepData('shipping_method', 'is_show')):?>
+        <?php if ($this->isStepComplete('shipping_method')): ?>
+            <dt class="complete">
+                <?php echo $this->__('Shipping Method') ?>
+                <span class="separator">|</span><a href="#shipping_method" onclick="checkout.gotoSection('shipping_method'); return false;"><?php echo $this->__('Change') ?></a>
+            </dt>
+            <dd class="complete">
+                <?php if ($this->getShippingMethod()): ?>
+                    <?php echo $this->escapeHtml($this->getShippingDescription()) ?>
+
+                    <?php $_excl = $this->getShippingPriceExclTax(); ?>
+                    <?php $_incl = $this->getShippingPriceInclTax(); ?>
+                    <?php if ($this->helper('tax')->displayShippingPriceIncludingTax()): ?>
+                        <?php echo $_incl; ?>
+                    <?php else: ?>
+                        <?php echo $_excl; ?>
+                    <?php endif; ?>
+                    <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                        (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                    <?php endif; ?>
+                    <a href="#shipping_method" title="<?php echo $this->__('Change Shipping Method'); ?>" onclick="checkout.gotoSection('shipping_method'); return false;"><?php echo $this->__('Change') ?></a>
+                <?php else: ?>
+                    <?php echo $this->__('Shipping method has not been selected yet') ?>
+                <?php endif;?>
+            </dd>
+        <?php else: ?>
+            <dt>
+                <?php echo $this->__('Shipping Method') ?>
+            </dt>
+        <?php endif; ?>
+        <?php endif; ?>
+
+        <?php //if ( $this->getCheckout()->getStepData('payment', 'is_show')): ?>
+        <?php //if ( $this->isStepComplete('payment')): ?>
+            <?php if ($this->isStepComplete('shipping_method')): ?>
+            <dt class="complete">
+              <?php echo $this->__('Payment Method') ?>
+<!--           <a href="#payment" title="<?php /*echo $this->__('Change Payment Method')*/?>"  onclick="checkout.gotoSection('payment'); return false;"><?php /*echo $this->__('Change') */?></a>
+-->           </dt>
+            <dd class="complete">
+                <?php //echo $this->getPaymentHtml() ?>
+                <?php
+                echo $this->getLayout()->createBlock('checkout/onepage_review_info')
+                    ->setTemplate('checkout/onepage/payment/review.phtml')
+                    ->setShowTitle(FALSE)
+                    ->toHtml();
+                ?>
+<!--            <a href="#payment" onclick="checkout.gotoSection('payment'); return false;"><?php /*echo $this->__('Change') */?></a>
+-->            </dd>
+        <?php else: ?>
+            <dt>
+                <?php echo $this->helper('gri_checkoutcustom')->__('Payment') ?>
+            </dt>
+        <?php// endif; ?>
+        <?php endif; ?>
+        </dl>
+    </div>
+</div>

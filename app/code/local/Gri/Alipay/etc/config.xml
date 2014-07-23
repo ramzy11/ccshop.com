@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Gri_Alipay>
+            <version>0.9.5</version>
+        </Gri_Alipay>
+    </modules>
+
+    <global>
+        <models>
+            <alipay>
+                <class>Gri_Alipay_Model</class>
+                <resourceModel>alipay_mysql4</resourceModel>
+            </alipay>
+            <alipay_mysql4>
+                <class>Gri_Alipay_Model_Mysql4</class>
+                <entities>
+                    <api_debug>
+                        <table>alipay_api_debug</table>
+                    </api_debug>
+                </entities>
+            </alipay_mysql4>
+        </models>
+
+        <blocks>
+            <alipay>
+                <class>Gri_Alipay_Block</class>
+            </alipay>
+        </blocks>
+
+        <helpers>
+            <alipay>
+                <class>Gri_Alipay_Helper</class>
+            </alipay>
+        </helpers>
+
+        <resources>
+            <alipay_setup>
+                <setup>
+                    <module>Gri_Alipay</module>
+                    <class>sales/resource_setup</class>
+                </setup>
+            </alipay_setup>
+        </resources>
+
+        <fieldsets>
+            <sales_convert_quote>
+                <alipay_pay_method>
+                    <to_order>*</to_order>
+                </alipay_pay_method>
+                <alipay_pay_bank>
+                    <to_order>*</to_order>
+                </alipay_pay_bank>
+            </sales_convert_quote>
+        </fieldsets>
+
+        <events>
+            <sales_quote_payment_import_data_before>
+                <observers>
+                    <alipay_set_bank>
+                        <type>singleton</type>
+                        <class>alipay/observer</class>
+                        <method>setBank</method>
+                    </alipay_set_bank>
+                </observers>
+            </sales_quote_payment_import_data_before>
+        </events>
+    </global>
+
+    <frontend>
+        <secure_url>
+            <alipay_payment>/alipay/payment</alipay_payment>
+        </secure_url>
+
+        <routers>
+            <alipay>
+                <use>standard</use>
+                <args>
+                    <module>Gri_Alipay</module>
+                    <frontName>alipay</frontName>
+                </args>
+            </alipay>
+        </routers>
+
+        <layout>
+            <updates>
+                <gri_alipay>
+                    <file>gri/alipay.xml</file>
+                </gri_alipay>
+            </updates>
+        </layout>
+
+        <translate>
+            <modules>
+                <Gri_Alipay>
+                    <files>
+                        <default>Gri_Alipay.csv</default>
+                    </files>
+                </Gri_Alipay>
+            </modules>
+        </translate>
+    </frontend>
+
+    <adminhtml>
+        <translate>
+            <modules>
+                <Gri_Alipay>
+                    <files>
+                        <default>Gri_Alipay.csv</default>
+                    </files>
+                </Gri_Alipay>
+            </modules>
+        </translate>
+    </adminhtml>
+
+    <default>
+        <payment>
+            <alipay_payment>
+                <model>alipay/payment</model>
+                <title>Alipay</title>
+                <types>IPN</types>
+                <allowspecific>0</allowspecific>
+                <transaction_type>O</transaction_type>
+                <order_status>pending_alipay</order_status>
+                <use_it_b_pay>0</use_it_b_pay>
+                <it_b_pay>3d</it_b_pay>
+                <hash_order_no>0</hash_order_no>
+                <payment_action>authorize</payment_action>
+            </alipay_payment>
+        </payment>
+    </default>
+</config>

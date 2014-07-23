@@ -1,0 +1,55 @@
+<?php
+    /* @var $this ProxiBlue_Giftpromo_Block_Product_View_Type_Configurable */
+    $_product    = $this->getProduct();
+    /* @var Magiatec_Colorswatch_Model_Resource_Product_Type_Configurable_Attribute_Collection  */
+    $allowAttributes = $this->getAllowAttributes();
+    $_attributes = $allowAttributes->getItems();
+    ksort($_attributes);
+    $_attributes = Mage::helper('core')->decorateArray($_attributes);
+?>
+<?php if ($_product->isSaleable() && count($_attributes)):?>
+    <dl>
+        <?php /* @var $_attribute Mage_Catalog_Model_Product_Type_Configurable_Attribute */ ?>
+        <?php foreach($_attributes as $_attribute): ?>
+        <dt><label class="required"><?php echo $_attribute->getLabel() ?></label></dt>
+        <dd<?php if ($_attribute->decoratedIsLast){?> class="last"<?php }?>>
+                <div class="input-box">
+                    <div style="display:none" class="magiatec-swatches">
+                          <ul>
+                          </ul>
+                        <div style="clear:both;"></div>
+                    </div>
+                    <div class="magiatec-options-shopping-cart-wrapper">
+                        <select name="super_attribute[<?php echo $_product->getId(); ?>][<?php echo $_attribute->getAttributeId() ?>]" id="attribute<?php echo $_attribute->getAttributeId() ?>" class="required-entry super-attribute-select super-attribute-select-<?php echo $_product->getId(); ?>">
+                            <option><?php echo $this->__('Choose an Option...') ?></option>
+                        </select>
+                        <script type="text/javascript">
+                            (function($){
+                                <?php if($_attribute->getProductAttribute()->getAttributeCode() == 'color_code'): ?>
+                                    $("select.super-attribute-select-<?php echo $_product->getId(); ?>").bind('change',function(){
+                                        var options = spConfig<?php echo $_product->getId();?>.config.attributes[<?php echo $_attribute->getAttributeId(); ?>].options;
+                                            options.each(function(object, index){
+                                                var switchMainImage ;
+                                                if( object.id == $('select.super-attribute-select-<?php echo $_product->getId(); ?>').val()) {
+                                                    switchMainImage = object.main_image ;
+
+                                                    $('form#giftpromo_select_form_<?php echo $_product->getId(); ?> .thumbnail a img').attr('src', switchMainImage);
+                                                }
+                                            })
+                                    })
+                                <?php endif;?>
+                            })(jQuery)
+                        </script>
+                    </div>
+            </div>
+        </dd>
+    <?php endforeach; ?>
+    </dl>
+    <script type="text/javascript">
+        var spConfig<?php echo $_product->getId();?> = new Product.Config((function (config) {
+            config.containerId = "product-options-wrapper<?php echo $_product->getId(); ?>";
+            config.optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+            return config;
+        })(<?php echo $this->getJsonConfig() ?>));
+    </script>
+<?php endif;?>

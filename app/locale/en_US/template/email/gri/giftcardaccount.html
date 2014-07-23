@@ -1,0 +1,23 @@
+<!--@subject You have received a gift card from{{var store.getFrontendName()}} @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image",
+"var name|escape":"Recipient Name",
+"var store.getFrontendName()|escape":"Store Name",
+"var code|escape":"Gift Card Code",
+"var balance":"Gift Card Balance"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+{{block type='core/template' area='frontend' template='email/header.phtml'}}
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:18px;color:#000;">Dear {{var name|escape}},<br/>
+  <br/>
+  You have received a CentralCentralShop.com gift card, you can use it shopping.</p>
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:12px;background:#F7F7F7;line-height:20px;padding:15px"> <strong>Gift Card Code:</strong><span style="text-decoration: none;color: #000000;"> {{var code|escape}}</span></p>
+  <p style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:18px;color:#000;">
+  Gift card balance is {{var balance}}, can be used on <a style="color:#999;text-decoration:underline" href="{{store url="/"}}">{{store url="/"}}</a>.</p>
+<br />
+<br />
+{{block type='core/template' area='frontend' template='email/footer.phtml'}}

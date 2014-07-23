@@ -1,0 +1,49 @@
+<?php
+    /* @var $this Gri_Customer_Block_Newsletter */
+    $buttonTitle = $this->getIsSubscribed() ? 'Unsubscribe' : 'Subscribe';
+?>
+<div class="page-title">
+    <h1><?php echo $this->__('Newsletter') ?></h1><a href="javascript:void(0)" class="dashboard-dropdown-menu"></a>
+</div>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php echo $this->getChildHtml('form_before') ?>
+<div class="my-newsletter">
+    <form action="<?php echo $this->getAction() ?>" method="post" id="form-validate">
+        <?php echo $this->getBlockHtml('formkey') ?>
+        <input type="hidden" name="is_subscribed" value="<?php echo $this->getIsSubscribed() ? 0 : 1; ?>" />
+        <?php echo $this->getChildHtml('customer.form.newsletter.extra') ?>
+        <?php
+              $cmsBlock = $this->getLayout()->createBlock('cms/block');
+              echo $this->getIsSubscribed() ? $cmsBlock->setBlockId('my-newsletter-subscribed')->toHtml() : $cmsBlock->setBlockId('my-newsletter-unsubscribed')->toHtml();
+        ?>
+
+       <!-- <div class="thank-you-for-subscription">
+            <div class="left">
+                <h2>Thank you for your subscribing To Our Newsletter</h2>
+                <p>
+                    You'll now receive exclusive promotions,latest arrivals and the hottest trends all in your in box!
+                    <br />
+                    <br />
+                    If you change your mind and would like to not continue receiving our latest news and promotion,please contact us to unsubscribe at any time.
+                </p>
+            </div>
+            <div class="right">
+                <img src="{{skin_url=\'images/customer-service.png\'}}"/>
+            </div>
+        </div>-->
+
+
+        <div class="buttons-set">
+            <button type="submit" title="<?php echo $this->__($buttonTitle) ?>" class="button">
+                <span><span><?php echo $this->__($buttonTitle) ?></span></span></button>
+        </div>
+    </form>
+
+</div>
+<?php /* Extensions placeholder */ ?>
+<?php echo $this->getChildHtml('customer.form.newsletter.extra2') ?>
+<script type="text/javascript">
+    //<![CDATA[
+    var dataForm = new VarienForm('form-validate', true);
+    //]]>
+</script>

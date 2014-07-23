@@ -1,0 +1,37 @@
+0.0.3   : Initial public release
+0.0.4   : Add ability to list categories in the attribute list
+        : Add indexer
+0.0.5   : Fix link to dyncatprod in config.xml
+        : Rework of admin products grid, fixing pager and ajax around it
+        : Fix anchor categories, so layered navigation works
+0.1.0   : Fix admin count issue with magento version < 1.7 (bug : 18)
+0.1.0   : Add ranges to price fields (>,<,=,!,<=,>=)
+0.2.0   : Fix bug with multi select attributes
+        : Fix bug with wildcard in attributes with values (this something like te*st o*n* will match Test One)
+        : New Feature: Ability to pull in child categories in category ids using a + after the id (10+,7+,18+)
+        : Improved code of price limiter : A lot faster in calculating the result now.
+        : Attribute list in admin is now alpha sorted
+0.2.1   : Fix bug introduced in 0.2.0 where selectable (single) attributes no longer work and result in all products
+0.2.2   : Fix bug introduced by 0.0.4 when date ranges are used in filters
+0.2.3   : Add a trap around the indexer to catch any issues and log them as part of debug data
+0.2.4	: Add ability to display embedded dynamic product blocks using the {{ }} tags (like in CMS pages)
+0.2.5   : Fix items count in layered display (left column in default theme)
+0.2.6   : Add category display in layered navigation
+0.2.7   : BUGFIX Constraints on index tables did not take any table prefixes into account
+0.2.8   : BUGFIX Collecting back indexed values, join table did not honour tables with prefix in table names, thus gave 'table does not exist' 
+0.2.9	: BUGFIX: Issue with price filter and unknown column in where clause. Fix issue with indxer and multiple levels of categories in multiple stores
+0.2.10  : BUGFIX: Category filter was was filtering correctly
+        : Allow select attributes to map to multiple values when wildcards are used
+0.2.11  : Fix date calculations making date ranges work again
+0.2.12  : Remove line in catalog indexer that refered to undefined variable $product
+0.2.13  : Fix bug for Item (Mage_Catalog_Model_Product) with the same id "XXXXX" already exist when viewing categories
+0.2.14  : Indexed dynamic results failed to set is_dynamic flag in collection.
+0.2.15  : When category filter is used (?cat=) the filter product count was incorrect
+        : When category filter was active, other filters did not work (or even display)
+0.2.16  : Fix category filter when filtered on a category
+0.2.17  : Fix category filter for multilevel category structure
+0.2.18  : Call to $product->getCategoryIds() will now also return dynamic assigned category ids.
+0.2.19  : Fix bug with new code on 0.2.18
+0.2.20  : Add code to insert dynamic categories on product category calls (getCategoryIds(), get CategoryCollection() etc) 
+        : Fix indexing issues: On category save index was rebuild to only have that category indexed.  
+        : Eliminate duplicate product ids from index  

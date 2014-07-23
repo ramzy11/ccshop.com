@@ -1,0 +1,30 @@
+<?php
+/* @var $this Gri_Newcomer_Block_Popup */
+?>
+<div class="no-display"><div id="newcomer_popup" class="newcomer-popup">
+    <?php echo $this->getPopupContent(); ?>
+</div></div>
+<a href="#newcomer_popup" id="newcomer_popup_handler" class="no-display">P</a>
+<script type="text/javascript">
+//<![CDATA[
+(function (_) {
+    _(document).ready(function () {
+        _('#newcomer_popup_handler').fancybox({
+            padding: 0,
+            overlayColor: 'transparent',
+            showCloseButton: true,
+            shadowShow: false,
+            onClosed: function () {
+                Mage.Cookies.set('<?php echo $this->getCookieName(); ?>', 1);
+            }
+        }).click();
+    });
+})(jQuery);
+var newsletterSubscriberFormDetail = new VarienForm('newsletter-validate-detail-popup');
+var newsletterSubmitButton = $$('a.signup_btn')[0];
+if  (newsletterSubmitButton) newsletterSubmitButton.observe('click', function() {
+    var form = newsletterSubmitButton.parentNode;
+    if (form.email.value != '' && form.email.value != '<?php echo $this->__('ENTER EMAIL ADDRESS'); ?>') form.submit();
+});
+//]]>
+</script>

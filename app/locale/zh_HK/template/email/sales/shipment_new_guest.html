@@ -1,0 +1,29 @@
+<!--@subject CentralCentralShop.com 發貨單 (訂單號:{{var order.increment_id}}) @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"htmlescape var=$billing.getName()":"Guest Customer Name",
+"var store.getFrontendName()":"Store Name",
+"var shipment.increment_id":"Shipment Id",
+"var order.increment_id":"Order Id",
+"var order.billing_address.format('html')":"Billing Address",
+"var payment_html":"Payment Details",
+"var order.shipping_address.format('html')":"Shipping Address",
+"var order.shipping_description":"Shipping Description",
+"layout handle=\"sales_email_order_shipment_items\" shipment=$shipment order=$order":"Shipment Items Grid",
+"block type='core/template' area='frontend' template='email/order/shipment/track.phtml' shipment=$shipment order=$order":"Shipment Track Details",
+"var comment":"Shipment Comment"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+{{block type='core/template' area='frontend' template='email/header.phtml'}}
+<p style="font-size:16px; font-weight:normal; line-height:22px; margin:15px 0 0 0;color:#000;">親愛的 {{htmlescape var=$order.getCustomerName()}},</p>
+<p style="font-size:12px; line-height:22px;color:#000;">您在CentralCentralShop.com 訂購的產品已付運 (訂單號: {{var order.increment_id}})。請按<a href="{{store url='sales/order/history'}}" style="color:#000;padding:10px 0px; font-size:14px;">此</a> 登錄您的個人帳戶以查看訂單的最新狀態和貨件追蹤編號。</p>
+<p style="font-size:12px; line-height:22px;color:#000;">想了解更多我們的配送服務，請查閱<a href="{{store url='customer-service/shipping-delivery'}}" style="color:#000;padding:10px 0px; font-size:14px;">配送方式</a>。</p>
+<p style="font-size:12px; line-height:22px; margin:0;color:#000;">您可隨時登錄您的會員帳戶查看訂單最新狀態。如有任何疑問，歡迎透過電郵{{config path='trans_email/ident_support/email'}} 或電話 {{config path='general/store_information/phone'}}聯絡客戶服務部，我們將第一時間為您解答。</p>
+<p style="font-size:12px; line-height:22px;color:#000;">衷心感謝您於CentralCentralShop.com 購物，歡迎您再次光臨!</p>
+<br />
+<br />
+{{block type='core/template' area='frontend' template='email/footer.phtml'}}

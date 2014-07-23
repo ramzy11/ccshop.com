@@ -1,0 +1,11 @@
+<?php
+/* @var $this Mage_Rating_Block_Entity_Detailed */
+/* @var $_rating Mage_Rating_Model_Rating */
+?>
+<?php if(!empty($collection) && $collection->getSize()) { ?>
+    <?php foreach ($collection as $_rating) { ?>
+    <?php if($_rating->getSummary()) { ?>
+        <div><?php echo $this->__('%s reviews ,', $this->getReviewsCount()); ?><div class="rating-box"><span class="rating" style="width:<?php echo ceil($_rating->getSummary()) ?>%;"></span></div></div>
+    <?php } ?>
+    <?php break;} ?>
+<?php } ?>

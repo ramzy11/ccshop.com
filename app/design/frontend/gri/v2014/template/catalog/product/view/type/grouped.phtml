@@ -1,0 +1,142 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Grouped product data template
+ *
+ * @see Mage_Catalog_Block_Product_View_Media
+ * @see Mage_Catalog_Block_Product_View_Type_Grouped
+ */
+/* @var $this Gri_CatalogCustom_Block_Product_View_Type_Grouped */
+/* @var $_item Mage_Catalog_Model_Product */
+?>
+<?php $this->setPreconfiguredValue();
+$_product = $this->getProduct();
+$_helper = $this->helper('catalog/output');
+/* @var $_cartHelper Mage_Checkout_Helper_Cart */
+$_cartHelper = $this->helper('checkout/cart');
+$_associatedProducts = $this->getAssociatedProducts();
+$_hasAssociatedProducts = count($_associatedProducts) > 0;
+$categoryId = Mage::registry('current_category') ? Mage::registry('current_category')->getId() : 0;
+$brand = Mage::registry('brand_category') ? Mage::registry('brand_category')->getUrlKey() : '';
+?>
+<?php /*if ($_product->isAvailable() && $_hasAssociatedProducts): ?>
+    <p class="availability in-stock"><?php echo $this->__('Availability:') ?> <span><?php echo $this->__('In stock') ?></span></p>
+<?php else: ?>
+    <p class="availability out-of-stock"><?php echo $this->__('Availability:') ?> <span><?php echo $this->__('Out of stock') ?></span></p>
+<?php endif;*/
+?>
+<?php echo $this->getChildHtml('product_type_data_extra') ?>
+<div class="grouped-items">
+    <?php if ($_hasAssociatedProducts): ?>
+    <?php $this->backupCurrentProduct();
+    foreach ($_associatedProducts as $_item): ?>
+        <div class="grouped-item-detail">
+            <div class="grouped-item-image left">
+                <img src="<?php echo $this->helper('catalog/image')->init($_item, 'small_image')->resize(75); ?>" width=75 height=75/>
+            </div>
+            <div class="grouped-item-info left">
+                <form action="<?php echo $_cartHelper->getAddUrl($_item, array('category_id' => $categoryId)) ?>" method="post" id="product_addtocart_form-<?php echo $_item->getId(); ?>"<?php if ($_item->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+                    <input type="hidden" name="from_brand_page" value="<?php echo $brand; ?>" />
+                    <input type="hidden" name="product" value="<?php echo $_item->getId() ?>"/>
+                    <input type="hidden" name="related_product" id="related-products-field" value=""/>
+                    <?php echo $this->renderChildProduct($_item); ?>
+                </form>
+                <script type="text/javascript">
+                    //<![CDATA[
+                    var productAddToCartForm<?php echo $_item->getId(); ?> = new VarienForm('product_addtocart_form-<?php echo $_item->getId(); ?>');
+                    productAddToCartForm<?php echo $_item->getId(); ?>.submit = function(button, url) {
+                        if (this.validator.validate()) {
+                            var form = this.form;
+                            var oldUrl = form.action;
+                            if (url) {
+                                form.action = url;
+                            }
+                            var e = null;
+                            // Ajax for quickshop
+                            if (!url) {
+                                url = jQuery('#product_addtocart_form-<?php echo $_item->getId(); ?>').attr('action');
+                            }
+                            url = url.replace("checkout/cart","ajax/index"); // New Code
+                            var data = jQuery('#product_addtocart_form-<?php echo $_item->getId(); ?>').serialize();
+                            data += '&isAjax=1';
+                            jQuery('#ajax_loader<?php echo $_item->getId(); ?>').show();
+                            try {
+                                jQuery.ajax({
+                                    url : url,
+                                    dataType : 'json',
+                                    type : 'post',
+                                    cache: false,
+                                    data : data,
+                                    success : function(data) {
+                                        jQuery('#ajax_loader<?php echo $_item->getId(); ?>').hide();
+                                        data.topCart && jQuery('.header .top-cart-container').replaceWith(data.topCart);
+                                        var messageBlock = jQuery("#messages_product_view<?php echo $_item->getId(); ?>").html(data.message).show();
+                                        setTimeout(function(){messageBlock.hide();}, 5000);
+                                    }
+                                });
+                            } catch (e) {
+                            }
+                            this.form.action = oldUrl;
+                            if (e) {
+                                throw e;
+                            }
+                        }
+                    }.bind(productAddToCartForm<?php echo $_item->getId(); ?>);
+
+                    productAddToCartForm<?php echo $_item->getId(); ?>.submitLight = function(button, url){
+                        if(this.validator) {
+                            var nv = Validation.methods;
+                            delete Validation.methods['required-entry'];
+                            delete Validation.methods['validate-one-required'];
+                            delete Validation.methods['validate-one-required-by-name'];
+                            // Remove custom datetime validators
+                            for (var methodName in Validation.methods) {
+                                if (methodName.match(/^validate-datetime-.*/i)) {
+                                    delete Validation.methods[methodName];
+                                }
+                            }
+
+                            if (this.validator.validate()) {
+                                if (url) {
+                                    this.form.action = url;
+                                }
+                                this.form.submit();
+                            }
+                            Object.extend(Validation.methods, nv);
+                        }
+                    }.bind(productAddToCartForm<?php echo $_item->getId(); ?>);
+                    //]]>
+                </script>
+            </div>
+        </div>
+        <?php endforeach;
+    $this->restoreCurrentProduct(); ?>
+    <?php else: ?>
+    <span><?php echo $this->__('No options of this product are available.') ?></span>
+    <?php endif;?>
+</div>
+<script type="text/javascript">decorateTable('super-product-table')</script>

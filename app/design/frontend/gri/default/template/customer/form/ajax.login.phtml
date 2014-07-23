@@ -1,0 +1,182 @@
+<?php
+/* @var $this Gri_Customer_Block_Form_AjaxLogin */
+/* @var $customerHelper Mage_Customer_Helper_Data */
+$customerHelper = $this->helper('customer');
+?>
+<div style="display:none">
+    <iframe class="no-display" name="frameLoginPost"></iframe>
+    <div id="ajax-login-form">
+        <div class="col2-set">
+            <div class="col-1 registered-users">
+                <form id="ajaxlogin-form" method="post" action="<?php echo Mage::getUrl('preorder/account/ajaxLogin'); ?>" target="frameLoginPost">
+                    <div class="content">
+                        <ul class="form-list">
+                            <li>
+                                <label class="required" for="email_ajax"><?php echo $customerHelper->__('Email') ?></label>
+
+                                <div class="input-box">
+                                    <input type="text" title="<?php echo $customerHelper->__('Email') ?>" class="input-text required-entry validate-email" id="email_ajax" value="" name="username">
+                                </div>
+                            </li>
+                            <li>
+                                <label class="required" for="pass_ajax"><?php echo $customerHelper->__('Password') ?></label>
+
+                                <div class="input-box">
+                                    <input type="password" title="<?php echo $customerHelper->__('Password') ?>" id="pass_ajax" class="input-text required-entry validate-password" name="password">
+                                </div>
+                            </li>
+                            <li id="ajax-remember-me-box">
+                                <?php $_rememberMeId = 'remember_me' . Mage::helper('core')->getRandomString(10); ?>
+                                <label>&nbsp;</label>
+
+                                <div class="input-box">
+                                    <div class="input-box">
+                                        <a href="<?php echo Mage::getUrl('customer/account') ?>forgotpassword/"><?php echo $this->__('Forgot Your Password?') ?></a>
+                                    </div>
+                                    <div class="input-box">
+                                        <input type="checkbox" title="<?php echo $this->__('Remember Me') ?>" checked="checked" id="<?php echo $_rememberMeId; ?>" class="checkbox" name="persistent_remember_me">
+                                        <label for="<?php echo $_rememberMeId; ?>"><?php echo $this->__('Remember Me') ?></label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <label>&nbsp;</label>
+
+                                <div class="input-box">
+                                    <button id="ajax-login-submit" title="<?php echo $this->__('Sign in') ?>" class="button" type="button">
+                                        <span><span><?php echo $this->__('Sign in') ?></span></span></button>
+                                </div>
+                            </li>
+                            <li>
+                                <label>&nbsp;</label>
+
+                                <div class="input-box">
+                                    <?php echo $this->__('OR'); ?>
+                                </div>
+                            </li>
+                            <li>
+                                <label>
+                                    <?php echo $this->__('Sign in with'); ?>
+                                </label>
+
+                                <div class="input-box" style="width: 186px">
+                                    <?php if (Mage::helper('inchoo_facebook')->isEnabled()): ?>
+                                    <a title="Connect with Facebook" rel="facebook-connect" href="javascript:;">
+                                        <img src="<?php echo $this->getSkinUrl('images/facebook_login.jpg'); ?>">
+                                    </a>
+                                    <?php endif;?>
+                                    <?php  if (Mage::helper('inchoo_weibo')->isEnabled()): ?>
+                                    <a id="weibo_login_one" href="javascript:;">
+                                        <img src="<?php echo $this->getSkinUrl('images/weibo_login.png'); ?>">
+                                    </a>
+                                    <script type="text/javascript">
+                                        (function ($) {
+                                            function openOneWind(url) {
+                                                var top = (document.body.clientHeight - 380) / 2;
+                                                var left = (document.body.clientWidth - 560) / 2;
+
+                                                window.open(url, 'weibowindow', 'height=600, width=670, scrollbars=yes, resizable=no,top=' + top + ',left=' + left + ', location=yes, status=no');
+                                            }
+
+                                            var targetUrl = "https://api.weibo.com/oauth2/authorize?client_id=1318828505&display=popup&response_type=code&redirect_uri=<?php echo Mage::getBaseUrl(); ?>inchoo_weibo/customer_account/connect";
+                                            $('#weibo_login_one').bind('click', function () {
+                                                openOneWind(targetUrl);
+                                            })
+                                        })(jQuery)
+                                    </script>
+                                    <?php endif; ?>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    (function ($) {
+        /**
+         * @param  username
+         * @return int
+         */
+        function valid_username(username) {
+            username = $.trim(username);
+
+            if (!username) {
+                return 0;
+            } else if (!/^([a-z0-9,!\#\$%&'\*\+\/=\?\^_`\{\|\}~-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z0-9,!\#\$%&'\*\+\/=\?\^_`\{\|\}~-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*@([a-z0-9-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z0-9-]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*\.(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]){2,})$/i.test(username)) {
+                return -1;
+            }
+
+            return 1;
+        }
+
+        /**
+         *   @param  password
+         *
+         *   @return int
+         */
+        function valid_password(password) {
+            password = $.trim(password);
+            if (password == '') {
+                return 0;
+            }
+            return 1;
+        }
+
+
+        $('#ajax-login-btn').fancybox({
+            'titlePosition':'outside',
+            'transitionIn':'none',
+            'transitionOut':'none',
+            'titleFormat':function (title, currentArray, currentIndex, currentOpts) {
+                return '';
+            }
+        });
+
+        $('#ajax-login-submit').on('click', function () {
+            var username = $('#email_ajax').val(),
+                password = $('#pass_ajax').val(),
+                remeber_me = $('#<?php echo $_rememberMeId; ?>').val(),
+                domain = '<?php echo Mage::getStoreConfig(Mage_Core_Model_Cookie::XML_PATH_COOKIE_DOMAIN); ?>';
+            remeber_me = !!remeber_me;
+
+            //valid  username &   password
+            var ret_username, ret_password;
+            ret_username = valid_username(username);
+            if (ret_username == 0) {
+                alert('<?php echo $this->__('Login and password are required.'); ?>');
+                return false;
+            } else if (ret_username == -1) {
+                alert('<?php echo $this->__('Invalid email address.'); ?>');
+                return false;
+            }
+
+            ret_password = valid_password(password);
+            if (ret_password == 0) {
+                alert('<?php echo  $this->__('Login and password are required.'); ?>');
+                return false;
+            }
+            domain && (document.domain = domain);
+            this.form.submit();
+            $("#ajax-login-form").hide().parent().append('<div class="notice"><?php echo $this->__('Signing in...'); ?></div>');
+            return;
+
+            $.ajax({
+                type:"POST",
+                crossDomain: true,
+                url:"<?php echo Mage::getUrl('preorder/account'); ?>ajaxLogin?rnd=" + Math.random(),
+                data:{'username':username, 'password':password, 'remeber_me':remeber_me},
+                dataType:'json',
+                success:function () {
+                    window.location.reload();
+                },
+                error:function (XMLHttpRequest, textStatus, errorThrown) {
+                    window.location.reload();
+                }
+            });
+        })
+
+    })(jQuery);
+</script>

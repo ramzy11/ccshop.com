@@ -1,0 +1,334 @@
+@charset "utf-8";
+.cms body {
+	font-family: Arial, Helvetica, sans-serif;
+	 font-size:13px;
+	 color:#808080;
+	/*background:#EFEFEF;*/
+}
+
+.cms h1,h2,h3,h4,h5,h6{
+	font-weight:normal;
+	padding:0;
+	margin:0;
+}
+
+.cms h1{
+	 font-family: 'futura_bk_btbook';
+	 text-transform:uppercase;
+	 color:#000;
+	 padding-bottom:5px;
+	 border-bottom:1px solid #000;
+	 margin-bottom:20px;
+	 font-size:40px;
+}
+
+.cms h2{
+	 font-family: 'futura_hv_btheavy';
+	 color:#333;
+	 font-size:25px;
+}
+
+.cms h3{
+	 font-family: 'futura_lt_btlight';
+	 text-transform:uppercase;
+	 color:#000;
+	 font-size:25px;
+}
+
+.cms h4{
+	 font-family: 'futura_lt_btlight_italic';
+	 color:#808080;
+	 font-size:18px;
+}
+
+.cms h5{
+	 font-family: 'futura_bk_btbook';
+	 text-transform:uppercase;
+	 color:#000;
+	 font-size:15px;
+}
+
+.cms h6{
+	 font-family: 'futura_bk_btbook_italic';
+	 color:#000;
+	font-size:15px;
+}
+
+.cms .normal{
+	font-family: 'futura_bk_btbook';
+}
+
+.cms .italic_normal{
+	font-family: 'futura_bk_btbook_italic'
+}
+
+.cms .bold{
+	 font-family: 'futura_hv_btheavy';
+}
+
+.cms .italic_bold{
+ 	font-family: 'futura_hv_btheavy_italic'
+}
+
+.cms .light{
+	font-family: 'futura_lt_btlight';
+}
+
+.cms .italic_light{
+	font-family: 'futura_lt_btlight_italic';
+}
+
+.cms .bodoni{
+	font-family: 'BauerBodoniStd-Roman'
+}
+
+.cms .italic_bodoni{
+	font-family: 'BauerBodoniStd-Italic';
+}
+
+.cms p{
+	 font-family:Arial, Helvetica, sans-serif;
+	 font-size:13px;
+	 color:#808080;
+	 line-height:18px;
+}
+
+
+.cms a:link{
+	color:inherit;
+	text-decoration:underline;
+}
+
+.cms a:visited{
+	color:inherit;
+	text-decoration:underline;
+}
+
+.cms a:hover{
+	color:inherit;
+	text-decoration:none;
+}
+
+.cms a:active{
+	color:inherit;
+	text-decoration:none;
+}
+
+.cms table{
+border:1px solid #E3E3E3;
+text-align:left;
+border-collapse:separate;
+border-spacing:15px 10px;
+}
+
+.cms th{
+	font-family: 'futura_bk_btbook';
+	text-transform:uppercase;
+	font-weight:normal;
+	font-size:13px;
+	color:#000;
+	border-spacing:10px 15px;
+	text-align:left;
+}
+
+.cms td{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#808080;
+	padding:0px 0px 0px 0px;
+}
+
+.cms.tablebreak{
+	border-bottom:1px solid #E3E3E3;
+	width: 100%;
+	background: none;
+	height: 1px;
+	line-height: 1px;
+}
+
+
+.cms .label_title{
+	 font-family: 'futura_bk_btbook';
+	 text-transform:uppercase;
+	 color:#000;	 
+	 padding-bottom:20px;
+	 font-size:20px;
+}
+
+.cms label{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	color:#808080;
+	display:block;
+	margin-bottom:10px;
+}
+
+.cms select{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#808080;
+	padding:3px 10px;
+	margin-bottom:20px;
+}
+
+
+.cms #submenu h3 {
+	color:#808080 !important;
+	text-align:center;
+	margin:10px 0px 30px 0px;
+}
+
+.cms #submenu a:link{
+	color:inherit;
+	text-decoration:none;
+}
+
+.cms #submenu a:visited{
+	color:inherit;
+	text-decoration:none;
+}
+
+.cms #submenu a:hover{
+	color:inherit;
+	text-decoration:underline;
+}
+
+.cms #submenu a:active{
+	color:#000 !important;
+	text-decoration:none;
+}
+
+
+.cms ul, ol{
+	margin:0px;
+	padding:0px;
+	margin-left:1.4em;
+}
+
+
+.cms li{
+	margin-bottom:5px;
+	line-height:18px;
+}
+
+.cms hr { display: block; height: 1px; border: 0; border-top: 1px solid #E3E3E3; padding-top:0px;
+	margin-top:10px; }	
+	
+.cms .button{
+	background-color:#000;
+	color:#fff !important;
+	font-family: 'futura_bk_btbook';
+	font-size:13px;
+	text-transform:uppercase;
+	padding:5px 15px;
+	display:inline-block;
+}
+
+.cms a.button:link{
+	text-decoration:none;
+}
+
+.cms a.button:visited{
+	text-decoration:none;
+}
+
+.cms a.button:hover{
+	text-decoration:none;
+	opacity:0.7;
+}
+
+.cms a.button:active{
+	text-decoration:none;
+}
+
+.cms .button_space{	
+	margin-left:10px;
+}
+
+.cms .text_button{
+	font-family: 'futura_bk_btbook';
+	font-size:15px;
+	text-transform:uppercase;
+	display:block;
+	margin-bottom:8px;
+}
+
+.cms a.text_button:link{
+	text-decoration:none;
+}
+
+.cms a.text_button:visited{
+	text-decoration:none;
+}
+
+.cms a.text_button:hover{
+	text-decoration:none;
+	color:#000;
+}
+
+.cms a.text_button:active{
+	text-decoration:none;
+}
+
+.cms #chart table{
+	font-family: 'futura_bk_btbook';
+	font-size:13px;
+	text-align:center;
+	border-collapse:collapse;
+}
+
+.cms #chart th{
+	background-color:#000;
+	color:#fff;
+	font-size:13px;
+	text-transform:uppercase;
+	padding:10px 10px;
+	text-align:center;
+	border:1px solid #E3E3E3;
+}
+
+.cms #chart td{
+	border:1px solid #E3E3E3;
+	padding:10px 10px;
+}
+
+.cms #letter{
+	font-family: 'BauerBodoniStd-Italic', "Times New Roman", Times, serif;
+	font-size:60px;
+	color:#000;
+	margin-bottom:10px;
+}
+
+.cms #word{
+	margin-bottom:20px;
+}
+
+.cms #word h5{
+	margin-bottom:-5px;
+}
+
+.cms #word p{
+	margin-bottom:30px;
+}
+.cms .line { clear:both; display:block;height: 1px; border: 0; border-top: 1px solid #E3E3E3; padding-top:20px }
+
+.cms #app{
+	color:#000;
+}
+
+
+.cms #mag .arrow_left{
+	position:relative;
+	margin-top:-42%;
+	float:left;
+}
+
+.cms #mag .arrow_right{
+	position:relative;
+	margin-top:-42%;
+	float:right;
+}
+
+.cms #mag .arrow_left:hover, #mag .arrow_right:hover{
+	opacity:0.7;
+}

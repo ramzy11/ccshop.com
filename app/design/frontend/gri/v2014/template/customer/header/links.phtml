@@ -1,0 +1,32 @@
+<div class="welcome">
+    <?php
+    /* @var $session Mage_Customer_Model_Session */
+    $customerSession = Mage::getSingleton('customer/session');
+    /* @var $customer Gri_Customer_Model_Customer */
+    $customer = $customerSession->getCustomer();
+    /* @var $customerHelper Mage_Customer_Helper_Data */
+    $_helper = Mage::helper('customer');
+    $griCustomerHelper = Mage::helper('gri_customer');
+    ?>
+    <?php if ($customerSession->isLoggedIn()):?>
+        <a class="uline"><?php echo $customer->getName(); ?></a>
+        <div class="logged_content">
+            <ul>
+                <li class="logged_account"><a
+                        href="<?php echo $_helper->getAccountUrl(); ?>"><?php echo $griCustomerHelper->__('My Account'); ?></a>
+                </li>
+                <li class="logged_order"><a
+                        href="<?php echo Mage::getUrl('sales/order/history/'); ?>"><?php echo $griCustomerHelper->__('Orders'); ?></a>
+                </li>
+                <li class="logged_return"><a
+                        href="<?php echo Mage::getUrl('awrma/customer_rma/list/'); ?>"><?php echo $griCustomerHelper->__('Return / Exchange'); ?></a>
+                </li>
+                <li class="logged_signout"><a href="<?php echo $_helper->getLogoutUrl(); ?>"
+                                              class="f10"><?php echo $griCustomerHelper->__('Sign Out'); ?></a></li>
+            </ul>
+        </div>
+    <?php else: ?>
+        <a class="uuline" href="<?php echo $_helper->getLoginUrl();?>"
+           class="f10"><?php echo $griCustomerHelper->__('Sign in / Register'); ?></a>
+    <?php endif; ?>
+</div>

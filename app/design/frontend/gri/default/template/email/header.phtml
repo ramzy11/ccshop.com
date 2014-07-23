@@ -1,0 +1,36 @@
+<?php
+/* @var $this Mage_Core_Block_Template */
+/* @var $emailHelper Gri_Core_Helper_Email */
+$emailHelper = Mage::helper('gri_core/email');
+?>
+<table style="margin:0;color:#333;background: #fff;border:none;" cellspacing="0" cellpadding="0" >
+    <tbody>
+    <tr>
+        <td align="center" width="24" valign="top" bgcolor="#000000">&nbsp;</td>
+        <td>
+            <table cellspacing="0" cellpadding="0">
+                <tbody>
+                <tr><td align="center" valign="top" bgcolor="#000000" style="width: 650px;height:16px;">&nbsp;</td></tr>
+                <tr>
+                    <td>
+                        <!-- [ header starts here] -->
+                        <table align="center" width="650" style="border:0;height:70px;border-bottom:8px solid #000000;" cellspacing="0" cellpadding="0" >
+                            <tbody>
+                            <tr>
+                                <td valign="top" align="center" bgcolor="#ffffff">
+                                    <br /><br />
+                                    <a title="<?php echo $this->__('Central/Central'); ?>" href="<?php echo $this->getUrl('/'); ?>"><img style="border:none;" src="<?php echo $emailHelper->getLogoUrl(); ?>" alt="<?php echo $emailHelper->getLogoAlt(); ?>" border="0"/></a>
+                                    <br /><br />
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table align="center" width="650" style="border:0;" cellspacing="0" cellpadding="0">
+                            <tbody>
+                            <!-- [ middle starts here] -->
+                            <tr valign="top">
+                                <td valign="top" align="left" bgcolor="#ffffff" style="padding:0 35px;margin:0;"><br />

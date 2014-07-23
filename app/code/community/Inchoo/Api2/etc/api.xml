@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author      Branko Ajzele, ajzele@gmail.com
+ * @category    Inchoo
+ * @package     Inchoo_Api
+ * @copyright   Copyright (c) Inchoo LLC (http://inchoo.net)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <api2>
+        <adapters>
+            <inchoo_api2_rest>
+                <model>inchoo_api2/api_server_adapter_rest</model>
+                <handler>inchoo_api2_rest</handler>
+                <active>1</active>
+            </inchoo_api2_rest>   
+            <inchoo_api2_json>
+                <model>inchoo_api/api_server_adapter_json</model>
+                <handler>inchoo_api_json</handler>
+                <active>1</active>
+            </inchoo_api2_json>     
+            <inchoo_api2_amf>
+                <model>inchoo_api2/api_server_adapter_amf</model>
+                <handler>inchoo_api2_amf</handler>
+                <active>1</active>
+            </inchoo_api2_amf>            
+        </adapters>
+        <handlers>
+            <inchoo_api2_rest>
+                <model>inchoo_api2/api_server_handler_rest</model>
+            </inchoo_api2_rest>  
+            <inchoo_api2_json>
+                <model>inchoo_api2/api_server_handler_json</model>
+            </inchoo_api2_json>    
+            <inchoo_api2_amf>
+                <model>inchoo_api2/api_server_handler_amf</model>
+            </inchoo_api2_amf>             
+        </handlers>
+    </api2>
+</config>

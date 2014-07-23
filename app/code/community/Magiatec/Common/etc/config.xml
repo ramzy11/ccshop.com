@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<config>
+    <modules>
+        <Magiatec_Common>
+            <version>1.0.0</version>
+        </Magiatec_Common>
+    </modules>
+    <global>
+        <models>
+            <magiatec>
+                <class>Magiatec_Common_Model</class>
+            </magiatec>    
+        </models>
+        <blocks>
+            <magiatec>
+                <class>Magiatec_Common_Block</class>
+            </magiatec>
+        </blocks>
+        <helpers>
+            <magiatec>
+                <class>Magiatec_Common_Helper</class>
+            </magiatec>
+        </helpers>
+    </global>
+    <adminhtml>
+        <events>
+            <!--controller_action_predispatch>
+                <observers>
+                    <escommon_check>
+                        <type>singleton</type>
+                        <class>magiatec/feed</class>
+                        <method>check</method>
+                    </escommon_check>
+                </observers>
+            </controller_action_predispatch-->
+        </events>
+    </adminhtml>
+</config>

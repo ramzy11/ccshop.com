@@ -1,0 +1,23 @@
+<!--@subject 退订感谢 @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"store url=\"customer/account/\"":"Customer Account Url",
+"var subscriber.getSubscriberFullName()":"Customer Name",
+"var customer.email":"Customer Email",
+"store url=\"customer/account/confirm/\" _query_id=$customer.id _query_key=$customer.confirmation _query_back_url=$back_url":"Confirmation Url",
+"htmlescape var=$customer.password":"Customer password"}
+@-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+{{block type='core/template' area='frontend' template='email/header.phtml'}}
+<span style="font-size:13px; font-weight: normal; line-height: 22px;color:#000;display: block;">亲爱的客户,<br />您已成功取消订阅<strong>{{var store.getFrontendName()}}</strong>官方网店邮件。<br />如您需要再次订阅，可点击<a href="{{store url='/'}}">{{var store.getFrontendName()}}</a>直接订阅。</span>
+<br />
+<br />
+<br />
+<br />
+{{block type='core/template' area='frontend' template='email/footer.phtml'}}

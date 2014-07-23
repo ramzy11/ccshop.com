@@ -1,0 +1,260 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <report>
+            <children>
+                <salesroot translate="title" module="gri_reports">
+                    <title>Sales</title>
+                    <sort_order>1</sort_order>
+                    <children>
+                        <summary translate="title">
+                            <title>Sales Summary (Products)</title>
+                            <sort_order>100</sort_order>
+                            <action>gri_reports/sales/summary/</action>
+                        </summary>
+                        <orders translate="title">
+                            <title>Orders Summary</title>
+                            <sort_order>200</sort_order>
+                            <action>gri_reports/sales/orders/</action>
+                        </orders>
+                        <order_details translate="title">
+                            <title>Order Details Report</title>
+                            <sort_order>300</sort_order>
+                            <action>gri_reports/sales/orderDetails/</action>
+                        </order_details>
+                        <rma_details translate="title">
+                            <title>Returns &amp; Exchanges Report</title>
+                            <sort_order>400</sort_order>
+                            <action>gri_reports/sales/rmaDetails/</action>
+                        </rma_details>
+                        <coupon_summary translate="title">
+                            <title>Coupon Information Summary</title>
+                            <sort_order>410</sort_order>
+                            <action>gri_reports/sales/couponSummary/</action>
+                        </coupon_summary>
+                        <coupon_details translate="title">
+                            <title>Coupon Details Report</title>
+                            <sort_order>420</sort_order>
+                            <action>gri_reports/sales/couponDetails/</action>
+                        </coupon_details>
+
+                        <sales translate="title" module="reports">
+                            <title>Sales Summary (Orders)</title>
+                            <sort_order>50</sort_order>
+                        </sales>
+                        <tax translate="title" module="reports">
+                            <sort_order>900</sort_order>
+                        </tax>
+                        <invoiced translate="title" module="reports">
+                            <sort_order>1000</sort_order>
+                        </invoiced>
+                        <shipping translate="title" module="reports">
+                            <sort_order>1100</sort_order>
+                        </shipping>
+                        <refunded translate="title" module="reports">
+                            <sort_order>1200</sort_order>
+                        </refunded>
+                        <coupons translate="title" module="reports">
+                            <sort_order>1300</sort_order>
+                        </coupons>
+                        <financial translate="title">
+                            <title>Financial Report</title>
+                            <sort_order>1350</sort_order>
+                            <action>gri_reports/sales/financial/</action>
+                        </financial>
+                        <paypal_settlement_reports>
+                            <sort_order>1400</sort_order>
+                        </paypal_settlement_reports>
+                    </children>
+                </salesroot>
+                <categories translate="title" module="gri_reports">
+                    <title>Category </title>
+                    <sort_order>2</sort_order>
+                    <children>
+                        <category_summary translate="title">
+                            <title>Category Analysis Report</title>
+                            <sort_order>0</sort_order>
+                            <action>gri_reports/sales/categorySummary/</action>
+                        </category_summary>
+                    </children>
+                </categories>
+                <products translate="title" module="gri_reports">
+                    <!--<title>Products</title>-->
+                    <sort_order>3</sort_order>
+                    <children>
+                        <product_summary translate="title">
+                            <title>Product Sales Rank</title>
+                            <sort_order>0</sort_order>
+                            <action>gri_reports/sales/productSummary/</action>
+                        </product_summary>
+                        <discount_summary translate="title">
+                            <title>Discount % Distribution Report</title>
+                            <sort_order>1</sort_order>
+                            <action>gri_reports/sales/discountSummary/</action>
+                        </discount_summary>
+
+                        <bestsellers translate="title" module="reports">
+                            <sort_order>100</sort_order>
+                        </bestsellers>
+                        <sold translate="title" module="reports">
+                            <sort_order>200</sort_order>
+                        </sold>
+                        <viewed translate="title" module="reports">
+                            <sort_order>300</sort_order>
+                        </viewed>
+                        <lowstock translate="title" module="reports">
+                            <sort_order>400</sort_order>
+                        </lowstock>
+                    </children>
+                </products>
+                <customers translate="title" module="gri_reports">
+                    <title>Members</title>
+                    <sort_order>4</sort_order>
+                    <children>
+                        <consumption_summary translate="title">
+                            <title>Member Purchase Rank</title>
+                            <sort_order>0</sort_order>
+                            <action>gri_reports/customers/consumptionSummary/</action>
+                        </consumption_summary>
+
+                        <accounts>
+                            <sort_order>100</sort_order>
+                        </accounts>
+                        <totals>
+                            <sort_order>200</sort_order>
+                        </totals>
+                        <orders>
+                            <sort_order>300</sort_order>
+                        </orders>
+                    </children>
+                </customers>
+            </children>
+        </report>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <report>
+                        <children>
+                            <salesroot translate="title" module="gri_reports">
+                                <title>Sales</title>
+                                <sort_order>1</sort_order>
+                                <children>
+                                    <summary translate="title">
+                                        <title>Sales Summary (Products)</title>
+                                        <sort_order>100</sort_order>
+                                    </summary>
+                                    <orders translate="title">
+                                        <title>Orders Summary</title>
+                                        <sort_order>200</sort_order>
+                                    </orders>
+                                    <order_details translate="title">
+                                        <title>Order Details Report</title>
+                                        <sort_order>300</sort_order>
+                                    </order_details>
+                                    <rma_details translate="title">
+                                        <title>Returns &amp; Exchanges Report</title>
+                                        <sort_order>400</sort_order>
+                                    </rma_details>
+                                    <coupon_summary translate="title">
+                                        <title>Coupon Information Summary</title>
+                                        <sort_order>410</sort_order>
+                                    </coupon_summary>
+                                    <coupon_details translate="title">
+                                        <title>Coupon Details Report</title>
+                                        <sort_order>420</sort_order>
+                                    </coupon_details>
+
+                                    <sales translate="title" module="reports">
+                                        <title>Sales Summary (Orders)</title>
+                                        <sort_order>50</sort_order>
+                                    </sales>
+                                    <tax translate="title" module="reports">
+                                        <sort_order>900</sort_order>
+                                    </tax>
+                                    <invoiced translate="title" module="reports">
+                                        <sort_order>1000</sort_order>
+                                    </invoiced>
+                                    <shipping translate="title" module="reports">
+                                        <sort_order>1100</sort_order>
+                                    </shipping>
+                                    <refunded translate="title" module="reports">
+                                        <sort_order>1200</sort_order>
+                                    </refunded>
+                                    <coupons translate="title" module="reports">
+                                        <sort_order>1300</sort_order>
+                                    </coupons>
+                                    <financial translate="title">
+                                        <title>Financial Report</title>
+                                        <sort_order>1350</sort_order>
+                                    </financial>
+                                    <paypal_settlement_reports>
+                                        <sort_order>1400</sort_order>
+                                    </paypal_settlement_reports>
+                                </children>
+                            </salesroot>
+                            <categories translate="title" module="gri_reports">
+                                <title>Category </title>
+                                <sort_order>2</sort_order>
+                                <children>
+                                    <category_summary translate="title">
+                                        <title>Category Analysis Report</title>
+                                        <sort_order>0</sort_order>
+                                    </category_summary>
+                                </children>
+                            </categories>
+                            <products translate="title" module="gri_reports">
+                                <!--<title>Products</title>-->
+                                <sort_order>3</sort_order>
+                                <children>
+                                    <product_summary translate="title">
+                                        <title>Product Sales Rank</title>
+                                        <sort_order>0</sort_order>
+                                    </product_summary>
+                                    <discount_summary translate="title">
+                                        <title>Discount % Distribution Report</title>
+                                        <sort_order>1</sort_order>
+                                    </discount_summary>
+
+                                    <bestsellers translate="title" module="reports">
+                                        <sort_order>100</sort_order>
+                                    </bestsellers>
+                                    <sold translate="title" module="reports">
+                                        <sort_order>200</sort_order>
+                                    </sold>
+                                    <viewed translate="title" module="reports">
+                                        <sort_order>300</sort_order>
+                                    </viewed>
+                                    <lowstock translate="title" module="reports">
+                                        <sort_order>400</sort_order>
+                                    </lowstock>
+                                </children>
+                            </products>
+                            <customers translate="title" module="gri_reports">
+                                <title>Members</title>
+                                <sort_order>4</sort_order>
+                                <children>
+                                    <consumption_summary translate="title">
+                                        <title>Member Purchase Rank</title>
+                                        <sort_order>0</sort_order>
+                                    </consumption_summary>
+
+                                    <accounts>
+                                        <sort_order>100</sort_order>
+                                    </accounts>
+                                    <totals>
+                                        <sort_order>200</sort_order>
+                                    </totals>
+                                    <orders>
+                                        <sort_order>300</sort_order>
+                                    </orders>
+                                </children>
+                            </customers>
+                        </children>
+                    </report>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

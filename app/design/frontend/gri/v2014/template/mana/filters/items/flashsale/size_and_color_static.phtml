@@ -1,0 +1,22 @@
+<?php foreach(array('All-Sizes') as $filter): ?>
+    <div class="filter-content">
+        <div class="filter-item filter-item-brand">
+            <a class="filter-name"><?php echo $this->__($filter); ?></a>
+            <div id="filter-value-<?php echo strtolower($filter); ?>" class="filter-value" style="display: none;">
+                <dd class="last even"><!-- mana_filters/filter, Mana_Filters_Block_Filter , mana.catalog.filternav.child3, mana/filters/items/flashsale/list.phtml -->
+                    <div class="filter-1-cols clearer">
+                        <ol class="m-filter-item-list filter">
+                            <li class="m-filter-item">
+                                <a href="javascript:;" title="<?php echo $this->__('Please select product first'); ?>">
+                                    <?php echo $this->__('Please select product first'); ?>
+                                </a>
+                            </li>
+                        </ol>
+                    </div>
+                </dd>
+            </div>
+        </div>
+        <div id="filter-list">
+        </div>
+    </div>
+<?php endforeach;?>

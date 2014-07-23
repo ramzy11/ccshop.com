@@ -1,0 +1,7 @@
+<!--
+
+var store = {"China":{"customer_service":"+86 400 820 0006","store":{"Retail_Store":[["Chengdu IFS","+86 28 8662 2409"],["Beijing San Li Tun","+86 10 6416 7552"],["Guangzhou Taikoo hui","+86 20 3868 2953"],["Shanghai IFC Mall","+86 28 8662 2409"],["Chongqing North City Sky Street","-"]],"In_Central_Central":[["China World (Beijing) Shopping Mall","+86 010 65059669"],["LOTTE (Chengdu) Department store","+86 028 65188673"],["Shanghai L'Avenue","+86 021 60746415"]]}},"Hong_Kong":{"customer_service":"+852 2480 2888","store":{"In_CENTRALCENTRAL":[["CENTRAL\/CENTRAL, Central Building, 3 Pedder Street, Central","+852 2140 6318"]],"In_Steve_Madden":[["Langham Place","+852 3514 9491"],["APM","+852 3148 1378"],["New Town Plaza","+852 2603 2799"],["Times Square","+852 2506 3076"]]}},"Macau":{"customer_service":"+853 2838 9846","store":{"Retail_Store":[["The Grand Canal Shoppes, The Venetian Macau","+853 2886 6879"]],"In_CC_Shop":[["Shoppes at Cotai Central","Opening Soon"]]}},"Singapore":{"customer_service":"+65 6688 7363","store":{"Retail_Store":[["Marina Bay Sands","+65 6688 7363"]]}},"Thailand":{"customer_service":"+662 658 1428","store":{"In_CC_Shop":[["Central Embassy","Opening Soon"]]}}};
+
+var country = ['China','Hong_Kong','Macau','Singapore','Thailand'];
+
+-->

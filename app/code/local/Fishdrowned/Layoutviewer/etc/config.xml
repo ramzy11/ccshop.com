@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ * @author alanstorm@alanstorm.com
+ * @link http://alanstorm.com/layouts_blocks_and_templates
+ *
+ * @author fishdrowned@gmail.com
+ * @version 1.1.0 Added displayblock
+ *
+ */
+-->
+<config>
+    <modules>
+    <Fishdrowned_Layoutviewer>
+        <version>1.1.0</version>
+    </Fishdrowned_Layoutviewer></modules>
+
+    <global>
+        <models>
+            <fishdrowned_layoutviewer>
+                <class>Fishdrowned_Layoutviewer_Model</class>
+            </fishdrowned_layoutviewer>
+
+            <core>
+                <rewrite>
+                    <layout_update>Fishdrowned_Layoutviewer_Model_Layout_Update</layout_update>
+                </rewrite>
+            </core>
+
+        </models>
+
+        <events>
+            <controller_action_postdispatch>
+                <observers>
+                    <fishdrowned_layoutviewer_model_observer>
+                        <type>singleton</type>
+                        <class>Fishdrowned_Layoutviewer_Model_Observer</class>
+                        <method>checkForLayoutDisplayRequest</method>
+                    </fishdrowned_layoutviewer_model_observer>
+                </observers>
+            </controller_action_postdispatch>
+
+            <core_block_abstract_to_html_after>
+                <observers>
+                    <fishdrowned_layoutviewer_model_observer>
+                        <type>singleton</type>
+                        <class>Fishdrowned_Layoutviewer_Model_Observer</class>
+                        <method>checkForBlockDisplayRequest</method>
+                    </fishdrowned_layoutviewer_model_observer>
+                </observers>
+            </core_block_abstract_to_html_after>
+        </events>
+    </global>
+</config>

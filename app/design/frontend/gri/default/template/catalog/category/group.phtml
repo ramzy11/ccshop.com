@@ -1,0 +1,90 @@
+<?php
+/* @var $this Gri_CatalogCustom_Block_Category_Group */
+/* @var $category Mage_Catalog_Model_Category */
+?>
+<?php echo $this->addJs(); ?>
+<script type="text/javascript">
+    (function($) {
+        window.loadGroupProducts = function(args) {
+        var container = args.sliderContainerObject, targetSlide = args.targetSlideObject.next().next().next(),
+            urlTemplate = "<?php echo $this->getLoadGroupProductsUrl(); ?>";
+        if (targetSlide.length && targetSlide.hasClass("empty") && !targetSlide.hasClass("loading")) {
+            var categoryId = container.attr("id").substr(15), page = targetSlide.attr("page");
+            var url = urlTemplate.replace("{id}", categoryId).replace("{page}", page),
+                pendingItems = container.find("li[page=" + page + "]");
+            pendingItems.addClass("loading");
+            $.ajax({
+                url: url,
+                type: "GET",
+                dataType: "jsonp",
+                success: function(data) {
+                    if (data && data.html) {
+                        var elements = $(data.html).children("li.item").toArray();
+                        pendingItems.each(function() {
+                            var li = elements.shift(), obj = $(this);
+                            if (li) obj.slideUp(400, function() {
+                                obj.html(li.innerHTML).removeClass("empty");
+                            }).slideDown(400);
+                            else obj.removeClass("empty");
+                        });
+                        setTimeout(initSwatchOptions, 500);
+                        setTimeout(initGiftItemsBind,500);
+                    }
+                },
+                complete: function() {
+                    pendingItems.removeClass("loading");
+                }
+            });
+        }
+    };})(jQuery);
+</script>
+<div class="category-group">
+    <?php foreach ($this->getCategories() as $category) {
+    $categoryProducts = $this->getCategoryProducts($category);
+    $count = $categoryProducts->count();
+    $totalCount = $categoryProducts->getSize();
+    if (!$totalCount) continue;
+    ?>
+    <h2 class="ex_title">
+        <span class="rig_space"><?php echo $category->getName(); ?></span>
+        <?php if ($category->getUrlKey()) { ?><a class="ex_vall" href="<?php echo $category->getUrl(); ?>"><?php echo $this->__('View All'); ?></a><?php } ?>
+    </h2>
+    <div class="products-grid">
+        <div class="iosSlider category-<?php echo $category->getUrlKey(); ?>" id="category-group-<?php echo $category->getId(); ?>">
+            <ul class="slider clearer">
+                <?php foreach ($categoryProducts as $product) { ?>
+                <li class="item">
+                    <?php echo $this->getProductHelper()->renderProduct($product); ?>
+                </li>
+                <?php } ?>
+                <?php if ($empty = $totalCount - $count) for ($i = 1; $i <= $empty; ++$i) { ?>
+                <li class="item empty" page="<?php echo 1 + ceil($i / $categoryProducts->getPageSize()); ?>"></li>
+                <?php } ?>
+            </ul>
+        </div>
+
+        <?php if ($totalCount > $this->getColumnCount()) { ?>
+        <a href="javascript:void(0);" class="prev"><?php echo $this->__('Prev'); ?></a>
+        <a href="javascript:void(0);" class="next"><?php echo $this->__('Next'); ?></a>
+        <?php } ?>
+    </div>
+    <?php if ($totalCount > $this->getColumnCount()) { ?>
+        <script type="text/javascript">
+            (function($) {
+                var group = $('#category-group-<?php echo $category->getId(); ?>'), slider = group.children('.slider');
+                slider.css({height: slider.children('.item').outerHeight()});
+                group.iosSlider({
+                    snapToChildren: true,
+                    navNextSelector: group.siblings('.next'),
+                    navPrevSelector: group.siblings('.prev'),
+                    onSlideStart: loadGroupProducts,
+                    onSlideComplete: loadGroupProducts
+                });
+            })(jQuery);
+        </script>
+        <?php } ?>
+    <?php } ?>
+</div>
+<script type="text/javascript">
+    decorateGeneric($$('ul.slider li'), ['odd','even','first','last']);
+</script>

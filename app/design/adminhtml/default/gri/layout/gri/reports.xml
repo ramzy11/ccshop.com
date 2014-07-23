@@ -1,0 +1,258 @@
+<?xml version="1.0"?>
+<layout>
+    <gri_reports_sales_orders>
+        <reference name="content">
+            <block type="gri_reports/adminhtml_sales_order" template="report/grid/container.phtml" name="sales.report.grid.container">
+                <block type="adminhtml/store_switcher" template="report/store/switcher/enhanced.phtml" name="store.switcher">
+                    <action method="setStoreVarName">
+                        <var_name>store_ids</var_name>
+                    </action>
+                </block>
+                <block type="gri_reports/adminhtml_sales_order_form" name="grid.filter.form">
+                    <action method="addReportTypeOption" translate="value">
+                        <key>order_created_day</key>
+                        <value>Order Created Date</value>
+                    </action>
+                    <action method="addReportTypeOption" translate="value">
+                        <key>order_shipping_day</key>
+                        <value>Order Shipping Date</value>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </gri_reports_sales_orders>
+
+    <gri_reports_sales_orderdetails>
+        <reference name="content">
+            <block type="gri_reports/adminhtml_sales_order_detail" template="report/grid/container.phtml" name="sales.report.grid.container">
+                <block type="adminhtml/store_switcher" template="report/store/switcher/enhanced.phtml" name="store.switcher">
+                    <action method="setStoreVarName">
+                        <var_name>store_ids</var_name>
+                    </action>
+                </block>
+                <block type="gri_reports/adminhtml_sales_order_detail_form" name="grid.filter.form">
+                    <action method="addReportTypeOption" translate="value">
+                        <key>order_created_day</key>
+                        <value>Order Created Date</value>
+                    </action>
+                    <action method="addReportTypeOption" translate="value">
+                        <key>order_shipping_day</key>
+                        <value>Order Shipping Date</value>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </gri_reports_sales_orderdetails>
+
+    <gri_reports_sales_summary>
+        <reference name="head">
+            <action method="addCss"><value>gri/reports.css</value></action>
+            <action method="setCanLoadExtJs"><value>1</value></action>
+            <action method="setCanLoadRulesJs"><value>1</value></action>
+        </reference>
+        <reference name="content">
+            <block type="gri_reports/adminhtml_sales_summary" template="report/grid/container.phtml" name="sales.report.grid.container">
+                <block type="adminhtml/store_switcher" template="report/store/switcher/enhanced.phtml" name="store.switcher">
+                    <action method="setStoreVarName">
+                        <var_name>store_ids</var_name>
+                    </action>
+                </block>
+                <block type="gri_reports/adminhtml_sales_summary_form" name="grid.filter.form">
+                    <action method="addReportTypeOption" translate="value">
+                        <key>order_created_day</key>
+                        <value>Order Created Date</value>
+                    </action>
+                    <action method="addReportTypeOption" translate="value">
+                        <key>order_shipping_day</key>
+                        <value>Order Shipping Date</value>
+                    </action>
+                    <block type="core/text_list" name="grid.filter.form.after" as="form_after">
+                        <block type="core/template" template="gri/reports/sales/form_after/category_chooser.phtml" name="grid.filter.form.after.category_chooser" />
+                    </block>
+                </block>
+            </block>
+        </reference>
+    </gri_reports_sales_summary>
+
+    <gri_reports_sales_categorysummary>
+        <reference name="head">
+            <action method="addCss"><value>gri/reports.css</value></action>
+            <action method="setCanLoadExtJs"><value>1</value></action>
+            <action method="setCanLoadRulesJs"><value>1</value></action>
+        </reference>
+        <reference name="content">
+            <block type="gri_reports/adminhtml_sales_category_summary" template="report/grid/container.phtml" name="sales.report.grid.container">
+                <block type="adminhtml/store_switcher" template="report/store/switcher/enhanced.phtml" name="store.switcher">
+                    <action method="setStoreVarName">
+                        <var_name>store_ids</var_name>
+                    </action>
+                </block>
+                <block type="gri_reports/adminhtml_sales_category_summary_form" name="grid.filter.form">
+                    <action method="addReportTypeOption" translate="value">
+                        <key>order_created_day</key>
+                        <value>Order Created Date</value>
+                    </action>
+                    <action method="addReportTypeOption" translate="value">
+                        <key>order_shipping_day</key>
+                        <value>Order Shipping Date</value>
+                    </action>
+                    <block type="core/text_list" name="grid.filter.form.after" as="form_after">
+                        <block type="core/template" template="gri/reports/sales/form_after/category_chooser.phtml" name="grid.filter.form.after.category_chooser" />
+                    </block>
+                </block>
+            </block>
+        </reference>
+    </gri_reports_sales_categorysummary>
+
+    <gri_reports_sales_discountsummary>
+        <reference name="content">
+            <block type="gri_reports/adminhtml_sales_discount_summary" template="report/grid/container.phtml" name="sales.report.grid.container">
+                <block type="adminhtml/store_switcher" template="report/store/switcher/enhanced.phtml" name="store.switcher">
+                    <action method="setStoreVarName">
+                        <var_name>store_ids</var_name>
+                    </action>
+                </block>
+                <block type="gri_reports/adminhtml_sales_discount_summary_form" name="grid.filter.form">
+                    <action method="addReportTypeOption" translate="value">
+                        <key>order_created_day</key>
+                        <value>Order Created Date</value>
+                    </action>
+                    <action method="addReportTypeOption" translate="value">
+                        <key>order_shipping_day</key>
+                        <value>Order Shipping Date</value>
+                    </action>
+                    <block type="core/text_list" name="grid.filter.form.after" as="form_after"/>
+                </block>
+            </block>
+        </reference>
+    </gri_reports_sales_discountsummary>
+
+    <gri_reports_sales_financial>
+        <reference name="content">
+            <block type="gri_reports/adminhtml_sales_financial" template="report/grid/container.phtml" name="sales.report.grid.container">
+                <block type="gri_reports/adminhtml_sales_financial_form" name="grid.filter.form">
+                    <!--<action method="addReportTypeOption" translate="value">
+                        <key>order_created_day</key>
+                        <value>Order Created Date</value>
+                    </action>-->
+                    <action method="addReportTypeOption" translate="value">
+                        <key>order_shipping_day</key>
+                        <value>Order Shipped/Refunded Date</value>
+                    </action>
+                    <block type="core/text_list" name="grid.filter.form.after" as="form_after"/>
+                </block>
+            </block>
+        </reference>
+    </gri_reports_sales_financial>
+
+    <gri_reports_sales_rmadetails>
+        <reference name="content">
+            <block type="gri_reports/adminhtml_sales_rma_details" template="report/grid/container.phtml" name="sales.report.grid.container">
+                <block type="adminhtml/store_switcher" template="report/store/switcher/enhanced.phtml" name="store.switcher">
+                    <action method="setStoreVarName">
+                        <var_name>store_ids</var_name>
+                    </action>
+                </block>
+                <block type="gri_reports/adminhtml_sales_rma_details_form" name="grid.filter.form">
+                    <action method="addReportTypeOption" translate="value">
+                        <key>order_created_day</key>
+                        <value>Order Created Date</value>
+                    </action>
+                    <action method="addReportTypeOption" translate="value">
+                        <key>order_shipping_day</key>
+                        <value>Order Shipping Date</value>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </gri_reports_sales_rmadetails>
+
+    <gri_reports_sales_couponsummary>
+        <reference name="content">
+            <block type="gri_reports/adminhtml_sales_coupon_summary" template="report/grid/container.phtml" name="sales.report.grid.container">
+                <block type="gri_reports/adminhtml_sales_coupon_summary_form" name="grid.filter.form">
+                    <action method="addReportTypeOption" translate="value">
+                        <key>order_created_day</key>
+                        <value>Order Created Date</value>
+                    </action>
+                    <action method="addReportTypeOption" translate="value">
+                        <key>order_shipping_day</key>
+                        <value>Order Shipping Date</value>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </gri_reports_sales_couponsummary>
+
+    <gri_reports_sales_coupondetails>
+        <reference name="content">
+            <block type="gri_reports/adminhtml_sales_coupon_details" template="report/grid/container.phtml" name="sales.report.grid.container">
+                <block type="gri_reports/adminhtml_sales_coupon_details_form" name="grid.filter.form">
+                    <action method="addReportTypeOption" translate="value">
+                        <key>order_created_day</key>
+                        <value>Order Created Date</value>
+                    </action>
+                    <action method="addReportTypeOption" translate="value">
+                        <key>order_shipping_day</key>
+                        <value>Order Shipping Date</value>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </gri_reports_sales_coupondetails>
+
+    <!--sales product summary-->
+    <gri_reports_sales_productsummary>
+        <reference name="head">
+            <action method="addCss"><value>gri/reports.css</value></action>
+            <action method="setCanLoadExtJs"><value>1</value></action>
+            <action method="setCanLoadRulesJs"><value>1</value></action>
+        </reference>
+        <reference name="content">
+            <block type="gri_reports/adminhtml_sales_product_summary" template="report/grid/container.phtml"
+                   name="sales.report.grid.container">
+                <block type="adminhtml/store_switcher" template="report/store/switcher/enhanced.phtml" name="store.switcher">
+                    <action method="setStoreVarName">
+                        <var_name>store_ids</var_name>
+                    </action>
+                </block>
+                <block type="gri_reports/adminhtml_sales_product_summary_form" name="grid.filter.form">
+                    <action method="addReportTypeOption" translate="value">
+                        <key>order_created_day</key>
+                        <value>Order Created Date</value>
+                    </action>
+                    <action method="addReportTypeOption" translate="value">
+                        <key>order_shipping_day</key>
+                        <value>Order Shipping Date</value>
+                    </action>
+                    <block type="core/text_list" name="grid.filter.form.after" as="form_after">
+                        <block type="core/template" template="gri/reports/sales/form_after/category_chooser.phtml" name="grid.filter.form.after.category_chooser" />
+                    </block>
+                </block>
+            </block>
+        </reference>
+    </gri_reports_sales_productsummary>
+
+    <!-- customers consumption summary-->
+    <gri_reports_customers_consumptionsummary>
+        <reference name="content">
+            <block type="gri_reports/adminhtml_customers_consumption" template="report/grid/container.phtml" name="sales.report.grid.container">
+                <block type="adminhtml/store_switcher" template="report/store/switcher/enhanced.phtml" name="store.switcher">
+                    <action method="setStoreVarName">
+                        <var_name>store_ids</var_name>
+                    </action>
+                </block>
+                <block type="gri_reports/adminhtml_customers_consumption_form" name="grid.filter.form">
+                    <action method="addReportTypeOption" translate="value">
+                        <key>order_created_day</key>
+                        <value>Order Created Date</value>
+                    </action>
+                    <action method="addReportTypeOption" translate="value">
+                        <key>order_shipping_day</key>
+                        <value>Order Shipping Date</value>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </gri_reports_customers_consumptionsummary>
+</layout>

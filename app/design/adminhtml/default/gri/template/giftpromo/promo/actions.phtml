@@ -1,0 +1,120 @@
+<div class="entry-edit">
+    <?php echo $this->getFormHtml();?>
+</div>
+<?php echo $this->getChildHtml('form_after');?>
+<?php echo $this->getChildHtml('grid');?>
+
+<?php 
+    $block = $this->getLayout()->getBlock('giftpromo_promo_rule_edit_tab_actions_giftpromo_grid');
+    $_gridJsObject=$block->getJsObjectName(); 
+?>
+<script type="text/javascript">
+//<![CDATA[
+
+        categoryGiftPromo = $H(<?php echo $this->getProductsJson() ?>);
+    
+    function registerCategoryGiftProduct(grid, element, checked){
+        if(element.defaultValue != ''){
+            if(checked){
+                    element.giftedpositionElement.disabled = false;
+                    element.giftedpriceElement.disabled = false;
+                    //element.giftedmaxElement.disabled = false;
+                    element.giftedmessageElement.disabled = false;
+                    element.giftedlabelElement.disabled = false;
+                    categoryGiftPromo = setData(element.value,element);
+            }
+            else{
+
+                    element.giftedpositionElement.disabled = true;
+                    element.giftedpriceElement.disabled = true;
+                    //element.giftedmaxElement.disabled = true;
+                    element.giftedmessageElement.disabled = true;
+                    element.giftedlabelElement.disabled = true;
+
+                categoryGiftPromo.unset(element.value);
+            }
+        }
+        $('rule_giftpromo').value = categoryGiftPromo.toQueryString();
+        grid.reloadParams = {'selected_giftpromo[]':categoryGiftPromo.keys()};
+    }
+    
+    function setData(value,element){
+        var productData = element.giftedpriceElement.value+'|'+element.giftedmessageElement.value+'|'+element.giftedlabelElement.value+'|'+element.giftedpositionElement.value;
+        categoryGiftPromo.set(value, productData);
+        $('rule_giftpromo').value = categoryGiftPromo.toQueryString();
+        return categoryGiftPromo;
+    }
+    
+    function categoryGiftProductRowClick(grid, event){
+        var trElement = Event.findElement(event, 'tr');
+        var isInput   = Event.element(event).tagName == 'INPUT';
+        if(trElement){
+            if(Event.element(event).type != 'checkbox'){
+                var checkbox = Element.getElementsBySelector(trElement, 'input');
+                if(checkbox[0] && !checkbox[0].disabled){
+                    grid.setCheckboxChecked(checkbox[0], true);
+                } 
+                return;
+            }
+            var checkbox = Element.getElementsBySelector(trElement, 'input');
+            if(checkbox[0]){
+                var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
+                <?php echo $_gridJsObject ?>.setCheckboxChecked(checkbox[0], checked);
+            }
+        }
+    }
+    
+    function giftDataChange(event){
+        var element = Event.element(event);
+        if(element && element.checkboxElement && element.checkboxElement.checked){
+            setData(element.checkboxElement.value,element.checkboxElement);
+        }
+    }
+    
+    var tabIndex = 1000;
+    function categoryGiftProductRowInit(grid, row){
+        var checkbox = $(row).getElementsByClassName('checkbox')[0];
+        var giftedposition = $(row).getElementsByClassName('input-text')[3];
+        var giftedprice = $(row).getElementsByClassName('input-text')[2];
+        //var giftedmax = $(row).getElementsByClassName('input-text')[3];
+        var giftedmessage = $(row).getElementsByClassName('input-text')[1];
+        var giftedlabel = $(row).getElementsByClassName('input-text')[0];
+        
+        if(checkbox){
+            checkbox.giftedpositionElement = giftedposition;
+            checkbox.giftedpriceElement = giftedprice;
+            //checkbox.giftedmaxElement = giftedmax;
+            checkbox.giftedmessageElement = giftedmessage;
+            checkbox.giftedlabelElement = giftedlabel;
+            
+            giftedposition.checkboxElement = checkbox;
+            giftedprice.checkboxElement = checkbox;
+            //giftedmax.checkboxElement = checkbox;
+            giftedmessage.checkboxElement = checkbox;
+            giftedlabel.checkboxElement = checkbox;
+            giftedposition.disabled = !checkbox.checked;
+            giftedprice.disabled = !checkbox.checked;
+            //giftedmax.disabled = !checkbox.checked;
+            giftedmessage.disabled = !checkbox.checked;
+            giftedlabel.disabled = !checkbox.checked;
+            giftedlabel.tabIndex = tabIndex++;
+            giftedmessage.tabIndex = tabIndex++;
+            giftedprice.tabIndex = tabIndex++;
+            //giftedmax.tabIndex = tabIndex++;
+            giftedposition.tabIndex = tabIndex++;
+            Event.observe(giftedposition,'keyup',giftDataChange);
+            Event.observe(giftedprice,'keyup',giftDataChange);
+            //Event.observe(giftedmax,'keyup',giftDataChange);
+            Event.observe(giftedmessage,'keyup',giftDataChange);
+            Event.observe(giftedlabel,'keyup',giftDataChange);
+        }
+    }
+    
+    <?php echo $_gridJsObject ?>.rowClickCallback = categoryGiftProductRowClick;
+    <?php echo $_gridJsObject ?>.initRowCallback = categoryGiftProductRowInit;
+    <?php echo $_gridJsObject ?>.checkboxCheckCallback = registerCategoryGiftProduct;
+    <?php echo $_gridJsObject ?>.rows.each(function(row){categoryGiftProductRowInit(<?php echo $_gridJsObject ?>, row)});
+
+//]]>
+</script>
+

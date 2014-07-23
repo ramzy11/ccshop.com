@@ -1,0 +1,12 @@
+.newcomer-popup{position:relative;text-align:center;}
+.newcomer-popup .close{background:url(../images/newcomer_close.png) 0 0 no-repeat;cursor:pointer;height:13px;position:absolute;right:23px;top:21px;width:12px;}
+.newcomer-popup .newsletterpopup .block-subscribe label{display:none;}
+.newcomer-popup .newsletterpopup{color:#000;}
+.newcomer-popup .newsletterpopup h2{font-size:32px;font-weight:normal;line-height:30px;}
+.newcomer-popup .newsletterpopup h3{font-size:22px;font-weight:normal;}
+.newcomer-popup .newsletterpopup p{font-size:16px;line-height:25px;padding-top:33px;}
+.newcomer-popup .newsletterpopup .block-subscribe{float:none !important;padding-top:21px;padding-left:66px;}
+.newcomer-popup .newsletterpopup .block-subscribe input.input-text{color:#999;border:none;width:160px;padding:0px 10px;float:left;height:29px;}
+.newcomer-popup .newsletterpopup .block-subscribe form{border:1px solid #999;display:block;width:238px;height:31px;}
+.newcomer-popup .newsletterpopup .block-subscribe a.signup_btn{color:#000;font-size:12px;text-transform:uppercase;line-height:28px;padding:0 6px;}
+#newcomer_popup>img{display: block;}

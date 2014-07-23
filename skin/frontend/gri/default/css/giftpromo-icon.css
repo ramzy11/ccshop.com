@@ -1,0 +1,19 @@
+/* catalog category gift icon */
+.catalog-category-view .gift-icon{right:0px;z-index:99;cursor :pointer;display:inline-block;padding-top:3px;}
+.catalog-category-view .item .gift-icon span{color:#EC008C;text-transform:uppercase;}
+.catalog-category-view .gift-title{margin-bottom:10px;padding-left:10px;line-height:16px;}
+.catalog-category-view .gift-icon-hover{z-index:1;padding:10px;background:#fff;border:1px solid #bbb;left:3px;margin-right:3px;margin-left:10px;display:inline-block;width:209px;}
+.catalog-category-view .gift-icon-hover .gift-item{padding-bottom:10px;}
+.catalog-category-view .gift-icon-hover .gift-item .giftted-product-details img{float:left;}
+.catalog-category-view .gift-icon-hover .gift-item .gifted-product-details{font-size:11px;float:right;width:56%;color:#666;}
+.catalog-category-view .item{position:relative;}
+
+/* catalog search gift icon*/
+.catalogsearch-result-index .gift-icon{right:0px;z-index:99;cursor :pointer;display:inline-block;padding-top:3px;}
+.catalogsearch-result-index .item .gift-icon span{color:#EC008C;text-transform:uppercase;}
+.catalogsearch-result-index .gift-title{margin-bottom:10px;font-weight:bold;}
+.catalogsearch-result-index .gift-icon-hover{z-index:1;padding:10px;background:#fff;border:1px solid #ccc;left:3px;margin-right:3px;margin-left:10px;display:inline-block;}
+.catalogsearch-result-index .gift-icon-hover .gift-item{padding-bottom:10px;}
+.catalogsearch-result-index .gift-icon-hover .gift-item .giftted-product-details img{float:left;}
+.catalogsearch-result-index .gift-icon-hover .gift-item .gifted-product-details{font-size:9px;float:right;width:56%;color:#838383;}
+.catalogsearch-result-index .item{position:relative;}

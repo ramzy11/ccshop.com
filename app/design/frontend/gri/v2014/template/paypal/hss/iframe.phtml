@@ -1,0 +1,13 @@
+<?php /* @var Mage_Paypal_Block_Hosted_Pro_Iframe $this */ ?>
+<script type="text/javascript">
+    //<![CDATA[
+    var headers = $$('#' + checkout.accordion.container.readAttribute('id') + ' .section');
+    headers.each(function(header) {
+        header.removeClassName('allow');
+    });
+    checkout.loadWaiting = 'review';
+    checkout.setLoadWaiting(false);
+
+    window.location.href = '<?php echo $this->getFrameActionUrl(); ?>';
+    //]]>
+</script>

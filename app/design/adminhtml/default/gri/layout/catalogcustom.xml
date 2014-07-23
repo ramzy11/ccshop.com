@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<layout>
+ <adminhtml_catalogcustom_editorpick_index>
+   <referense name="head">
+            <action method="setTitle" translate="title"><title>CatalogCustom</title></action>
+        </referense>
+        <reference name="menu">
+            <action method="setActive"><menupath>catalogcustom/editor_pick</menupath></action>
+        </reference>
+   <reference name="content">
+        <block type="gri_catalogcustom/adminhtml_editorpick" name="editorpick"  >
+           <block type="adminhtml/store_switcher" name="store_switcher">
+                <action method="setUseConfirm"><params>0</params></action>
+            </block>
+        </block>
+    </reference> 
+    </adminhtml_catalogcustom_editorpick_index>
+    <adminhtml_catalogcustom_editorpick_edit>
+         <update handle="editor"/>
+        <reference name="content">
+            <block type="gri_catalogcustom/adminhtml_editorpick_edit" name="editorpick_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="adminhtml/store_switcher" name="store_switcher" before="-"></block>
+            <block type="gri_catalogcustom/adminhtml_editorpick_tabs" name="product_tabs"></block>
+        </reference>
+    </adminhtml_catalogcustom_editorpick_edit>
+    <adminhtml_catalogcustom_editorpick_grid>
+            <block type="core/text_list" name="root" output="toHtml">
+            <block type="gri_catalogcustom/adminhtml_catalogcustom_editorpick_grid" name="admin.product.grid"/>
+        </block>
+    </adminhtml_catalogcustom_editorpick_grid>
+    <adminhtml_catalogcustom_product_action_editorpick_edit>
+        <reference name="menu">
+            <action method="setActive"><menupath>catalogcustom/editor_pick</menupath></action>
+        </reference>
+        <reference name="left">
+            <block type="adminhtml/store_switcher" name="store_switcher" template="store/switcher.phtml" />
+            <block type="adminhtml/catalog_product_edit_action_attribute_tabs" name="attributes_tabs">
+                <block type="gri_catalogcustom/adminhtml_product_edit_action_attribute_tab_attributes" name="tab_attributes"/>
+                <action method="addTab"><name>attributes</name><block>tab_attributes</block></action>
+            </block>
+        </reference>
+        <reference name="content">
+            <block type="gri_catalogcustom/adminhtml_product_action_editorpick_edit" name="attribute" template="catalog/product/edit/action/attribute.phtml" />
+        </reference>
+    </adminhtml_catalogcustom_product_action_editorpick_edit>
+  <adminhtml_catalogcustom_sizemap_index>
+   <referense name="head">
+            <action method="setTitle" translate="title"><title>CatalogCustom</title></action>
+        </referense>
+        <reference name="menu">
+            <action method="setActive"><menupath>catalogcustom/editor_pick</menupath></action>
+        </reference>
+   <reference name="content">
+        <block type="gri_catalogcustom/adminhtml_sizemap" name="sizemap"  >
+           <block type="adminhtml/store_switcher" name="store_switcher">
+                <action method="setUseConfirm"><params>0</params></action>
+            </block>
+        </block>
+    </reference> 
+    </adminhtml_catalogcustom_sizemap_index>  
+    <adminhtml_catalogcustom_sizemap_edit>
+         <update handle="editor"/>
+        <reference name="content">
+            <block type="gri_catalogcustom/adminhtml_sizemap_edit" name="sizemap_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="adminhtml/store_switcher" name="store_switcher" before="-"></block>
+            <block type="gri_catalogcustom/adminhtml_sizemap_tabs" name="sizemap_tabs"></block>
+        </reference>
+    </adminhtml_catalogcustom_sizemap_edit>
+    
+</layout>

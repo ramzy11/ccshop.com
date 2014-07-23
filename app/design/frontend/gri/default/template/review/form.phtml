@@ -1,0 +1,93 @@
+<?php
+/* @var $this Mage_Review_Block_Form */
+?>
+<div id="review_form">
+    <?php if ($this->getAllowWriteReviewFlag()) { ?>
+    <div>
+        <p class="title"><?php echo $this->__('Submit Review'); ?></p>
+        <div class="form">
+            <form id="product-rating-form" action="<?php echo $this->getAction(); ?>" method="post">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td width="110"><label for="title"><?php echo $this->__('Title'); ?></label></td>
+                        <td><input type="text" id="title" name="title" value="<?php echo $this->escapeHtml($data->getTitle()) ?>"/></td>
+                    </tr>
+                    <tr class="radios">
+                        <td><label><?php echo $this->__('Star Rate'); ?></label></td>
+                        <td>
+                            <?php foreach ($this->getRatings() as $_rating) { ?>
+                            <?php foreach ($_rating->getOptions() as $_option) { ?>
+                            <input type="radio" name="ratings[<?php echo $_rating->getId() ?>]" id="<?php echo $this->escapeHtml($_rating->getRatingCode()) ?>_<?php echo $_option->getValue() ?>" value="<?php echo $_option->getId() ?>" class="star required" />
+                            <?php } ?>
+                            <?php break;} ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="nickname"><?php echo $this->__('Name'); ?></label></td>
+                        <td><input type="text" id="nickname" name="nickname" value="<?php echo $this->escapeHtml($data->getNickname()) ?>"/></td>
+                    </tr>
+                    <tr>
+                        <td><label for="detail"><?php echo $this->__('Review (Optional)'); ?></label></td>
+                        <td><textarea type="text" id="detail" name="detail" value="<?php echo $this->escapeHtml($data->getDetail()) ?>"></textarea></td>
+                    </tr>
+                </table>
+                <p>
+                    <input type="button" value="<?php echo $this->__('CANCEL'); ?>" class="cancel">
+                    <input type="submit" value="<?php echo $this->__('SUBMIT'); ?>">
+                </p>
+            </form>
+        </div>
+    </div>
+    <?php } else { ?>
+    <p class="review-nologged">
+        <?php echo $this->__('Only registered users can write reviews. Please, <a href="%s">log in</a> or <a href="%s">register</a>', $this->getLoginLink(), Mage::helper('customer')->getRegisterUrl()) ?>
+    </p>
+    <?php } ?>
+
+    <script type="text/javascript">
+        //<![CDATA[
+        (function ($) {
+            $('#product-rating-form :radio.star').rating();
+            $('#product-rating-form :button.cancel').click(function(){
+                $('#fancybox-close').click();
+            });
+            $('#product-rating-form').submit(function(){
+                if ($('#detail').val() == '') {
+                    $('#detail').val('&nbsp;').css({color: "#fff"});
+                }
+                $('#product-rating-form :submit').disable();
+            });
+        })(jQuery);
+        var ratingForm = new VarienForm('product-rating-form');
+        Validation.addAllThese(
+            [
+                ['validate-rating', '<?php echo $this->__('Please select one of each of the ratings above') ?>', function(v) {
+                    var trs = $('product-rating-form').select('tr.radios');
+                    var inputs;
+                    var error = 1;
+
+                    for( var j=0; j < trs.length; j++ ) {
+                        var tr = trs[j];
+                        if( j > 0 ) {
+                            inputs = tr.select('input');
+
+                            for( i in inputs ) {
+                                if( inputs[i].checked == true ) {
+                                    error = 0;
+                                }
+                            }
+
+                            if( error == 1 ) {
+                                return false;
+                            } else {
+                                error = 1;
+                            }
+                        }
+                    }
+                    return true;
+                }]
+            ]
+        );
+        //]]>
+    </script>
+</div>

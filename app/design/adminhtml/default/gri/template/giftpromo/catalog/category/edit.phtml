@@ -1,0 +1,127 @@
+<?php
+$block = $this->getLayout()->getBlock('category.giftpromo.grid');
+$_gridJsObject = $block->getJsObjectName();
+?>
+<script type="text/javascript">
+    //<![CDATA[
+
+    categoryGiftPromo = $H(<?php echo $this->getProductsJson() ?>);
+    
+    function registerCategoryGiftProduct(grid, element, checked){
+        if(element.defaultValue != ''){
+            if(checked){
+                //element.positionElement.disabled = false;
+                element.giftedpriceElement.disabled = false;
+                element.giftedmaxElement.disabled = false;
+                element.giftedmessageElement.disabled = false;
+                element.giftedlabelElement.disabled = false;
+                element.candeleteElement.disabled = false;
+                element.addmethodElement.disabled = false;
+                categoryGiftPromo = setData(element.value,element);
+            }
+            else{
+
+                //element.positionElement.disabled = true;
+                element.giftedpriceElement.disabled = true;
+                element.giftedmaxElement.disabled = true;
+                element.giftedmessageElement.disabled = true;
+                element.giftedlabelElement.disabled = true;
+                element.candeleteElement.disabled = true;
+                element.addmethodElement.disabled = true;
+                categoryGiftPromo.unset(element.value);
+            }
+        }
+        //$('in_category_giftpromo').value = categoryGiftPromo.toQueryString();
+        grid.reloadParams = {'selected_giftpromo[]':categoryGiftPromo.keys()};
+    }
+    
+    function setData(value,element){
+        var productData = "0|"+element.giftedpriceElement.value+"|"+element.giftedmaxElement.value+'|'+element.giftedmessageElement.value+'|'+element.giftedlabelElement.value+'|'+element.ruleidElement.value+'|'+element.candeleteElement.value+'|'+element.addmethodElement.value;
+        categoryGiftPromo.set(value, productData);
+        return categoryGiftPromo;
+    }
+    
+    function categoryGiftProductRowClick(grid, event){
+        var trElement = Event.findElement(event, 'tr');
+        var isInput   = Event.element(event).tagName == 'INPUT';
+        if(trElement){
+            if(Event.element(event).type != 'checkbox'){
+                var checkbox = Element.getElementsBySelector(trElement, 'input');
+                if(checkbox[0] && !checkbox[0].disabled){
+                    grid.setCheckboxChecked(checkbox[0], true);
+                } 
+                return;
+            }
+            var checkbox = Element.getElementsBySelector(trElement, 'input');
+            if(checkbox[0]){
+                var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
+                <?php echo $_gridJsObject ?>.setCheckboxChecked(checkbox[0], checked);
+            }
+        }
+    }
+    
+    function giftDataChange(event){
+        var element = Event.element(event);
+        if(element){
+            setData(element.checkboxElement.value,element.checkboxElement);
+        }
+    }
+    
+    var tabIndex = 1000;
+    function categoryGiftProductRowInit(grid, row){
+        var checkbox = $(row).getElementsByClassName('checkbox')[0];
+        //var position = $(row).getElementsByClassName('input-text')[5];
+        var giftedprice = $(row).getElementsByClassName('input-gifted-price')[0];
+        var giftedmax = $(row).getElementsByClassName('input-gifted-max')[0];
+        var giftedmessage = $(row).getElementsByClassName('input-gifted-message')[0];
+        var giftedlabel = $(row).getElementsByClassName('input-gifted-label')[0];
+        var ruleid = $(row).getElementsByClassName('rule-id')[0];
+        var candelete = $(row).getElementsByClassName('can-delete')[0];
+        var addmethod = $(row).getElementsByClassName('add-method')[0];
+        if(checkbox){
+            //checkbox.positionElement = position;
+            checkbox.giftedpriceElement = giftedprice;
+            checkbox.giftedmaxElement = giftedmax;
+            checkbox.giftedmessageElement = giftedmessage;
+            checkbox.giftedlabelElement = giftedlabel;
+            checkbox.ruleidElement = ruleid;
+            checkbox.candeleteElement = candelete;
+            checkbox.addmethodElement = addmethod;
+            //position.checkboxElement = checkbox;
+            giftedprice.checkboxElement = checkbox;
+            giftedmax.checkboxElement = checkbox;
+            giftedmessage.checkboxElement = checkbox;
+            giftedlabel.checkboxElement = checkbox;
+            ruleid.checkboxElement = checkbox;
+            candelete.checkboxElement = checkbox;
+            addmethod.checkboxElement = checkbox;
+            //position.disabled = !checkbox.checked;
+            giftedprice.disabled = !checkbox.checked;
+            giftedmax.disabled = !checkbox.checked;
+            giftedmessage.disabled = !checkbox.checked;
+            giftedlabel.disabled = !checkbox.checked;
+            giftedlabel.tabIndex = tabIndex++;
+            giftedmessage.tabIndex = tabIndex++;
+            giftedprice.tabIndex = tabIndex++;
+            giftedmax.tabIndex = tabIndex++;
+            candelete.tabIndex = tabIndex++;
+            addmethod.tabIndex = tabIndex++;
+            //position.tabIndex = tabIndex++;
+            //Event.observe(position,'keyup',giftDataChange);
+            Event.observe(giftedprice,'keyup',giftDataChange);
+            Event.observe(giftedmax,'keyup',giftDataChange);
+            Event.observe(giftedmessage,'keyup',giftDataChange);
+            Event.observe(giftedlabel,'keyup',giftDataChange);
+            Event.observe(candelete,'change',giftDataChange);
+            Event.observe(addmethod,'change',giftDataChange);
+        }
+    }
+    
+<?php echo $_gridJsObject ?>.rowClickCallback = categoryGiftProductRowClick;
+<?php echo $_gridJsObject ?>.initRowCallback = categoryGiftProductRowInit;
+<?php echo $_gridJsObject ?>.checkboxCheckCallback = registerCategoryGiftProduct;
+<?php echo $_gridJsObject ?>.rows.each(function(row){categoryGiftProductRowInit(<?php echo $_gridJsObject ?>, row)});
+
+
+    //]]>
+</script>

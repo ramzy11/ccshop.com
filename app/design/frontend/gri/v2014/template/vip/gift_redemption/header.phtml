@@ -1,0 +1,23 @@
+<?php
+/* @var $session Mage_Customer_Model_Session */
+$session = Mage::getSingleton('customer/session');
+/* @var $customerHelper Mage_Customer_Helper_Data */
+$customerHelper = Mage::helper('customer');
+if ($session->getCustomerId()) { ?>
+<div class="gift-after-login">
+    <p class="your-redemp-pt pink"><span><?php echo $this->getRedeemPoints();?></span><span class="redemption"><?php echo $this->__('Your Redemption Points') ?></span></p>
+    <div class="after-login-detail">
+        <?php echo $this->__('Expiry Date:'); ?>
+        <strong><?php echo $this->getVIPExpiredDate();?></strong><span class="pink">*</span>
+        <p class="after-login-msg"><?php echo $this->__('With every dollar you spend at Central/Central, one bonus point is added to your account.') ?><br>
+            <?php echo $this->__('You can redeem your points for these rewards:') ?></p>
+    </div>
+</div>
+<?php } else { ?>
+<div class="gift-before-login">
+    <p class="before-login-msg"><?php echo $this->__('Redeem your points from a range of exciting perfect gifts now - only for our members.'); ?></p>
+    <p><?php echo $this->__('Please <a class="uline" href="%s"><strong>login</strong></a> to check your bonus points.', $customerHelper->getLoginUrl()); ?></p>
+    <p class="before-login-sign"><?php echo $this->__('Not a member yet? Please <a class="uline" href="%s"><strong>sign up</strong></a> now.',
+        $customerHelper->getLoginUrl()); ?></p>
+</div>
+<?php } ?>

@@ -1,0 +1,22 @@
+#vertnav li a{padding-right:30px;}
+#vertnav li .vertnav-cat{display:block;padding:3px;}
+#vertnav .next .vertnav-cat,#vertnav .prev .vertnav-cat{}
+#vertnav .first .vertnav-cat{}
+#vertnav .last .vertnav-cat{}
+#vertnav .only .vertnav-cat{}
+#vertnav li.parent .vertnav-cat{font-weight:bold;}
+#vertnav li.active .vertnav-cat{font-weight:bold;color: #000;}
+#vertnav li.inactive .vertnav-cat{font-weight:normal;}
+#vertnav .level0 .vertnav-cat{}
+#vertnav .level1 .vertnav-cat{padding-left:10px;}
+#vertnav .level2 .vertnav-cat{padding-left:20px;}
+#vertnav .level3 .vertnav-cat{padding-left:30px;}
+.vertnav-container{border:1px solid #bbb;border-width:1px 0;padding-top:10px;font-size:12px;}
+.vertnav-container ul{margin-left:20px; padding-bottom:15px; text-transform:uppercase;}
+.vertnav-container ul#vertnav ul{padding-bottom: 20px;}
+.vertnav-container ul#vertnav ul ul{padding-bottom:15px;}
+.vertnav-container .left-static-nav{margin-bottom:10px}
+.vertnav-container .left-static-nav ul{background:url(../images/ex_dot.jpg) no-repeat 0 bottom;}
+.vertnav-container .left-static-nav ul li{padding:5px 0;width:182px;border-bottom:1px gray;}
+
+.vertnav-container ul#vertnav li:hover ul{display:inline-block;}

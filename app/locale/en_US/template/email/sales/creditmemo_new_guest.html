@@ -1,0 +1,28 @@
+<!--@subject Refund Approved (order no.:{{var order.increment_id}}) @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"htmlescape var=$billing.getName()":"Guest Customer Name (Billing)",
+"var store.getFrontendName()":"Store Name",
+"var creditmemo.increment_id":"Credit Memo Id",
+"var order.increment_id":"Order Id",
+"var order.billing_address.format('html')":"Billing Address",
+"var payment_html":"Payment Details",
+"var order.shipping_address.format('html')":"Shipping Address",
+"var order.shipping_description":"Shipping Description",
+"layout handle=\"sales_email_order_creditmemo_items\" creditmemo=$creditmemo order=$order":"Credit Memo Items Grid",
+"var comment":"Credit Memo Comment"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+{{block type='core/template' area='frontend' template='email/header.phtml'}}
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:18px;color:#000;">Dear {{htmlescape var=$order.getCustomerName()}},<br/><br/>
+This email is to inform you that your request for refund (Order No.:{{var order.increment_id}}; Credit Memo No.:{{var creditmemo.increment_id}}) has been approved. Please click <a href="{{store url='customer-service/returns'}}" style="color:#999;text-decoration:underline">Returns</a> to check on our refund procedures.<br/>
+<br/>
+Should you require assistance, please don't hesitate to contact our customer service by email at <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#999;text-decoration:underline">{{config path='trans_email/ident_support/email'}}</a> or by phone on {{config path='general/store_information/phone'}}.<br/><br/>
+Thank you for shopping at CentralCentralShop.com.</p>
+<br />
+<br />
+{{block type='core/template' area='frontend' template='email/footer.phtml'}}

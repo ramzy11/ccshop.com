@@ -1,0 +1,25 @@
+<?php
+/* @var $this Gri_Hamper_Block_View_Pick */
+$_product = $this->getProduct();
+?>
+<h3><?php echo $this->__('Write Message'); ?></h3>
+<div class="message-form">
+<div id="message_box" class="message-box">
+    <div class="control-group">
+        <label for="hamper_to" class="required"><em>*</em><?php echo $this->__('To'); ?></label>
+        <input type="text" class="input-text required-entry" id="hamper_to" name="hamper_message[to]" value="<?php echo $this->getMessageTo(); ?>" />
+    </div>
+    <div class="control-group">
+        <label for="hamper_from" class="required"><em>*</em><?php echo $this->__('From'); ?></label>
+        <input type="text" class="input-text required-entry" id="hamper_from" name="hamper_message[from]" value="<?php echo $this->getMessageFrom(); ?>" />
+    </div>
+    <div class="control-group">
+        <label for="hamper_message" class="required"><em>*</em><?php echo $this->__('Hamper Message'); ?></label>
+        <textarea id="hamper_message" name="hamper_message[message]" class="required-entry"><?php echo $this->getMessageBody(); ?></textarea>
+    </div>
+</div>
+<div class="checkout-links clearer">
+    <a class="back" href="javascript:;" onclick="hamper<?php echo $_product->getId(); ?>.goStep(1);"><?php echo $this->__('Back a step'); ?></a>
+    <a class="checkout" href="javascript:;" onclick="productAddToCartForm<?php echo $_product->getId(); ?>.submit(this);"><?php echo $this->__('Checkout'); ?></a>
+</div>
+</div>

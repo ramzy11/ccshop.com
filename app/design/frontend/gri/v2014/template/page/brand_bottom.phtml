@@ -1,0 +1,48 @@
+<?php
+/* @var $this Gri_Page_Block_Brand */
+/* @var $categoryBrandHelper Gri_CatalogCustom_Helper_Category */
+$categoryBrandHelper = Mage::helper('gri_catalogcustom/category');
+$brandCategories = $categoryBrandHelper->getBrandCategories(Mage::app()->getStore());
+?>
+<div id="bottom-brands">
+    <div class="bottom-brands-wrapper" style="width: 1180px;margin: auto auto;">
+        <?php if (count($brandCategories) > 5): ?>
+            <a href="javascript:void(0);" class="prev"></a>
+        <?php endif;?>
+        <div class="jcarousel">
+            <?php echo $this->getSortedBrandsHtml()?>
+        </div>
+        <?php if (count($brandCategories) > 5): ?>
+            <a href="javascript:void(0);" class="next"></a>
+        <?php endif;?>
+    </div>
+</div>
+
+<?php if (count($brandCategories) > 5) { ?>
+
+<script type="text/javascript">
+    (function ($) {
+        $('#bottom-brands .bottom-brands-wrapper .jcarousel').jcarousel({vertical: false});
+        $('#bottom-brands .bottom-brands-wrapper .prev')
+            .on('inactive.jcarouselcontrol', function () { $(this).addClass('inactive'); })
+            .on('active.jcarouselcontrol', function () { $(this).removeClass('inactive'); })
+            .jcarouselControl({target: '-= 1'});
+        $('#bottom-brands .bottom-brands-wrapper .next')
+            .on('inactive.jcarouselcontrol', function () { $(this).addClass('inactive'); })
+            .on('active.jcarouselcontrol', function () { $(this).removeClass('inactive'); })
+            .jcarouselControl({target: '+= 1'});
+    })(jQuery);
+
+    /*(function($) {
+        var scroll = $('#bottom-brands .bottom-brands-wrapper .jcarousel'),
+            slider = scroll.children('ul');
+        slider.css({height: slider.children('li').height(),width: '1050px'});
+        scroll.iosSlider({
+            snapToChildren: true,
+            infiniteSlider:false,
+            navNextSelector: scroll.siblings('.next'),
+            navPrevSelector: scroll.siblings('.prev')
+        });
+    })(jQuery);*/
+</script>
+<?php } ?>

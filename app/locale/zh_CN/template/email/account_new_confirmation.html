@@ -1,0 +1,29 @@
+<!--@subject 激活账户 @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"store url=\"customer/account/\"":"Customer Account Url",
+"htmlescape var=$customer.name":"Customer Name",
+"var customer.email":"Customer Email",
+"store url=\"customer/account/confirm/\" _query_id=$customer.id _query_key=$customer.confirmation _query_back_url=$back_url":"Confirmation Url",
+"htmlescape var=$customer.password":"Customer password"}
+@-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+{{block type='core/template' area='frontend' template='email/header.phtml'}}
+<span style="font-size:13px; font-weight: normal; line-height: 22px;color:#000;display: block;">亲爱的 {{htmlescape var=$customer.name}},<br /><br />感谢您注册熙熙网，请点击以下链结进行账号的激活，如果点击链接不能正常打开，可以将链接复制并粘贴到浏览器的地址窗口，或将地址重新键入地址窗口。链接只能使用一次。<br /></span>
+<a href="{{store url="customer/account/confirm/" _query_id=$customer.id _query_key=$customer.confirmation _query_back_url=$back_url}}" style="margin:0;text-decoration: none;font-size:18px;color:#000000;">链接(<span style="word-break:break-all;font-size:13px;color:#0000cc;
+">{{store url="customer/account/confirm/" _query_id=$customer.id _query_key=$customer.confirmation _query_back_url=$back_url}}</span>)</a>
+<p style="font-size:12px; line-height:16px; padding:13px 0px; background:#f9f9f9;">
+您的账户信息如下：<br/>
+<strong>用户名:</strong><span style="text-decoration: none;color: #000000;"> {{var customer.email}}</span><br/>
+<strong>登录密码：</strong> {{htmlescape var=$customer.password}}<br /></p>
+<br /><span style="font-size:13px;">如有疑问，请通过在线咨询或拨打客服热线4008-976-988联系客服人员，我们将在第一时间为您服务。</span>
+<br />
+<br />
+<br />
+<br />
+{{block type='core/template' area='frontend' template='email/footer.phtml'}}

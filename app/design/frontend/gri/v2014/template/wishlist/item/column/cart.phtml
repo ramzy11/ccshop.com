@@ -1,0 +1,67 @@
+<?php
+/* @var $this Mage_Wishlist_Block_Customer_Wishlist_Item_Column_Cart */
+/* @var Mage_Wishlist_Model_Item $item */
+/* @var $product Gri_CatalogCustom_Model_Product */
+/* @var $_productHelper Gri_CatalogCustom_Helper_Product */
+$item = $this->getItem();
+$product = $item->getProduct();
+$_productHelper = Mage::helper('gri_catalogcustom/product');
+$categoryIds = $_productHelper->getCategoryId($product);
+$categoryIds = $_productHelper->getFinalCategoryIds($categoryIds)->getAllIds();
+$cate_id = array_pop($categoryIds);
+?>
+<div class="cart-cell">
+    <?php /*foreach ($this->getSortedChildren() as $childName): ?>
+        <?php echo $this->getChildHtml($childName, false); ?>
+    <?php endforeach;*/ ?>
+    <?php foreach ($this->getSortedChildren() as $childName): ?>
+        <div class="truncated-content"><?php echo $this->getChildHtml($childName, false);?></div>
+    <?php endforeach;?>
+    <div class="add-to-cart">
+        <?php if (1) { ?>
+            <button type="button" title="<?php echo $this->__('Add to Tote') ?>"
+                    onclick="setLocation('<?php echo $product->getProductUrl(); ?>');" class="button btn-cart">
+                <span><span><?php echo $this->__('Add to Tote') ?></span></span></button>
+        <?php } else if ($product->isSaleable()) { ?>
+            <button type="button" title="<?php echo $this->__('Add to Cart') ?>"
+                    onclick="addWItemToCart(<?php echo $item->getId() ?>);" class="button btn-cart">
+                <span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+        <?php } else { ?>
+            <?php if ($product->getIsSalable()): ?>
+                <p class="availability in-stock"><span><?php echo $this->__('In stock') ?></span></p>
+            <?php else: ?>
+                <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+            <?php endif; ?>
+        <?php } ?>
+        <p class="remove"><a href="<?php echo $this->getItemRemoveUrl($this->getItem()); ?>"
+                             onclick="return confirmRemoveWishlistItem(this);" title="<?php echo $this->__('Remove') ?>"
+                             class="btn-remove btn-remove2"><?php echo $this->__('Remove');?></a></p>
+        <!--Share To friend-->
+        <div class="share-wishlist-to-friend">
+            <a class="share-wishlist-label" title="<?php echo $this->__('Share To Friend'); ?>" target="_blank" href="<?php echo $this->getUrl('sendfriend/product/send', array('id' => $product->getId(), 'cat_id' => $cate_id)) ?>"><?php echo $this->__('Share To Friend'); ?></a>
+            <?php
+            /*echo $this->getLayout()
+                ->createBlock('gri_catalogcustom/product_view_share')
+                ->setTemplate('catalog/product/view/share.phtml')
+                ->setProduct($product)
+                ->renderView();*/
+            ?>
+            <script type="text/javascript">
+               /* (function($){
+                    $('.share-wishlist-to-friend').hover(
+                        function () {
+                            $(this).find(".share-buttons").show();
+                        },
+                        function () {
+                            $(this).find(".share-buttons").hide();
+                        })
+
+                })(jQuery)*/
+            </script>
+        </div>
+    </div>
+
+    <!--<?php if ($product->isVisibleInSiteVisibility() && $product->getAttributeSetId() != 14): ?>
+        <p class="edit"><a class="link-edit" href="<?php echo $this->getItemConfigureUrl($item) ?>"><?php echo $this->__('Edit') ?></a></p>
+    <?php endif ?>-->
+</div>

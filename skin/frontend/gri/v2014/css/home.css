@@ -1,0 +1,75 @@
+/****         Slide Show          ****/
+.slider .slides a.prev,.slider .slides a.next{display:none;}
+.slider .slides .pagination{padding:20px 0 20px 47%;min-height: 40px;}
+.slider .slide{width:100%;}
+.slider .slides_control{width:100% !important;}
+/*.slider .slides_container .slide img{width:100%;height:100%;} */
+.cms-index-index .main-container{padding-top: 20px;}
+.cms-index-index .slider{min-height: 640px;}
+.cms-index-index .replace_slideshow{display: none; }
+.cms-index-index .replace_slideshow img{width: 100%;}
+
+/**/
+.home_mid_block_list .home_mid_block{float:left;padding-right: 1%; width:33.333%;}
+.home_mid_block_list .three{padding:0;}
+.home_mid_block_list .home_mid_block img{width:100%;}
+/* Shop New In*/
+.shop_new_in{float:left; width:100%;}
+.shop_new_in p{margin-top:40px;}
+.shop_new_in p img{width:100%;}
+#shop_new_in{margin-bottom: 20px;position: relative;}
+#shop_new_in ul li.item{width:180px !important;height: 100%; float: left;padding: 2px; }
+#shop_new_in ul li.item .product_image,
+#shop_new_in ul li.item .product_image a img{width: 160px;/*height: 240px;*/}
+/* #shop_new_in ul li.item .product_description{margin-top: 20px;} */
+#shop_new_in ul li.item .product_description{margin-top: 40px;}
+#shop_new_in ul li.item ul.options li{ list-style: none;}
+#shop_new_in .product_description p{text-align: center;  margin-bottom:0px;margin-top: 10px;font: 12px Arial;color:#000;}
+#shop_new_in .product_description .brand-name{margin: 0px;font:bold 15px Arial;color:#000;text-transform: uppercase;}
+#shop_new_in .product_description .price-box p.old-price,#shop_new_in .product_description .price-box p.special-price{margin:0;}
+#shop_new_in .product_description .price-box .old-price span{font: 12px Arial;color:#808080;font-weight: normal;}
+#shop_new_in .product_description .price-box .special-price span{font: 12px Arial;color:#EA1E79;font-weight: normal;}
+#shop_new_in a.next {background: url("../images/arrow/arrow-right.jpg") no-repeat scroll right center transparent; height: 57px;position: absolute; right: 0; text-indent: -9999px; top: 55%; width: 21px;z-index: 1;}
+#shop_new_in a.prev {background: url("../images/arrow/arrow-left.jpg") no-repeat scroll left center transparent;border: none; height: 57px; left: 0; position: absolute; text-indent: -9999px;top: 55%; width: 21px;z-index: 2;}
+#shop_new_in .product-image{border: none; /*margin:20px 0px 21px 0px;*/}
+#shop_new_in .product-image>img{padding-left: -10px;}
+#shop_new_in .minimal-price-link{display: none;}
+#shop_new_in .product-name{ word-break: break-all;}
+#shop_new_in .price-box{ text-align: center}
+.regular-price .price{font-family: Arial;color: #000 !important;}
+.cms-index-index .shop-now,
+.cms-index-index .gift-icon{display: none;}
+/*Recent View*/
+#most_recent_views{margin-bottom: 20px;position: relative;}
+#most_recent_views .jcarousel,#shop_new_in .jcarouse{width: 1080px !important;margin: auto auto;}
+#most_recent_views ul li.item{width:180px !important;height: 100%; float: left;padding: 2px;}
+#most_recent_views ul li.item ul.options li{ list-style: none;}
+#most_recent_views ul li.item .product_image,
+#most_recent_views ul li.item .product_image a img{width: 160px;/*height: 240px;*/}
+#most_recent_views ul li.item ul.options li{ list-style: none;}
+#most_recent_views .product_description p{text-align: center;  margin-bottom:0px;margin-top: 10px;font: 12px Arial;color:#000;margin-top: 0;}
+#most_recent_views .product_description .brand-name{margin-bottom: 5px;font:bold 15px Arial;color:#000;text-transform: uppercase;}
+#most_recent_views .product_description .price-box p.old-price,#shop_new_in .product_description .price-box p.special-price{margin:0;}
+#most_recent_views .product_description .price-box .old-price span{font: 12px Arial;color:#808080;font-weight: normal;}
+#most_recent_views .product_description .price-box .special-price span{font: 12px Arial;color:#EA1E79;font-weight: normal;}
+#most_recent_views a.next {background: url("../images/arrow/arrow-right.jpg") no-repeat scroll right center transparent; height: 57px; margin-top: -28px;position: absolute; right: 0px; text-indent: -9999px; top: 55%; width: 21px;z-index: 1;}
+#most_recent_views a.prev {background:  url("../images/arrow/arrow-left.jpg") no-repeat scroll left center transparent;border: none; height: 57px; left: 0; margin-top: -28px; position: absolute; text-indent: -9999px;top: 55%; width: 21px;z-index: 2;}
+#most_recent_views .product-image{border: none; /*padding:20px 10px 21px 10px*/; margin:0;width:160px;height: 240px;}
+#most_recent_views .product-name{ word-break: break-all;}
+#most_recent_views .price-box{ text-align: center}
+#most_recent_views .product-image>img{padding-left: -10px;}
+#most_recent_views .minimal-price-link{display: none;}
+/* instagram */
+.instagram-view{float:left;width:100%;}
+.instagram-view .ikantam-instagram{margin-top:40px;}
+.instagram-view .ikantam-instagram li{float:left;margin:0 10px;width:220px;}
+.instagram-view .ikantam-instagram li:first-child{margin-left:0;}
+.instagram-view .ikantam-instagram li:last-child{margin-right: 0;}
+.instagram-view .ikantam-instagram li img{width:220px;height:220px;}
+.instagram-view h2 span{background:url("../images/sns/ico_instagra_small.jpg") no-repeat scroll 25px #FFF;padding:0 24px 0 59px;font:30px Futura Bk Bt,"Microsoft YaHei","微軟雅黑";color:#000;}
+.instagram-view h2, .shop_new_in h2, .most_recent_views h2{border-bottom:1px solid #000000;font-size:1.375em;font-weight:normal;height:22px;line-height:22px;text-align:center;text-transform:uppercase;margin-top:40px;margin-bottom: 15px;}
+.shop_new_in h2 span,.most_recent_views h2 span{color:#000;padding:0 24px;font:30px Futura Bk Bt,"Microsoft YaHei","微軟雅黑";background:#fff;}
+/* slider container */
+.shop_new_in .jcarousel { position: relative;top: 0; left: 0; overflow: hidden; height: 500px; width: 1080px !important; margin-left: 50px; margin-right: 50px;}
+.shop_new_in .jcarousel .slider { width: 100%;height: 100%;margin-top: 20px;}
+.shop_new_in .jcarousel .slider .slide {float: left; /*width: <slide width>px; height: <slide height>px;*/ }

@@ -1,0 +1,100 @@
+<?php /* @var $this  Mage_Checkout_Block_Onepage_Review_Info */ ?>
+<?php echo $this->getChildHtml('items_before'); ?>
+<div id="checkout-review-table-wrapper" class="checkout-review-table-wrapper">
+    <table class="data-table" id="checkout-review-table">
+        <?php if ($this->helper('tax')->displayCartBothPrices()): $colspan = $rowspan = 2; else: $colspan = $rowspan = 1; endif; ?>
+        <col/>
+        <col width="1"/>
+        <col width="1"/>
+        <col width="1"/>
+        <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+            <col width="1"/>
+            <col width="1"/>
+        <?php endif; ?>
+        <thead>
+        <tr>
+            <th rowspan="<?php echo $rowspan ?>" ><?php echo $this->__('Item Description') ?></th>
+            <th rowspan="<?php echo $rowspan ?>" class="a-center"><?php echo $this->__('Quantity') ?></th>
+            <th colspan="<?php echo $colspan ?>" class="a-center"><?php echo $this->__('Unit Price') ?></th>
+            <th colspan="<?php echo $colspan ?>" class="a-center"><?php echo $this->__('Subtotal') ?></th>
+        </tr>
+        <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+            <tr>
+                <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+                <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+                <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+                <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+            </tr>
+        <?php endif; ?>
+        </thead>
+
+        <?php echo $this->getChildHtml('totals'); ?>
+        <tbody>
+        <?php foreach ($this->getItems() as $_item): ?>
+            <?php echo $this->getItemHtml($_item) ?>
+        <?php endforeach ?>
+        </tbody>
+    </table>
+</div>
+<?php echo $this->getChildHtml('items_after'); ?>
+<script type="text/javascript">
+    //<![CDATA[
+    decorateTable('checkout-review-table');
+    truncateOptions();
+    //]]>
+</script>
+<div id="checkout-review-submit">
+    <?php echo $this->getChildHtml('agreements') ?>
+    <div class="buttons-set" id="review-buttons-container">
+        <?php echo $this->getChildHtml('button') ?>
+        <p class="f-left"><?php echo $this->__('Forgot an Item?') ?> <a
+                href="<?php echo $this->getUrl('checkout/cart') ?>"><?php echo $this->__('Edit Your Cart') ?></a></p>
+        <span class="please-wait" id="review-please-wait" style="display:none;">
+            <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>"
+                 alt="<?php echo $this->__('Submitting order information...') ?>"
+                 title="<?php echo $this->__('Submitting order information...') ?>"
+                 class="v-middle"/> <?php echo $this->__('Submitting order information...') ?>
+        </span>
+    </div>
+    <script type="text/javascript">
+        //<![CDATA[
+        review = new Review('<?php echo $this->getUrl('checkout/onepage/saveOrder') ?>', '<?php echo $this->getUrl('checkout/onepage/success') ?>', $('checkout-agreements'));
+        review.save = function(){
+            if (checkout.loadWaiting!=false) return;
+            checkout.setLoadWaiting('review');
+            var params = Form.serialize(payment.form);
+            if (this.agreementsForm) {
+                params += '&'+Form.serialize(this.agreementsForm);
+            }
+
+            params.save = true;
+            var request = new Ajax.Request(
+                this.saveUrl,
+                {
+                    method:'post',
+                    parameters:params,
+                    onComplete: this.onComplete,
+                    onSuccess: function(e) {
+                        var responseText = eval("(" + e.responseText + ")") ;
+                        if($('p_method_hosted_pro').checked){
+                            if(responseText.error == false){
+                               _('body').append(responseText.update_section.html);
+                            } else {
+                               alert('<?php echo $this->__('Save Order Error!') ?>');
+                            }
+                        }
+                        else {
+                            if(responseText.error == false){
+                                window.location.href = "<?php echo $this->getUrl('checkout/onepage/success'); ?>";
+                            } else {
+                                alert('<?php echo $this->__('Save Order Error!') ?>');
+                            }
+                        }
+                    },
+                    onFailure: checkout.ajaxFailure.bind(checkout)
+                }
+            );
+        }
+        //]]>
+    </script>
+</div>

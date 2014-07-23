@@ -1,0 +1,75 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ * @see Mage_Review_Block_Product_View
+ */
+/* @var $this Gri_CatalogCustom_Block_Product_View */
+?>
+<?php $_helper = $this->helper('catalog/output'); ?>
+<?php $_product = $this->getProduct(); ?>
+<script type="text/javascript">
+    var optionsPrice<?php echo $_product->getId(); ?> = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+<div class="product-view">
+    <div class="product-essential">
+        <div class="product-shop left">
+            <div class="product-shop-left left">
+                <div class="product-brand">
+                    <span><?php echo $_product->getAttributeText('brand') ?></span>
+                </div>
+                <div class="product-name">
+                    <a href="<?php echo $_product->getProductUrl(); ?>" target="_blank"><span><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></span></a>
+                </div>
+                <?php echo $this->getChildHtml('product_type_data') ?>
+                <?php echo $this->getTierPriceHtml() ?>
+                <?php /*echo $this->getChildHtml('other');*/?>
+            </div>
+            <div class="product-shop-right right">
+                <?php if ($_product->isSaleable() && $this->hasOptions()) { ?>
+                <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
+                <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+                <?php } ?>
+                <?php if ($_product->getTypeId() != 'grouped') { ?>
+                <div class="add-to-box">
+                    <?php if ($_product->isSaleable()) { ?>
+                    <?php echo $this->getChildHtml('addtocart') ?>
+                    <?php } else { ?>
+                    <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                    <?php } ?>
+                    <?php echo $this->getChildHtml('addto') ?>
+                </div>
+                <?php echo $this->getChildHtml('extra_buttons') ?>
+                <?php } ?>
+            </div>
+        </div>
+    </div>
+    <div id="messages_product_view<?php echo $_product->getId(); ?>"></div>
+</div>
+

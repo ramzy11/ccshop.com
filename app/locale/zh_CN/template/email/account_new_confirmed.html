@@ -1,0 +1,35 @@
+<!--@subject 恭喜成為熙熙網會員 @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"htmlescape var=$customer.name":"Customer Name",
+"store url=\"customer/account/\"":"Customer Account Url"}
+@-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+{{block type='core/template' area='frontend' template='email/header.phtml'}}
+<span style="font-size:13px; font-weight: normal; line-height: 22px;color:#000;display: block;">亲爱的{{htmlescape var=$customer.name}},</span><br />
+<span style="font-size:12px; line-height:20px;">恭喜您验证已成功，您可以继续购物。</span><br />
+<span style="font-size:12px; line-height:20px;">欢迎光临熙熙网！在使用我们网站的过程中，如果您需要登录，请点击每个页面上方的“<a href="{{store url="customer/account/"}}" style="color:#000;text-decoration: none;">登录</a>”或“<a href="{{store url="customer/account/"}}" style="color:#000;text-decoration: none;">我的账户</a>”链接，然后输入您的电子邮箱地址及密码。</span><br />
+<span style="font-size:12px; line-height:20px;">在登录账户以后，您可以：</span><br />
+<p style="font-size:12px; line-height:20px; padding:0;margin:0px;">
+<span style="line-height:20px;">&ndash; 在购买产品时更快完成购物流程</span><br />
+<span style="line-height:20px;">&ndash; 查看订单状态</span><br />
+<span style="line-height:20px;">&ndash; 查看过往订单</span><br />
+<span style="line-height:20px;">&ndash; 对您的账户信息进行修改</span><br />
+<span style="line-height:20px;">&ndash; 修改密码</span><br />
+<span style="line-height:20px;">&ndash; 保存备用地址（为您的家人或朋友送货！）</span><br />
+<span style="line-height:20px;">&ndash; 查看我的收藏</span><br />
+<span style="line-height:20px;">&ndash; 申请退换货</span><br />
+</p>
+<p style="font-size:13px; line-height:20px; padding:0;">如果您对您的账户或其他方面有问题，请您通过电邮 <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#000000;">{{config path='trans_email/ident_support/email'}}</a> 或客服热线4008-976-988联系我们。</p>
+<a href="{{store url='shopping-flow'}}" style="color:#000;padding:10px 0px; font-size:14px;">购物流程</a>
+<br />
+<br />
+<br />
+<br />
+{{block type='core/template' area='frontend' template='email/footer.phtml'}}

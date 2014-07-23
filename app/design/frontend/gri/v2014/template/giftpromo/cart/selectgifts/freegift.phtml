@@ -1,0 +1,110 @@
+<?php
+    /* @var $this ProxiBlue_GiftPromo_Block_Cart_Freegift */
+    $_helper = $this->helper('catalog/output');
+    /* @var $_promoHelper ProxiBlue_GiftPromo_Helper_Data  */
+    $_promoHelper = $this->helper('giftpromo');
+?>
+    <div class="checkout-freegift">
+        <div class="gift-product-box">
+            <h1><?php echo $this->__('free gift') ?></h1>
+            <div class="iosSlider" id="checkout-group-product">
+                <ul class="slider clearer">
+                    <?php
+                        $totalCount = 0;
+                        foreach ($this->getItems() as $_object) {
+                            $giftProducts = $this->filterItems($_object);
+                            foreach ($giftProducts as $giftProduct) {
+                                if(!$giftProduct->isInStock() && !Mage::getStoreConfig('giftpromo/cart/oos_enabled')) continue;
+                                $totalCount++;
+                    ?>
+                                <li class="item">
+                                    <form method="post" action="<?php echo $this->getAddToCartUrl($giftProduct) ?>" id='giftpromo_select_form_<?php echo $giftProduct->getId(); ?>'>
+                                        <input type="hidden" name="product" value="<?php echo $giftProduct->getId(); ?>"/>
+                                        <input type="hidden" name="rule_id" value="<?php echo $giftProduct->getGiftRuleId(); ?>"/>
+                                        <?php $giftParentProduct = $giftProduct->getGiftParentItem(); ?>
+                                        <?php if (is_object($giftParentProduct)): ?>
+                                            <input type="hidden" name="gift_parent_item_id" value="<?php echo $giftParentProduct->getId(); ?>"/>
+                                        <?php endif; ?>
+
+                                            <p class="checkout-freegift-description"><?php echo $this->__("You qualify for a gift for '%s'", $_promoHelper->getMessage($giftProduct)); ?></p>
+                                            <p class="blank"></p>
+                                            <div class="block thumbnail">
+                                                <a href="<?php echo $this->helper('catalog/product')->getProductUrl($giftProduct) ?>" target="_blank">
+                                                    <img src="<?php echo $this->helper('catalog/image')->init($giftProduct, 'thumbnail')->resize(125); ?>" />
+                                                </a>
+                                            </div>
+                                        <div class="block detail">
+                                            <p> <?php echo $giftProduct->getAttributeText('brand'); ?></p>
+                                            <p> <?php echo $name = $this->helper('catalog/output')->productAttribute($giftProduct, $giftProduct->getName(), 'name'); ?></p>
+                                            <p> <?php $_taxHelper = $this->helper('tax');$_coreHelper = $this->helper('core');
+                                               $_originalPrice = $_taxHelper->getPrice($giftProduct, $giftProduct->getPrice());
+                                               echo $_coreHelper->currency($_originalPrice, true, true);
+                                               $_finalPrice = $_taxHelper->getPrice($giftProduct, $giftProduct->getGiftedPrice());
+                                              ?>
+                                              <span class="free strong"><?php echo $_finalPrice == 0 ? $this->__('free') : $_coreHelper->currency($_finalPrice, true, true); ?></span>
+                                            </p>
+
+                                            <?php if ($giftProduct->isSaleable()): ?>
+                                                <?php if ($this->hasOptions($giftProduct)): ?>
+                                                    <?php echo $this->getChild($giftProduct->getTypeId() . '_product_options_wrapper')->setProduct($giftProduct)->toHtml(); ?>
+                                                    <?php endif; ?>
+                                                    <?php if (!$this->isCurrentSelected($giftProduct)): ?>
+                                                        <?php $buttonText = (!$this->hasCurrentSelected($giftProduct, $_object->getGiftParentItem())) ? $this->__('Add to Cart') : $this->__('Replace current Gift'); ?>
+                                                        <div class="clear"></div>
+                                                        <button type="button" title="<?php echo $buttonText ?>" class="button btn-cart"
+                                                               onclick="giftAddToCartForm<?php echo $giftProduct->getId(); ?>.submit();">
+                                                        <span><span><?php echo $buttonText ?></span></span></button>
+                                                    <?php else: ?>
+<!--                                                    <div class="selected-gift">--><?php //echo $this->__('Selected Gift'); ?><!--</div>-->
+                                                <?php endif; ?>
+                                            <?php else: ?>
+                                                <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                                            <?php endif; ?>
+                                    </div>
+                                    </form>
+                                    <script type="text/javascript">
+                                        //<![CDATA[
+                                        var giftAddToCartForm<?php echo $giftProduct->getId(); ?> = new VarienForm('giftpromo_select_form_<?php echo $giftProduct->getId(); ?>');
+                                        //]]>
+                                    </script>
+                                </li>
+                        <?php } ?>
+                    <?php } ?>
+                </ul>
+            </div>
+            <?php if ($totalCount > 1) { ?>
+                <a href="javascript:void(0);" class="prev"> < </a>
+                <a href="javascript:void(0);" class="next"> > </a>
+            <?php } ?>
+        </div>
+    </div>
+    <?php  if($totalCount): ?>
+        <?php echo $this->addJs(); ?>
+    <?php endif; ?>
+        <script type="text/javascript">
+             // doc : https://www.iosscripts.com/iosslider/
+             (function ($) {
+                 var group = $('#checkout-group-product'), slider = group.children('.slider');
+                 var maxOuterHeight = Math.max.apply(Math, slider.children('.item').map(function() { return $(this).outerHeight(); }))
+                 slider.css({height: maxOuterHeight});
+                 group.iosSlider({
+                     startAtSlide: 1,
+                     snapToChildren: true,
+                     navNextSelector: group.siblings('.next'),
+                     navPrevSelector: group.siblings('.prev')
+                     // onSlideStart: loadGroupProducts,
+                     // onSlideComplete: loadGroupProducts
+                 });
+             })(jQuery);
+        decorateGeneric($$('ul.slider li'), ['odd','even','first','last']);
+    </script>
+    <?php  if(!$totalCount): ?>
+        <script type="text/javascript">
+            (function ($) {
+                var totalCount = <?php echo $totalCount; ?> ;
+                if(!totalCount){
+                    $('div.checkout-freegift').remove();
+                }
+            })(jQuery);
+        </script>
+    <?php endif; ?>

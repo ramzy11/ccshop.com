@@ -1,0 +1,235 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Category layered navigation
+ *
+ * @see Mage_Catalog_Block_Layer_View
+ */
+/* @var $this Mana_Filters_Block_View */
+/* @var $_filter Mana_Filters_Block_Filter */
+
+/* @var $cookie Mage_Core_Model_Cookie */
+$cookie = Mage::app()->getCookie();
+$isAjax = $this->getRequest()->getParam('isAjax');
+$_filters = $this->getFilters();
+$params = $this->getRequest()->getParams();
+
+$selectedOptions = array();
+$config = Mage::getModel('eav/config');
+
+/* @var $category Gri_CatalogCustom_Model_Category */
+$category = Mage::getSingleton('catalog/category')->load(intval($params['id']));
+
+$selectedSeoValues = $this->getSeoValues();
+
+foreach ($params as $code => $val) {
+    /* @var $attribute Gri_CatalogCustom_Model_Resource_Eav_Attribute */
+    $attribute = $config->getAttribute(4, $code);
+    if ($attribute->getIsFilterable()) {
+        $label = $attribute->getStoreLabel();
+        $optionsTmp = $options = array();
+
+        $optionIds = explode('_', $val);
+        $optionIds = isset($selectedSeoValues[$attribute->getAttributeCode()]) ? array_intersect($selectedSeoValues[$attribute->getAttributeCode()], $optionIds) : array();
+        foreach ($attribute->getSource()->getAllOptions(FALSE) as $option) {
+            if (in_array($option['value'], $optionIds)) {
+                $optionsTmp[$option['value']] = $option['label'];
+            }
+        }
+
+        if($attribute->getFrontendInput() == 'select') {
+            foreach ($optionIds as $oid) {
+                $options[$oid] = $optionsTmp[$oid];
+            }
+            $selectedOptions[$code]['label'] = strtoupper($this->__($label)) . '-' . implode('-', $options);
+
+        } else {
+            /* @var $_coreHelper Mage_Core_Helper_Data */
+            $_coreHelper = Mage::helper('core');
+            list($from,$to) = @explode('-', $val);
+            $from = $_coreHelper->currency($from);
+            $to = $_coreHelper->currency($to);
+            $selectedOptions[$code]['label'] = strtoupper($this->__($label)).' '.$from.'-'.$to  ;
+        }
+
+        $toFilterParams = $params;
+        unset($toFilterParams[$code],$toFilterParams['id']);
+
+        $selectedOptions[$code]['clear_url'] = count($toFilterParams) ?  $category->getUrl().'?'.http_build_query($toFilterParams) : $category->getUrl();
+    }
+
+    if(isset($params['order']) && isset($params['dir'])){
+        $availableOrders =  Mage::helper('gri_catalogcustom')->getAvailableOrders(0);
+        $order = $params['order'];
+        $dir = $params['dir'];
+        if($label = $availableOrders[$order][$dir]) {
+            $selectedOptions['sort_by']['label'] = strtoupper($this->__('sort by:')).' '.$this->__($label) ;
+            $toFilterParams = $params;
+            unset($toFilterParams['id'],$toFilterParams['order'],$toFilterParams['dir']);
+            $selectedOptions['sort_by']['clear_url'] = count($toFilterParams) ?  $category->getUrl().'?'.http_build_query($toFilterParams) : $category->getUrl();
+        }
+    }
+}
+?>
+<?php if ($this->canShowBlock()): ?>
+    <div class="block block-layered-nav">
+        <div class="sf-refine-name"><a href="javascript:;" class="sf-refine-title"><?php echo $this->__('Refine'); ?></a></div>
+        <div class="refine-name"><span><?php echo $this->__('Refine'); ?></span></div>
+        <?php if (count($selectedOptions)): ?>
+            <div class="refine-result">
+                <ul>
+                    <li>
+                        <a onclick="sendFilter('<?php echo $category->getUrl(); ?>')" href="javascript:;">
+                            <span><img
+                                    src="<?php echo $this->getSkinUrl('images/close.png'); ?>"/></span><span><?php echo strtoupper($this->__('Clear All')); ?></span>
+                        </a>
+                    </li>
+
+                    <?php foreach ($selectedOptions as $option): ?>
+                        <li>
+                            <a  onclick="sendFilter('<?php echo $option['clear_url']; ?>')" href="javascript:;">
+                                <span><img
+                                        src="<?php echo $this->getSkinUrl('images/close.png'); ?>"/></span><span><?php echo $option['label']; ?></span>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+        <div class="refine-content">
+            <?php // sort-by ?>
+            <?php echo $this->getChildHtml('product.sort') ?>
+
+            <?php // filter ?>
+            <?php if ($this->canShowOptions()): ?>
+                <div class="filter sf-filter">
+                    <?php  $newOrderSorted = array('brand',
+                        'color_filter_1',
+                        'size_shoes',
+                        'heel_height',
+                        'size_clothing',
+                        'price');
+                    $_filtersSorted = array();
+                    foreach ($newOrderSorted as $key) {
+                        if (in_array($key, array_keys($_filters))) {
+                            $_filtersSorted[$key] = $_filters[$key];
+                        }
+                    }
+                    $_filters = $_filtersSorted;
+                    ?>
+
+                    <?php foreach ($_filters as $_filter): ?>
+                        <?php
+                        $code = $_filter->getFilter()->getFilterOptions()->getCode();
+                        $attribute = '------filter-%s------';
+                        !$isAjax && $cookie->delete(sprintf($attribute, $code));
+
+                        $display = (($isAjax & $cookie->get(sprintf($attribute, $code))) || $this->getRequest()->getParam($code)) ? 'block' : 'none';
+                        $filterOpen = $display == 'block' ? 'filter-open' : '';
+                        ?>
+                        <?php if ($_filter->getItemsCount()): ?>
+                            <div class="filter-content">
+                                <div
+                                    class="filter-item filter-item-<?php echo $code = $_filter->getFilter()->getFilterOptions()->getCode(); ?> <?php echo $filterOpen; ?>">
+                                    <?php $filterName = $_filter->getName(); ?>
+                                    <a href="javascript:;" attribute="filter-<?php echo $code; ?>"
+                                       class="filter-name"><?php echo $this->__($filterName) ?></a>
+                                    <?php if ($code == 'price') : ?>
+                                        <div id="filter-value-<?php echo $code; ?>" class="filter-value"
+                                             style="display:<?php echo $display; ?>">
+                                            <?php echo $_filter->getPriceFiterHtml() ?>
+                                        </div>
+                                    <?php else : ?>
+                                        <div id="filter-value-<?php echo $code; ?>" class="filter-value"
+                                             style="display:<?php echo $display; ?>">
+                                            <dd><?php echo $_filter->getHtml() ?></dd>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                                <div id="filter-list">
+                                    <?php if (in_array($code, array_keys(Mage::app()->getRequest()->getParams()))): ?>
+                                        <div class="filter-value-<?php echo $code; ?>"></div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
+                <script type="text/javascript">decorateDataList('narrow-by-list')</script>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>
+
+<script type="text/javascript">
+    (function ($) {
+        window.sendFilter = window.sendFilter || function (url) {
+            $('#page-ajax-loader').show();
+            if (url.indexOf('?') == '-1') url += '?';
+            if (url.indexOf('isAjax') == '-1') url += '&isAjax=1';
+            $.ajax({
+                url: url,
+                dataType: 'json',
+                type: 'get',
+                success: function (data) {
+                    $('#page-ajax-loader').hide();
+                    if ($('.col-left .block-layered-nav')) {
+                        $('.col-left .block-layered-nav').replaceWith(data.filter);
+                        initPriceFilter();
+                    }
+                    if ($('.col-main .category-products')) {
+                        $('.col-main .category-products').replaceWith(data.categoryProducts);
+                        initSwatchOptions();
+                    }
+                }
+            });
+        }
+
+        $(".filter-name").click(function (e) {
+            var attribute = '------' + $(this).attr('attribute') + '------';
+            var value = Mage.Cookies.get(attribute);
+            value = !parseInt(value) ? 1 : 0;
+            Mage.Cookies.set(attribute, value);
+
+            $(this).next(".filter-value").slideToggle("fast");
+            $(this).parent('.filter-item').toggleClass("filter-open");
+            return false;
+        });
+
+        $(".sf-refine-name").click(function () {
+            $(".block-layered-nav .refine-content").slideToggle("fast");
+            $(this).toggleClass("sf-refine-open")
+        });
+
+        $(".sf-sortby-name").click(function (e) {
+            setFilterCookie($(this).attr('attribute'));
+            $(".sf-sortby-value").slideToggle("fast");
+            $(this).toggleClass("filter-open")
+        });
+    })(jQuery);
+</script>

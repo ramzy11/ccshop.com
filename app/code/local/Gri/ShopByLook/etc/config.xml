@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Gri_ShopByLook>
+            <version>1.0.0</version>
+        </Gri_ShopByLook>
+    </modules>
+ <global>
+       <catalog>
+             <product>
+                <type>
+                    <grouped>
+                        <allow_product_types>
+                            <configurable/>
+                        </allow_product_types>
+                    </grouped>
+                </type>
+             </product>
+        </catalog>
+        <blocks>
+             <gri_shopbylook>
+                <class>Gri_ShopByLook_Block</class>
+            </gri_shopbylook>
+             <adminhtml>
+                <rewrite>
+                    <catalog_product_edit_tab_super_group>Gri_ShopByLook_Block_Adminhtml_Product_Group</catalog_product_edit_tab_super_group>
+                </rewrite>
+             </adminhtml>
+        </blocks> 
+        <models>
+             <gri_shopbylook>
+                <class>Gri_ShopByLook_Model</class>
+                <resourceModel>gri_shopbylook_resource</resourceModel>
+            </gri_shopbylook>
+             <catalog>
+                <rewrite>
+                    <product_type_grouped>Gri_ShopByLook_Model_Grouped</product_type_grouped>
+                </rewrite>
+              </catalog>
+        </models>    
+</global>
+    <frontend>
+          <routers>
+            <gri_shopbylook>
+                <use>standard</use>
+                <args>
+                    <module>Gri_ShopByLook</module>
+                    <frontName>shopbylook</frontName>
+                </args>
+            </gri_shopbylook>
+        </routers>
+    </frontend>
+</config>

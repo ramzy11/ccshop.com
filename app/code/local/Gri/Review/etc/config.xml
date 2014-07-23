@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Gri_Review>
+            <version>1.0.1</version>
+        </Gri_Review>
+    </modules>
+    <global>
+        <blocks>
+            <gri_review>
+                <class>Gri_Review_Block</class>
+            </gri_review>
+            <review>
+                <rewrite>
+                    <form>Gri_Review_Block_Form</form>
+                    <customer_list>Gri_Review_Block_Customer_List</customer_list>
+                </rewrite>
+            </review>
+        </blocks>
+    </global>
+    <frontend>
+        <translate>
+            <modules>
+                <Gri_Review>
+                    <files>
+                        <default>Gri_Review.csv</default>
+                    </files>
+                </Gri_Review>
+            </modules>
+        </translate>
+    </frontend>
+</config>

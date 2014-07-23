@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <awall translate="label" module="awall">
+            <label>aheadWorks Extensions</label>
+            <sort_order>300</sort_order>
+        </awall>
+    </tabs>
+</config>

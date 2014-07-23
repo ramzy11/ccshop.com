@@ -1,0 +1,89 @@
+<?php
+/* @var $this Gri_Hamper_Block_View */
+$_product = $this->getProduct();
+
+/* @var $outputHelper Mage_Catalog_Helper_Output */
+$outputHelper = $this->helper('catalog/output');
+/* @var $coreHelper Mage_Core_Helper_Data */
+$coreHelper = $this->helper('core');
+/* @var $imageHelper Mage_Catalog_Helper_Image */
+$imageHelper = $this->helper('catalog/image');
+/* @var $productHelper Gri_CatalogCustom_Helper_Product */
+$productHelper = $this->helper('gri_catalogcustom/product');
+$productHelper->getProductListItemBlock()
+    ->setImageHeight(125)->setImageWidth(125)
+    ->setShowActions(false)
+    ->setShowMoreSwatches(TRUE)
+    ->setShowSpConfig(TRUE)
+   // ->setShopNowLabel($this->__('Pick This'))
+   // ->setShopNowOnclick('hamper' . $_product->getId() . '.pick(this);');
+    ->setShowDescription(TRUE);
+?>
+<script type="text/javascript"  src="<?php  echo $this->getJsUrl('gri/hamper-preset.js')?>"></script>
+<div class="page-title steps step1">
+    <h1><?php echo $outputHelper->productAttribute($_product, $_product->getName(), 'name'); ?></h1>
+</div>
+<div class="page-title steps step2 no-display">
+    <h1><?php echo $this->__('Write Message'); ?></h1>
+</div>
+<div class="hamper-wrapper product-view clear">
+    <div class="main-col">
+        <div class="steps step1">
+            <div class="hamper-theme">
+                <img src="<?php echo $imageHelper->init($_product, 'image')->resize(300); ?>" />
+
+                <div class="theme-info">
+                    <h3><?php echo $outputHelper->productAttribute($_product, $_product->getName(), 'name'); ?></h3>
+                    <p><?php echo $outputHelper->productAttribute($_product, $_product->getDescription(), 'description'); ?></p>
+                </div>
+                <?php echo $this->getPriceHtml($_product, TRUE, 'display'); ?>
+                <?php if ($items = $this->getItemCount()) { ?><p class="product-items"><?php echo $this->__('%s Items', $items); ?></p><?php } ?>
+            </div>
+            <div class="hamper-items theme-products-list">
+                <?php foreach ($this->getHamperItems() as $oid => $group) { ?>
+                <ul class="clear" option="<?php echo $oid; ?>">
+                    <?php foreach ($group as $sid => $_subProduct) {
+                        $this->prepareProductUrl($_subProduct);
+                    ?>
+                    <li class="item <?php echo $_subProduct->getTypeId(); ?>" selection="<?php echo $sid; ?>" price="<?php echo $coreHelper->currency($_subProduct->getPrice(), FALSE, FALSE); ?>" product="<?php echo $_subProduct->getId(); ?>" skip_link_update="1">
+                        <?php echo $productHelper->renderProduct($_subProduct); ?>
+                    </li>
+                    <?php } ?>
+                </ul>
+                <script type="text/javascript">
+                    _('div.gift-icon, div.gift-icon-hover').remove();
+                </script>
+                <?php } ?>
+            </div>
+        </div>
+        <div class="steps step2 no-display">
+            <?php echo $this->getChildHtml('message'); ?>
+        </div>
+    </div>
+    <div class="right-col">
+        <div class="fixed-bar">
+        <h2><?php echo $this->__('Checkout Progress'); ?></h2>
+        <?php echo $this->getChildHtml('pick'); ?>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //<![CDATA[
+    var hamper<?php echo $pid = $_product->getId(); ?> = new Hamper((function (config) {
+        config.containerId = "product-options-wrapper<?php echo $pid; ?>";
+        config.optionsPrice = optionsPrice<?php echo $pid; ?>;
+        config.minItems = <?php echo $items; ?>;
+        return config;
+    })(<?php echo $this->getJsonConfig(); ?>));
+
+    //Init: add hamper items to fixed sidebar
+    $$('div.hamper-items ul').each(function(element, index){
+        var option = _(element).attr('option');
+        _(element).find('li').each(function(oIndex,oElement){
+            var selectionId = _(oElement).attr('selection');
+           hamper<?php echo $pid;?>.add(option, selectionId);
+        })
+    })
+    //]]>
+</script>

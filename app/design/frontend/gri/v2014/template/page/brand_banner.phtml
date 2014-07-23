@@ -1,0 +1,23 @@
+<?php
+/* @var $this Gri_Page_Block_Brand */
+/* @var $brand ProxiBlue_DynCatProd_Model_Category */
+?>
+<?php if ($brandCategory = $this->getBrand()): ?>
+    <div class="brand-banner border-bottom">
+        <div class="brand-image">
+            <a href="javascript:;" title="<?php echo $brandCategory->getName(); ?>" class="title-image">
+                <?php $brandCategoryImageName = $brandCategory->getImage();
+                $imageUrl = $this->getImageUrl($brandCategoryImageName);
+                $imageDir = $this->getImageDir($brandCategoryImageName)
+                ?>
+                <?php if (is_file($imageDir)): ?>
+                    <img src="<?php echo $imageUrl; ?>" title="<?php echo $brandCategory->getName(); ?>"/>
+                <?php else: ?>
+                    <span class="brand-title"><?php echo $brandCategory->getName(); ?></span>
+                <?php endif; ?>
+            </a>
+            <!-- In Mobile Version ,arrow will display -->
+            <a href="javascript:;" class="banner-arrow"></a>
+        </div>
+    </div>
+<?php endif; ?>

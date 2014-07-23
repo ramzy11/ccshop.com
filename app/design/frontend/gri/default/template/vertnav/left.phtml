@@ -1,0 +1,108 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    RicoNeitzel
+ * @copyright  Copyright (c) 2009 Vinai Kopp http//netzarbeiter.com/
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Left menu for store
+ *
+ * @see RicoNeitzel_VertNav_Block_Navgation
+ * @see Mage_Catalog_Block_Navigation
+ */
+/* @var $this RicoNeitzel_VertNav_Block_Navigation */
+?>
+<div class="vertnav-container">
+<?php
+/* @var $currentCategory Gri_CatalogCustom_Model_Category */
+$currentCategory = Mage::registry('current_category');
+if($currentCategory && (
+    ($brand = $currentCategory->getBrandCategory()) ||
+    ($shop = $currentCategory->getShopCategory())
+)) {
+    $categoryParentStyle = $brand ? $brand : $shop;
+    $value = strtolower($categoryParentStyle->getData('url_key'));
+    switch($value) {
+        case 'ninewest':
+        case 'stevemadden':
+        case 'eqiq':
+        case 'betseyjohnson':
+        case 'carolinnaespinosa':
+        case 'jeannepierre':
+        case 'shoes':
+        case 'clothing':
+        case 'accessories':
+        case 'bags':
+        case 'presales':
+            echo $this->getChildHtml($value . '.nav');
+            break;
+    }
+?>
+ <div class="no-display presale-preorder">
+    <?php echo $this->getPreSalePreOrderHtml($categoryParentStyle); ?>
+ </div>
+ <script type="text/javascript">
+    (function($){
+           var str = $('.presale-preorder').html();
+           $('.vertnav-container .left-static-nav ul').append(str);
+    })(jQuery);
+ </script>
+<?php } ?>
+    <div class="">
+      <h4 class="no-display"><?php echo $this->__('Category Navigation:') ?></h4>
+<?php $store_categories = $this->toLinearArray($this->getStoreCategories()) ?>
+<?php if ($count = count($store_categories)): ?>
+		<ul id="vertnav">
+<?php endif; ?>
+<?php foreach ($store_categories as $i => $_category): ?><?php $class = array() ?>
+<?php if ($count == 1): ?>
+<?php $class[] = 'only' ?>
+<?php elseif (! $i): ?>
+<?php $class[] = 'first' ?>
+<?php elseif ($i == $count-1): ?>
+<?php $class[] = 'last' ?>
+<?php endif; ?>
+<?php if (isset($store_categories[$i+1]) && $this->isCategoryActive($store_categories[$i+1])) $class[] = 'prev'; ?>
+<?php if (isset($store_categories[$i-1]) && $this->isCategoryActive($store_categories[$i-1])) $class[] = 'next'; ?>
+<?php echo $this->drawOpenCategoryItem($_category, 0, $class) ?>
+<?php endforeach ?>
+<?php if ($count): ?>
+        </ul>
+<?php endif; ?>
+    </div>
+</div>
+<?php if (Mage::registry('special_category')) { ?>
+<script type="text/javascript">
+    var specialCategory = $$(".left-static-nav li.<?php echo Mage::registry('special_category'); ?>")[0];
+    if (specialCategory) {
+        specialCategory.addClassName("open");
+        specialCategory.addClassName("parent");
+        if ($$("#vertnav li.open")[0]) {
+            $$("#vertnav li.open")[0].removeClassName("open");
+            $$("#vertnav li.parent")[0].removeClassName("parent");
+            $$("#vertnav li.level0-parent ul")[0].addClassName("no-display");
+        }
+    }
+</script>
+<?php } ?>

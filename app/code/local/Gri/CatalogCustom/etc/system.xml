@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <gri_navigation translate="label" module="gri_catalogcustom">
+            <label>Top Menu Management</label>
+            <tab>gri</tab>
+            <frontend_type>textarea</frontend_type>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <nav translate="label">
+                    <label>Top Menu Settings</label>
+                    <frontend_type>textarea</frontend_type>
+                    <sort_order>100</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <menu_right translate="label">
+                            <label>Menu Right</label>
+                            <comment><![CDATA[]]></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </menu_right>
+                        <menu_left translate="label">
+                            <label>Menu Left</label>
+                            <comment><![CDATA[]]></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </menu_left>
+                    </fields>
+                </nav>
+            </groups>
+        </gri_navigation>
+        <gri_categories translate="label" module="gri_catalogcustom">
+            <label>Category Keys Management</label>
+            <tab>gri</tab>
+            <frontend_type>textarea</frontend_type>
+            <sort_order>2000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <brands_setting translate="label">
+                    <label>Brand Settings</label>
+                    <frontend_type>textarea</frontend_type>
+                    <sort_order>100</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <brand_collections translate="label">
+                            <label>Brands</label>
+                            <comment><![CDATA[]]></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </brand_collections>
+                    </fields>
+                </brands_setting>
+                <shop_setting translate="label">
+                    <label>Shop Settings</label>
+                    <frontend_type>textarea</frontend_type>
+                    <sort_order>200</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <shop_collections translate="label">
+                            <label>Shop</label>
+                            <comment><![CDATA[]]></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </shop_collections>
+                    </fields>
+                </shop_setting>
+            </groups>
+        </gri_categories>
+        <gri_attribute translate="label" module="gri_catalogcustom">
+            <label>Update Attribute Management</label>
+            <tab>gri</tab>
+            <frontend_type>textarea</frontend_type>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <on_sale translate="label">
+                    <label>Update On Sale Attribute</label>
+                    <frontend_type>textarea</frontend_type>
+                    <sort_order>100</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <sku translate="label">
+                            <label>SKU</label>
+                            <comment><![CDATA[If SKU isn't specified, program will update all product's On Sale Atrribute. <BR/>Note: Only one Configurable Product SKU in per line.]]></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </sku>
+                        <update_on_sale_attribute translate="button_label">
+                            <label></label>
+                            <button_label>Update On Sale Attribute</button_label>
+                            <frontend_model>gri_catalogcustom/adminhtml_catalogcustom_system_config_UpdateOnSaleAttribute</frontend_model>
+                            <sort_order>28</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </update_on_sale_attribute>
+                    </fields>
+                </on_sale>
+            </groups>
+        </gri_attribute>
+        <catalog>
+            <groups>
+                <navigation>
+                    <fields>
+                        <hide_empty translate="label">
+                            <label>Hide Empty Categories</label>
+                            <comment><![CDATA[]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </hide_empty>
+                    </fields>
+                </navigation>
+                <frontend>
+                    <fields>
+                        <grid_column translate="label">
+                            <label>Products on Grid Mode Column</label>
+                            <comment><![CDATA[]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>230</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </grid_column>
+                        <show_ships_to translate="label">
+                            <label>Show Ships to Countries</label>
+                            <comment><![CDATA[]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>220</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </show_ships_to>
+                    </fields>
+                </frontend>
+            </groups>
+        </catalog>
+    </sections>
+</config>

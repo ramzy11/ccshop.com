@@ -1,0 +1,56 @@
+<?php
+/**
+ * @category    Mana
+ * @package     Mana_Filters
+ * @copyright   Copyright (c) http://www.manadev.com
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+/**
+ * Template for showing options for filter as a HTML list
+ * @author Mana Team
+ * Injected instead of standard catalog/layer/filter.phtml in Mana_Filters_Block_Filter_Attribute constructor.
+ * This template is overridden by copying (template body was pasted from catalog/layer/filter.phtml
+ * and modified as needed). All changes are marked with comments.
+ */
+/* @var $this Mana_Filters_Block_Filter */
+$items = $this->getItems();
+$count = count($items) + 1;
+$rowLimit = $this->getRowLimit();
+$rowLimit or $rowLimit = 6;
+$cols = ceil($count / $rowLimit);
+$i = 1;
+?>
+<div class="filter-<?php echo $cols; ?>-cols clearer">
+<ol class="m-filter-item-list filter">
+	<li class="m-selected-ln-item">
+		<input type="checkbox" name ="filter-item" <?php if($this->getSelectedSeoValues()==="") echo "checked=checked"?> onclick="sendFilter('<?php echo $this->getRemoveUrl();?>')" id="filter-<?php echo $this->getFilter()->getFilterOptions()->getCode(); ?>-all"/>
+		<label for="filter-<?php echo $this->getFilter()->getFilterOptions()->getCode(); ?>-all"><?php echo $this->__("View All")?></label>
+	</li>
+<?php foreach ($items as $_item): ?>
+<?php if($_item->getCount() < 1) continue;?>
+<?php if($_item->getMSelected()) $url = $_item->getRemoveUrl();
+		else $url = $_item->getUrl();?>
+<?php if ($i >= $rowLimit) { $i = 0; ?>
+</ol>
+<ol class="m-filter-item-list filter">
+<?php } ++$i; ?>
+    <li class="m-filter-item">
+    	<input type="checkbox" name ="filter-item"  <?php if($_item->getMSelected()) echo "checked=checked"?> onclick="sendFilter('<?php echo $this->urlEscape($url);?>')" id="filter-<?php echo $this->getFilter()->getFilterOptions()->getCode(); ?>-<?php echo $_item->getValue(); ?>"/>
+        <?php // MANA BEGIN ?>
+        <?php if ($_item->getMSelected()): ?>
+        	<label class="m-selected-filter-item"><?php echo $_item->getLabel(); ?></label>
+        <?php else : ?>
+	        <?php if ($_item->getCount() > 0): ?>
+	        <label href="<?php echo $this->urlEscape($_item->getUrl()) ?>" title="<?php echo $_item->getLabel() ?>" for="filter-<?php echo $this->getFilter()->getFilterOptions()->getCode(); ?>-<?php echo $_item->getValue(); ?>"><?php echo $_item->getLabel() ?></label>
+	        <?php else: echo $_item->getLabel() ?>
+	        <?php endif; ?>
+        <?php endif; ?>
+        <?php // MANA END ?>
+    </li>
+<?php endforeach ?>
+</ol>
+</div>
+<?php echo Mage::helper('mana_core')->getNamedHtml('mana_filters/markup', 'after_items', array('block' => $this)) ?>
+<?php if ($this->getFilterOptions()->getCode() == 'size_filter_1') { ?>
+<div class="size-link"><?php echo $this->__('View <a href="%s">size chart</a>', $this->getUrl('customer-service/size-chart')); ?></div>
+<?php } ?>

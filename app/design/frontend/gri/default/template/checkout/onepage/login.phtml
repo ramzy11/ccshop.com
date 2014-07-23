@@ -1,0 +1,18 @@
+<?php
+/* @var $this Gri_CheckoutCustom_Block_Onepage_Login */
+?>
+<?php /* Extensions placeholder */ ?>
+<?php /*echo $this->getChildHtml('checkout.onepage.login.extra')?>
+<?php echo $this->getChildHtml('login_before')*/?>
+<?php echo $this->getChildHtml('checkout_form_login')?>
+<?php if ($this->isAllowedGuestCheckout()) { ?>
+<p class="guest-checkout">
+    <input type="radio" name="checkout_method" id="login:guest" value="guest" checked="checked" class="no-display" />
+    <a href="javascript:void(0);" onclick="checkout.setMethod(); pageTracker._trackPageview('/signin/guest.html');"><?php echo $this->__('If you don\'t want to register, please check out as a Guest'); ?></a>
+</p>
+<?php } ?>
+<script type="text/javascript">
+    (function ($) {
+        $(".account-login .new-users .content").append($(".guest-checkout"));
+    })(jQuery)
+</script>

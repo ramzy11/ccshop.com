@@ -1,0 +1,48 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/* @var $this Mage_Newsletter_Block_Subscribe */
+$hint = $this->__('Enter your email address');
+?>
+<div class="page-title">
+    <h1><?php echo $this->__('Subscribe to Newsletter')?></h1>
+</div>
+<div class="block-subscribe-mobile">
+    <form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="mobile-newsletter-validate-detail">
+        <label for="newsletter"><?php echo $this->__('Email Address'); ?></label>
+        <input type="text" name="email" id="newsletter" value="<?php echo $hint; ?>" onblur="if (this.value == '') this.value = '<?php echo $hint; ?>';" onfocus="if(this.value==this.defaultValue) this.value='';" class="input-text required-entry validate-email" />
+        <a href="javascript:void(0);" onclick="pageTracker._trackPageview('/subscribe/newsletter.html');" class="signup_btn"><?php echo $this->helper('gri_core')->__('Subscribe'); ?></a>
+    </form>
+    <script type="text/javascript">
+    //<![CDATA[
+        var newsletterSubscriberFormDetail = new VarienForm('mobile-newsletter-validate-detail');
+        var newsletterSubmitButton = $$('a.signup_btn')[0];
+        if  (newsletterSubmitButton) newsletterSubmitButton.observe('click', function() {
+            var form = newsletterSubmitButton.parentNode;
+            if (form.email.value != '' && form.email.value != '<?php echo $hint; ?>') form.submit();
+        });
+    //]]>
+    </script>
+</div>

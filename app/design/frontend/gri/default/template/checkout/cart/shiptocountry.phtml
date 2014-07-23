@@ -1,0 +1,25 @@
+<table>
+	<tr>
+		<th>Product Name</th>
+		<th>Ship To Country</th>
+	</tr>
+<?php
+$items = $this->getItems();
+foreach($items as $item) {
+	$product = $item->getProduct();
+	$product = Mage::getModel('catalog/product')->load($product->getId());
+	$countrygroup = $product->getAttributeText('country_group');
+	$countries = 'All';
+	if($countrygroup) {
+		$shipToCountry = explode(',', Mage::getModel('gri_countrygroup/countrygroup')->loadByAttribute('name',$countrygroup)->getValue());
+		if($shipToCountry) {
+			$countries = implode(Mage::helper('gri_countrygroup')->convertCodeToRegions($shipToCountry),',');
+		}
+	}
+?>
+	<tr>
+		<td width=30%><?php echo $product->getName()?></td>
+		<td width=70%><?php echo $countries?></td>
+	</tr>
+<?php } ?>
+</table>

@@ -1,0 +1,36 @@
+.quickshop_img{ }
+
+#id_qs_load{width: 621px;position: absolute;top: 30px; left: 50%;display: none;z-index: 1001;background: #fff;min-height: 300px;}
+#output-div{}
+/*a.close{width: 15px; height: 15px;text-indent: -999em;background: url(../images/close.gif) center center no-repeat;display: inline-block;float: right;padding: 10px 10px 0 0;position: absolute;right: -3px;top: -22px;}*/
+#shadow_box{width: 100%;display: none;position: absolute;left: 0; top: 0;z-index: 1001;background: #000;opacity:0.5;z-index: 1000;filter:alpha(opacity=50)}
+#loadingmask{padding: 5px 0;position: absolute;top: 50%;left: 50%;margin: -30px 0 0 -15px;}
+#loading-mask-loader span{display: block;padding-top: 10px;}
+#loading-mask-loader img{padding-right: 10px;}
+.magiatec-options-wrapper a.selectBox,.magiatec-options-wrapper select{/*display:none!important;*/}
+.magiatec-options-shopping-cart-wrapper a.selectBox,.magiatec-options-shopping-cart-wrapper select{}
+.magiatec-options-shopping-cart-wrapper .selectBox{font-size: 11px;width: 58px!important; height: 24px!important}
+#em_quickshop_handler{position: absolute; display:block; }
+.grouped-item-info .product-view .product-essential{background:none;padding:0}
+.grouped-item-info .product-view .product-collateral{display:none}
+.grouped-item-info .product-view {border:none;overflow:hidden;width:290px;}
+.grouped-item-info .product-view .product-shop{width:100%}
+body.grouped-item-info{padding:0px;width:290px;}
+.grouped-item-info .magiatec-swatches,
+.grouped-item-info .add-to-cart label,.grouped-item-info .add-to-cart .qty
+{display:none;}
+.grouped-item-info .magiatec-options-wrapper,.grouped-item-info .magiatec-options-wrapper a.selectBox,
+.grouped-item-info .magiatec-options-wrapper select{display:inline-block!important;}
+.grouped-item-info .magiatec-options-wrapper select.selectBox{display:none!important;}
+.grouped-item-info .product-shop-left{width:136px;}
+.grouped-item-info .product-view .product-shop .product-brand,.grouped-item-info .product-name
+{font-size:11px;line-height:1.2em;margin:0;}
+.grouped-item-info .product-shop-right{width:152px;}
+.grouped-item-info .product-options dl{ float:right;}
+.grouped-item-info .product-options dt,.grouped-item-info p.size-chart{display:none;}
+.grouped-item-info .product-options dd .selectBox,.grouped-item-info .product-options dd select{font-size:11px;margin-left:15px;width:58px!important;}
+.grouped-item-info .product-options dd .selectBox-dropdown .selectBox-arrow{border-left:0;width:17px;}
+.grouped-item-info .product-view .product-shop .price-box{font-size:12px;margin:0;}
+.grouped-item-info .old-price .price{color:#555;}
+.grouped-item-info .add-to-box{float:right;margin:0;}
+.grouped-item-info .add-to-cart button.button{padding:2px 5px 2px 25px;}

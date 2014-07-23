@@ -1,0 +1,12 @@
+<?php
+/* @var $this Gri_Affiliate_Block_Affiliate */
+$affiliateOrder = $this->getAffiliateOrder();
+if ($affiliateOrder->getId() &&
+    ($affiliate = $affiliateOrder->getAffiliateInstance()) &&
+    $affiliateOrder->getCountOfSentOrder() < $affiliate->getSentLimit() &&
+    $affiliate->isEnabled()
+) {
+    $affiliateOrder->updateIsSent(1);
+?>
+<div class="affiliate-container"><?php echo $affiliate->getTrackingHtml(); ?></div>
+<?php } ?>

@@ -1,0 +1,62 @@
+<?php
+/* @var $this Gri_Hamper_Block_Home */
+
+/* @var $coreHelper Mage_Core_Helper_Data */
+$coreHelper = $this->helper('core');
+/* @var $outputHelper Mage_Catalog_Helper_Output */
+$outputHelper = $this->helper('catalog/output');
+/* @var $imageHelper Mage_Catalog_Helper_Image */
+$imageHelper = $this->helper('catalog/image');
+
+/* @var $_product Mage_Catalog_Model_Product */
+$_product = $this->getCustomHamper();
+
+/* @var $share Gri_CatalogCustom_Block_Product_View_Share */
+$share = $this->getChild('share');
+$share->setProduct($_product);
+$_url = $this->getProductUrl($_product);
+?>
+<div class="custom-hamper clear">
+    <div class="hamper-img">
+        <a href="<?php echo $_url; ?>"><img src="<?php echo $imageHelper->init($_product, 'image')->resize(350); ?>" /></a>
+    </div>
+    <div class="hamper-discription">
+        <h3><a href="<?php echo $_url; ?>"><?php echo $outputHelper->productAttribute($_product, $_product->getName(), 'name'); ?></a></h3>
+        <p><?php echo $outputHelper->productAttribute($_product, $_product->getDescription(), 'description'); ?></p>
+        <p class="start-price"><?php echo $this->__('Start From %s', $coreHelper->currency($_product->getMinimalPrice(), TRUE, FALSE)) ?></p>
+        <a class="pick-gift" href="<?php echo $_url; ?>"><?php echo $this->__('Pick Gift Now') ?></a>
+        <?php echo $share->toHtml(); ?>
+    </div>
+</div>
+<div class="preset-hampers clear">
+    <h3><?php echo $this->__('Preset Hampers'); ?></h3>
+    <ul class="clear">
+        <?php foreach ($this->getPresetHampers() as $_product) {
+            $_url = $this->getProductUrl($_product);
+        ?>
+        <li>
+            <div class="product-img">
+                <a href="<?php echo $_url; ?>"><img src="<?php echo $imageHelper->init($_product, 'small_image')->resize(200); ?>" /></a>
+            </div>
+            <div class="product_description">
+                <p class="product-name"><a href="<?php echo $_url; ?>"><?php echo $outputHelper->productAttribute($_product, $_product->getName(), 'name'); ?></a></p>
+                <?php if ($items = $_product->getHamperPickLimit()) { ?><p class="product-items"><?php echo $this->__('%s Items', $items); ?></p><?php } ?>
+                <?php echo $this->getPriceHtml($_product, TRUE); ?>
+                <div class="actions">
+                    <a href="<?php echo $_url; ?>" class="view-detail"><?php echo $this->__('View Details'); ?></a>
+                </div>
+            </div>
+        </li>
+        <?php } ?>
+    </ul>
+</div>
+<div class="what-more">
+    <div class="what-more-content">
+        <h3><?php echo $this->__('What\'s More'); ?></h3>
+        <?php echo $this->getChildHtml('hamper.whats.more'); ?>
+    </div>
+</div>
+<div class="terms-condition clearfix">
+    <h3><?php echo $this->__('Terms and Condition'); ?></h3>
+    <?php echo $this->getChildHtml('hamper.terms.condition'); ?>
+</div>

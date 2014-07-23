@@ -1,0 +1,10 @@
+<?php
+/* @var $this Gri_CatalogCustom_Block_Home_ShopNow */
+/* @var $category Gri_CatalogCustom_Model_Category */
+?>
+<?php foreach ($this->getCategories() as $category) { ?>
+<div class="show_item">
+    <a href="<?php echo $category->getUrl(); ?>"><img src="<?php echo $category->getImageUrl(); ?>" width="126" height="141" alt="<?php echo $category->getName(); ?>">
+        <?php echo $this->__('Shop %s', $category->getName()); ?><img src="<?php echo $this->getSkinUrl('images/home/arrow_b.jpg'); ?>" width="8" height="8"></a>
+</div>
+<?php } ?>

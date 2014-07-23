@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<config>
+    <tabs>
+        <magiatec translate="label" module="magiatec">
+            <label>Magiatec</label>
+            <sort_order>300</sort_order>
+        </magiatec>
+    </tabs>
+</config>

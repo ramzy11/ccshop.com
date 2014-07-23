@@ -1,0 +1,102 @@
+<?php
+/**
+ * Magento Enterprise Edition
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Magento Enterprise Edition License
+* that is bundled with this package in the file LICENSE_EE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://www.magentocommerce.com/license/enterprise-edition
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@magentocommerce.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade Magento to newer
+* versions in the future. If you wish to customize Magento for your
+* needs please refer to http://www.magentocommerce.com for more information.
+*
+* @category    design
+* @package     enterprise_default
+* @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+* @license     http://www.magentocommerce.com/license/enterprise-edition
+*/
+
+/**
+ * Shoping cart sidebar
+*
+* @var $this Mage_Checkout_Block_Cart_Sidebar
+*/
+?>
+<div class="top-cart-container">
+	<div class="top-cart">
+	<?php $_cartQty = $this->getSummaryCount() * 1; ?>
+	<?php if ($_cartQty > 0): ?>
+	    <?php $_myCart = $this->__('<span>%s</span> Items', $_cartQty) ?>
+	<?php else: ?>
+	    <?php $_myCart = $this->__('<span>0</span> Item') ?>
+	<?php endif ?>
+	<?php if ($this->getIsLinkMode() || !$this->getIsNeedToDisplaySideBar()):?>
+	    <div class="block-title no-items">
+	        <ul class="links cart-link">
+	            <li ><a href="<?php echo $this->getUrl('checkout/cart'); ?>"><?php echo $_cartQty ?></a></li>
+	        </ul>
+	    </div>
+	<?php else:?>
+	    <div class="block-title <?php if(!$_cartQty) { echo 'no-items'; } ?>">
+            <h3><span><?php echo $this->__('Tote ')?></span>
+                <p class="mini-cart-qty">
+                    <a id="cartHeader" href="<?php echo $this->getUrl('checkout/cart'); ?>"><?php echo $_cartQty ?></a>
+                    <a id="sf-cartHeader" href="<?php echo $this->getUrl('checkout/cart'); ?>"><?php echo $_cartQty ?></a>
+                </p>
+            </h3>
+	    </div>
+	    <div id="topCartContentSwipe" class="block-content" style="display:none">
+	        <div class="inner-wrapper"><?php // extra div to smooth slideUp and slideDown ?>
+	        <?php $_items = $this->getRecentItems() ?>
+
+	        <?php if(count($_items)): ?><?php // items in cart ?>
+               <p class="subtotal"><span class="label"><?php echo $this->__('Subtotal:') ?></span> <?php echo Mage::helper('checkout')->formatPrice($this->getSubtotal()) ?><?php if ($_subtotalInclTax = $this->getSubtotalInclTax()): ?> / <?php echo Mage::helper('checkout')->formatPrice($_subtotalInclTax) ?> <?php echo Mage::helper('tax')->getIncExcText(true) ?><?php endif; ?></p>
+
+	            <ol id="mini-cart" class="mini-products-list">
+	            <?php foreach($_items as $_item): ?>
+	                <?php echo $this->getItemHtml($_item) ?>
+	            <?php endforeach; ?>
+	            </ol>
+
+	        <?php else: ?><?php // cart empty ?>
+                <div class="cart-content">
+                    <?php echo $this->__('You have no items in your shopping cart.') ?>
+                </div>
+	        <?php endif ?>
+
+	        <?php if($_cartQty && $this->isPossibleOnepageCheckout()): ?>
+	            <div class="actions">
+	                <?php echo $this->getChildHtml('extra_actions') ?>
+	                <button class="button" type="button" onclick="setLocation('<?php echo $this->getUrl('checkout/cart'); ?>')">
+                        <span><span><?php echo $this->__('View tote / Checkout') ?></span></span></button>
+	            </div>
+                <div class="mini-cart-tips"><?php echo $this->__('Shipping will be calculated at checkout')?></div>
+	        <?php endif ?>
+	    </div>
+
+	    </div>
+	<?php endif;?>
+	</div>
+</div>
+<script type="text/javascript">decorateList('mini-cart', 'none-recursive')</script>
+<?php /*
+<?php if ($this->getRequest()->getParam('isAjax')) { ?>
+<script type="text/javascript">
+    (function($){
+        var obj = $("#topCartContentSwipe");
+        obj.mouseenter();
+        obj.data("timer", setTimeout(function(){
+            obj.mouseleave();
+        }, 5000));
+    })(jQuery);
+</script>
+<?php } ?>
+*/ ?>

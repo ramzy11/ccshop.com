@@ -1,0 +1,82 @@
+<?php
+/* @var $this Mage_Catalog_Block_Product_View_Media */
+$_product = $this->getProduct();
+$_helper  = $this->helper('catalog/output');
+$_width   = Mage::getStoreConfig('magiatecolorswatch/imageswitcher/width');
+$_height  = Mage::getStoreConfig('magiatecolorswatch/imageswitcher/height');
+$_twidth  = 300;
+$_theight = 450;
+$this->getImageWidth() and $_width = $this->getImageWidth();
+$this->getImageHeight() and $_height = $this->getImageHeight();
+$this->getThumbnailWidth() and $_twidth = $this->getThumbnailWidth();
+$this->getThumbnailHeight() and $_theight = $this->getThumbnailHeight();
+/* @var $swatchHelper Magiatec_Colorswatch_Helper_Swatch */
+$swatchHelper = Mage::helper('magiatecolorswatch/swatch');
+$swatchHelper->setCurrentProduct($_product);
+?>
+<div id="magiatecolorswatch-gallery-wrapper">
+    <?php
+    // For color swatch
+    if ($swatchHelper->isApplicable())
+    foreach ($swatchHelper->rearrangeGalleryImages($this->getProduct()->getMediaGalleryImages()) as $swatch => $galleryImages) { ?>
+        <div class="swatch-<?php echo $swatch; ?>" swatch="<?php echo $swatch; ?>" style="display:none;">
+            <?php if(count($galleryImages)>1):?>
+                <a href="javascript:void(0);" class="prev"></a>
+            <?php endif;?>
+            <div class="jcarousel"><ul class="magiatecolorswatch-gallery">
+                    <?php foreach ($galleryImages as $_image): ?>
+                        <li><img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize($_twidth, $_theight); ?>"
+                                         width="<?php echo $_twidth ?>" height="<?php echo $_theight ?>" /></li>
+                    <?php endforeach; ?>
+                </ul></div>
+            <?php if(count($galleryImages)>1):?>
+                <a href="javascript:void(0);" class="next"></a>
+            <?php endif;?>
+        </div>
+    <?php if (count($galleryImages) > 1) { ?>
+        <script type="text/javascript">
+            (function($) {
+                $('#magiatecolorswatch-gallery-wrapper .swatch-<?php echo $swatch; ?> .jcarousel')
+                    .jcarousel({vertical: false});
+                $('#magiatecolorswatch-gallery-wrapper .swatch-<?php echo $swatch; ?> .prev')
+                    .on('inactive.jcarouselcontrol', function() {$(this).addClass('inactive');})
+                    .on('active.jcarouselcontrol', function() {$(this).removeClass('inactive');})
+                    .jcarouselControl({target: '-=1'});
+                $('#magiatecolorswatch-gallery-wrapper .swatch-<?php echo $swatch; ?> .next')
+                    .on('inactive.jcarouselcontrol', function() {$(this).addClass('inactive');})
+                    .on('active.jcarouselcontrol', function() {$(this).removeClass('inactive');})
+                    .jcarouselControl({target: '+=1'});
+            })(jQuery);
+        </script>
+    <?php } ?>
+    <?php }
+
+    // For normal gallery
+    else { ?>
+        <a href="javascript:void(0);" class="prev"></a>
+        <div class="jcarousel"><ul class="magiatecolorswatch-gallery">
+                <?php foreach ($galleryImages = $this->getGalleryImages() as $_image): ?>
+                    <li><img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize($_twidth, $_theight); ?>"
+                              width="<?php echo $_twidth ?>" height="<?php echo $_theight ?>" /></li>
+                <?php endforeach; ?>
+            </ul></div>
+        <a href="javascript:void(0);" class="next"></a>
+    <?php if (count($galleryImages) > 1) { ?>
+        <script type="text/javascript">
+            (function($) {
+                $('#magiatecolorswatch-gallery-wrapper .jcarousel')
+                    .jcarousel({vertical: false});
+                $('#magiatecolorswatch-gallery-wrapper .prev')
+                    .on('inactive.jcarouselcontrol', function() {$(this).addClass('inactive');})
+                    .on('active.jcarouselcontrol', function() {$(this).removeClass('inactive');})
+                    .jcarouselControl({target: '-=1'});
+                $('#magiatecolorswatch-gallery-wrapper .next')
+                    .on('inactive.jcarouselcontrol', function() {$(this).addClass('inactive');})
+                    .on('active.jcarouselcontrol', function() {$(this).removeClass('inactive');})
+                    .jcarouselControl({target: '+=1'});
+            })(jQuery);
+        </script>
+    <?php } ?>
+    <?php } ?>
+</div>
+

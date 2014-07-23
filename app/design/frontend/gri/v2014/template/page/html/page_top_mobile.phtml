@@ -1,0 +1,19 @@
+<?php /* @var $this Gri_Page_Block_Html_Topmessage */ ?>
+<?php if($this->getIsHomePage() && $this->isEnabled()):?>
+    <div id="page-top-message-mobile">
+        <div class="page-top-message-wrapper">
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('page_top_message')->toHtml() ?>
+            <a href="javascript:void(0);" class="page-top-close"></a>
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+        (function($){
+            $("#page-top-message .page-top-close").click(function(){
+                $("#page-top-message-mobile").hide();
+                Mage.Cookies.set('<?php echo $this->getCookieName(); ?>', 1);
+            });
+        })(jQuery);
+    </script>
+<?php endif; ?>

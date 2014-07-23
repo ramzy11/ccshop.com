@@ -1,0 +1,33 @@
+<div class="entry-edit">
+    <?php
+    echo mage::helper('dyncatprod')->getAttributeMap();
+    ?>
+</div>
+
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend">Products</h4>
+    </div>
+</div>
+<div id="dynamic_products_grid">
+<?php echo $this->getChildHtml('category_dyncatprod_grid'); ?>
+</div>    
+
+<div class="entry-edit" style="padding-top: 10px;">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend">Help:</h4>
+    </div>
+</div>
+<div>
+    <ul>
+        <li>Attribute not showing? Did you set attribute as "used in product listing" and re-index?</li>
+        <li>* can be used as wildcard match anywhere in a string</li>
+        <li>Date related attributes will display products where the attribute FROM and TO ranges are valid</li>
+        <li>yes/true and 1 means the same</li>
+        <li>no/false and 0 means the same</li>
+        <li>Category Ids can be comma separated list</li>
+        <li>Sub Categories can be pulled in by using a + after the id (10+,8+,15+)</li>
+        <li>Price based attributes can include range delimiters. (>,<,!,<=,>=,=) No delimiter works as =</li>     
+    </ul>
+</div>
+

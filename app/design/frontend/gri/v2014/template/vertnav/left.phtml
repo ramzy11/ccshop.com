@@ -1,0 +1,130 @@
+<?php
+/**
+ * Left menu for store
+ *
+ * @see RicoNeitzel_VertNav_Block_Navgation
+ * @see Mage_Catalog_Block_Navigation
+ */
+/* @var $this RicoNeitzel_VertNav_Block_Navigation */
+?>
+<div class="vertnav-container">
+    <?php
+    //echo $this->getBlockHtml('catalog.vertnav.misc1');
+    /* @var $currentCategory Gri_CatalogCustom_Model_Category */
+    $currentCategory = Mage::registry('current_category');
+
+    if ($currentCategory && (
+            ($brand = $currentCategory->getBrandCategory()) ||
+            ($shop = $currentCategory->getShopCategory())
+        )
+    ) {
+        $categoryParentStyle = $brand ? $brand : $shop;
+        $value = strtolower($categoryParentStyle->getData('url_key'));
+        switch ($value) {
+            case 'ninewest':
+            case 'stevemadden':
+            case 'eqiq':
+            case 'betseyjohnson':
+            case 'carolinnaespinosa':
+            case 'jeannepierre':
+            case 'shoes':
+            case 'clothing':
+            case 'accessories':
+            case 'bags':
+            case 'presales':
+                //echo $this->getChildHtml($value . '.nav');
+                break;
+        }
+        ?>
+        <div class="no-display presale-preorder">
+            <?php //echo $this->getPreSalePreOrderHtml($categoryParentStyle); ?>
+        </div>
+        <script type="text/javascript">
+            (function ($) {
+                var str = $('.presale-preorder').html();
+                $('.vertnav-container .left-static-nav ul').append(str);
+            })(jQuery);
+        </script>
+    <?php } ?>
+    <div class="vertnav_block">
+        <h4 class="no-display"><?php echo $this->__('Category Navigation:');?></h4>
+        <?php $storeCategories = $this->getNewStoreCategories();
+        $store_categories = $this->toLinearArray($storeCategories);
+        $parentCategory = $currentCategory;
+        ?>
+        <?php if ($count = count($store_categories)): ?>
+        <ul id="vertnav">
+            <?php
+            if( $shopCategory = $currentCategory->getShopCategory()) {
+                $parentCategory = $shopCategory;
+            }else if($brand = $currentCategory->getBrandCategory()) {
+                $brandShop = Mage::getModel('catalog/category')->load(intval($brand->getChildren()));
+                $parentCategory = $brandShop ;
+                if( $brand->getId() == $currentCategory->getId() ) {
+                    Mage::unregister('current_category');
+                    Mage::register('current_category', $brandShop);
+                }
+
+                if( $currentCategory->getId() != $brandShop->getId() && $brand->getId() != $currentCategory->getId() ) {
+                    $path = explode('/', $currentCategory->getPath());
+                    $path = array_slice($path, 4, 1);
+                    $parentCategory = Mage::getModel('catalog/category')->load($path[0]);
+                }
+            }else if( $dynCategory = $currentCategory->getDynCategory()) {
+                $parentCategory = $dynCategory;
+            } else {
+                $categoryIds = explode('/', $currentCategory->getPath());
+                $_reverseCategoryIds = array_flip($categoryIds);
+
+                if( count($categoryIds) >= 3 &&
+                    $index = $_reverseCategoryIds[$currentCategory->getId()] ) {
+                    $parentCategory = Mage::getModel('catalog/model')->load($categoryIds[2]);
+                }
+            }
+            ?>
+            <li class="<?php if($parentCategory->getId() == $currentCategory->getId()): ?>active<?php endif; ?>">
+                <span class="vertnav-cat"><a href="<?php echo $this->getCategoryUrl($parentCategory); ?>"><span><?php echo $this->__('All')?></span></a></span>
+            </li>
+            <?php endif; ?>
+            <?php foreach ($store_categories as $i => $_category): ?><?php $class = array() ?>
+                <?php if ($count == 1): ?>
+                    <?php $class[] = 'only' ?>
+                <?php elseif (!$i): ?>
+                    <?php $class[] = 'first' ?>
+                <?php elseif ($i == $count - 1): ?>
+                    <?php $class[] = 'last' ?>
+                <?php endif; ?>
+                <?php if (isset($store_categories[$i + 1]) && $this->isCategoryActive($store_categories[$i + 1])) $class[] = 'prev'; ?>
+                <?php if (isset($store_categories[$i - 1]) && $this->isCategoryActive($store_categories[$i - 1])) $class[] = 'next'; ?>
+                <?php echo $this->drawOpenCategoryItem($_category, 0, $class) ?>
+            <?php endforeach ?>
+            <?php if ($count): ?>
+        </ul>
+    <?php endif; ?>
+    </div>
+    <?php
+    $brandCategoriesId = Mage::helper('gri_catalogcustom/category')->getBrandCategories()->getAllIds();
+    $path = explode('/', $currentCategory->getPath());
+    $brandId = array_intersect($path,$brandCategoriesId);
+    $brandId = array_pop($brandId);
+    if(intval($brandId)){
+        $brandUrlKey = Mage::getModel('catalog/category')->load(intval($brandId))->getUrlKey();
+        $aboutBrandMenuId = 'v2014_about_' . $brandUrlKey . '_brand';
+        echo $this->getLayout()->createBlock('cms/block')->setBlockId($aboutBrandMenuId)->toHtml();
+    }
+    ?>
+</div>
+<?php if (Mage::registry('special_category')) { ?>
+    <script type="text/javascript">
+        var specialCategory = $$(".left-static-nav li.<?php echo Mage::registry('special_category'); ?>")[0];
+        if (specialCategory) {
+            specialCategory.addClassName("open");
+            specialCategory.addClassName("parent");
+            if ($$("#vertnav li.open")[0]) {
+                $$("#vertnav li.open")[0].removeClassName("open");
+                $$("#vertnav li.parent")[0].removeClassName("parent");
+                $$("#vertnav li.level0-parent ul")[0].addClassName("no-display");
+            }
+        }
+    </script>
+<?php } ?>

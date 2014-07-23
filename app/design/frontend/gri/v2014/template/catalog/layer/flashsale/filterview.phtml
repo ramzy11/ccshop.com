@@ -1,0 +1,268 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Category layered navigation
+ *
+ * @see Mage_Catalog_Block_Layer_View
+ */
+/* @var $this Mana_Filters_Block_View */
+/* @var $_filter Mana_Filters_Block_Filter */
+
+/* @var $cookie Mage_Core_Model_Cookie */
+$cookie = Mage::app()->getCookie();
+$isAjax = $this->getRequest()->getParam('isAjax');
+$_filters = $this->getFilters();
+$params = $this->getRequest()->getParams();
+$globalFilters = array('attribute_set_id','brand','size_clothing','size_shoes','color_filter_1');
+
+$selectedOptions = array();
+$config = Mage::getModel('eav/config');
+
+$requestUrl = $this->getUrl('flashsale');
+foreach ($params as $code => $val) {
+    /* @var $attribute Gri_CatalogCustom_Model_Resource_Eav_Attribute */
+    $attribute = $config->getAttribute(4, $code);
+    if ($attribute->getIsFilterable()) {
+        $label = $attribute->getStoreLabel();
+
+        $optionsTmp = $options = array();
+        $optionIds = explode('_', $val);
+        foreach ($attribute->getSource()->getAllOptions(FALSE) as $option) {
+            if (in_array($option['value'], $optionIds)) {
+                $optionsTmp[$option['value']] = $option['label'];
+            }
+        }
+
+        if ($attribute->getFrontendInput() == 'select') {
+            $selectedSeoValues = $this->getSeoValues();
+            $optionIds = isset($selectedSeoValues[$attribute->getAttributeCode()]) ? array_intersect($selectedSeoValues[$attribute->getAttributeCode()],  $optionIds)
+                          : array( );
+            foreach ($optionIds as $oid) {
+                $options[$oid] = $optionsTmp[$oid];
+            }
+            $selectedOptions[$code]['label'] = strtoupper($this->__($label)) . ' - ' . implode(', ', $options);
+        }
+
+        $toFilterParams = $params;
+        unset($toFilterParams[$code], $toFilterParams['id']);
+
+        $selectedOptions[$code]['clear_url'] =  $this->getUrl('flashsale', $toFilterParams);
+    }
+
+    if(array_intersect(array_flip($params), $globalFilters)) {
+        $selectedOptions['clear_all']['clear_url'] = $this->getUrl('flashsale', array('isAjax' => 1));
+        $selectedOptions['clear_all']['label'] = $this->__('Clear All');
+    }
+    if (isset($params['attribute_set_id']) && $attributeSetId = $params['attribute_set_id']) {
+        $_params = $params; unset($_params['attribute_set_id']);
+        $attributeSet = Mage::getModel('eav/entity_attribute_set')->load($attributeSetId);
+        $selectedOptions['attribute_set_id']['clear_url'] = $this->getUrl('flashsale',$_params);
+        $selectedOptions['attribute_set_id']['label'] = $this->__('Product Type-') .$this->__($attributeSet->getAttributeSetName());
+    }
+}
+?>
+<?php if ($this->canShowBlock()): ?>
+    <div class="block block-layered-nav">
+        <a href="#flash_terms_and_condition" title="<?php echo $this->__('Terms And Conditions'); ?>" id="terms_and_condition_popup_handler"><?php echo $this->__('Terms And Conditions'); ?></a>
+        <a style="display:none" href="<?php echo $this->getUrl('flash-sale-terms-condition')?>" title="<?php echo $this->__('Terms And Conditions'); ?>" id="terms_and_condition_sf_handler"><?php echo $this->__('Terms And Conditions'); ?></a>
+        <script type="text/javascript">
+            //<![CDATA[
+            (function ($) {
+                $('#terms_and_condition_popup_handler').fancybox({
+                    padding: 0,
+                    overlayColor: '#fff',
+                    opacity: '10',
+                    showCloseButton: true,
+                    shadowShow: false,
+                    titleShow: false
+                })
+            })(jQuery);
+            //]]>
+        </script>
+        <div class="sf-refine-name"><a href="javascript:;" class="sf-refine-title"><?php echo $this->__('Refine'); ?></a></div>
+        <?php if (count($selectedOptions)): ?>
+            <!--Mobile Refine Result-->
+            <div class="refine-result" style="display:none">
+                <ul>
+                    <?php foreach ($selectedOptions as $key => $option): ?>
+                        <li>
+                            <a onclick="sendFilter('<?php echo $option['clear_url']; ?>')" href="javascript:;">
+                                <img src="<?php echo $this->getSkinUrl('images/close.png'); ?>"/><span><?php echo $option['label']; ?></span>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+        <div class="refine-content">
+            <div class="block-content">
+                <?php if ($this->canShowOptions()): ?>
+                    <div class="filter sf-filter">
+                        <dl id="narrow-by-list">
+                            <?php /* product type */ ?>
+                            <?php echo $this->getChildHtml('flashsale.product.type.filter'); ?>
+
+                            <?php $_filters = $this->getFilters(); ?>
+                            <?php $newOrderSorted = array('brand',
+                                'color_filter_1',
+                                'size_shoes',
+                                'size_clothing'
+                            );
+                            $_filtersSorted = array();
+                            foreach ($newOrderSorted as $key) {
+                                if (in_array($key, array_keys($_filters))) {
+                                    $_filtersSorted[$key] = $_filters[$key];
+                                }
+                            }
+                            $_filters = $_filtersSorted;
+                            foreach ($_filters as $_filter): ?>
+                                <?php /* @var $_filter Mana_Filters_Block_Filter */ ?>
+                                <?php $code = $_filter->getFilter()->getFilterOptions()->getCode(); ?>
+                                <?php
+                                if (in_array($code, array('price', 'heel_height')))
+                                    continue;
+
+                                if (!$this->getRequest()->getParam('attribute_set_id') &&
+                                    in_array($code, array('size_shoes', 'size_clothing'))
+                                )
+                                    continue;
+                                ?>
+
+                                <?php if ($_filter->getItemsCount()): ?>
+                                    <div class="filter-content">
+                                        <div class="filter-item filter-item-<?php echo $code; ?>">
+                                            <?php
+                                                $attributeCode = $_filter->getAttributeModel()->getAttributeCode();
+
+                                                $filterName = $_filter->getName();
+                                                strpos($attributeCode, 'size') !== FALSE && $filterName = 'All-Sizes';
+                                                strpos($attributeCode, 'color') !== FALSE && $filterName = 'All-Colors';
+                                                strpos($attributeCode, 'brand') !== FALSE && $filterName = 'All-Brands';
+                                            ?>
+                                            <a class="filter-name"><?php echo $this->__($filterName);?></a>
+                                            <div id="filter-value-<?php echo $code; ?>" class="filter-value" style="display:none">
+                                                <dd><?php echo $_filter->setTemplate('mana/filters/items/flashsale/list.phtml')->toHtml(); ?></dd>
+                                            </div>
+                                        </div>
+                                        <div id="filter-list">
+                                            <?php if (in_array($code, array_keys(Mage::app()->getRequest()->getParams()))): ?>
+                                                <div class="filter-value-<?php echo $code; ?>"></div>
+                                            <?php endif; ?>
+
+                                            <?php if (count($selectedOptions)): ?>
+                                                <div class="refine-result">
+                                                    <ul>
+                                                        <!--                                           <li>-->
+                                                        <!--                                            <a onclick="sendFilter('-->
+                                                        <?php //echo $this->getUrl('flashsale'); ?><!--')" href="javascript:;">-->
+                                                        <!--                            <span><img-->
+                                                        <!--                                    src="-->
+                                                        <?php //echo $this->getSkinUrl('images/close.png'); ?><!--"/></span><span>-->
+                                                        <?php //echo strtoupper($this->__('Clear All')); ?><!--</span>-->
+                                                        <!--                                            </a>-->
+                                                        <!--                                           </li>-->
+                                                        <?php foreach ($selectedOptions as $key => $option): ?>
+                                                            <?php if ($code != $key) continue; ?>
+                                                            <li>
+                                                                <a onclick="sendFilter('<?php echo $option['clear_url']; ?>')" href="javascript:;">
+                                                                    <img src="<?php echo $this->getSkinUrl('images/close.png'); ?>"/><span><?php echo $option['label']; ?></span>
+                                                                </a>
+                                                            </li>
+                                                        <?php endforeach; ?>
+                                                    </ul>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                            <!-- Hard Code-->
+                            <?php if (!isset($params['attribute_set_id'])): ?>
+                                <?php echo $this->getChildHtml('flashsale.size.and.color.filter.static'); ?>
+                            <?php endif; ?>
+                            <?php echo $this->getChildHtml('product.sort') ?>
+                        </dl>
+                    </div>
+                    <script type="text/javascript">decorateDataList('narrow-by-list')</script>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+    <span id='ajax_loader' style='display:none'><img
+            src='<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>'/></span>
+<?php endif; ?>
+<script type="text/javascript">
+    (function ($) {
+        window.removeFilter = window.removeFilter || function (obj) {
+            $("#narrow-by-list ol input[checkBoxId=" + $(obj).attr("checkBoxId") + "]").click();
+        }
+        window.sendFilter = window.sendFilter || function (url) {
+            jQuery('#page-ajax-loader').show();
+            if (url.indexOf('?') == '-1') url += '?';
+            if (url.indexOf('isAjax') == '-1') url += '&isAjax=1';
+            jQuery.ajax({
+                url: url,
+                dataType: 'json',
+                type: 'get',
+                success: function (data) {
+                    jQuery('#page-ajax-loader').hide();
+                    if (jQuery('.col-main .category-products')) {
+                        jQuery('.col-main .category-products').replaceWith(data.categoryProducts);
+                        initSwatchOptions();
+                    }
+
+                    if (jQuery('.col-main .block-layered-nav')) {
+                        jQuery('.col-main .block-layered-nav').replaceWith(data.filterMenus);
+                    }
+                }
+            });
+        }
+        var checkBoxId = 0;
+        $("#narrow-by-list div.filter-item ol").each(function () {
+            var ol = $(this), filterId = ol.parent().parent().parent().attr("id"), html = "";
+            ol.parent().find(".m-filter-item input:checkbox:checked").each(function () {
+                var checkbox = $(this);
+                checkbox.attr("checkBoxId", ++checkBoxId);
+                html += '<div class="filter-details clearer"><span>' + checkbox.next().text() +
+                    '</span><a href="javascript:;" class="deselect" checkBoxId="' + checkBoxId +
+                    '" onclick="removeFilter(this);"><img src="<?php echo $this->getSkinUrl('images/deselect.gif') ; ?>"></a></div>';
+
+                $("#filter-list ." + filterId).html(html);
+                // add border style
+                $("#filter-list ." + filterId).addClass('filter-value-2');
+            });
+
+        });
+        $(".filter-item").hoverIntent(function () {
+            clearTimeout($(this).data("timer"));
+            $(this).children(".filter-value").slideDown('fast');
+        }, function () {
+            $(this).children(".filter-value").slideUp('fast');
+        });
+    })(jQuery);
+</script>

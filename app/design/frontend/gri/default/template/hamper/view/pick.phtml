@@ -1,0 +1,55 @@
+<?php
+/* @var $this Gri_Hamper_Block_View_Pick */
+$_product = $this->getProduct();
+
+/* @var $type Mage_Catalog_Model_Product_Type_Abstract */
+$type = $_product->getTypeInstance();
+
+/* @var $coreHelper Mage_Core_Helper_Data */
+$coreHelper = $this->helper('core');
+/* @var $outputHelper Mage_Catalog_Helper_Output */
+$outputHelper = $this->helper('catalog/output');
+
+$shortDescription = $_product->getShortDescription() ?
+    $outputHelper->productAttribute($_product, $_product->getShortDescription(), 'short_description') : '';
+//    $this->__('Please pick items');
+?>
+<h3 class="s1 active"><?php echo $this->__('Pick Gifts'); ?></h3>
+<ul id="pick_container" class="pick-gifts">
+    <li class="template clear">
+        <div class="product-img"><img src="javascript:;"/></div>
+        <?php if( !$type->getIsPreset() ):?>
+            <span class="btn-remove steps step1" onclick="hamper<?php echo $_product->getId(); ?>.remove(this);">x</span>
+        <?php endif; ?>
+        <div class="product-info">
+            <p class="product-name"></p>
+            <p class="product-price"></p>
+            <div class="product-option"></div>
+            <input type="hidden" class="bundle-field"/>
+        </div>
+    </li>
+</ul>
+<div class="short-desc"><?php echo $shortDescription; ?></div>
+<div id="min_items_alert" class="no-display min-items-alert"></div>
+<div class="total-price">
+    <p class="subtotal">
+        <span class="label"><?php echo $this->__('Subtotal'); ?></span>
+        <span id="old-price-<?php echo $_product->getId(); ?>" class="price"><?php echo $coreHelper->currency($_product->getPrice(), TRUE, FALSE); ?></span>
+    </p>
+    <p class="discount no-display">
+        <span class="label"><?php echo $this->__('Discount'); ?></span>
+        <span id="discount-price-<?php echo $_product->getId(); ?>" class="price"><?php echo $coreHelper->currency(0, TRUE, FALSE); ?></span>
+    </p>
+    <p class="total">
+        <span class="label"><?php echo $this->__('Total'); ?></span>
+        <span id="product-price-<?php echo $_product->getId(); ?>" class="price"><?php echo $coreHelper->currency($_product->getFinalPrice(), TRUE, FALSE); ?></span>
+    </p>
+    <p class="hamper-gift-message" message="<?php echo $this->escapeHtml($this->__('%s is awarded!')); ?>"></p>
+</div>
+<div id="continue_button" class="continue step1 steps"><a href="javascript:;" onclick="hamper<?php echo $_product->getId(); ?>.goStep(2);"><?php echo $this->helper('checkout')->__('Continue'); ?></a></div>
+<div class="back_button step1 steps"><a href="javascript:history.back()"><?php echo $this->__('Back'); ?></a></div>
+<div class="back step2 steps no-display"><a href="javascript:;" onclick="hamper<?php echo $_product->getId(); ?>.goStep(1);"><?php echo $this->__('Change'); ?></a></div>
+<div class="extra-links">
+    <h3 class="s2"><?php echo $this->__('Write Message'); ?></h3>
+    <h3 class="s3"><?php echo $this->__('Checkout'); ?></h3>
+</div>

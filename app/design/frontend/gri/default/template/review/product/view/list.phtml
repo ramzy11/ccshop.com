@@ -1,0 +1,45 @@
+<?php
+/* @var $this Mage_Review_Block_Product_View_List */
+?>
+<?php
+$_items = $this->getReviewsCollection()->getItems();
+$reviewsCount = count($_items);
+/* @var $ratingBlock Mage_Rating_Block_Entity_Detailed */
+if ($ratingBlock = $this->getChild('rating')) {
+    $ratingBlock->setReviewsCount($reviewsCount);
+}?>
+
+<a class="review_button" href="#review_form"><?php echo $this->__('Write a review'); ?></a>
+
+<div class="top">
+    <?php if ($reviewsCount) { ?>
+    <?php if ($ratingBlock) echo $ratingBlock->toHtml(); ?>
+    <?php } else { ?>
+    <span><?php echo $this->__('No reviews'); ?></span>
+    <?php } ?>
+</div>
+<?php if ($reviewsCount) { ?>
+<?php foreach ($_items as $_review) { ?>
+<div class="comment">
+    <div class="title"><?php echo $this->escapeHtml($_review->getTitle()); ?></div>
+
+    <?php $_votes = $_review->getRatingVotes(); ?>
+    <?php if (count($_votes)) { ?>
+    <?php foreach ($_votes as $_vote) { ?>
+    <div class="rating-box">
+        <div class="star" style="width:<?php echo $_vote->getPercent() ?>%;"></div>
+    </div>
+    <?php break;} ?>
+    <?php } ?>
+    <span class="reviewer"><?php echo $this->__(' by <span>%s</span>, %s',
+        $this->escapeHtml($_review->getNickname()),
+        $this->formatDate($_review->getCreatedAt(), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM)
+    ) ?></span>
+    <p><?php echo nl2br($this->escapeHtml($_review->getDetail())) ?></p>
+</div>
+<?php } ?>
+<?php } ?>
+
+<div class="no-display">
+    <?php echo $this->getChildHtml('form'); ?>
+</div>

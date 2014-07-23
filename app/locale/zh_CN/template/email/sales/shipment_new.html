@@ -1,0 +1,32 @@
+<!--@subject 配送通知(订单[{{var order.increment_id}}]) @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"htmlescape var=$order.getCustomerName()":"Customer Name",
+"var store.getFrontendName()":"Store Name",
+"store url=\"customer/account/\"":"Customer Account Url",
+"var shipment.increment_id":"Shipment Id",
+"var order.increment_id":"Order Id",
+"var order.billing_address.format('html')":"Billing Address",
+"var payment_html":"Payment Details",
+"var order.shipping_address.format('html')":"Shipping Address",
+"var order.shipping_description":"Shipping Description",
+"layout handle=\"sales_email_order_shipment_items\" shipment=$shipment order=$order":"Shipment Items Grid",
+"block type='core/template' area='frontend' template='email/order/shipment/track.phtml' shipment=$shipment order=$order":"Shipment Track Details",
+"var comment":"Shipment Comment"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+{{block type='core/template' area='frontend' template='email/header.phtml'}}
+<h1 style="font-size:13px; font-weight:normal; line-height:22px; margin:15px 0 10px 0;">亲爱的 {{htmlescape var=$order.getCustomerName()}}</h1>
+{{block type='core/template' area='frontend' template='email/order/shipment/track.phtml' shipment=$shipment order=$order}}
+<p  style="line-height: 20px;font-size:13px;">如有疑问，请通过在线咨询或者拨打客服热线4008-976-988联系客服人员，我们将在第一时间为您进行解答。</p>
+<a href="{{store_url='customer-service/shipping-delivery'}}" style="line-height: 20px;color:#ff0000;margin:0 35px;font-size:14px;">配送說明</a><br />
+<br />
+<br />
+<br />
+<br />
+{{block type='core/template' area='frontend' template='email/footer.phtml'}}

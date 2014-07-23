@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @category    Inchoo
+ * @package     Inchoo_Weibo
+ * @author      Ivan Weiler <ivan.weiler@gmail.com>
+ * @copyright   Inchoo (http://inchoo.net)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Inchoo_Weibo>
+            <version>1.0.0</version>
+        </Inchoo_Weibo>
+    </modules>
+    <global>
+        <models>
+            <inchoo_weibo>
+                <class>Inchoo_Weibo_Model</class>
+            </inchoo_weibo>
+        </models>
+        <resources>
+            <inchoo_weibo_setup>
+                <setup>
+                    <module>Inchoo_Weibo</module>
+                    <class>Mage_Customer_Model_Entity_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </inchoo_weibo_setup>
+        </resources>
+        <blocks>
+            <inchoo_weibo>
+                <class>Inchoo_Weibo_Block</class>
+            </inchoo_weibo>
+        </blocks>
+        <helpers>
+            <inchoo_weibo>
+                <class>Inchoo_Weibo_Helper</class>
+            </inchoo_weibo>
+        </helpers>
+    </global>
+    <frontend>
+        <routers>
+            <inchoo_weibo>
+                <use>standard</use>
+                <args>
+                    <module>Inchoo_Weibo</module>
+                    <frontName>inchoo_weibo</frontName>
+                </args>
+            </inchoo_weibo>
+        </routers>
+        <layout>
+            <updates>
+                <inchoo_weibo module="Inchoo_Weibo">
+                    <file>inchoo/weibo.xml</file>
+                </inchoo_weibo>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Inchoo_Weibo>
+                    <files>
+                        <default>Inchoo_Weibo.csv</default>
+                    </files>
+                </Inchoo_Weibo>
+            </modules>
+        </translate>
+    </frontend>
+    
+    <adminhtml>
+        <translate>
+            <modules>
+                <Inchoo_Weibo>
+                    <files>
+                        <default>Inchoo_Weibo.csv</default>
+                    </files>
+                </Inchoo_Weibo>
+            </modules>
+        </translate>    
+    </adminhtml>
+    <default>
+        <customer>
+            <weibo>
+                <locale>en_US</locale>
+                <follow_us>http://e.weibo.com/u/2967136555?ref=http%3A%2F%2Fweibo.com%2F2706313483%2Fmyfollow</follow_us>
+                <share>http://v.t.sina.com.cn/share/share.php</share>
+                <enabled_share_follow_us>1</enabled_share_follow_us>
+            </weibo>
+        </customer>
+    </default>
+</config>

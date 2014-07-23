@@ -1,0 +1,219 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <magiatecolorswatch translate="label" module="magiatecolorswatch">
+            <label>Color Swatches</label>
+            <tab>magiatec</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>10</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <settings translate="label">
+                    <label>Extension Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>100</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label comment">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <attributes>
+                            <label>Attributes to replace</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>magiatecolorswatch/system_config_source_attributes</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </attributes>
+                        <swatch_width>
+                            <label>Swatch Width</label>
+                            <frontend_type>Text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </swatch_width>
+                        <swatch_height>
+                            <label>Swatch Height</label>
+                            <frontend_type>Text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </swatch_height>
+                        <show_not_available>
+                            <label>Show Not Available Variants</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </show_not_available>
+                    </fields>
+                </settings>
+                <imageswitcher>
+                    <label>Image Switcher</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>200</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label comment">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <width translate="label comment">
+                            <label>Main Image Width</label>
+                            <frontend_type>Text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </width>
+                        <height translate="label comment">
+                            <label>Main Image Height</label>
+                            <frontend_type>Text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </height>
+                        <twidth translate="label comment">
+                            <label>Thumb Width</label>
+                            <frontend_type>Text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </twidth>
+                        <theight translate="label comment">
+                            <label>Thumb Height</label>
+                            <frontend_type>Text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </theight>
+                    </fields>
+                </imageswitcher>
+                <zoom>
+                    <label>Zoom Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>300</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label comment">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <type>
+                            <label>Zoom Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>magiatecolorswatch/system_config_source_zoomtype</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </type>
+                        <width translate="label comment">
+                            <label>Popup Window Width</label>
+                            <frontend_type>Text</frontend_type>
+                            <comment><![CDATA[The popup window width showing the zoomed area]]></comment>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </width>
+                        <height translate="label comment">
+                            <label>Popup Window Height</label>
+                            <frontend_type>Text</frontend_type>
+                            <comment><![CDATA[The popup window height showing the zoomed area]]></comment>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </height>
+                        <position>
+                            <label>Position</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>magiatecolorswatch/system_config_source_position</source_model>
+                            <comment><![CDATA[The popup window position]]></comment>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </position>
+                        <preload_text translate="label comment">
+                            <label>Preload Text</label>
+                            <frontend_type>Text</frontend_type>
+                            <comment><![CDATA[The text to show while preloading images]]></comment>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </preload_text>
+                        <!--title translate="label comment">
+                            <label>Title</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <comment><![CDATA[Show a small title over the zoomed window]]></comment>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </title-->
+                        <opacity translate="label comment">
+                            <label>Image Opacity</label>
+                            <frontend_type>Text</frontend_type>
+                            <comment><![CDATA[Set the image opacity when the zoom type option is set to 'reverse']]></comment>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
+                        </opacity>
+                    </fields>
+                </zoom>
+            </groups>
+        </magiatecolorswatch>
+    </sections>
+</config>

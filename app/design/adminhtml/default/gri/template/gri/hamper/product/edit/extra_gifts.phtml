@@ -1,0 +1,19 @@
+<?php
+/* @var $this Gri_Hamper_Block_Adminhtml_Catalog_Product_Edit_Tab_ExtraGifts */
+?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Extra Gifts') ?></h4>
+    </div>
+    <fieldset class="fieldset-wide">
+        <table cellspacing="0" class="form-list">
+            <tr>
+                <td class="label"><label for="extra_gifts"><?php echo $this->__('Extra Gift SKUs') ?></label></td>
+                <td class="value">
+                    <textarea <?php if ($this->isReadonly()): ?>disabled="disabled" <?php endif;?>id="extra_gifts" name="<?php echo $this->getFieldSuffix() ?>[extra_gifts]" class="textarea"><?php echo $this->getProduct()->getExtraGifts(); ?></textarea>
+                    <p class="note"><?php echo $this->__('Format:<br/>Amount1,SKU1<br/>Amount2,SKU2<br/>e.g.: 500,SKU1 means customer will get SKU1 as extra gift when amount >= 500'); ?></p>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</div>

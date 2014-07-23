@@ -1,0 +1,90 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/* @var $this Mage_Checkout_Block_Onepage_Billing */
+/* @var $coreHelper Mage_Core_Helper_Data */
+$coreHelper = Mage::helper('core');
+/* @var $directoryHelper Gri_Directory_Helper_Data */
+$directoryHelper = Mage::helper('gri_directory');
+/* @var $checkoutHelper Mage_Checkout_Helper_Data */
+$checkoutHelper = $this->helper('checkout');
+if (!$this->isCustomerLoggedIn()) $this->_address = $this->getQuote()->getBillingAddress();
+?>
+<form id="co-billing-form">
+    <fieldset class="form-fieldset">
+        <ul class="form-list">
+            <?php if ($this->customerHasAddresses()): ?>
+            <li class="wide">
+                <?php echo $this->getAddressesHtmlSelect('billing') ?>
+            </li>
+            <?php endif; ?>
+            <li id="billing-new-address-form">
+                <fieldset>
+                    <input type="hidden" name="billing[address_id]" value="<?php echo $this->getAddress()->getId() ?>" id="billing:address_id"/>
+                    <?php echo $this->getChildHtml('address.fields'); ?>
+                </fieldset>
+            </li>
+        </ul>
+        <?php /* Extensions placeholder */ ?>
+        <?php echo $this->getChildHtml('checkout.onepage.billing.extra')?>
+        <?php if ($coreHelper->getDefaultCountry() == 'CN') { ?>
+        <dl class="need-fapiao toggle">
+            <dt><a href="javascript:;"><?php echo $checkoutHelper->__('Invoice Need?')?></a></dt>
+            <dd style="display:none;">
+                <label for="fapiao"><?php echo $checkoutHelper->__('Invoice Title')?></label>
+                <input name="fapiao" id="fapiao" type="text" value="<?php echo $this->getQuote()->getFapiao(); ?>"/>
+                <input name="need_fapiao" class="toggle-status" type="hidden" value="0"/>
+            </dd>
+        </dl>
+        <?php } ?>
+        <input type="hidden" name="billing[use_for_shipping]" value="1"/>
+        <input type="hidden" id="billing:edit_mode" name="billing[edit_mode]" value="0"/>
+        <input type="hidden" name="billing[save_in_address_book]" value="1"/>
+    </fieldset>
+
+    <div class="buttons-set" id="billing-buttons-container">
+        <button type="button" title="<?php echo $checkoutHelper->__('Continue') ?>" class="button" onclick="billing.save()">
+            <span><span><?php echo $checkoutHelper->__('Continue') ?></span></span></button>
+        <span class="please-wait" id="billing-please-wait" style="display:none;">
+            <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $checkoutHelper->__('Loading next step...') ?>" title="<?php echo $checkoutHelper->__('Loading next step...') ?>" class="v-middle"/> <?php echo $checkoutHelper->__('Loading next step...') ?>
+        </span>
+    </div>
+</form>
+<script type="text/javascript">
+    //<![CDATA[
+    var billing = new Billing('co-billing-form', '<?php echo $this->getUrl('checkout/onepage/getAddress') ?>address/', '<?php echo $this->getUrl('checkout/onepage/saveBilling') ?>');
+    var billingForm = new VarienForm('co-billing-form');
+    billing.saveAddressUrl = '<?php echo $this->getUrl('checkout/onepage/useAddress') ?>';
+
+    $('billing-address-select') && billing.newAddress(!$('billing-address-select').value);
+    var regions = <?php echo $this->helper('directory')->getRegionJson(); ?>;
+    regions.cities = <?php echo $directoryHelper->getCityJson(); ?> || {};
+    regions.cities.cityTextEl = "billing:city";
+    regions.cities.citySelectEl = "billing:city_id";
+
+    var billingRegionUpdater = new RegionUpdater('billing:country_id', 'billing:region', 'billing:region_id', regions, undefined, 'billing:postcode');
+    initBilling();
+    //]]>
+</script>

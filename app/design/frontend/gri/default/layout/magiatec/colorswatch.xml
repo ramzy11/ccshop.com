@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+    <catalog_product_view>
+        <reference name="head">
+            <block type="core/text" name="google.cdn.jquery">
+                <action method="setText" ifconfig="magiatecolorswatch/zoom/enabled">
+                    <text helper="magiatecolorswatch/data/loadJquery">
+                        <zoomjs>magiatec/jquery.jqzoom-core-pack.js</zoomjs>
+                    </text>
+                </action>
+            </block>
+            <action method="addJs" ifconfig="magiatecolorswatch/settings/enabled">
+                <script>magiatec/colorswatch.js</script>
+            </action>
+            <action method="addItem" ifconfig="magiatecolorswatch/settings/enabled">
+                <type>skin_css</type>
+                <name>css/magiatec/colorswatch.css</name>
+            </action>
+        </reference>
+        <reference name="product.info.media">
+            <action method="setTemplate">
+                <template helper="magiatecolorswatch/data/switchTemplateIf"><name>magiatec/colorswatch/catalog/product/view/media.phtml</name><block>product.info.media</block></template>
+            </action>
+        </reference>
+    </catalog_product_view>
+    <catalog_category_view>
+        <reference name="head">
+            <action method="addItem" ifconfig="magiatecolorswatch/settings/enabled">
+                <type>skin_css</type>
+                <name>css/magiatec/colorswatch.css</name>
+            </action>
+        </reference>
+    </catalog_category_view>
+</layout>

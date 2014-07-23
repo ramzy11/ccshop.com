@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Bcnetcom
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Bcnetcom
+ * @package     Bcnetcom_Gri
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Gri_Vip>
+            <version>1.7.0.0.4</version>
+        </Gri_Vip>
+    </modules>
+    <frontend>
+        <routers>
+            <vip>
+                <use>standard</use>
+                <args>
+                    <module>Gri_Vip</module>
+                    <frontName>vip</frontName>
+                </args>
+            </vip>
+        </routers>
+        <layout>
+            <updates>
+                <gri_vip>
+                    <file>vip.xml</file>
+                </gri_vip>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Gri_Vip>
+                    <files>
+                        <default>Gri_Vip.csv</default>
+                    </files>
+                </Gri_Vip>
+            </modules>
+        </translate>
+    </frontend>
+    <global>
+        <models>
+            <gri_vip>
+                <class>Gri_Vip_Model</class>
+                <resourceModel>gri_vip_mysql4</resourceModel>
+            </gri_vip>
+            <gri_vip_mysql4>
+                <class>Gri_Vip_Model_Mysql4</class>
+                <entities>
+                    <relation_online>
+                        <table>gri_vip_relation_online</table>
+                    </relation_online>
+                    <relation_offline>
+                        <table>gri_vip_relation_offline</table>
+                    </relation_offline>
+                </entities>
+            </gri_vip_mysql4>
+        </models>
+        <resources>
+            <gri_vip_setup>
+                <setup>
+                    <module>Gri_Vip</module>
+                </setup>
+            </gri_vip_setup>
+        </resources>
+        <blocks>
+            <gri_vip>
+                <class>Gri_Vip_Block</class>
+            </gri_vip>
+        </blocks>
+        <helpers>
+            <gri_vip>
+                <class>Gri_Vip_Helper</class>
+            </gri_vip>
+        </helpers>
+        <events>
+           <gri_reward_update_reward_points>
+               <observers>
+                  <gri_vip>
+                     <class>gri_vip/observer</class>
+                     <method>upgradeVip</method>
+                  </gri_vip>
+               </observers>
+           </gri_reward_update_reward_points>
+            <adminhtml_block_html_before>
+                <observers>
+                    <awrma>
+                        <type>singleton</type>
+                        <class>gri_vip/observer</class>
+                        <method>setCustomerInfoTemplate</method>
+                    </awrma>
+                </observers>
+            </adminhtml_block_html_before>
+            <customer_register_success>
+               <observers>
+                  <gri_vip>
+                     <class>gri_vip/observer</class>
+                     <method>bindOffline</method>
+                  </gri_vip>
+               </observers>
+            </customer_register_success>
+          </events>
+    </global>
+    <crontab>
+        <jobs>
+            <annual_renew>
+                <schedule>
+                    <cron_expr>0 1 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>gri_vip/vip::scheduledAnnualRenewal</model>
+                </run>
+            </annual_renew>
+            <import_csv_file_to_database>
+                <schedule>
+                    <cron_expr>*/1 * * * *</cron_expr>
+                </schedule>
+                <run>
+                   <model>gri_vip/vip::createOfflineVipRec</model>
+                </run>
+            </import_csv_file_to_database>
+            <!--<export_csv_file_to_folder>
+                <schedule>
+                   <cron_expr>0 2 * * *</cron_expr>
+                </schedule>
+                <run>
+                   <model></model>
+                </run>
+            </export_csv_file_to_folder>-->
+        </jobs>
+    </crontab>
+    <default>
+        <gri_vip>
+            <general>
+                <enabled_offlinevip>1</enabled_offlinevip>
+            </general>
+            <requirement>
+                <silver_entry>2000</silver_entry>
+                <silver_upgrade>3000</silver_upgrade>
+                <silver_renewal>3000</silver_renewal>
+                <gold_entry>8000</gold_entry>
+                <gold_upgrade>10000</gold_upgrade>
+                <gold_renewal>10000</gold_renewal>
+            </requirement>
+            <discount>
+                <offlinevip>15</offlinevip>
+                <silver>15</silver>
+                <gold>15</gold>
+            </discount>
+        </gri_vip>
+    </default>
+</config>

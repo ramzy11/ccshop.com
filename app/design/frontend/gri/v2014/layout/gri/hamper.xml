@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <hamper_index_index>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/hamper.css</stylesheet></action>
+        </reference>
+        <reference name="content">
+            <block type="hamper/home" name="hamper.home" template="hamper/home.phtml">
+                <block type="gri_catalogcustom/product_view_share" name="product.info.share" as="share" template="catalog/product/view/share.phtml"/>
+                <block type="cms/block" name="hamper.whats.more">
+                    <action method="setBlockId"><block_id>hamper-whats-more</block_id></action>
+                </block>
+                <block type="cms/block" name="hamper.terms.condition">
+                    <action method="setBlockId"><block_id>hamper-terms-condition</block_id></action>
+                </block>
+            </block>
+        </reference>
+    </hamper_index_index>
+    <PRODUCT_TYPE_hamper translate="label" module="hamper">
+        <label>Catalog Product View (Hamper)</label>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/hamper.css</stylesheet></action>
+            <!--<action method="addJs"><script>magiatec/colorswatch_ext.js</script></action>-->
+            <!--<action method="addJs"><script>gri/hamper.js</script></action>-->
+        </reference>
+        <reference name="product.info">
+            <action method="setTemplate"><template>hamper/view.phtml</template></action>
+            <remove name="product.info.media"/>
+            <remove name="product.info.additional"/>
+            <remove name="product.info.addto"/>
+            <remove name="product.info.addtocart" />
+            <remove name="product.info.share"/>
+            <remove name="product.info.extrahint"/>
+            <remove name="product.info.container2"/>
+            <remove name="product.info.upsell"/>
+            <remove name="catalog.product.related"/>
+            <remove name="catalog.reports.product.viewed"/>
+
+            <block type="hamper/view_pick" name="hamper.pick" as="pick" template="hamper/view/pick.phtml"/>
+            <block type="hamper/view_pick" name="hamper.message" as="message" template="hamper/view/message.phtml"/>
+        </reference>
+    </PRODUCT_TYPE_hamper>
+</layout>

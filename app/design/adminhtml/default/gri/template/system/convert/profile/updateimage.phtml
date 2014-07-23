@@ -1,0 +1,38 @@
+<?php
+/* @var $this Gri_ImportData_Block_Adminhtml_System_Convert_Profile_Edit_Tab_Updateimage */
+?>
+<?php if (!$this->canUpdate()) { ?>
+<ul class="messages">
+    <li class="notice-msg">
+        <ul>
+            <li><?php echo $this->__('File "productImages.zip" not found in the Magento directory var/import, only previously uploaded images will be processed.') ?></li>
+        </ul>
+    </li>
+</ul>
+<?php } ?>
+<?php echo $this->getRunButtonHtml() ?>
+
+<script type="text/javascript" >
+function updateImage(popup)
+{
+    var url = '<?php echo $this->getUrl('*/*/importImage') ?>';
+    if ($('profile_direction') != undefined
+        && $('profile_data_transfer') != undefined
+        && getDirection() == 'import' && getTransferType() == 'interactive') {
+        var file = getSelectedFiles();
+        if (file == '') {
+            alert('Please select imported files');
+            $('file_list').show();
+            return false;
+        }
+        url += 'files/' + file + '/';
+    }
+
+    if (!popup) {
+        $('run_iframe').style.display = 'block';
+        $('run_iframe').src = url;
+    } else {
+        window.open(url);
+    }
+}
+</script>

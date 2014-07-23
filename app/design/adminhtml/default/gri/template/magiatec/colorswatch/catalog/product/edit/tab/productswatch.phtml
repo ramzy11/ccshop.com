@@ -1,0 +1,73 @@
+<div>
+    <ul class="messages">
+        <li class="notice-msg">
+            <ul>
+                <li><?php echo $this->__("If you made any changes in associated products, save product before adding swatches images.") ?></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div class="entry-edit custom-options product-custom-options">
+    <div class="entry-edit-head">
+        <h4><?php echo $this->__('Super Attributes Images') ?></h4>
+        <div class="right"><?php echo $this->getUploadImagesButtonHtml() ?></div>
+    </div>
+    <div id="magiatecolorswatch_product_options_container" class="box">
+        <?php if ($this->checkAttributes()): ?>
+            <?php foreach($this->getProductAttributes() as $attribute): ?>
+            <?php if (!$this->checkAttributes($attribute->getAttributeId())) continue; ?>
+            <div class="option-box">
+                <table cellspacing="5">
+                <tr>
+                    <th width="200"><?php echo $attribute['label'] ?></th>
+                    <th width="10"></th>
+                    <th><?php echo $this->__('Upload image') ?></th>
+                    <th width="10"></th>
+                    <th><?php echo $this->__('Preview') ?></th>
+                    <th width="10"></th>
+                    <th><?php echo $this->__('Delete') ?></th>
+                    <th width="10"></th>
+                    <th><?php echo $this->__('Sort') ?></th>
+                </tr>
+
+
+                <?php if ($prices = $attribute->getPrices()) foreach ($prices as $key => $value): ?>
+                  <?php // echo  '<pre>';?>
+                  <?php  //var_dump($prices)?>
+
+                <tr>
+                    <td><?php echo $value['label']; ?></td>
+                    <td></td>
+                    <td><input type="file" name="magiatecolorswatch[<?php echo $value['product_super_attribute_id'] ?>][<?php echo $value['value_index'] ?>]"></td>
+                    <td></td>
+                    <td align="left">
+                        <?php if (isset($attribute['images'][$value['value_index']])): ?>
+                            <?php $swatch = $attribute['images'][$value['value_index']] ?>
+                            <?php $iconUrl = $this->helper('magiatecolorswatch')
+                                    ->getSwatchPath($swatch->getImage()); ?>
+                            <img src="<?php echo $iconUrl; ?>" alt="" /><br />
+                        <?php else: ?>
+                            <?php echo $this->__('[none]') ?>
+                        <?php endif; ?>
+                    </td>
+                    <td></td>
+                    <td align="center"><input type="checkbox" value="1" name="magiatecolorswatch_delete[<?php echo $value['product_super_attribute_id'] ?>][<?php echo $value['value_index'] ?>]"></td>
+                    <td></td>
+                    <td align="center"><input type="text" class="input-text" value="<?php echo $value['sort'] ;?>" name="magiatecolorswatch_sort[<?php echo $value['product_super_attribute_id'] ?>][<?php echo $value['value_index'] ?>]" /></td>
+                </tr>    
+                <?php endforeach; ?>
+                </table>
+            </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <br />
+            <ul class="messages">
+                <li class="notice-msg">
+                    <ul>
+                        <li><?php echo $this->__('No attributes to replace. Go to extension settings and enable required attributes to replace with swatches.') ?></li>
+                    </ul>
+                </li>
+            </ul>
+        <?php endif; ?>
+    </div>
+</div>

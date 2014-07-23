@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Gri_Contacts>
+            <version>1.6.0.0</version>
+        </Gri_Contacts>
+    </modules>
+    <global>
+        <blocks>
+            <gri_contacts>
+                <class>Gri_Contacts_Block</class>
+            </gri_contacts>
+        </blocks>
+    </global>
+    <frontend>
+        <routers>
+            <gri_contacts>
+                <use>standard</use>
+                <args>
+                    <module>Gri_Contacts</module>
+                    <frontName>contacts</frontName>
+                </args>
+            </gri_contacts>
+        </routers>
+    </frontend>
+</config>

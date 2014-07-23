@@ -1,0 +1,51 @@
+<?php
+/* @var $this Mage_Wishlist_Block_Customer_Wishlist */
+$_wishlistHelper = Mage::helper('gri_wishlist');
+?>
+<?php if ($this->helper('wishlist')->isAllow()) : ?>
+    <div class="my-wishlist">
+        <div class="page-title">
+            <h1><?php echo $_wishlistHelper->__('Wishlist'); ?></h1><a href="javascript:;" class="dashboard-dropdown-menu"></a>
+            <span><?php echo $_wishlistHelper->__('%s ITEMS', $this->getWishlistItemsCount()); ?></span>
+        </div>
+        <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+        <div id="wishlist-view-form" action="<?php echo $this->getUrl('*/*/update', array('wishlist_id' => $this->getWishlistInstance()->getId())) ?>" method="post">
+            <?php echo $this->getChildHtml('top'); ?>
+            <div class="wishlist_view">
+                <?php if ($this->hasWishlistItems()): ?>
+                        <?php echo $this->getBlockHtml('formkey');?>
+                        <?php $this->getChild('items')->setItems($this->getWishlistItems()); ?>
+                        <?php echo $this->getChildHtml('items');?>
+                        <script type="text/javascript">decorateTable('wishlist-table')</script>
+                <?php else: ?>
+                    <p class="wishlist-empty"><?php echo $_wishlistHelper->__('You have no items in your wishlist.') ?></p>
+                <?php endif ?>
+                <!--<div class="buttons-set buttons-set2">
+                    <?php // echo $this->getChild('control_buttons')->toHtml();?>
+                </div-->
+            </div>
+        </div>
+
+        <script type="text/javascript">
+        //<![CDATA[
+        var wishlistForm = new Validation($('wishlist-view-form'));
+        function addAllWItemsToCart() {
+            var url = '<?php echo $this->getUrl('*/*/allcart', array('wishlist_id' => $this->getWishlistInstance()->getId())) ?>';
+            var separator = (url.indexOf('?') >= 0) ? '&' : '?';
+            $$('#wishlist-view-form .qty').each(
+                function (input, index) {
+                    url += separator + input.name + '=' + encodeURIComponent(input.value);
+                    separator = '&';
+                }
+            );
+            setLocation(url);
+        }
+        //]]>
+        </script>
+    </div>
+    <?php echo $this->getChildHtml('bottom'); ?>
+    <!--<div class="buttons-set">
+        <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $_wishlistHelper->__('Back') ?></a></p>
+    </div>-->
+<?php endif ?>

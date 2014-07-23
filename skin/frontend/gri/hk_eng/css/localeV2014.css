@@ -1,0 +1,47 @@
+/* General ================================================================================= */
+
+/* Logo ================================================================================= */
+
+/* Login ================================================================================= */
+
+/* Ribbons */
+body .products-grid .item .new-arrival-ribbon{background-image:url("../images/new_arrival.png");width: 46px;height: 21px;display: inline-block;}
+body.category-new-arrivals .products-grid .item .new-arrival-ribbon,
+body.category-pre-sales .products-grid .item .presale-ribbon,
+body.category-pre-order .products-grid .item .preorder-ribbon{background:none;}
+
+body .products-grid .item .on-sale-ribbon{background-image:url("../images/on_sale.png");position: relative;width: 46px;height: 21px;left: 38%;top:10px;}
+.flash-sale-ribbon{background-image:url("../images/flash_sale.png");width: 81px;height: 21px;text-indent: -999px;overflow: hidden;display: inline-block;}
+body .products-grid .item .preorder-ribbon{background-image:url("../images/pre-order.png");position: relative;width: 46px;height: 21px;left: 38%;top:10px;}
+body .products-grid .item .presale-ribbon{background-image:url("../images/pre-sale.png");position: relative;width: 46px;height: 21px;left: 38%;top:10px;}
+.gift-icon{background: url("../images/free-gift.png") no-repeat !Important;width: 60px;height: 20px;}
+body.preorder-index-index  .products-grid .item .special_offer,
+body.presale-index-index .products-grid .item .special_offer{background:none }
+
+body.category-root-path-sale .products-grid .item .on-sale-ribbon,
+body.category-root-path-sale .products-grid .item .flash-sale-ribbon,
+body.category-root-path-sale .products-grid .item .preorder-ribbon,
+body.category-root-path-sale .products-grid .item .presale-ribbon,
+body.category-root-path-sale .products-grid .item .special_offer,
+body.category-root-path-sale .products-grid .item .new-arrival-ribbon{background:none;}
+
+body.category-root-path-new-arrivals .products-grid .item .on-sale-ribbon,
+body.category-root-path-new-arrivals .products-grid .item .flash-sale-ribbon,
+body.category-root-path-new-arrivals .products-grid .item .preorder-ribbon,
+body.category-root-path-new-arrivals .products-grid .item .presale-ribbon,
+body.category-root-path-new-arrivals .products-grid .item .special_offer,
+body.category-root-path-new-arrivals .products-grid .item .new-arrival-ribbon{background:none;}
+.shop-sold-out{background:url("../images/notify-me.png") no-repeat;display: inline-block;width:80px;height:20px;text-indent: -999px;overflow: hidden;}
+/* Flash Sale */
+.flash-sale-list .item .sold-out-ribbon{background:url("../images/sold-out.png") no-repeat;display:inline-block;width: 80px;height: 20px;}
+.products-grid .item .flash-sale-ribbon{background:url("../images/flash_sale.png") no-repeat;display:inline-block;width: 81px;height: 21px;}
+.flash-sale-list .shop-sold-out{background: none;}
+/* My Account */
+
+/* Footer ================================================================================ */
+
+/* Shipping Method ========================================================================*/
+
+/* Order Method ========================================================================== */
+
+/* CMS Page ============================================================================== */

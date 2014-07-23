@@ -1,0 +1,113 @@
+@charset "utf-8";
+.cms body {font-family: Arial, Helvetica, sans-serif;font-size:13px;color:#808080;}
+.cms h1,.cms h2,.cms h3,.cms h4,.cms h5,.cms h6{font-weight:normal;}
+.cms h1{font-family: Futura Bk Bt,"Microsoft YaHei","微軟雅黑";text-transform:uppercase;color:#000;padding-bottom:5px;border-bottom:1px solid #000;margin-bottom:20px;font-size:40px;}
+.cms h2{font-family: Futura Hv Bt,"Microsoft YaHei","微軟雅黑";color:#333;font-size:25px;}
+.cms h3{font-family: Futura Lt Bt,"Microsoft YaHei","微軟雅黑";text-transform:uppercase;color:#000;font-size:25px;margin-top: 6px;}
+.cms h4{font: 18px futura_lt_btlight_italic,"Microsoft YaHei","微軟雅黑";color:#808080;}
+.cms h5{font-family: Futura Bk Bt;text-transform:uppercase;color:#000;font-size:13px;}
+.cms h6{font:15px Futura Bk Bt;color:#000;}
+.cms .normal{font-family: Futura Bk Bt;}
+.cms .italic_normal{font-family: Futura Bk Bt;font-style: italic;}
+.cms .bold{font-family: Futura Hv Bt;}
+.cms .italic_bold{font-family:Futura Hv Bt;font-style: italic;}
+.cms .light{font-family: Futura Lt Bt;}
+.cms .italic_light{font-family: Futura Lt Bt;font-style: italic;}
+.cms .bodoni{font-family: 'BauerBodoniStd-Roman'}
+.cms .italic_bodoni{font-family: 'BauerBodoniStd-Italic';}
+.cms p{font-family:Arial, Helvetica, sans-serif;font-size:13px;color:#808080;line-height:18px;}
+.cms a:link{color:inherit;text-decoration:underline;}
+.cms a:visited{color:inherit;text-decoration:underline;}
+.cms a:hover{color:inherit;text-decoration:none;}
+.cms a:active{color:inherit;text-decoration:none;}
+.cms table{border:1px solid #E3E3E3;text-align:left;border-collapse:separate;border-spacing:15px 10px;}
+.cms th{font-family: Futura Bk Bt;text-transform:uppercase;font-weight:normal;font-size:13px;color:#000;border-spacing:10px 15px;text-align:left;}
+.cms td{font-family:Arial, Helvetica, sans-serif;font-size:12px;color:#808080;padding:0px 0px 0px 0px;}
+.cms.tablebreak{border-bottom:1px solid #E3E3E3;width: 100%;background: none;height: 1px;line-height: 1px;}
+.cms .label_title{font-family: Futura Bk Bt,"Microsoft YaHei","微軟雅黑";text-transform:uppercase;color:#000;padding-bottom:20px;font-size:20px;}
+.cms label{font-family:Arial, Helvetica, sans-serif;font-size:13px;color:#808080;display:block;margin-bottom:10px;}
+.cms select{font-family:Arial, Helvetica, sans-serif;font-size:12px;color:#808080;padding:3px 10px;margin-bottom:20px;}
+.cms #submenu h3 {color:#808080 !important;text-align:center;margin:10px 0px 30px 0px;}
+.cms #submenu a:link{color:inherit;text-decoration:none;}
+.cms #submenu a:visited{color:inherit;text-decoration:none;}
+.cms #submenu a:hover{color:inherit;text-decoration:underline;}
+.cms #submenu a:active{color:#000 !important;text-decoration:none;}
+.cms ul, ol{margin-top:10px;padding:0px;margin-left:1.4em;}
+.cms li{margin-bottom:10px;line-height:18px;}
+.cms hr { display: block; height: 1px; border: 0; border-top: 1px solid #E3E3E3; padding-top:0px;margin-top:10px; }
+.cms .button{background-color:#000;color:#fff !important;font-family: Futura Bk Bt;font-size:13px;text-transform:uppercase;padding:5px 15px;display:inline-block;}
+.cms a.button:link{text-decoration:none;}
+.cms a.button:visited{text-decoration:none;}
+.cms a.button:hover{text-decoration:none;opacity:0.7;}
+.cms a.button:active{text-decoration:none;}
+.cms .button_space{margin-left:10px;}
+.cms .text_button{font-family: Futura Bk Bt;font-size:15px;text-transform:uppercase;display:block;margin-bottom:8px;}
+.cms a.text_button:link{text-decoration:none;}
+.cms a.text_button:visited{text-decoration:none;}
+.cms a.text_button:hover{text-decoration:none;color:#000;}
+.cms a.text_button:active{text-decoration:none;}
+.cms #chart table{font-family: Futura Bk Bt;font-size:13px;text-align:center;border-collapse:collapse;}
+.cms #chart th{background-color:#000;color:#fff;font-size:13px;text-transform:uppercase;padding:10px 10px;text-align:center;border:1px solid #E3E3E3;}
+.cms #chart td{border:1px solid #E3E3E3;padding:10px 10px;}
+.cms #letter{font-family: 'BauerBodoniStd-Italic', "Times New Roman", Times, serif,"Microsoft YaHei","微軟雅黑";font-size:60px;color:#000;margin-bottom:10px;}
+.cms #word{margin-bottom:20px;}
+.cms #word h5{margin-bottom:-5px;}
+.cms #word p{margin-bottom:30px;}
+.cms .line { clear:both; display:block;height: 1px; border: 0; border-bottom: 1px solid #E3E3E3; padding-top:40px;margin-bottom:20px }
+.cms #app{color:#000;}
+.cms #mag .arrow_left{position:relative;margin-top:-42%;float:left;}
+.cms #mag .arrow_right{position:relative;margin-top:-42%;float:right;}
+.cms #mag .arrow_left:hover,.cms  #mag .arrow_right:hover{opacity:0.7;}
+.cms #cms-delivery-content ul li,.cms #cms-delivery-content2 ul li,.cms #cms-delivery-content ul li,.cms #cms-vip-content ul li,.cms #cms-size-content ul li{list-style-type: disc;font-family: Arial;}
+.cms #cms-delivery-content ol li, .cms #cms-delivery-content2 ol li{font-family:Arial;}
+/*.cms #cms-delivery-content2 ul:nth-child(2) li{list-style-type:decimal; }*/
+#cms-delivery-content .tablebreak{border-top:1px solid #e3e3e3;}
+.cms-cc-mag-html .slider .slides a.prev,.cms-cc-mag-html .slider .slides a.next{display: block;}
+#cms-vip-silver ul li,#cms-vip-gold ul li{list-style-type: disc;font:13px Arial;}
+#cms-vip-content{width:30%;float:left;margin-right:4%;}
+#cms-vip-silver{width: 30%;float:left;margin-right: 4%}
+#cms-vip-gold{width: 30%;float: left;}
+#cms-vip-silver
+.cms-size-chart-html table{border-spacing:0;}
+.cms-size-chart-html table tbody tr th{background:#000;text-align: center;vertical-align: middle;color:#fff;}
+.cms-size-chart-html table tbody tr td{text-align: center;vertical-align: middle;}
+.cms-size-chart-html table tbody tr th:nth-child(2),
+.cms-size-chart-html table tbody tr th:nth-child(4),
+.cms-size-chart-html table tbody tr td:nth-child(2),
+.cms-size-chart-html table tbody tr td:nth-child(4){border-right:0;}
+.cms-size-chart-html table tbody tr th:nth-child(3),
+.cms-size-chart-html table tbody tr th:nth-child(5),
+.cms-size-chart-html table tbody tr td:nth-child(3),
+.cms-size-chart-html table tbody tr td:nth-child(5){border-left:0;}
+.cms-size-chart-html table tbody tr td:first-child{color:#808080;}
+.cms-page-view .storeimg>img{width: 910px;}
+.cms-page-view .cms-menu li.parent ul li{line-height: 30px;font:13px Arial,微軟雅黑;}
+/*****  site map   ****/
+.cms-sitemap-html .page-title,
+.cms-sitemap-html .std{width:100% !important;}
+#cms-sitemap-menu{float:left;width:18%;font:15px Futura Bk Bt;color:#808080;line-height:150%;}
+.cms-site-map,.cms-site-map-footer{width:80%;float:right;}
+#site-map li.level0,#site-map-footer li.level0{width:220px;float: left;margin:8px 5px 20px;min-height: 215px;}
+#site-map li.level0 a.level-top span,#site-map-footer li.level0 a.level-top span{font:15px Futura Bk Bt;color:#000;text-transform: uppercase;}
+#site-map li.level0 ul.level0,#site-map-footer li.level0 ul.level0{margin-top:10px;}
+#site-map li.level0 ul.level0 li.level1,#site-map-footer li.level0 ul.level0 li.level1{list-style-type: none;}
+#site-map li.level0 ul.level0 li.level1 a span,#site-map-footer li.level0 ul.level0 li.level1 a span{font:13px Arial;line-height: 200%;color:#808080;}
+/******  404 Page no found  *****/
+#page-no-found{width:585px;margin:150px auto;text-align: center;}
+#page-no-found h1{font:40px Futura Bk Bt,"Microsoft YaHei","微軟雅黑";color:#000;text-transform: uppercase;margin-bottom:100px;}
+#page-no-found p{font:25px Futura Hv Bt,"Microsoft YaHei","微軟雅黑";color:#000;}
+#page-no-found span{font:18px futura_lt_btlight_italic,"Microsoft YaHei","微軟雅黑";margin-top:35px;}
+/*****   glossary  ********/
+.cms-glossary-html .main .std{float:right;}
+#cms-glossary-submenu{text-align:center;margin-bottom:50px; margin-top:20px;}
+/******      cms page brand   *****/
+#cms-brand-about-menu {margin-top:10px;}
+#cms-brand-about-menu .about-brand ul,#cms-brand-about-menu .widget-static-block .about-brand ul{margin-left: 0; margin-top:0;}
+#cms-brand-about-menu .about-brand ul li, #cms-brand-about-menu .widget-static-block .about-brand ul li {margin-top:2px; margin-bottom:6px;}
+#cms-brand-about-menu .about-brand ul li a,#cms-brand-about-menu .widget-static-block .about-brand ul li a{font:15px Futura Bk Bt;color:#808080;text-decoration: none; line-height:18px;}
+#cms-brand-about-menu .about-brand ul li a:hover,#cms-brand-about-menu .widget-static-block .about-brand ul li a:hover{color:#000000;text-decoration: none; font-weight:bold;}
+#cms-brand-about-menu .widget-static-block .about-brand h2{font:15px futura_bk_btbook_italic;color:#000;}
+
+div.vertnav_block > ul#vertnav li a  span{color:#808080;}
+div.vertnav_block > ul#vertnav li a:hover  span{color:#000;}
+div.vertnav_block > ul#vertnav li.level1  a  span{font:13px Arial;text-transform: capitalize;}

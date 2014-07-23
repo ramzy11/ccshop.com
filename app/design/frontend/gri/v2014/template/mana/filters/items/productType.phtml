@@ -1,0 +1,44 @@
+<?php /* @var $this Mana_Filters_Block_FilterProductType */ ?>
+<?php $params = $this->getRequest()->getParams(); ?>
+<div class="filter-content">
+    <div class="filter-item filter-item-product-type">
+        <?php if($attributeSetId = Mage::app()->getRequest()->getParam('attribute_set_id')): ?>
+        <?php $attributeSet = Mage::getModel('eav/entity_attribute_set')->load($attributeSetId); ?>
+            <a class="filter-name" href="javascript:;">
+                <?php echo $this->__($attributeSet->getAttributeSetName()); ?>
+            </a>
+        <?php else: ?>
+            <a class="filter-name"><?php echo $this->__('All Products')?></a>
+        <?php endif;  ?>
+        <div id="filter-value-product-type" class="filter-value" style="display: none;">
+            <dd class="odd">
+                <div class="filter-1-cols clearer">
+                    <ol class="m-filter-item-list filter">
+                        <li class="m-filter-item">
+                            <a href="javascript:;" onclick="sendFilter('<?php echo $this->getUrl('flashsale', array('isAjax'=>1)); ?>');"><?php echo $this->__('All Products'); ?></a>
+                        </li>
+                        <?php
+                            $attributeSets = $this->getAttributeSetIdOptions();
+                            foreach($attributeSets as $setId=>$setName):
+                                $_params = $params;
+                                $_params['attribute_set_id'] = $setId;
+								unset($_params['p']);
+								unset($_params['isAjax']);
+                        ?>
+                        <li class="m-filter-item">
+                            <a href="javascript:;" class='<?php echo (isset($params['attribute_set_id']) && $params['attribute_set_id'] == $setId) ? 'product-type-selected':'';?>' onclick="sendFilter('<?php echo $this->getUrl('flashsale', $_params); ?>');"><?php echo $this->__($setName); ?></a>
+                        </li>
+                        <?php endforeach; ?>
+                    </ol>
+                </div>
+            </dd>
+        </div>
+    </div>
+    <div id="filter-list">
+        <?php if($attributeSetId = Mage::app()->getRequest()->getParam('attribute_set_id')): ?>
+            <a class="filter-name-result" target="_self" href="<?php echo $this->getUrl('flashsale'); ?>">
+                <span> <img src="<?php echo $this->getSkinUrl('images/close.png'); ?>" /><?php echo $this->__('Clear All'); ?></span>
+            </a>
+        <?php endif; ?>
+    </div>
+</div>

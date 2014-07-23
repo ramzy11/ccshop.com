@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Gri_CountryGroup>
+            <version>1.0.1</version>
+        </Gri_CountryGroup>
+    </modules>
+ <global>
+        <blocks>
+             <gri_countrygroup>
+                <class>Gri_CountryGroup_Block</class>
+            </gri_countrygroup>
+        </blocks> 
+        <models>
+             <gri_countrygroup>
+                <class>Gri_CountryGroup_Model</class>
+                <resourceModel>gri_countrygroup_resource</resourceModel>
+            </gri_countrygroup>
+            <gri_countrygroup_resource>
+                <class>Gri_CountryGroup_Model_Resource</class>
+                 <entities>
+                    <countrygroup>
+                        <table>country_group</table>
+                    </countrygroup>
+                </entities>
+            </gri_countrygroup_resource>
+       </models>    
+       <resources>
+            <gri_countrygroup_setup>
+                <setup>
+                    <module>Gri_CountryGroup</module>
+                </setup>
+            </gri_countrygroup_setup>
+       </resources>
+       <helpers>
+            <gri_countrygroup>
+              <class>Gri_CountryGroup_Helper</class>
+            </gri_countrygroup>
+        </helpers>
+</global>
+    <frontend>
+          <routers>
+            <gri_countrygroup>
+                <use>standard</use>
+                <args>
+                    <module>Gri_CountryGroup</module>
+                    <frontName>countrygroup</frontName>
+                </args>
+            </gri_countrygroup>
+        </routers>
+    </frontend>
+     <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <countrygroup before="Mage_Adminhtml">Gri_CountryGroup_Adminhtml</countrygroup>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <gri_countrygroup>
+                    <file>countrygroup.xml</file>
+                </gri_countrygroup>
+            </updates>
+        </layout>
+      </adminhtml>
+</config>
+

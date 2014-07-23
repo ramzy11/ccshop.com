@@ -1,0 +1,19 @@
+<script type="text/javascript">
+    VarienRulesForm.prototype.toggleChooser = function (container, event) {
+        if (this.readOnly) {
+            return false;
+        }
+        var chooser = container.up('li').down('.rule-chooser');
+        if (!chooser) {
+            return;
+        }
+        this.updateElement = container.up().down('.element-value-changer');
+        if (chooser.style.display=='block') {
+            chooser.style.display = 'none';
+            this.cleanChooser(container, event);
+        } else {
+            this.showChooserElement(chooser);
+        }
+    };
+    var filter_form = new VarienRulesForm('filter_form');
+</script>

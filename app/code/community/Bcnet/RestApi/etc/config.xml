@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bcnet_RestApi>
+            <version>1.0</version>
+        </Bcnet_RestApi>
+    </modules>
+    <frontend>
+        <routers>
+            <RestApi>
+                <use>standard</use>
+                <args>
+                    <module>Bcnet_RestApi</module>
+                    <frontName>restapi</frontName>
+                </args>
+            </RestApi>
+        </routers>
+    </frontend>
+    <global>
+        <models>
+            <restapi>
+                <class>Bcnet_RestApi_Model</class>
+            </restapi>
+        </models>
+        <helpers>
+            <restapi>
+                <class>Bcnet_RestApi_Helper</class>
+            </restapi>
+        </helpers>
+    </global>
+</config>
+

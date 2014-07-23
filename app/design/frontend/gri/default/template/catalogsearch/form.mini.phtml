@@ -1,0 +1,81 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/* @var $this Mage_Core_Block_Template */
+/* @var $catalogSearchHelper Mage_Catalogsearch_Helper_Data */
+$catalogSearchHelper = $this->helper('catalogsearch');
+
+$brands = Mage::getResourceModel('catalog/product')
+    ->getAttribute('brand')
+    ->getSource()
+    ->getAllOptions();
+$brands[0]['label'] = $this->__('All Brands');
+
+$allowBrands = Mage::helper('gri_catalogcustom')->getLeftMenuArr();
+$getBrandNameArr = array();
+foreach($allowBrands as $k=>$val){
+    if($val['sort'] > 3){
+       $getBrandNameArr[] = $val['label'] ;
+    }
+}
+
+$allowBrands = $getBrandNameArr ;
+foreach($brands as $k=>$brand){
+   if($k == 0){
+       continue;
+   }
+   if(!in_array($brand['label'],$allowBrands)){
+       unset($brands[$k]);
+   }
+}
+$selectedBrand = $this->getRequest()->getParam('brand');
+?>
+<form id="search_mini_form" action="<?php echo $catalogSearchHelper->getResultUrl() ?>" method="get">
+    <div class="form-search">
+        <select id="obscured-dropdown" name="brand">
+            <?php foreach ($brands as $k => $v) { ?>
+            <option value="<?php echo $v['value']; ?>" <?php if ($selectedBrand == $v['value']) { ?>selected="selected"<?php } ?>><?php echo $v['label']; ?></option>
+            <?php } ?>
+        </select>
+        <div class="search_bar">
+            <input id="search" type="text" name="<?php echo $catalogSearchHelper->getQueryParamName() ?>" value="<?php echo $catalogSearchHelper->getEscapedQueryText() ?>" class="input-text" maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength();?>"/>
+            <button type="submit" title="<?php echo $this->__('Search') ?>" class="button">
+                <span><span><?php echo $this->__('Search') ?></span></span></button>
+            <div id="search_autocomplete" class="search-autocomplete"></div>
+        </div>
+        <script type="text/javascript">
+            //<![CDATA[
+            var searchForm = new Varien.searchForm('search_mini_form', 'search', '<?php echo $this->__('Search for product or style') ?>');
+            searchForm.initAutocomplete('<?php echo $catalogSearchHelper->getSuggestUrl() ?>', 'search_autocomplete');
+            //]]>
+            <?php $params = $this->getRequest()->getParams();?>
+            <?php if (isset($params['brand'])) { ?>
+            $$('#obscured-dropdown option').each(function (i) {
+                if (i.value == "<?php echo $params['brand']?>") i.selected = true;
+            })
+                <?php }?>
+        </script>
+    </div>
+</form>

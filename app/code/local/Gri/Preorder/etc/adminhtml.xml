@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <catalogcustom>
+            <children>
+                <preorder translate="title" module="gri_preorder">
+                    <title>Manage Pre Orders</title>
+                    <sort_order>200</sort_order>
+                    <action>adminhtml/system_config/edit/section/gri_preorder/</action>
+                </preorder>
+            </children>
+        </catalogcustom>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <gri_preorder translate="title" module="gri_preorder">
+                                        <title>Pre-Orders Configuration</title>
+                                    </gri_preorder>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

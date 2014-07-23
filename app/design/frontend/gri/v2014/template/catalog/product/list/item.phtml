@@ -1,0 +1,178 @@
+<?php
+/* @var $this Gri_CatalogCustom_Block_Product_List_Item */
+$product = $this->getProduct();
+$productId = $product->getId();
+$product->load(NULL);
+/* @var $swatchHelper Magiatec_Colorswatch_Helper_Swatch */
+$swatchHelper = Mage::helper('magiatecolorswatch/swatch');
+$_helper = $this->helper('catalog/output');
+$imageWidth = $this->getImageWidth();
+$imageHeight = $this->getImageHeight();
+$swatchHelper->setCurrentProduct($product);
+/* @var $productHelper Gri_CatalogCustom_Helper_Product */
+$productHelper = Mage::helper('gri_catalogcustom/product');
+$productUrl = $this->getProductUrl($product);
+$shopNowUrl = $this->getShopNowUrl($product);
+$shopNowOnclick = $this->getShopNowOnclick();
+/* @var $flashSaleHelper Gri_FlashSale_Helper_Data */
+$flashSaleHelper = Mage::helper('gri_flashsale');
+$flashSaleHelper->getRemoveUnavailableOptions() or $product->setFinalPrice(NULL);
+$showMoreSwatches = $this->getShowMoreSwatches();
+$maxSwatches = $this->getMaxSwatches();
+$classes = $productHelper->getRibbonClass($product);
+
+$isLimitedEdition = $product->getLimitedEdition();
+
+$request = Mage::app()->getRequest();
+$port = $request->getServer('SERVER_PORT');
+$secure = $port == 443 ? TRUE : FALSE ;
+
+?>
+
+<div class="product_image">
+    <a href="<?php echo $productUrl ? $productUrl : 'javascript:;'; ?>"
+       title="<?php echo $this->stripTags($this->getImageLabel($product, 'small_image'), null, true) ?>"
+       class="product-image">
+
+        <img src="<?php echo $this->helper('catalog/image')->init($product, 'small_image')->resize($imageWidth, $imageHeight); ?>"
+             alt="<?php echo $this->stripTags($this->getImageLabel($product, 'small_image'), null, true) ?>"/>
+        <img class="rotatingImage" style="display:none;"/>
+    </a>
+</div>
+
+<div class="product_description">
+    <p class="brand-name"><?php echo $brandName = $product->getAttributeText('brand'); ?></p>
+    <p class="product-name"><?php echo $name = $_helper->productAttribute($product, $product->getName(), 'name'); ?></p>
+    <?php /*if ($product->getRatingSummary()): ?>
+    <?php echo $this->getReviewsSummaryHtml($product, 'short') ?>
+    <?php endif;*/ ?>
+    <?php if ($this->showPrice()) { ?>
+        <?php echo $this->getPriceHtml($product, true) ?>
+    <?php } ?>
+    <?php if ($this->showRewardPoints()) { ?>
+        <div class="reward-points"><?php echo $this->getRewardPointsHtml($product) ?></div>
+    <?php } ?>
+    <?php if($isLimitedEdition): ?>
+        <p class="limited">- <?php echo $this->__('Limited Edition');?> -</p>
+    <?php endif; ?>
+
+
+</div>
+<?php if ($product->isSaleable()) { ?>
+        <?php
+            /* no shop-now /Add to cart  in category list */
+        ?>
+<?php } else if ($productUrl) { ?>
+    <a class="shop-now shop-sold-out" href="<?php echo $productUrl; ?>"><?php echo $this->__('Notify Me') ?></a>
+<?php
+} else { /* ?>
+        <a class="shop-now shop-sold-out"><?php echo $this->__('Sold Out') ?></a>
+    <?php */
+} ?>
+
+<?php
+   $modules = (array)Mage::getConfig()->getNode('modules')->children();
+   if(isset($modules['ProxiBlue_GiftPromo'])) {
+       if ($this->showGiftProduct() && count(Mage::helper('giftpromo')->getAllGiftsForProduct($product, false, false)) || count(Mage::getModel('giftpromo/product')->load($product->getId())->getGiftProductIds())) {
+           echo $this->getLayout()
+               ->createBlock('giftpromo/product_list_icon')
+               ->setProduct($product)
+               ->setTemplate('giftpromo/catalog/product/list/icon.phtml')
+               ->setIgnoreRules(false)
+               ->toHtml();
+    }
+   }
+?>
+<div class="ribbon-space">
+<?php if ($classes) { ?>
+    <div class="<?php echo implode(' ', $classes); ?>"></div>
+<?php } ?>
+</div>
+<?php if ($this->showActions()) { ?>
+    <div class="actions">
+        <div id="addto-message-<?php echo $productId ?>"></div>
+        <ul class="add-to-links">
+            <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                <li><a href="<?php echo $this->helper('wishlist')->getAddUrl($product) ?>"
+                       id = "addtoWishlist-<?php echo $productId;?>" class="link-wishlist" target="_blank">
+                       <?php /*onclick="addtoWhishlist('<?php echo $this->helper('wishlist')->getAddUrl($product) ?>','<?php echo $productId;?>')"> */ ?>
+                        <?php echo $this->__('Add to Wishlist') ?></a></li>
+            <?php endif; ?>
+        </ul>
+    </div>
+<?php } ?>
+
+<?php if ($swatchHelper->isApplicable()) { ?>
+<div class="product_style"><?php } ?>
+  <?php if($this->showSwatch()) { ?>
+    <?php if ($swatchHelper->isApplicable()) {
+        $options = $swatchHelper->getConfigurableOptions($product);
+        $flashSaleHelper->removeUnavailableOptions($product, $options);
+        $i = 0;
+        ?>
+        <ul class="options">
+            <?php foreach ($options as $option) { ?>
+                <li firstimage="<?php echo $this->helper('catalog/image')->init($product, 'small_image', $option['main_image'])->resize($imageWidth, $imageHeight); ?>"
+                    secondimage="<?php echo $this->helper('catalog/image')->init($product, 'small_image', $option['second_image'])->resize($imageWidth, $imageHeight); ?>"
+                    price="<?php echo $option['price']; ?>" title="<?php echo $option['label']; ?>"
+                    option="<?php echo $option['attribute_id']; ?>-<?php echo $option['id']; ?>"
+                    class="<?php if ($showMoreSwatches && $i >= $maxSwatches) { ?>more-swatch<?php } ?>">
+                    <a href="<?php echo $swatchHelper->getSwatchUrl($productUrl, $option); ?>">
+                        <?php if (isset($option['swatch']) && $option['swatch']) { ?>
+                            <img src="<?php echo $option['swatch']; ?>" alt="<?php echo $option['label']; ?>"/>
+                        <?php } ?>
+                    </a>
+                </li>
+                <?php if (++$i >= $maxSwatches && !$showMoreSwatches) break;
+            } ?>
+            <?php if (count($options) > $maxSwatches) { ?>
+                <span class="more-colors">
+                    <a href="<?php echo $productUrl ? $productUrl : 'javascript:;'; ?>" title="<?php echo $this->__('More colors'); ?>"></a>
+                    <?php /*<a href="javascript:" title="<?php echo $this->__('More colors'); ?>"></a> */ ?>
+                </span>
+            <?php } ?>
+        </ul>
+    <?php } ?>
+  <?php } ?>
+    <?php if ($swatchHelper->isApplicable()) { ?></div><?php } ?>
+
+<?php if($this->useShowQuickview()): ?>
+    <div class="quick-view"><a id ="quick-view-<?php echo $product->getId()?>" href="#product-quick-view-<?php echo $product->getId()?>"><span><?php echo $this->__('Quick View')?></span></a></div>
+    <div style="display: none;">
+        <div id="product-quick-view-<?php echo $product->getId()?>"></div>
+    </div>
+    <script type="text/javascript">
+        (function($){
+            $("#quick-view-<?php echo $product->getId()?>").fancybox({
+                'width': 800,
+                'height': 600,
+                'transitionIn': 'fade',
+                'transitionOut': 'fade',
+                'overlayColor': '#fff',
+                'overlayOpacity': 0.7,
+                'href': '<?php echo $this->getQuickviewUrl($product);?>',
+                'type': 'iframe',
+                "scrolling": "no"
+            });
+        })(jQuery)
+    </script>
+<?php endif; ?>
+
+<?php if ($this->getShowSpConfig() && $swatchHelper->isApplicable()) { ?>
+    <script type="text/javascript">
+        //<![CDATA[
+        var spConfig<?php echo $product->getId(); ?> = <?php echo $swatchHelper->getConfigurableBlock()->getJsonConfig(); ?>;
+        //]]>
+    </script>
+<?php } ?>
+
+<?php if ($this->getShowDescription()) { ?>
+    <div id="item-description-<?php echo $product->getId(); ?>" class="item-description">
+        <div class="item-header">
+            <?php echo $brandName; ?> - <?php echo $name; ?>
+        </div>
+        <div id="item-media-<?php echo $product->getId(); ?>"
+             class="item-media"><?php echo $this->getMediaHtml(); ?></div>
+        <?php echo $this->getDescriptionHtml(); ?>
+    </div>
+<?php } ?>

@@ -1,0 +1,36 @@
+<!--@subject 您已經從{{var sender_name}}處收到禮品卡 @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image",
+"var name|escape":"Recipient Name",
+"var sender_name_with_email|escape":"Sender Name with Email",
+"var store.getFrontendName()|escape":"Store Name",
+"var giftcards":"Gift Card Codes",
+"var balance":"Gift Card Balance",
+"var gift_message|escape|nl2br":"Sender Gift Message"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+{{block type='core/template' area='frontend' template='email/header.phtml'}}
+<h1 style="color:#000000;font-size:22px; font-weight:normal; line-height:22px; margin:20px 0 11px 0;">親愛的{{var name|escape}}</h1>
+<p style="color:#000000;font-size:12px; line-height:16px; margin:0 0 16px 0;">{{var sender_name_with_email|escape}}已經發送給您一張{{var store.getFrontendName()|escape}}的禮品卡，禮品卡已經可以用於購物了。</p>
+
+<div style="color:#000000;font-size:12px; line-height:16px; margin:0 0 16px 0;">
+<p style="color:#000000;font-size:12px; line-height:16px; margin:0 0 16px 0;"><strong>禮品卡碼是:</strong></p>
+{{var giftcards}}
+</div>
+
+<p style="color:#000000;font-size:12px; line-height:16px; margin:0 0 16px 0;">{{if is_multiple_codes}}Each{{else}}The{{/if}}禮品卡的金額是{{var balance}}，可用於在<a href="{{store url="/"}}">{{store url="/"}}</a>消費。</p>
+{{if is_redeemable}}
+<p style="color:#000000;font-size:12px; line-height:16px; margin:0 0 16px 0;">Click at the code(s) above to redeem them into Store Credit.</p>
+{{/if}}
+
+<div style="color:#000000;font-size:12px; line-height:16px; margin:0 0 16px 0;">
+{{var gift_message|escape|nl2br}}
+</div>
+<br>
+<br>
+<br>
+<br>
+{{block type='core/template' area='frontend' template='email/footer.phtml'}}

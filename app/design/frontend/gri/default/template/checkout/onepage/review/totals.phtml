@@ -1,0 +1,53 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * @var $this Mage_Checkout_Block_Cart_Totals
+ */
+$baseCurrencySymbol = Mage::helper('gri_directory')->getCurrencySymbol(
+    Mage::app()->getStore()->getBaseCurrency()
+);
+?>
+<?php if ($this->getTotals()): ?>
+<tfoot>
+<tr class="spacer"><td colspan="8"></td></tr>
+<tr><td colspan="8"><div class="mid_rig_tot"><table width="100%">
+    <?php $_colspan = 1; ?>
+    <?php echo $this->renderTotals(null, $_colspan); ?>
+    <?php echo $this->renderTotals('footer', $_colspan); ?>
+    <?php if ($this->needDisplayBaseGrandtotal()):?>
+    <tr>
+        <td class="a-right" colspan="<?php echo $_colspan; ?>">
+            <small><?php echo $this->helper('sales')->__('Grand total in %s to be charged', $baseCurrencySymbol); ?></small>
+        </td>
+        <td class="a-right">
+            <small><?php echo $this->displayBaseGrandtotal() ?></small>
+        </td>
+    </tr>
+    <?php endif?>
+</table></div></td></tr>
+</tfoot>
+<?php endif; ?>

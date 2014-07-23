@@ -1,0 +1,5 @@
+<?php
+
+class Gri_Hamper_Helper_Catalog_Product_Configuration extends Mage_Bundle_Helper_Catalog_Product_Configuration
+{
+}

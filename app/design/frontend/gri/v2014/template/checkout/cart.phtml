@@ -1,0 +1,149 @@
+<?php
+/**
+ * Shopping cart template
+ *
+ * @see Mage_Checkout_Block_Cart
+ */
+/* @var $this Gri_CheckoutCustom_Block_Cart */
+?>
+<script type="text/javascript">
+    function getParent(obj) {
+        if (typeof(obj) != "object") {
+            obj = document.getElementById(obj);
+        }
+        if (obj) return obj.parentElement || obj.parentNode;
+    }
+</script>
+<div id="main" class="cart_bg">
+    <div class="page_title"><?php echo $this->__('Review Your Tote') ?></div>
+    <div class="cart-content">
+        <ul>
+            <?php foreach ($this->getMethods('top_methods') as $method): ?>
+                <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
+                    <li><?php echo $methodHtml; ?></li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </ul>
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('cart-banner')->toHtml() ?>
+        <?php /*<div class="country-link">
+    	<a href="<?php echo $this->getUrl('checkout/cart/shiptocountry')?>" target="_blank">Check Ship To Country For Every Item</a>
+    </div>*/ ?>
+        <?php  echo $this->getMessagesBlock()->getGroupedHtml() ?>
+        <?php // echo $this->getChildHtml('form_before') ?>
+        <form action="<?php echo $this->getUrl('checkout/cart/updatePost') ?>" method="post">
+            <div class="cart_head">
+                <?php $mergedCells = ($this->helper('tax')->displayCartBothPrices() ? 2 : 1); ?>
+                <table width="100%" cellspacing="0 " cellpadding="0" border="0">
+                    <tbody>
+                        <tr>
+                            <th class="" style="width:36%;" rowspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Item Description') ?></th>
+                            <th class="" style="width:17%;" rowspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Quantity') ?></th>
+                            <th class="" style="width:17%;" colspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Unit Price') ?></th>
+                            <th class="" style="width:17%;" colspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Subtotal') ?></th>
+                            <th class="" style="width:13%;" rowspan="<?php echo $mergedCells; ?>">&nbsp;</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="cart_item">
+                <table width="100%" cellspacing="0 " cellpadding="0" border="0">
+                    <tbody>
+                    <?php foreach ($this->getItems() as $_item): ?>
+                        <?php echo $this->getItemHtml($_item) ?>
+                        <?php endforeach ?>
+                    </tbody>
+                    <script type="text/javascript">decorateTable('shopping-cart-table')</script>
+                </table>
+            </div>
+        </form>
+        <div class="cart_item_bot">
+            <div class="mid_item_bot">
+                <div class="cart-collaterals"></div>
+                <div class="clear"></div>
+                <div class="mid_lef_tot">
+                    <!--Free Gift Block-->
+                    <!--Crosssell Block-->
+                    <?php echo $this->getChildHtml('crosssell')?>
+                    <div class="con_shopping mobile_con_shopping">
+                        <?php if ($this->getContinueShoppingUrl()): ?>
+                            <button type="button" title="<?php echo $this->__('Continue Shopping') ?>" class="g_txt button btn-continue" onclick="setLocation('<?php echo $this->getContinueShoppingUrl() ?>')">
+                                <span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <div class="mid_rig_tot">
+                    <?php echo $this->getChildHtml('coupon') ?>
+                    <?php echo $this->getChildHtml('totals'); ?>
+                    <?php echo $this->getChildHtml('giftcards') ?>
+                    <?php if (!$this->hasError()): ?>
+                    <ul class="checkout-types">
+                        <?php foreach ($this->getMethods('methods') as $method): ?>
+                        <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
+                            <li><?php echo $methodHtml; ?></li>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </ul>
+                    <?php endif; ?>
+
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="bot_item_bot clearer">
+                <div class="need_help bot_itme_txt">
+                    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('need_help')->toHtml() ?>
+                </div>
+                <div class="safe_pay bot_itme_txt">
+                    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('safe_payment')->toHtml() ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    (function ($) {
+        window.updateCart = window.updateCart || function (url,itemId) {
+            var itemId = itemId,
+                loader = $('#ajax_loader_' + itemId);
+                loader.show();
+            $.ajax({
+                url: url,
+                dataType: 'json',
+                type: 'get',
+                success:function (data) {
+                    loader.hide();
+                    window.location.reload();
+                }
+            });
+        }
+
+
+        window.addtoWhishlist = window.addtoWhishlist || function (url,productId) {
+            var productId = productId ,
+                ajaxLoader = $('#ajax_loader'+productId),
+                addtoBtn = $('#addtoWishlist'+productId);
+            ajaxLoader.show();
+            if (url.indexOf('?') == '-1') url += '?';
+            if (url.indexOf('isAjax') == '-1') url += '&isAjax=1';
+            $.ajax({
+                url:url,
+                dataType:'json',
+                type:'get',
+                success:function (data) {
+                    ajaxLoader.hide();
+                    if(data.message){
+                        var messageBlock = $("#addto-message-"+productId).html(data.message).addClass('cart-wishlist-message').show();
+                        setTimeout(function(){messageBlock.fadeOut();}, 3000);
+                    }
+
+                    if(data.action && data.action == 'reload'){
+                        window.location.reload();
+                    }
+                }
+            });
+        }
+
+    })(jQuery);
+
+
+</script>

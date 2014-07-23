@@ -1,0 +1,105 @@
+<?php
+/* @var $this Gri_Hamper_Block_View */
+$_product = $this->getProduct();
+
+/* @var $outputHelper Mage_Catalog_Helper_Output */
+$outputHelper = $this->helper('catalog/output');
+/* @var $coreHelper Mage_Core_Helper_Data */
+$coreHelper = $this->helper('core');
+/* @var $imageHelper Mage_Catalog_Helper_Image */
+$imageHelper = $this->helper('catalog/image');
+/* @var $productHelper Gri_CatalogCustom_Helper_Product */
+$productHelper = $this->helper('gri_catalogcustom/product');
+$productHelper->getProductListItemBlock()
+    ->setImageHeight(125)->setImageWidth(125)
+    ->setShowMoreSwatches(TRUE)
+    ->setShowSpConfig(TRUE)
+    ->setShopNowLabel($this->__('Pick This'))
+    ->setShowDescription(TRUE)
+    ->setShopNowOnclick('hamper' . $_product->getId() . '.pick(this);');
+$options = new Varien_Object($this->getOptions());
+/* @var $_option Mage_Bundle_Model_Option */
+?>
+<script type="text/javascript"  src="<?php  echo $this->getJsUrl('gri/hamper-custom.js')?>"></script>
+<div class="page-title steps step1">
+    <h1><?php echo $this->__('Pick Gifts'); ?></h1>
+</div>
+<div class="page-title steps step2 no-display">
+    <h1><?php echo $this->__('Write Message'); ?></h1>
+</div>
+<div class="hamper-wrapper hamper-custom product-view clear">
+    <div class="main-col">
+        <div class="steps step1">
+            <div class="hamper-items theme-products-list">
+                <?php foreach ($this->getHamperItems() as $oid => $group) if (($_option = $options->getData($oid)) && ($count = count($group))) { ?>
+                    <h3 class="group-title clearer">
+                        <span class="product-items"><?php echo $this->__('Total %s items', $count); ?></span>
+                        <?php echo $this->getOptionHeader($_option); ?>
+                    </h3>
+                    <div class="scroll clearer" id="hamper-scroll-<?php echo $oid; ?>">
+                        <?php if($count > 3) { ?>
+                            <a class="prev" href="javascript:void(0);">&lt;</a>
+                        <?php } ?>
+                        <div class="jcarousel">
+                            <?php if($count) { ?>
+                                <ul option="<?php echo $oid; ?>">
+                                    <?php foreach ($group as $sid => $_subProduct) {
+                                        $this->prepareProductUrl($_subProduct);
+                                        ?>
+                                        <li class="item <?php echo $_subProduct->getTypeId(); ?>" selection="<?php echo $sid; ?>" price="<?php echo $coreHelper->currency($_subProduct->getPrice(), FALSE, FALSE); ?>" product="<?php echo $_subProduct->getId(); ?>" skip_link_update="1">
+                                            <?php echo $productHelper->renderProduct($_subProduct); ?>
+                                        </li>
+                                    <?php } ?>
+                                </ul>
+                                <script type="text/javascript">
+                                    _('div.gift-icon, div.gift-icon-hover').remove();
+                                </script>
+                            <?php } ?>
+                        </div>
+                        <?php if($count > 3) { ?>
+                            <a class="next" href="javascript:void(0);">&gt;</a>
+                        <?php } ?>
+                    </div>
+                    <?php if ($count > 3) { ?>
+                        <script type="text/javascript">
+                            (function($) {
+                                var scroll = $('#hamper-scroll-<?php echo $oid; ?> .jcarousel'),
+                                    slider = scroll.children('ul'),
+                                    height = slider.children('li').maxOuterHeight(true);
+                                slider.css({height: height});
+                                scroll.iosSlider({
+                                    snapToChildren: true,
+                                    navNextSelector: scroll.siblings('.next'),
+                                    navPrevSelector: scroll.siblings('.prev')
+                                }).css({height: height});
+                            })(jQuery);
+                        </script>
+                    <?php } ?>
+                <?php } ?>
+            </div>
+        </div>
+        <div class="steps step2 no-display">
+            <?php echo $this->getChildHtml('message'); ?>
+        </div>
+    </div>
+    <div class="right-col">
+        <div class="fixed-bar">
+        <h2><?php echo $this->__('Pick Gifts Progress'); ?></h2>
+        <?php echo $this->getChildHtml('pick'); ?>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //<![CDATA[
+    var hamper<?php echo $pid = $_product->getId(); ?> = new Hamper((function (config) {
+        config.containerId = "product-options-wrapper<?php echo $pid; ?>";
+        config.optionsPrice = optionsPrice<?php echo $pid; ?>;
+        config.minItems = 1;
+        return config;
+    })(<?php echo $this->getJsonConfig(); ?>));
+
+    isShowColorSwatchInSideBar = false;
+
+    //]]>
+</script>

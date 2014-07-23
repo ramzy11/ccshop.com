@@ -1,0 +1,172 @@
+<?php
+/* @var $this Mage_Catalog_Block_Product_View_Media */
+$_product = $this->getProduct();
+$_helper  = $this->helper('catalog/output');
+$_width   = Mage::getStoreConfig('magiatecolorswatch/imageswitcher/width');
+$_height  = Mage::getStoreConfig('magiatecolorswatch/imageswitcher/height');
+$_twidth  = Mage::getStoreConfig('magiatecolorswatch/imageswitcher/twidth');
+$_theight = Mage::getStoreConfig('magiatecolorswatch/imageswitcher/theight');
+$this->getImageWidth() and $_width = $this->getImageWidth();
+$this->getImageHeight() and $_height = $this->getImageHeight();
+$this->getThumbnailWidth() and $_twidth = $this->getThumbnailWidth();
+$this->getThumbnailHeight() and $_theight = $this->getThumbnailHeight();
+/* @var $swatchHelper Magiatec_Colorswatch_Helper_Swatch */
+$swatchHelper = Mage::helper('magiatecolorswatch/swatch');
+$swatchHelper->setCurrentProduct($_product);
+/* @var $videoHelper Gri_CatalogCustom_Helper_Video */
+$videoHelper = Mage::helper('gri_catalogcustom/video');
+?>
+
+<?php //$_product->setVideoUrl('http://union.bokecc.com/flash/player.swf?vid=F05290B01826F836&siteid=FBD3AAF06D51E5EF&autoStart=true&userid=FBD3AAF06D51E5EF&mode=&listid=0&playerid=&playertype='); ?>
+<div id="magiatecolorswatch-gallery-wrapper" class="more-views">
+    <?php if ($videoHelper->getVideoHtml($_product)) { ?>
+    <ul id="media-switcher">
+        <li type="image" class="top active"><span><?php echo $videoHelper->__('Photos'); ?></span></li>
+        <li type="video"><?php echo $videoHelper->__('Video'); ?></li>
+    </ul>
+    <script type="text/javascript">
+        $$('#media-switcher li').each(function(li) {
+            li.observe('click', function() {
+                var showType = li.readAttribute('type');
+                var hideType = showType == 'image' ? 'video' : 'image';
+                var parent = li.up().up().up();
+                parent.getElementsByClassName('product-' + hideType)[0].hide();
+                parent.getElementsByClassName('product-' + showType)[0].show();
+                var imageMethod = showType == 'image' ? 'show' : 'hide';
+                $$('#magiatecolorswatch-gallery-wrapper .jcarousel')[0][imageMethod]();
+                $$('#magiatecolorswatch-gallery-wrapper .prev')[0][imageMethod]();
+                $$('#magiatecolorswatch-gallery-wrapper .next')[0][imageMethod]();
+                li.siblings().each(function(element) {
+                    element.removeClassName('active');
+                });
+                li.addClassName('active');
+            });
+        });
+    </script>
+    <?php } ?>
+    <?php
+    $facebook_share_images = array();
+    // For color swatch
+    if ($swatchHelper->isApplicable()) foreach ($swatchHelper->rearrangeGalleryImages($this->getProduct()->getMediaGalleryImages()) as $swatch => $galleryImages) { ?>
+        <div class="swatch-<?php echo $swatch; ?>" swatch="<?php echo $swatch; ?>" style="display:none;">
+            <?php if(count($galleryImages)>4):?>
+            <a href="javascript:void(0);" class="prev"></a>
+            <?php endif;?>
+            <div class="jcarousel"><ul class="magiatecolorswatch-gallery">
+                <?php foreach ($galleryImages as $_image): ?>
+                <li>
+                    <?php if (Mage::getStoreConfig('magiatecolorswatch/zoom/enabled')): ?>
+                    <?php $facebook_share_images[] =  $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile()); ?>
+
+                <a href="javascript:void(0);" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>"
+                   rel="{gallery: 'magiatecolorswatch',smallimage: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize($_width, $_height); ?>',largeimage: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile()); ?>'}">
+                <?php else: ?>
+                <a href="javascript:void(0);" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>" onclick="javascript:switchMainImage(this, '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize($_width, $_height); ?>')">
+                <?php endif; ?>
+                    <img src="<?php echo $this->helper('catalog/image')
+                        ->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(99, 149); ?>"
+                         width="<?php echo $_twidth ?>" height="<?php echo $_theight ?>" /></a>
+                </li>
+                <?php endforeach; ?>
+                <?php
+                if(Mage::helper('inchoo_facebook')->isEnabled()){
+                    $input = '';
+                    foreach($facebook_share_images as $_image){
+                        $input .= $_image.'|';
+                    }
+                    echo  '<div class="facebook_share_image"  style="display:none" value="'.$input.'"></div>';
+                }
+                ?>
+
+            </ul></div>
+            <?php if(count($galleryImages)>4):?>
+            <a href="javascript:void(0);" class="next"></a>
+            <?php endif;?>
+        </div>
+        <?php if (count($galleryImages) > 4) { ?>
+            <script type="text/javascript">
+                (function($) {
+                    $('#magiatecolorswatch-gallery-wrapper .swatch-<?php echo $swatch; ?> .jcarousel')
+                            .jcarousel({vertical: true});
+                    $('#magiatecolorswatch-gallery-wrapper .swatch-<?php echo $swatch; ?> .prev')
+                            .on('inactive.jcarouselcontrol', function() {$(this).addClass('inactive');})
+                            .on('active.jcarouselcontrol', function() {$(this).removeClass('inactive');})
+                            .jcarouselControl({target: '-=1'});
+                    $('#magiatecolorswatch-gallery-wrapper .swatch-<?php echo $swatch; ?> .next')
+                            .on('inactive.jcarouselcontrol', function() {$(this).addClass('inactive');})
+                            .on('active.jcarouselcontrol', function() {$(this).removeClass('inactive');})
+                            .jcarouselControl({target: '+=1'});
+                })(jQuery);
+            </script>
+            <?php } ?>
+        <?php }
+
+    // For normal gallery
+    else { ?>
+        <a href="javascript:void(0);" class="prev"></a>
+        <div class="jcarousel"><ul class="magiatecolorswatch-gallery">
+            <?php foreach ($galleryImages = $this->getGalleryImages() as $_image): ?>
+            <li>
+                <?php if (Mage::getStoreConfig('magiatecolorswatch/zoom/enabled')) { ?>
+            <a href="javascript:void(0);" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>"
+               rel="{gallery: 'magiatecolorswatch',smallimage: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize($_width, $_height); ?>',largeimage: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile()); ?>'}">
+            <?php } else { ?>
+            <a href="javascript:void(0);" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>" onclick="javascript:switchMainImage(this, '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize($_width, $_height); ?>')">
+            <?php } ?>
+                <img src="<?php echo $this->helper('catalog/image')
+                    ->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize($_twidth, $_theight); ?>"
+                     width="<?php echo $_twidth ?>" height="<?php echo $_theight ?>" /></a>
+            </li>
+            <?php endforeach; ?>
+        </ul></div>
+        <a href="javascript:void(0);" class="next"></a>
+        <?php if (count($galleryImages) > 4) { ?>
+            <script type="text/javascript">
+                (function($) {
+                    $('#magiatecolorswatch-gallery-wrapper .jcarousel')
+                            .jcarousel({vertical: true});
+                    $('#magiatecolorswatch-gallery-wrapper .prev')
+                            .on('inactive.jcarouselcontrol', function() {$(this).addClass('inactive');})
+                            .on('active.jcarouselcontrol', function() {$(this).removeClass('inactive');})
+                            .jcarouselControl({target: '-=1'});
+                    $('#magiatecolorswatch-gallery-wrapper .next')
+                            .on('inactive.jcarouselcontrol', function() {$(this).addClass('inactive');})
+                            .on('active.jcarouselcontrol', function() {$(this).removeClass('inactive');})
+                            .jcarouselControl({target: '+=1'});
+                })(jQuery);
+            </script>
+            <?php } ?>
+        <?php } ?>
+</div>
+<p class="product-image">
+    <?php $imgOriginal = $this->helper('catalog/image')->init($_product, 'image') ?>
+    <a id="magiatecolorswatch-anchor" href="<?php if (Mage::getStoreConfig('magiatecolorswatch/zoom/enabled')): echo $imgOriginal ?><?php else: ?>javascript:void(0);<?php endif; ?>" rel="magiatecolorswatch">
+        <img id="magiatecolorswatch-image" src="<?php echo $this->helper('catalog/image')->init($_product, 'image')->resize($_width, $_height)?>" width="<?php echo $_width ?>" height="<?php echo $_height ?>" title="<?php echo $this->htmlEscape($this->getImageLabel())?>" />
+    </a>
+</p>
+<?php if ($videoHelper->getVideoHtml($_product)) { ?>
+<div class="product-video" style="display:none;">
+    <?php echo $videoHelper->getVideoHtml($_product); ?>
+</div>
+<?php } ?>
+
+<script type="text/javascript">
+    <?php if(Mage::getStoreConfig('magiatecolorswatch/zoom/enabled')): ?>
+    (function($) {
+        var zoomOptions = <?php echo Mage::helper('magiatecolorswatch')
+            ->getZoomOptions() ?>;
+        $('a#magiatecolorswatch-anchor').jqzoom(zoomOptions);
+        $.extend({
+            refreshZoom: function() {
+                $('.zoomPup, .zoomPreload, .zoomWindow').remove();
+                $("a#magiatecolorswatch-anchor").removeData('jqzoom')
+                        .find('img').first().unwrap();
+                $("a#magiatecolorswatch-anchor").jqzoom(zoomOptions);
+            }
+        })
+    })(jQuery);
+        <?php endif; ?>
+</script>
+<script>
+    jQuery('#magiatecolorswatch-anchor').fancybox({		'titleShow'     : false,		'transitionIn'	: 'elastic',		'transitionOut'	: 'elastic',		'easingIn'      : 'easeOutBack',		'easingOut'     : 'easeInBack','overlayColor'	:	'transparent',autoDimensions:false,scrolling:'yes'});
+</script>

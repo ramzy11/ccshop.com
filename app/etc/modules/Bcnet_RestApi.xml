@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Bcnet_RestApi>
+			<active>true</active> 
+			<codePool>community</codePool>
+		</Bcnet_RestApi>
+	</modules>
+</config> 

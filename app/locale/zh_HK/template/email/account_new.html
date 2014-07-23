@@ -1,0 +1,38 @@
+<!--@subject Welcome, {{var customer.name}}! @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"htmlescape var=$customer.name":"Customer Name",
+"store url=\"customer/account/\"":"Customer Account Url"}
+@-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+{{block type='core/template' area='frontend' template='email/header.phtml'}}
+<span style="font-size:13px; font-weight: normal; line-height: 22px;color:#000;display: block;">親愛的{{htmlescape var=$customer.name}},</span><br />
+<span style="font-size:12px; line-height:20px;">恭喜您驗證已成功，您可以繼續購物。</span><br />
+<span style="font-size:12px; line-height:20px;">歡迎光臨熙熙網！在使用我們網站的過程中，如果您需要登錄，請點擊每個頁面上方的「<a href="{{store url="customer/account/"}}" style="color:#000;text-decoration: none;">登錄</a>」或「<a href="{{store url="customer/account/"}}" style="color:#000;text-decoration: none;">我的賬戶</a>」鏈接，然後輸入您的電子郵箱地址及密碼。</span><br />
+<p style="font-size:12px; line-height:22px; background:#f9f9f9;">
+    <strong>User Name:</strong><span style="text-decoration: none;color: #000000;"> {{var customer.email}}</span><br/>
+    <strong>Password:</strong> {{htmlescape var=$customer.password}}</p><br />
+<span style="font-size:12px; line-height:20px;">在登錄賬戶以後，您可以：</span><br />
+<p style="font-size:12px; line-height:20px; padding:0;margin:0px;">
+    <span style="line-height:20px;">&ndash; 在購買產品時更快完成購物流程</span><br />
+    <span style="line-height:20px;">&ndash; 查看訂單狀態</span><br />
+    <span style="line-height:20px;">&ndash; 查看過往訂單</span><br />
+    <span style="line-height:20px;">&ndash; 對您的賬戶信息進行修改</span><br />
+    <span style="line-height:20px;">&ndash; 修改密碼</span><br />
+    <span style="line-height:20px;">&ndash; 保存備用地址（為您的家人或朋友送貨！）</span><br />
+    <span style="line-height:20px;">&ndash; 查看我的收藏</span><br />
+    <span style="line-height:20px;">&ndash; 申請退換貨</span><br />
+</p>
+<p style="font-size:13px; line-height:20px; padding:0;">如果您對您的賬戶或其他方面有問題，請您通過電郵 <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#000000;">{{config path='trans_email/ident_support/email'}}</a> 或客服熱線4008-976-988聯繫我們。</p>
+<a href="{{store url='shopping-flow'}}" style="color:#000;padding:10px 0px; font-size:14px;">購物流程</a>
+<br />
+<br />
+<br />
+<br />
+{{block type='core/template' area='frontend' template='email/footer.phtml'}}

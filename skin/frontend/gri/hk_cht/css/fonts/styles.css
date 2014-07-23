@@ -1,0 +1,25 @@
+
+@font-face {
+    font-family: 'BlairITC-Bold';
+    src: url('BlairITC-Bold.eot?') format('eot'),
+    url('BlairITC-Bold.woff') format('woff'),
+    url('BlairITC-Bold.ttf')  format('truetype'),
+    url('BlairITC-Bold.svg#BlairITC-Bold') format('svg');
+}
+
+@font-face {
+    font-family: 'BlairITC-Medium';
+    src: url('BlairITC-Medium.eot?') format('eot'),
+    url('BlairITC-Medium.woff') format('woff'),
+    url('BlairITC-Medium.ttf')  format('truetype'),
+    url('BlairITC-Medium.svg#BlairITC-Medium') format('svg');
+}
+
+
+@font-face {
+    font-family: 'BlairITC-Light';
+    src: url('BlairITC-Light.eot?') format('eot'),
+    url('BlairITC-Light.woff') format('woff'),
+    url('BlairITC-Light.ttf')  format('truetype'),
+    url('BlairITC-Light.svg#BlairITC-Light') format('svg');
+}

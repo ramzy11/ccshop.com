@@ -1,0 +1,72 @@
+<!--@subject CentralCentralShop.com 發貨單 (訂單號:{{var order.increment_id}}) @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"htmlescape var=$order.getCustomerName()":"Customer Name",
+"var store.getFrontendName()":"Store Name",
+"store url=\"customer/account/\"":"Customer Account Url",
+"var shipment.increment_id":"Shipment Id",
+"var order.increment_id":"Order Id",
+"var order.billing_address.format('html')":"Billing Address",
+"var payment_html":"Payment Details",
+"var order.shipping_address.format('html')":"Shipping Address",
+"var order.shipping_description":"Shipping Description",
+"layout handle=\"sales_email_order_shipment_items\" shipment=$shipment order=$order":"Shipment Items Grid",
+"block type='core/template' area='frontend' template='email/order/shipment/track.phtml' shipment=$shipment order=$order":"Shipment Track Details",
+"var comment":"Shipment Comment"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+{{block type='core/template' area='frontend' template='email/header.phtml'}}
+<p style="font-size:16px; font-weight:normal; line-height:22px; margin:15px 0 0 0;color:#000;">親愛的 {{htmlescape var=$order.getCustomerName()}},</p>
+<p style="font-size:12px; line-height:22px;color:#000;">您在CentralCentralShop.com 訂購的產品已付運 (訂單號: {{var order.increment_id}})。</p>
+<table cellspacing="0" cellpadding="0" border="0" width="580" align="center">
+    <thead>
+    <tr>
+        <th align="left" width="325" bgcolor="#EAEAEA" style="font-family:Arial, Helvetica, sans-serif;font-size:13px; padding:5px 9px 6px 9px; line-height:22px;">配送信息:</th>
+        <th width="10"></th>
+        <th align="left" width="325" bgcolor="#EAEAEA" style="font-family:Arial, Helvetica, sans-serif;font-size:13px; padding:5px 9px 6px 9px; line-height:22px;">配送方式:</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td rowspan="4" valign="top" style="font-family:Arial, Helvetica, sans-serif;font-size:12px; padding:7px 9px 9px 9px; border-left:1px solid #EAEAEA; border-bottom:1px solid #EAEAEA; border-right:1px solid #EAEAEA;line-height:20px;">
+            {{var order.shipping_address.format('html')}}
+        </td>
+        <td>&nbsp;</td>
+        <td valign="top" style="font-family:Arial, Helvetica, sans-serif;font-size:12px; padding:7px 9px 9px 9px; border-left:1px solid #EAEAEA; border-bottom:1px solid #EAEAEA; border-right:1px solid #EAEAEA;">
+            {{var order.shipping_description}}
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td height="5" valign="top" style="height:5px">&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <th align="left" width="325" bgcolor="#EAEAEA"
+            style="font-family:Arial, Helvetica, sans-serif;font-size:13px; padding:5px 9px 6px 9px; line-height:22px;">貨件追蹤號碼:</th>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td valign="top" style="font-family:Arial, Helvetica, sans-serif;font-size:12px; padding:7px 9px 9px 9px; border-left:1px solid #EAEAEA; border-bottom:1px solid #EAEAEA; border-right:1px solid #EAEAEA;">
+            {{block type='core/template' area='frontend' template='email/order/shipment/track.phtml' shipment=$shipment order=$order}}
+            &nbsp;
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br/>
+您可利用追蹤號碼於快遞公司的網站查看貨件運送的最新狀態。<br/><br/>
+<a href="http://www.sf-express.com/hk/tc/" target="_blank">順豐速遞</a><br/>
+<a href="http://www.speedpost.hk/speedpost/index.jsf" target="_blank">香港郵政特快專遞</a>
+<br />
+<p style="font-size:12px; line-height:22px;color:#000;">想了解更多我們的配送服務，請查閱<a href="{{store url='customer-service/shipping-delivery'}}" style="color:#000;padding:10px 0px; font-size:14px;">配送方式</a>。</p>
+<p style="font-size:12px; line-height:22px; margin:0;color:#000;">您可隨時登錄您的會員帳戶查看訂單最新狀態。如有任何疑問，歡迎透過電郵{{config path='trans_email/ident_support/email'}} 或電話 {{config path='general/store_information/phone'}}聯絡客戶服務部，我們將第一時間為您解答。</p>
+<p style="font-size:12px; line-height:22px;color:#000;">衷心感謝您於CentralCentralShop.com 購物，歡迎您再次光臨!</p>
+<br />
+<br />
+{{block type='core/template' area='frontend' template='email/footer.phtml'}}

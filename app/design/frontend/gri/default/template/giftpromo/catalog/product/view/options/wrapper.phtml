@@ -1,0 +1,12 @@
+<?php
+$_product = $this->getProduct();
+?>
+<div class="product-options" id="product-options-wrapper<?php echo $_product->getId(); ?>">
+    <?php $children = $this->getSortedChildBlocks(); ?>
+    <?php foreach ($children as $child): ?>
+        <?php echo $child->setProduct($this->getProduct())->toHtml()?>
+    <?php endforeach; ?>
+</div>
+<script type="text/javascript">
+    decorateGeneric($$('#product-options-wrapper<?php echo $_product->getId(); ?> dl'), ['last']);
+</script>

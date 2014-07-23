@@ -1,0 +1,38 @@
+.sp-methods .title-alipay_payment{/*display:none;*/}
+.net-payment-choose{overflow:hidden;}
+dd .net-payment-choose li{float:left;margin:0 15px 25px;width:190px;}
+.net-payment-choose li.ALIPAY{float:none;margin-bottom:0;}
+.net-payment-choose li p{margin-bottom:0;margin-left:-15px;}
+.net-payment-choose li.section-title{float:none;margin-bottom:0;}
+.net-payment-choose li p.section-title{margin-top:25px;}
+.net-payment-choose li input.radio{float:left;margin:18px 5px 0;}
+.net-payment-choose li label{background:#fff;border:1px solid #ddd;cursor:default;display:inline-block;height:45px;width:160px;}
+.net-payment-choose li span{background:url(../images/alipay/banks.png) no-repeat;
+display:block;height:30px;margin-top:7px;overflow:hidden;text-indent:-99em;}
+.net-payment-choose li .ALIPAY{background-position:50% 0;}
+.net-payment-choose li .BOCB2C{background-position:50% -30px;}
+.net-payment-choose li .ICBCB2C{background-position:50% -60px;}
+.net-payment-choose li .CMB{background-position:50% -90px;}
+.net-payment-choose li .CCB{background-position:50% -120px;}
+.net-payment-choose li .ABC{background-position:50% -150px;}
+.net-payment-choose li .COMM{background-position:50% -180px;}
+.net-payment-choose li .BEA{background-position:50% -210px;}
+.net-payment-choose li .BJBANK{background-position:50% -240px;}
+.net-payment-choose li .CBHB{background-position:50% -270px;}
+.net-payment-choose li .CEBBANK{background-position:50% -300px;}
+.net-payment-choose li .CIB{background-position:50% -330px;}
+.net-payment-choose li .CMBC{background-position:50% -360px;}
+.net-payment-choose li .GDB{background-position:50% -390px;}
+.net-payment-choose li .HXB{background-position:50% -420px;}
+.net-payment-choose li .HZCBB2C{background-position:50% -450px;}
+.net-payment-choose li .NBBANK{background-position:50% -480px;}
+.net-payment-choose li .SPABANK{background-position:50% -510px;}
+.net-payment-choose li .SDB{background-position:50% -540px;}
+.net-payment-choose li .SPDB{background-position:50% -570px;}
+.net-payment-choose li .FDB{background-position:50% -600px;}
+.net-payment-choose li .PSBC-DEBIT{background-position:50% -630px;}
+.net-payment-choose li .BJRCB{background-position:50% -660px;}
+.net-payment-choose li .CITIC{background-position:50% -690px;}
+.net-payment-choose li .SHBANK{background-position:50% -720px;}
+.net-payment-choose li .abc1003{background-position:50% -750px;}
+.net-payment-choose li .abc1004{background-position:50% -780px;}

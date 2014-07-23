@@ -1,0 +1,23 @@
+<?php
+/* @var $this Gri_CountryGroup_Block_Product_View_ShipsTo */
+?>
+<?php if ($countries = $this->getCountries()) { ?>
+<div class="product-ships-to">
+    <span><?php echo $this->__('Countries currently ship to'); ?></span>
+    <div>
+        <ul class="clearer">
+            <?php foreach ($countries as $country) { ?>
+            <li><?php echo $country; ?></li>
+            <?php } ?>
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    (function($){
+        $('.product-ships-to').hover(
+            function(){$(this).find('div').show();},
+            function(){$(this).find('div').hide();}
+        );
+    })(jQuery);
+</script>
+<?php } ?>

@@ -1,0 +1,16 @@
+<?php
+/**
+ * Cms Hierarchy Context Menu
+ *
+ * @see Gri_Cms_Block_Hierarchy_Menu
+ */
+?>
+<?php
+    $_tree = $this->getTree();
+    $_menu = $this->drawMenu($_tree);
+?>
+<?php if($this->geMenuNodesQty() > 1): ?>
+<div class="cms-menu-title">
+    <?php echo $_menu; ?>
+</div>
+<?php endif; ?>

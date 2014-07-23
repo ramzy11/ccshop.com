@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Amasty_Base>
+            <version>1.0.3</version>
+        </Amasty_Base>
+    </modules>
+
+    <global>
+        <blocks>
+            <ambase>
+                <class>Amasty_Base_Block</class>
+            </ambase>
+        </blocks>
+        <resources>
+            <ambase_setup>
+                <setup>
+                    <module>Amasty_Base</module>
+                </setup>
+            </ambase_setup>
+        </resources>
+        <models>
+            <ambase>
+                <class>Amasty_Base_Model</class>
+            </ambase>
+        </models>
+        <helpers>
+            <ambase>
+                <class>Amasty_Base_Helper</class>
+            </ambase>
+        </helpers>
+    </global>
+
+    <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <ambase>
+                                            <title>Amasty - Extensions Information</title>
+                                        </ambase>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+</config>

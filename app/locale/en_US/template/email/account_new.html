@@ -1,0 +1,36 @@
+<!--@subject Welcome to CentralCentralShop.com @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"htmlescape var=$customer.name":"Customer Name",
+"store url=\"customer/account/\"":"Customer Account Url"}
+@-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+{{block type='core/template' area='frontend' template='email/header.phtml'}}
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:18px;color:#000;">Dear {{htmlescape var=$customer.name}},<br/>
+  <br/>
+  Congratulations! Your personal account with CentralCentralShop.com has been created.<br />
+  <br />
+  When visiting our site, simply click <a href="{{store url="customer/account/"}}" style="color:#999;text-decoration:underline">Sign In</a> at the top of every page and enter your email address and password.</p>
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:12px;background:#F7F7F7;line-height:20px;padding:15px"> <strong>Email:</strong><span style="text-decoration: none;color: #000000;"> <a style="color:#000;text-decoration:none">{{var customer.email}}</a></span><br/>
+  <strong>Password:</strong> {{htmlescape var=$customer.password}}</p>
+<span style="font-family:Arial, Helvetica, sans-serif;font-size:12px; line-height:18px;">Upon logging into your account, you will be able to:</span><br />
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:12px; line-height:22px; padding:0;margin:0px;"> &ndash; Proceed through checkout faster when making a purchase<br />
+  &ndash; Check the status of orders<br />
+  &ndash; View previous orders<br />
+  &ndash; Make changes to your account information and change your password<br />
+  &ndash; Save alternative addresses (for shipping to multiple family members and friends)<br />
+  &ndash; Check on My Wish List<br />  
+  &ndash; Apply for returns or exchange easily<br />
+</p>
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:18px;color:#000;">For additional information, or if you have any questions, please don't hesitate to contact our customer service by email at <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#999;text-decoration:underline">{{config path='trans_email/ident_support/email'}}</a> or by phone on {{config path='general/store_information/phone'}}. We are happy to serve you! <br/>
+  <br/>
+  Learn more about shopping at CentralCentralShop.com? Please click <a href="{{store url='customer-service/how-to-shop'}}" style="color:#999;text-decoration:underline">How to Shop</a>.</p>
+<br />
+<br />
+{{block type='core/template' area='frontend' template='email/footer.phtml'}} 

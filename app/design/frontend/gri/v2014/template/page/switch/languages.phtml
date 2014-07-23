@@ -1,0 +1,30 @@
+<?php
+    /**
+     * Language switcher template
+     *
+     * @var $this Mage_Page_Block_Switch
+     */
+     /* @var $store Mage_Core_Model_Store */
+    $stores = $this->getStores();
+    $storeCounts = count($stores);
+?>
+<?php if(count($this->getStores())>1): ?>
+
+<div class="header-button lang-list">
+	<a title="<?php echo $this->__('Language') ?>" href="javascript:void(0);"><?php echo Mage::app()->getStore()->getName(); ?></a>
+	<ul>
+    <?php foreach ($stores as $store): ?>
+        <?php  /* @var $store Gri_Core_Model_Store */     ?>
+		<li>
+			<a href="javascript:;"  <?php if ($store->getId() != $this->getCurrentStoreId()) { ?>onclick="switchLang('<?php echo $store->getId(); ?>');"<?php } ?> title="<?php echo $this->htmlEscape($store->getLocaleCode()) ?>"><?php echo $this->htmlEscape($store->getName()) ?></a>
+		</li>
+    <?php endforeach; ?>
+	</ul>
+</div>
+<script type="text/javascript">
+    function switchLang(store) {
+        Mage.Cookies.set('___store', store);
+        window.location.reload();
+    }
+</script>
+<?php endif; ?>

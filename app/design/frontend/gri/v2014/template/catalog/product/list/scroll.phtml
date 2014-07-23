@@ -1,0 +1,62 @@
+<?php
+/* @var $this Mage_Catalog_Block_Product_List_Related */
+/* @var $product Mage_Catalog_Model_Product */
+$this instanceof Mage_Reports_Block_Product_Viewed and $this->setItems($this->getRecentlyViewedProducts());
+$this->getImageSize() or $this->setImageSize(125);
+$count = count($this->getItems()) ;
+?>
+
+<?php if($count): ?>
+<div class="scroll <?php echo $this->getCssClass(); ?> clearer" id="scroll-<?php echo $this->getCssClass(); ?>">
+    <?php if (!$this->getHideTitle()) { ?><h2><span><?php echo $this->__($this->getTitle()) ?></span></h2><?php } ?>
+    <?php if($count>3):?>
+      <a class="prev" href="javascript:;">&lt;</a>
+    <?php endif;?>
+    <div class="jcarousel">
+        <?php if($count) { ?>
+        <ul>
+            <?php foreach ($this->getItems() as $product) {
+                $product->getAttributeText('brand') or $product->load(NULL);
+                $image = Mage::helper('magiatecolorswatch/Swatch')->getFirstColorSwatchImage($product);
+            ?>
+            <li>
+                <a href="<?php echo $product->getProductUrl() ?>">
+                    <img src="<?php echo $this->helper('catalog/image')->init($product, 'small_image',$image)->resize(160,240) ?>" alt="<?php echo $this->escapeHtml($product->getName()) ?>" />
+                </a>
+                <div class="text">
+                    <span class="brand"><?php echo $product->getAttributeText('brand'); ?></span>
+                    <br>
+                    <a href="<?php echo $product->getProductUrl() ?>">
+                        <span class="name"><?php echo $this->escapeHtml($product->getName()); ?></span>
+                    </a>
+                    <br>
+                    <?php
+                        /* @var $priceBlock Mage_Catalog_Block_Product_Price */
+                        $priceBlock = $this->getLayout()->createBlock('catalog/product_price')->setTemplate('catalog/product/price.phtml')->setProduct($product);
+                        echo $priceBlock->toHtml();
+                    ?>
+<!--                    <span class="price">--><?php ////echo  Mage::helper('core')->currency($product->getPrice(), true, false) ?><!--</span>-->
+                </div>
+            </li>
+            <?php } ?>
+        </ul>
+        <?php } ?>
+    </div>
+    <?php if($count>3):?>
+      <a class="next" href="javascript:;">&gt;</a>
+    <?php endif; ?>
+</div>
+<?php endif; ?>
+<?php if ($this->getVisible() && $count > $this->getVisible()) { ?>
+<script type="text/javascript">
+    (function($) {
+        var scroll = $('#scroll-<?php echo $this->getCssClass(); ?> .jcarousel'), slider = scroll.children('ul');
+        slider.css({"height": slider.children('li').height()});
+        scroll.iosSlider({
+            snapToChildren: true,
+            navNextSelector: scroll.siblings('.next'),
+            navPrevSelector: scroll.siblings('.prev')
+        });
+    })(jQuery);
+</script>
+<?php } ?>

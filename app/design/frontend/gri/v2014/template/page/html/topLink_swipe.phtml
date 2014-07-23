@@ -1,0 +1,17 @@
+<div class="welcome-swipe">
+    <?php
+    /* @var $session Mage_Customer_Model_Session */
+    $session = Mage::getSingleton('customer/session');
+    /* @var $customerHelper Mage_Customer_Helper_Data */
+    $customerHelper = Mage::helper('customer');
+    if ($session->getCustomerId()) { ?>
+        <?php $customer = $session->isLoggedIn() ? $session->getCustomer() : $session->getCustomer()->load($session->getCustomerId()); ?>
+        <a href="<?php echo $customerHelper->getAccountUrl(); ?>" class="uline"><?php echo $customer->getName(); ?></a>
+        <?php } ?>
+
+    <?php if ($session->isLoggedIn()) { ?>
+    <a href="<?php echo $customerHelper->getLogoutUrl(); ?>" class="f10"><?php echo $customerHelper->__('(Sign out)'); ?></a>
+    <?php } else { ?>
+    <a href="<?php echo $customerHelper->getLoginUrl(); ?>" class="f10"><?php echo $customerHelper->__('Sign in / Register'); ?></a>
+    <?php } ?>
+</div>

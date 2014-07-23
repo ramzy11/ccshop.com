@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Gri_Message>
+        </Gri_Message>
+    </modules>
+    <global>
+        <blocks>
+            <gri_message>
+                <class>Gri_Message_Block</class>
+            </gri_message>
+        </blocks>
+        <helpers>
+            <gri_message>
+                <class>Gri_Message_Helper</class>
+            </gri_message>
+        </helpers>
+    </global>
+    <frontend>
+        <translate>
+            <modules>
+                <Gri_Message>
+                    <files>
+                        <default>Gri_Message.csv</default>
+                    </files>
+                </Gri_Message>
+            </modules>
+        </translate>
+    </frontend>
+</config>

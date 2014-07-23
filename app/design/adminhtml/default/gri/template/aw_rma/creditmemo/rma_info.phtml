@@ -1,0 +1,49 @@
+<?php
+/* @var $this Mage_Adminhtml_Block_Sales_Order_View_Info */
+/* @var $creditmemo Gri_Sales_Model_Order_Creditmemo */
+$creditmemo = Mage::registry('current_creditmemo');
+/* @var $rma AW_Rma_Model_Entity */
+if ($rma = $creditmemo->getRma()) {
+?>
+<div class="rma-info entry-edit">
+    <!--RMA Information-->
+    <div class="entry-edit-head">
+        <a href="<?php echo $this->getUrl('rma_admin/adminhtml_rma/edit', array('id' => $rma->getId())); ?>"><?php echo $this->__('RMA %s', $rma->getTextId()); ?></a>
+    </div>
+    <div class="fieldset">
+        <table cellspacing="0" class="form-list">
+            <tr>
+                <td class="label"><label><?php echo $this->__('RMA Type'); ?></label></td>
+                <td class="value"><strong><?php echo $rma->getRequestTypeName(); ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo $this->__('Created At'); ?></label></td>
+                <td class="value"><strong><?php echo $this->formatDate($rma->getCreatedAt(), 'medium', TRUE); ?></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo $this->__('RMA Status'); ?></label></td>
+                <td class="value"><strong><?php echo $rma->getStatusName(); ?></strong></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<?php
+}
+$this->setTemplate($this->getOldTemplate());
+include Mage::getBaseDir('design') . DS . $this->getTemplateFile();
+$this->setTemplate($this->getNewTemplate());
+if ($rma) {
+?>
+<script type="text/javascript">
+    //<![CDATA[
+    Event.observe(window, 'load', function() {
+        $$('#creditmemo_item_container .order-tables :text').each(function(obj) {
+            obj.readOnly = true;
+        });
+        $$('#creditmemo_item_container .order-tables :checkbox').each(function(obj) {
+            obj.onclick = function () {return false};
+        });
+    });
+    //]]>
+</script>
+<?php } ?>

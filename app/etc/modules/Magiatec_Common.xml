@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<config>
+    <modules>
+        <Magiatec_Common>
+            <active>true</active>
+            <codePool>community</codePool>
+            <version>1.0</version>
+        </Magiatec_Common>
+    </modules>
+</config>

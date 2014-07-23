@@ -1,0 +1,28 @@
+<!--@subject Shipping Confirmation (order no.:{{var order.increment_id}}) @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"htmlescape var=$billing.getName()":"Guest Customer Name",
+"var store.getFrontendName()":"Store Name",
+"var shipment.increment_id":"Shipment Id",
+"var order.increment_id":"Order Id",
+"var order.billing_address.format('html')":"Billing Address",
+"var payment_html":"Payment Details",
+"var order.shipping_address.format('html')":"Shipping Address",
+"var order.shipping_description":"Shipping Description",
+"layout handle=\"sales_email_order_shipment_items\" shipment=$shipment order=$order":"Shipment Items Grid",
+"block type='core/template' area='frontend' template='email/order/shipment/track.phtml' shipment=$shipment order=$order":"Shipment Track Details",
+"var comment":"Shipment Comment"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+{{block type='core/template' area='frontend' template='email/header.phtml'}}
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:18px;color:#000;">Dear {{htmlescape var=$order.getCustomerName()}},<br/><br/>
+We are pleased to inform you that your recent order (Order No.:{{var order.increment_id}}) from CentralCentralShop.com has been shipped. You may click <a href="{{store url='sales/order/history'}}" style="color:#999;text-decoration:underline">here</a> to log into your personal account to view order status and tracking number to track your delivery.<br/>
+<br/>For more shipping information, please click <a href="{{store url='customer-service/shipping-delivery'}}" style="color:#999;text-decoration:underline">Shipping and Delivery</a>.<br/><br/>Should you require assistance, please don't hesitate to contact our customer service by email at <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#999;text-decoration:underline">{{config path='trans_email/ident_support/email'}}</a> or by phone on {{config path='general/store_information/phone'}}.<br/><br/>
+Thank you for shopping at CentralCentralShop.com.</p>
+<br />
+<br />
+{{block type='core/template' area='frontend' template='email/footer.phtml'}}

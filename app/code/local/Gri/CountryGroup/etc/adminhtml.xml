@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <catalogcustom>             
+            <children>
+                <country_group translate="title">
+                    <title>Manage Country Group</title>
+                    <sort_order>60</sort_order>
+                    <action>adminhtml/countrygroup/</action>
+                </country_group>                         
+            </children>
+        </catalogcustom>
+    </menu>
+        <acl>
+        <resources>
+            <admin>
+                <children>
+                    <catalogcustom>
+                        <children>
+                            <country_group translate="title" module="gri_countrygroup">
+                                <title>Manage Country Group</title>
+                                <sort_order>80</sort_order>
+                            </country_group>
+                        </children>
+                    </catalogcustom>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

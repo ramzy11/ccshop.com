@@ -1,0 +1,14 @@
+@media only screen and (max-width:700px){
+    body .products-grid .item .new-arrival-ribbon,
+    body .products-grid .item .on-sale-ribbon,
+    body .products-grid .item .flash-sale-ribbon,
+    body .products-grid .item .preorder-ribbon,
+    body .products-grid .item .presale-ribbon{margin: auto auto;}
+}
+@media only screen and (max-width:500px){
+    body .products-grid .item .new-arrival-ribbon,
+    body .products-grid .item .on-sale-ribbon,
+    body .products-grid .item .flash-sale-ribbon,
+    body .products-grid .item .preorder-ribbon,
+    body .products-grid .item .presale-ribbon{margin: auto auto;}
+}

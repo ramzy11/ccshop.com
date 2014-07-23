@@ -1,0 +1,58 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Best Seller Product list template
+ *
+ * @see Gri_CatalogCustom_Block_Product_List
+ */
+/* @var $this Gri_CatalogCustom_Block_Product_List */
+/* @var $product Gri_CatalogCustom_Model_Product */
+$_productCollection = $this->getBestSellerCollection();
+/* @var $_helper Mage_Catalog_Helper_Output */
+$_helper = $this->helper('catalog/output');
+/* @var $swatchHelper Magiatec_Colorswatch_Helper_Swatch */
+$swatchHelper = Mage::helper('magiatecolorswatch/swatch');
+?>
+<?php if($this->getCurrentCategory()->getUrlKey() != 'shop' && count($_productCollection)): ?>
+<div class="best-seller">
+    <h3><?php echo $this->__('Best Sellers'); ?></h3>
+    <ol>
+        <?php $i = 1; foreach ($_productCollection as $product) {
+            $image = $swatchHelper->getFirstColorSwatchImage($product);
+        ?>
+        <li>
+            <a href="<?php echo $product->getProductUrl(); ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($product, 'small_image', $image)->resize(68); ?>" alt="<?php echo $_helper->productAttribute($product, $product->getName(), 'name'); ?>" /></a>
+            <a href="<?php echo $product->getProductUrl(); ?>" class="rank rank-<?php echo $i; ?>">
+                <span class="brand"><?php echo $product->getAttributeText('brand'); ?></span>
+                <span class="product-name"><?php echo $_helper->productAttribute($product, $product->getName(), 'name'); ?></span>
+            </a>
+        </li>
+        <?php if (++$i > 5) break;} ?>
+    </ol>
+</div>
+<?php endif; ?>

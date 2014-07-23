@@ -1,0 +1,28 @@
+<!--@subject 您的CentralCentralShop.com註冊帳戶 @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"store url=\"customer/account/\"":"Customer Account Url",
+"htmlescape var=$customer.name":"Customer Name",
+"var customer.email":"Customer Email",
+"store url=\"customer/account/confirm/\" _query_id=$customer.id _query_key=$customer.confirmation _query_back_url=$back_url":"Confirmation Url",
+"htmlescape var=$customer.password":"Customer password"}
+@-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+{{block type='core/template' area='frontend' template='email/header.phtml'}}
+<p style="font-size:16px; font-weight:normal; line-height:22px; margin:15px 0 0 0;">親愛的 {{htmlescape var=$customer.name}},</p>
+<p style="font-size:12px; font-weight:normal; line-height: 22px;color:#000;display: block;">感謝您註冊 CentralCentralShop.com，請點擊以下鏈接以啟動您的會員帳戶。此鏈接只能使用一次。</p>
+<a href="{{store url="customer/account/confirm/" _query_id=$customer.id _query_key=$customer.confirmation _query_back_url=$back_url}}" style="margin:0;text-decoration: none;font-size:12px;color:blue;">{{store url="customer/account/confirm/" _query_id=$customer.id _query_key=$customer.confirmation _query_back_url=$back_url}}</a>
+<p style="font-size:12px; font-weight: normal; line-height: 22px;color:#000;display: block;">您的帳戶信息如下：</p>
+<p style="font-size:12px; line-height:22px; background:#f9f9f9;">
+    <strong>用戶名稱：</strong><span style="text-decoration: none;color: #000000;"> {{var customer.email}}</span><br/>
+    <strong>登錄密碼：</strong> {{htmlescape var=$customer.password}}</p>
+<span style="font-size:12px;display: block;">如果您對您的帳戶有任何問題，歡迎透過電郵 {{config path='trans_email/ident_support/email'}} 或電話{{config path='general/store_information/phone'}} 聯絡客戶服務部，我們會盡力提供協助。</span>
+<br />
+<br />
+<br />
+{{block type='core/template' area='frontend' template='email/footer.phtml'}}

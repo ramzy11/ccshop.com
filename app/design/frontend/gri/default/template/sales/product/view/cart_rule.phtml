@@ -1,0 +1,7 @@
+<?php
+/* @var $this Gri_Sales_Block_Product_View_CartRule */
+if ($this->getApplicableRule() && $this->getCmsBlockContent()) { ?>
+<div class="cart-rule">
+    <?php echo $this->parseVariants($this->getCmsBlockContent()); ?>
+</div>
+<?php } ?>

@@ -1,0 +1,9 @@
+<?php
+$totalImage = $this->getTotalImage();
+$failedImageAmount =  $this->getFailedImage();
+?>
+<div class="">
+	<li><?php echo $this->__('%s Images found',  $totalImage)?></li>
+	<li class=""><?php echo $this->__('%s Images Imported successfully', $totalImage-$failedImageAmount )?></li>
+	<li class=""><?php echo $this->__('%s Images Imported fail', $failedImageAmount)?></li>
+</div>

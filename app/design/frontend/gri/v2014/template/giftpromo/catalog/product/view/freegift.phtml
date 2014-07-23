@@ -1,0 +1,97 @@
+<?php
+    /* @var $this Gri_CatalogCustom_Block_Product_View_Share */
+    $_product = $this->getProduct();
+    $_helper = $this->helper('catalog/output');
+    /* @var $_taxHelper Mage_Tax_Helper_Data */
+    $_taxHelper = $this->helper('tax');
+    $_coreHelper = $this->helper('core');
+    /* @var $giftProductsCollection Mage_Catalog_Model_Resource_Product_Link_Product_Collection */
+    $giftProducts = Mage::helper('giftpromo')->getAllGiftsForProduct($_product , false, false);
+    $giftProducts = count($giftProducts) ? $giftProducts :array();
+    /* @var $availableProducts Varien_Data_Collection  */
+    $availableProducts =  Mage::helper('giftpromo')->getAllProductsForGift($_product);
+    $availableProducts = count($availableProducts) ? $availableProducts : array();
+
+    $sum = count($giftProducts) + count($availableProducts);
+?>
+<?php if (count($giftProducts)): ?>
+    <div class="freegift">
+        <h1><?php echo $this->__('Free Gift'); ?></h1>
+        <div class="gift-product-box">
+            <?php if(count($giftProducts) > 1 ): ?>
+                <a href="javascript:;" class="prev"> < </a>
+            <?php endif; ?>
+            <div class="jcarousel group-product-<?php echo $_product->getId(); ?>">
+                <ul class="slider clearer">
+                    <!-- gift products-->
+                    <?php foreach ($giftProducts as $product): ?>
+                        <li>
+<!--                        <div class="gift-wrapper">-->
+<!--                            <div class="block thumbnail">-->
+                                    <a target="_blank" href="<?php echo $this->helper('catalog/product')->getProductUrl($product) ?>">
+                                        <img src="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail')->resize(100, 150); ?>" />
+                                    </a>
+<!--                             </div>-->
+<!--                        </div>-->
+                        </li>
+                    <?php endforeach; ?>
+                    <!--gift products end -->
+                </ul>
+            </div>
+            <?php if(count($giftProducts) > 1 ): ?>
+                <a href="javascript:;" class="next"> > </a>
+            <?php endif; ?>
+        </div>
+        <div class="free-gift-description"><?php echo  $this->__('Get Free Gift with any purchase above HK$100!'); ?></div>
+    </div>
+<?php endif; ?>
+
+<?php if(count($availableProducts)): ?>
+    <div class="freegift available-product-list">
+        <h1><?php echo $this->__('Get Free Gift'); ?></h1>
+        <div class="free-gift-description"><?php echo $this->__('Available as a gift when purchased with the items below.'); ?></div>
+        <div class="gift-product-box">
+            <?php if(count($availableProducts) > 1 ): ?>
+                 <a href="javascript:;" class="prev"> < </a>
+            <?php endif; ?>
+            <div class="jcarousel group-product-<?php echo $_product->getId(); ?>">
+                <ul class="slider clearer">
+                    <?php foreach ($availableProducts as $product): ?>
+                        <li>
+<!--                        <div class="available-product-wrapper">-->
+<!--                            <div class="block thumbnail">-->
+                                    <a href="<?php echo $this->helper('catalog/product')->getProductUrl($product) ?>">
+                                        <img src="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail')->resize(70); ?>" />
+                                    </a>
+<!--                                </div>-->
+<!--                            </div>-->
+                        </li>
+                     <?php endforeach; ?>
+                </ul>
+             </div>
+         <?php if(count($availableProducts) > 1 ): ?>
+             <a href="javascript:;" class="next"> > </a>
+         <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php if($sum): ?>
+    <script type="text/javascript">
+        (function ($) {
+            $('div.freegift .jcarousel').jcarousel({vertical: true});
+
+            $('div.freegift a.prev')
+                //   .on('inactive.jcarouselcontrol', function() {$(this).addClass('inactive');})
+                //   .on('active.jcarouselcontrol', function() {$(this).removeClass('inactive');})
+                .jcarouselControl({target: '-=1'});
+
+            $('div.freegift a.next')
+                //  .on('inactive.jcarouselcontrol', function() {$(this).addClass('inactive');})
+                //  .on('active.jcarouselcontrol', function() {$(this).removeClass('inactive');})
+                .jcarouselControl({target: '+=1'});
+        })(jQuery);
+    </script>
+<?php endif; ?>
+<?php  $_product = $_helper = $_taxHelper = $giftProducts = $availableProducts = $sum = NULL; ?>
+

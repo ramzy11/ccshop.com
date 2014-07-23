@@ -1,0 +1,80 @@
+<?php /* @var $this Gri_Page_Block_Html_Head */ ?>
+<meta http-equiv="Content-Type" content="<?php echo $this->getContentType() ?>"/>
+<title><?php echo $this->getTitle() ?></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="description" content="<?php echo htmlspecialchars($this->getDescription()) ?>"/>
+<meta name="keywords" content="<?php echo htmlspecialchars($this->getKeywords()) ?>"/>
+<meta name="robots" content="<?php echo htmlspecialchars($this->getRobots()) ?>"/>
+<meta http-equiv="Access-Control-Allow-Origin" content="http://www.ccshop.com">
+<link rel="icon" href="<?php echo $this->getFaviconFile(); ?>" type="image/x-icon"/>
+<link rel="shortcut icon" href="<?php echo $this->getFaviconFile(); ?>" type="image/x-icon"/>
+<link rel="apple-touch-icon" href="<?php echo Mage::getBaseUrl().'media/page/apple-touch-icon.png';?>"/>
+<?php /*
+<style type="text/css">
+    @font-face {
+        font-family:'Futura Bk Bt';
+        src: url('<?php echo Mage::getBaseUrl().'media/font/FUTURAN_0.TTF' ?>') format('truetype');
+    }
+    @font-face {
+        font-family:'Futura Hv Bt';
+        src: url('<?php echo Mage::getBaseUrl().'media/font/FUTURAH_0.TTF' ?>') format('truetype');
+    }
+    @font-face {
+        font-family:'Futura Lt Bt';
+        src: url('<?php echo Mage::getBaseUrl().'media/font/FUTURAL_0.TTF' ?>') format('truetype');
+    }
+
+</style>
+ */ ?>
+<?php $secure = Mage::app()->getStore()->isCurrentlySecure(); ?>
+<link rel="stylesheet" type="text/css" href="<?php echo ($secure?Mage::getUrl('',array('_secure'=>true)):Mage::getBaseUrl()).'media/font/font.css'?>" media="all">
+<!--[if lt IE 7]>
+<script type="text/javascript">
+    //<![CDATA[
+    var BLANK_URL = '<?php echo $this->helper('core/js')->getJsUrl('blank.html') ?>';
+    var BLANK_IMG = '<?php echo $this->helper('core/js')->getJsUrl('spacer.gif') ?>';
+//]]>
+</script>
+<![endif]-->
+<!--[if lt IE 9]>
+<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+<script type="text/javascript">
+    (function($){
+            $.fancybox.close()
+    })(jQuery)
+</script>
+<![endif]-->
+<!--[if lt IE 9]>
+<div class="ie_message">
+        <?php echo $this->__('This website would like to remind you: Your browser is  ')?>
+    <span style="font-weight: bold;"><?php echo $this->__('out of date. ')?></span>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode" style="color:#E25600;text-decoration: underline;">
+        <?php echo $this->__('Update your browser ')?>
+    </a>
+    <?php echo $this->__('for more security, comfort and this best experience on this site.')?>
+</div>
+<![endif]-->
+<!--[if lt IE 9]>
+<style>
+            .cms-index-index #fancybox-overlay,.cms-index-index  .fancybox-ie{display: none;}
+            .top-menu-icon{display:none !important;}
+</style>
+<![endif]-->
+<?php echo $this->getCssJsHtml() ?>
+<?php echo $this->getChildHtml() ?>
+<?php echo $this->helper('core/js')->getTranslatorScript() ?>
+<?php echo $this->getIncludes() ?>
+<?php
+$product = Mage::registry('current_product');
+if ($product) {
+    ?>
+    <meta property="og:title" content="<?php echo trim($product->getName()); ?>"/>
+    <meta property="og:url" content="<?php echo $this->helper('core/url')->getCurrentUrl(); ?>"/>
+    <meta property="og:type" content="product"/>
+    <meta property="og:image" content="<?php echo $this->helper('catalog/image')->init($product, 'image'); ?>"/>
+<?php
+}
+?>

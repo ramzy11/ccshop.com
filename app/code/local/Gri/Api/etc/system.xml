@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <gri_api translate="label" module="gri_api">
+            <label>API Configuration</label>
+            <tab>gri</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>0</show_in_website>
+            <show_in_store>0</show_in_store>
+            <groups>
+                <global translate="label">
+                    <label>Global Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>100</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <retry_count_limit translate="label">
+                            <label>Maximum Retries on Error</label>
+                            <comment><![CDATA[How many times will the The API client retries to send the reqeust to API server if returns error]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </retry_count_limit>
+                    </fields>
+                </global>
+                <bdt_client translate="label">
+                    <label>BDT API: Client Side Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>200</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <active translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </active>
+                        <app_server translate="label">
+                            <label>BDT Server URL</label>
+                            <comment><![CDATA[Please fill in the BDT API server URL, e.g.:<span style="display:block;">http://example.com/</span>]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </app_server>
+                        <app_key translate="label">
+                            <label>APP Key</label>
+                            <comment>Please fill in the APP Key provided by BDT</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </app_key>
+                        <app_secret translate="label">
+                            <label>APP Secret</label>
+                            <comment>Please fill in the APP Secret provided by BDT</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </app_secret>
+                    </fields>
+                </bdt_client>
+                <hkAs400_client translate="label">
+                    <label>HKAS400 API: Client Side Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>200</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <active translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </active>
+                        <app_server translate="label">
+                            <label>HK AS 400 Server URL</label>
+                            <comment><![CDATA[Please fill in the HKAS400 API server URL, e.g.:<span style="display:block;">http://example.com/</span>]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </app_server>
+                        <app_key translate="label">
+                            <label>APP Key</label>
+                            <comment>Please fill in the APP Key provided by HKAS400</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </app_key>
+                        <app_secret translate="label">
+                            <label>APP Secret</label>
+                            <comment>Please fill in the APP Secret provided by HKAS400</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </app_secret>
+                    </fields>
+                </hkAs400_client>
+            </groups>
+        </gri_api>
+        <customer>
+            <groups>
+                <address_templates>
+                    <fields>
+                        <api>
+                            <label>API</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </api>
+                    </fields>
+                </address_templates>
+            </groups>
+        </customer>
+    </sections>
+</config>

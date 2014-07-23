@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    RickNeitzel
+ * @copyright  Copyright (c) 2009 Vinai Kopp http//netzarbeiter.com/
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+-->
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+                <action method="addCss"><stylesheet>css/vertnav.css</stylesheet></action>
+        </reference>
+        <reference name="top.menu">
+            <action method="unsetChild" ifconfig="catalog/vertnav/hide_top">
+                <name>catalog.topnav</name>
+            </action>
+        </reference>
+        <reference name="left">
+            <action method="unsetChild" ifconfig="catalog/vertnav/hide_vertnav">
+                <name>catalog.vertnav</name>
+            </action>
+        </reference>
+    </default>
+
+    <customer_account>
+        <reference name="left">
+            <action method="unsetChild">
+                <name>catalog.vertnav</name>
+            </action>
+        </reference>
+    </customer_account>
+
+    <catalog_category_default>
+        <reference name="left">
+            <action method="unsetChild">
+                <name>catalog.leftnav</name>
+            </action>
+        </reference>
+    </catalog_category_default>
+
+    <catalog_category_layered>
+        <reference name="catalog.leftnav">
+            <action method="unsetChild">
+                <name>category_filter</name>
+            </action>
+        </reference>
+    </catalog_category_layered>
+
+    <catalog_category_view>
+        <reference name="left">
+            <block type="vertnav/navigation" name="catalog.vertnav" template="vertnav/left.phtml" before="mana.catalog.filternav">
+                <block type="cms/block" name="ninewest.nav" as="ninewest.nav">
+                    <action method="setBlockId"><block_id>ninewest_nav</block_id></action>
+                </block>
+                <block type="cms/block" name="stevemadden.nav" as="stevemadden.nav">
+                    <action method="setBlockId"><block_id>stevemadden_nav</block_id></action>
+                </block>
+                <block type="cms/block" name="eqiq.nav" as="eqiq.nav">
+                    <action method="setBlockId"><block_id>eqiq_nav</block_id></action>
+                </block>
+                <block type="cms/block" name="betseyjohnson.nav" as="betseyjohnson.nav">
+                    <action method="setBlockId"><block_id>betseyjohnson_nav</block_id></action>
+                </block>
+                <block type="cms/block" name="carolinnaespinosa.nav" as="carolinnaespinosa.nav">
+                    <action method="setBlockId"><block_id>carolinnaespinosa_nav</block_id></action>
+                </block>
+                <block type="cms/block" name="shoes.nav" as="shoes.nav">
+                    <action method="setBlockId"><block_id>shoes_nav</block_id></action>
+                </block>
+                <block type="cms/block" name="clothing.nav" as="clothing.nav">
+                    <action method="setBlockId"><block_id>clothing_nav</block_id></action>
+                </block>
+                <block type="cms/block" name="accessories.nav" as="accessories.nav">
+                    <action method="setBlockId"><block_id>accessories_nav</block_id></action>
+                </block>
+                <block type="cms/block" name="bags.nav" as="bags.nav">
+                    <action method="setBlockId"><block_id>bags_nav</block_id></action>
+                </block>
+            </block>
+        </reference>
+    </catalog_category_view>
+</layout>

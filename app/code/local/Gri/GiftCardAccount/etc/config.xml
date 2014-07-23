@@ -1,0 +1,432 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Gri
+ * @package     Gri_GiftCardAccount
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+-->
+<config>
+    <modules>
+        <Gri_GiftCardAccount>
+             <version>0.0.13</version>
+        </Gri_GiftCardAccount>
+    </modules>
+
+    <global>
+        <models>
+            <gri_giftcardaccount>
+                <class>Gri_GiftCardAccount_Model</class>
+                <resourceModel>gri_giftcardaccount_mysql4</resourceModel>
+            </gri_giftcardaccount>
+            <gri_giftcardaccount_mysql4>
+                <class>Gri_GiftCardAccount_Model_Mysql4</class>
+                <entities>
+                    <giftcardaccount>
+                        <table>gri_giftcardaccount</table>
+                    </giftcardaccount>
+                    <pool>
+                        <table>gri_giftcardaccount_pool</table>
+                    </pool>
+                    <history>
+                        <table>gri_giftcardaccount_history</table>
+                    </history>
+                </entities>
+            </gri_giftcardaccount_mysql4>
+        </models>
+
+        <resources>
+            <gri_giftcardaccount_setup>
+                <setup>
+                    <module>Gri_GiftCardAccount</module>
+                    <class>Gri_GiftCardAccount_Model_Mysql4_Setup</class>
+                </setup>
+            </gri_giftcardaccount_setup>
+        </resources>
+        <blocks>
+            <gri_giftcardaccount>
+                <class>Gri_GiftCardAccount_Block</class>
+            </gri_giftcardaccount>
+        </blocks>
+        <helpers>
+            <gri_giftcardaccount>
+                <class>Gri_GiftCardAccount_Helper</class>
+            </gri_giftcardaccount>
+        </helpers>
+        <sales>
+            <quote>
+                <totals>
+                    <giftcardaccount>
+                        <class>gri_giftcardaccount/total_quote_giftcardaccount</class>
+                        <after>wee,discount,tax,tax_subtotal,grand_total,reward</after>
+                        <before>customerbalance</before>
+                        <renderer>gri_giftcardaccount/checkout_cart_total</renderer>
+                    </giftcardaccount>
+                </totals>
+            </quote>
+
+            <order_invoice>
+                <totals>
+                    <giftcardaccount>
+                        <class>gri_giftcardaccount/total_invoice_giftcardaccount</class>
+                    </giftcardaccount>
+                </totals>
+            </order_invoice>
+
+            <order_creditmemo>
+                <totals>
+                    <giftcardaccount>
+                        <class>gri_giftcardaccount/total_creditmemo_giftcardaccount</class>
+                    </giftcardaccount>
+                </totals>
+            </order_creditmemo>
+        </sales>
+
+        <gri>
+            <giftcardaccount>
+                <separator>-</separator>
+                <charset>
+                    <alphanum>ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789</alphanum>
+                    <alpha>ABCDEFGHIJKLMNOPQRSTUVWXYZ</alpha>
+                    <num>0123456789</num>
+                </charset>
+            </giftcardaccount>
+        </gri>
+
+        <events>
+            <gri_giftcardaccount_save_after>
+                <observers>
+                    <gri_giftcardaccount_save_after>
+                        <class>gri_giftcardaccount/observer</class>
+                        <method>giftcardaccountSaveAfter</method>
+                    </gri_giftcardaccount_save_after>
+                </observers>
+            </gri_giftcardaccount_save_after>
+
+            <sales_order_invoice_save_after>
+                <observers>
+                    <gri_giftcardaccount_sales_order_invoice_save_after>
+                        <class>gri_giftcardaccount/observer</class>
+                        <method>increaseOrderInvoicedAmount</method>
+                    </gri_giftcardaccount_sales_order_invoice_save_after>
+                </observers>
+            </sales_order_invoice_save_after>
+
+            <sales_order_invoice_register>
+                <observers>
+                    <gri_giftcardaccount_sales_order_invoice_register>
+                        <class>gri_giftcardaccount/observer</class>
+                        <method>increaseOrderGiftCardInvoicedAmount</method>
+                    </gri_giftcardaccount_sales_order_invoice_register>
+                </observers>
+            </sales_order_invoice_register>
+
+            <gri_giftcardaccount_charge_by_code>
+                <observers>
+                    <gri_giftcardaccount_charge_by_code>
+                        <class>gri_giftcardaccount/observer</class>
+                        <method>chargeByCode</method>
+                    </gri_giftcardaccount_charge_by_code>
+                </observers>
+            </gri_giftcardaccount_charge_by_code>
+
+            <gri_giftcardaccount_charge>
+                <observers>
+                    <gri_giftcardaccount_charge>
+                        <class>gri_giftcardaccount/observer</class>
+                        <method>chargeById</method>
+                    </gri_giftcardaccount_charge>
+                </observers>
+            </gri_giftcardaccount_charge>
+
+            <gri_giftcardaccount_create>
+                <observers>
+                    <gri_giftcardaccount_create>
+                        <class>gri_giftcardaccount/observer</class>
+                        <method>create</method>
+                    </gri_giftcardaccount_create>
+                </observers>
+            </gri_giftcardaccount_create>
+
+            <adminhtml_sales_order_create_process_data>
+                <observers>
+                    <gri_giftcardaccount>
+                        <class>gri_giftcardaccount/observer</class>
+                        <method>processOrderCreationData</method>
+                    </gri_giftcardaccount>
+                </observers>
+            </adminhtml_sales_order_create_process_data>
+
+            <sales_quote_payment_import_data_before>
+                <observers>
+                    <gri_giftcardaccount>
+                        <class>gri_giftcardaccount/observer</class>
+                        <method>paymentDataImport</method>
+                    </gri_giftcardaccount>
+                </observers>
+            </sales_quote_payment_import_data_before>
+
+            <payment_method_is_active>
+                <observers>
+                    <gri_giftcardaccount>
+                        <class>gri_giftcardaccount/observer</class>
+                        <method>togglePaymentMethods</method>
+                    </gri_giftcardaccount>
+                </observers>
+            </payment_method_is_active>
+
+            <sales_quote_collect_totals_before>
+                <observers>
+                    <gri_giftcardaccount>
+                        <class>gri_giftcardaccount/observer</class>
+                        <method>quoteCollectTotalsBefore</method>
+                    </gri_giftcardaccount>
+                </observers>
+            </sales_quote_collect_totals_before>
+
+            <sales_quote_merge_after>
+                <observers>
+                    <gri_giftcardaccount>
+                        <class>gri_giftcardaccount/observer</class>
+                        <method>quoteMergeAfter</method>
+                    </gri_giftcardaccount>
+                </observers>
+            </sales_quote_merge_after>
+
+            <sales_order_creditmemo_refund>
+                <observers>
+                    <gri_giftcardaccount>
+                        <class>gri_giftcardaccount/observer</class>
+                        <method>refund</method>
+                    </gri_giftcardaccount>
+                </observers>
+            </sales_order_creditmemo_refund>
+
+            <adminhtml_sales_order_creditmemo_register_before>
+                <observers>
+                    <gri_giftcardaccount>
+                        <class>gri_giftcardaccount/observer</class>
+                        <method>creditmemoDataImport</method>
+                    </gri_giftcardaccount>
+                </observers>
+            </adminhtml_sales_order_creditmemo_register_before>
+
+            <sales_order_load_after>
+                <observers>
+                    <gri_giftcardaccount>
+                        <class>gri_giftcardaccount/observer</class>
+                        <method>salesOrderLoadAfter</method>
+                    </gri_giftcardaccount>
+                </observers>
+            </sales_order_load_after>
+
+            <paypal_prepare_line_items>
+                <observers>
+                    <gri_giftcardaccount>
+                        <class>gri_giftcardaccount/observer</class>
+                        <method>addPaypalGiftCardItem</method>
+                    </gri_giftcardaccount>
+                </observers>
+            </paypal_prepare_line_items>
+
+            <sales_model_service_quote_submit_before>
+                <observers>
+                    <gri_giftcardaccount>
+                        <class>gri_giftcardaccount/observer</class>
+                        <method>processOrderPlace</method>
+                    </gri_giftcardaccount>
+                </observers>
+            </sales_model_service_quote_submit_before>
+
+            <sales_model_service_quote_submit_failure>
+                <observers>
+                    <gri_giftcardaccount>
+                        <class>gri_giftcardaccount/observer</class>
+                        <method>revertGiftCardAccountBalance</method>
+                    </gri_giftcardaccount>
+                </observers>
+            </sales_model_service_quote_submit_failure>
+
+            <checkout_type_multishipping_create_orders_single>
+                <observers>
+                    <gri_giftcardaccount>
+                        <class>gri_giftcardaccount/observer</class>
+                        <method>processOrderPlace</method>
+                    </gri_giftcardaccount>
+                </observers>
+            </checkout_type_multishipping_create_orders_single>
+
+            <checkout_multishipping_refund_all>
+                <observers>
+                    <gri_giftcardaccount>
+                        <class>gri_giftcardaccount/observer</class>
+                        <method>revertGiftCardsForAllOrders</method>
+                    </gri_giftcardaccount>
+                </observers>
+            </checkout_multishipping_refund_all>
+        </events>
+
+        <fieldsets>
+            <sales_convert_quote_address>
+                <base_gift_cards_amount><to_order>*</to_order></base_gift_cards_amount>
+                <gift_cards_amount><to_order>*</to_order></gift_cards_amount>
+                <used_gift_cards><to_order>gift_cards</to_order></used_gift_cards>
+            </sales_convert_quote_address>
+        </fieldsets>
+
+        <template>
+            <email>
+               <giftcard_giftcardaccount_email_template translate="label" module="gri_giftcardaccount">
+                   <label>Gift Card Account Sent From Edit Page</label>
+                   <file>gri/giftcardaccount.html</file>
+                   <type>html</type>
+               </giftcard_giftcardaccount_email_template>
+            </email>
+        </template>
+        <pdf>
+            <totals>
+                <gri_giftcardaccount translate="title">
+                    <title>Gift Cards</title>
+                    <source_field>gift_cards_amount</source_field>
+                    <amount_prefix>-</amount_prefix>
+                    <font_size>7</font_size>
+                    <display_zero>0</display_zero>
+                    <sort_order>550</sort_order>
+                </gri_giftcardaccount>
+            </totals>
+        </pdf>
+    </global>
+
+    <frontend>
+        <translate>
+            <modules>
+                <Gri_GiftCardAccount>
+                    <files>
+                        <default>Gri_GiftCardAccount.csv</default>
+                    </files>
+                </Gri_GiftCardAccount>
+            </modules>
+        </translate>
+        <routers>
+            <gri_giftcardaccount>
+                <use>standard</use>
+                <args>
+                    <module>Gri_GiftCardAccount</module>
+                    <frontName>giftcard</frontName>
+                </args>
+            </gri_giftcardaccount>
+        </routers>
+        <layout>
+            <updates>
+                <gri_giftcardaccount module="Gri_GiftCardAccount">
+                    <file>giftcardaccount.xml</file>
+                </gri_giftcardaccount>
+            </updates>
+        </layout>
+        <events>
+            <google_checkout_discount_item_price>
+                <observers>
+                    <gri_giftcardaccount>
+                        <class>gri_giftcardaccount/observer</class>
+                        <method>googleCheckoutDiscoutItem</method>
+                    </gri_giftcardaccount>
+                </observers>
+            </google_checkout_discount_item_price>
+        </events>
+    </frontend>
+
+    <admin>
+         <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <gri_giftcardaccount before="Mage_Adminhtml">Gri_GiftCardAccount_Adminhtml</gri_giftcardaccount>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <gri_giftcardaccount>
+                    <file>gri/giftcardaccount.xml</file>
+                </gri_giftcardaccount>
+            </updates>
+        </layout>
+
+        <translate>
+            <modules>
+                <Gri_GiftCardAccount>
+                    <files>
+                        <default>Gri_GiftCardAccount.csv</default>
+                    </files>
+                </Gri_GiftCardAccount>
+            </modules>
+        </translate>
+
+        <events>
+            <order_cancel_after>
+                <observers>
+                    <gri_giftcardaccount>
+                        <class>gri_giftcardaccount/observer</class>
+                        <method>returnFundsToStoreCredit</method>
+                    </gri_giftcardaccount>
+                </observers>
+            </order_cancel_after>
+        </events>
+    </adminhtml>
+
+    <default>
+        <giftcard>
+            <giftcardaccount_email>
+                <identity>general</identity>
+                <template>giftcard_giftcardaccount_email_template</template>
+            </giftcardaccount_email>
+            <giftcardaccount_general>
+                <code_length>12</code_length>
+                <code_format>alphanum</code_format>
+                <code_split>0</code_split>
+                <pool_size>1000</pool_size>
+                <pool_threshold>100</pool_threshold>
+            </giftcardaccount_general>
+        </giftcard>
+        <sales>
+            <totals_sort>
+                <giftcardaccount>90</giftcardaccount>
+            </totals_sort>
+        </sales>
+    </default>
+    <crontab>
+        <jobs>
+            <gri_giftcardaccount_update_states>
+                <schedule><cron_expr>0 1 * * *</cron_expr></schedule>
+                <run><model>gri_giftcardaccount/cron::updateStates</model></run>
+            </gri_giftcardaccount_update_states>
+            <gri_giftcardaccount_generage_codes_pool>
+                <schedule><cron_expr>30 * * * *</cron_expr></schedule>
+                <run><model>gri_giftcardaccount/pool::applyCodesGeneration</model></run>
+            </gri_giftcardaccount_generage_codes_pool>
+        </jobs>
+    </crontab>
+</config>

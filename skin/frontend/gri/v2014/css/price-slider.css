@@ -1,0 +1,9 @@
+.ui-slider{background:#e3e3e3;position:relative;top:6px;width:90%;}
+.ui-slider-range{z-index:80;}
+.ui-slider-horizontal{height:2px;z-index:80;}
+.ui-widget-header{background:#ccc;}
+.ui-slider .ui-slider-handle{height:10px;width:10px;position:absolute;background:url(../images/ui-control-radius.png) no-repeat;z-index:99;top:-4px;padding: 10px;}
+
+#price-rangeslider-label{margin-top: 20px;}
+#price-rangeslider-min{width: 65px;float: left;border: 0;color: #a0a0a0;}
+#price-rangeslider-max{width: 65px;float: right;border: 0;color: #a0a0a0;}

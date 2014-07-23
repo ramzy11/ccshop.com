@@ -1,0 +1,63 @@
+<?php /* @var $this ProxiBlue_GiftPromo_Block_Product_List_Icon */ ?>
+<?php if($this->IsEnabled()): ?>
+   <?php $_helper = $this->helper('catalog/output'); ?>
+    <?php if($this->setIgnoreRules(true)->getItems()->getSize() && Mage::getStoreConfig('giftpromo/catalog/icons_enabled')): ?>
+    <div class="gift-icon" id="gift-icon-<?php echo $this->getProduct()->getId(); ?>">
+        <img src="<?php echo $this->getGiftIcon(70); ?>" /><span><?php echo $this->__('Free Gift') ;?></span>
+    </div>
+    <div id="gift-icon-hover-parent-<?php echo $this->getProduct()->getId(); ?>">
+        <input type="hidden" name="productId[]" class="gift-product" value="<?php echo $this->getProduct()->getId(); ?>" />
+        <div class="gift-icon-hover" id="gift-icon-hover-<?php echo $this->getProduct()->getId(); ?>" style="display:none">
+            <div class="gift-title"><?php echo $this->__('Order %s to get below free gifts', $this->getProduct()->getName()); ?></div>
+            <?php foreach ($this->getItems() as $_item): ?>
+                <div class="gift-item">
+                    <img class="gifted-product-image" src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(70); ?>" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" />
+                    <div class="gifted-product-details" id="gifted-product-details-<?php echo $this->getProduct()->getId(); ?>">
+                        <?php echo $brandName = $_item->getAttributeText('brand'); ?>
+                        <div class="clear"></div>
+                        <?php echo $name = $_helper->productAttribute($_item, $_item->getName(), 'name'); ?>
+                        <div class="clear"></div>
+                        <?php
+                            $_taxHelper  = $this->helper('tax');
+                            $_coreHelper = $this->helper('core');
+                            $_finalPrice = $_taxHelper->getPrice($_item, $_item->getGiftedPrice());
+                            if($_finalPrice == 0)
+                                $_finalPrice = '<span class=".free" style="color:#f00;font-weight:bold;">'.$this->__('free').'</span>';
+                            else
+                                $_finalPrice = $_coreHelper->currency($_finalPrice, true, true);
+                            echo $_finalPrice;
+                        ?>
+
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <script type="text/javascript">
+        (function($) {
+            var giftItemElementHtml = $('#gift-icon-hover-parent-<?php echo $this->getProduct()->getId(); ?>').html() ;
+            $('body').append( giftItemElementHtml );
+            $('#gift-icon-hover-parent-<?php echo $this->getProduct()->getId(); ?>').remove();
+            $('#gift-icon-<?php echo $this->getProduct()->getId(); ?>').live('mouseover', function(e) {
+                var offset,
+                    height,
+                    top,
+                    left;
+
+                offset = $(this).find('img').offset();
+                height = $(this).find('img').height();
+
+                left = offset.left - 6;
+                top  = offset.top + height + 5;
+
+                $('#gift-icon-hover-<?php echo $this->getProduct()->getId(); ?>').css({"position":"absolute", "top":top, "left":left})
+                    .show();
+            });
+
+            $('#gift-icon-<?php echo $this->getProduct()->getId(); ?>').live('mouseout', function(e){
+                $('#gift-icon-hover-<?php echo $this->getProduct()->getId(); ?>').hide();
+            });
+        })(jQuery)
+    </script>
+    <?php endif ?>
+<?php endif ?>

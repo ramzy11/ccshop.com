@@ -1,0 +1,29 @@
+<!--@subject  确认订单(订单[{{var order.increment_id}}]) @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"htmlescape var=$order.getCustomerName()":"Customer Name",
+"var store.getFrontendName()":"Store Name",
+"store url=\"customer/account/\"":"Customer Account Url",
+"var invoice.increment_id":"Invoice Id",
+"var order.increment_id":"Order Id",
+"var order.billing_address.format('html')":"Billing Address",
+"var payment_html":"Payment Details",
+"var order.shipping_address.format('html')":"Shipping Address",
+"var order.shipping_description":"Shipping Description",
+"layout area=\"frontend\" handle=\"sales_email_order_invoice_items\" invoice=$invoice order=$order":"Invoice Items Grid",
+"var comment":"Invoice Comment"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+{{block type='core/template' area='frontend' template='email/header.phtml'}}
+<h1 style="font-size:13px; font-weight:normal; line-height:22px; margin:15px 0 0 0;color:#000;">亲爱的 {{htmlescape var=$order.getCustomerName()}}</h1>
+<p style="font-size:12px; line-height:16px; margin:00;color:#000;">您在熙熙网的订单已经支付成功，订单信息如下：</p>
+<h2 style="font-size:18px; font-weight:normal;color:#000;">订单号:{{var order.increment_id}}</h2>
+<br />
+<br />
+<br />
+{{block type='core/template' area='frontend' template='email/footer.phtml'}}

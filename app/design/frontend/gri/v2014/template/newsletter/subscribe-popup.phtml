@@ -1,0 +1,36 @@
+<?php
+$hint = $this->__('ENTER EMAIL ADDRESS');
+$newcomerHelper = Mage::helper('newcomer');
+?>
+<?php /*
+<div class="block-subscribe left">
+    <form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="newsletter-validate-detail-popup">
+        <label for="newsletter"><?php echo $this->__('SIGN UP FOR NEWSLETTER'); ?></label>
+        <input type="text" name="email" id="newsletter" value="<?php echo $hint; ?>" onblur="if (this.value == '') this.value = '<?php echo $hint; ?>';" onfocus="if(this.value==this.defaultValue) this.value='';" class="input-text required-entry validate-email" />
+        <a href="javascript:void(0);" onclick="pageTracker._trackPageview('/subscribe/newsletter.html');" class="signup_btn"><?php echo $this->__('JOIN'); ?></a>
+    </form>
+</div>
+*/ ?>
+
+<div class="welcome_form">
+    <form id="newsletter-validate-detail-popup" method="post">
+        <input id="welcome_email" class="input-text required-entry validate-email"
+               onfocus="if(this.value==this.defaultValue) this.value='';"
+               onblur="if (this.value == '') this.value = '<?php echo $hint?>';"
+               type="text" name="email" value="<?php echo $hint?>" />
+        <a id="welcome_btn" class="signup_btn" onclick="pageTracker._trackPageview('/subscribe/newsletter.html');" href="javascript:void(0);"><?php echo $this->__('Join')?></a>
+    </form>
+    <script type="text/javascript">
+        //<![CDATA[
+        var newsletterSubscriberFormDetailPopup = new VarienForm('newsletter-validate-detail-popup');
+        var newsletterSubmitButtonPopup = $('welcome_btn');
+        if  (newsletterSubmitButtonPopup) newsletterSubmitButtonPopup.observe('click', function() {
+            var form = newsletterSubmitButtonPopup.parentNode;
+            if (form.email.value != '' && form.email.value != '<?php echo $hint; ?>'){
+                form.submit();
+                Mage.Cookies.set('<?php echo $newcomerHelper->getCookieName(); ?>', 1);
+            }
+        });
+        //]]>
+    </script>
+</div>

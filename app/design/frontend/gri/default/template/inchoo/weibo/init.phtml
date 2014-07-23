@@ -1,0 +1,29 @@
+<?php
+/**
+ * @category    Inchoo
+ * @package     Inchoo_Weibo
+ * @author      Ivan Weiler <ivan.weiler@gmail.com>
+ * @copyright   Inchoo (http://inchoo.net)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<!-- BEGIN Inchoo Weibo Connect -->
+<script type="text/javascript">
+//<![CDATA[
+(function(d){
+        var js = d.createElement('script') ;
+            js.type='text/javascript';
+            js.charset='utf-8' ;
+        js.src = 'http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=<?php echo $this->getApiKey() ?>'; 
+        d.getElementsByTagName('head')[0].appendChild(js);
+        
+        // add  meta
+//        js = d.createElement('meta') ,
+//        js.property="wb:webmaster" ,
+//        js.content="edd4ccf748fd2e0b";
+//        d.getElementsByTagName('head')[0].appendChild(js);
+}(document));
+
+//]]>
+</script>
+<!-- END Inchoo Weibo Connect -->

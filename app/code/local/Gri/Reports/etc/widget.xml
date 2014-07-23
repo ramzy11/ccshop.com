@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<widgets>
+    <recently_viewed type="reports/product_widget_viewed" translate="name description" module="reports">
+        <name>Recently Viewed Products</name>
+        <description>List of Products Recently Viewed by Visitor</description>
+        <parameters>
+            <page_size translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <value>5</value>
+                <label>Number of Products to display</label>
+                <type>text</type>
+            </page_size>
+            <template>
+                <required>1</required>
+                <visible>1</visible>
+                <label>Template</label>
+                <type>select</type>
+                <value>reports/product/widget/viewed_grid.phtml</value>
+                <values>
+                    <default translate="label">
+                        <value>reports/widget/viewed/content/viewed_grid.phtml</value>
+                        <label>Viewed Products Grid Template</label>
+                    </default>
+                    <list translate="label">
+                        <value>reports/widget/viewed/content/viewed_list.phtml</value>
+                        <label>Viewed Products List Template</label>
+                    </list>
+                    <listWithSlide translate="label">
+                        <value>reports/widget/viewed/content/viewed_list_slide.phtml</value>
+                        <label>Recent Viewed Products List Template(With Slide)</label>
+                    </listWithSlide>
+                </values>
+            </template>
+        </parameters>
+    </recently_viewed>
+</widgets>

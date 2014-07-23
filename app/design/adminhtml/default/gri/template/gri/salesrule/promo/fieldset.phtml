@@ -1,0 +1,39 @@
+<?php
+/* @var $this Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset */
+/* @var $rule Mage_SalesRule_Model_Rule */
+$rule = Mage::registry('current_promo_quote_rule');
+$conditionScope = $rule->getConditionScope();
+$scopes = array(
+    '' => $this->__('Magento Default'),
+    'simple' => $this->__('Apply to Simple Products'),
+);
+?>
+<div class="gri_salesrule">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Condition Scope'); ?></h4>
+    </div>
+    <fieldset id="rule_condition_scope_fieldset">
+        <table cellspacing="0" class="form-list">
+            <tbody>
+            <tr>
+                <td class="label"><label for="rule_condition_scope"><?php echo $this->__('Condition scope'); ?></label></td>
+                <td class="value">
+                    <select id="rule_condition_scope" name="condition_scope" class="select">
+                        <?php foreach ($scopes as $value => $label) { ?>
+                        <option value="<?php echo $value; ?>"
+                            <?php if ($value == $conditionScope) { ?> selected="selected" <?php }?>>
+                            <?php echo $label; ?>
+                        </option>
+                        <?php } ?>
+                    </select>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </fieldset>
+</div>
+<?php
+$this->setTemplate($this->getOldTemplate());
+include Mage::getBaseDir('design') . DS . $this->getTemplateFile();
+$this->setTemplate($this->getNewTemplate());
+?>

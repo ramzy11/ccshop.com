@@ -1,0 +1,70 @@
+<?php
+/* @var $this Gri_CatalogCustom_Block_Product_View_Share */
+$_product = $this->getProduct();
+$_helper = $this->helper('catalog/output');
+
+$availableProducts = $this->getItems();
+$totalCount = count($availableProducts);
+?>
+
+<div class="available">
+    <div class="available-product-box">
+        <h1><?php echo $this->__('available as a gift') ?></h1>
+        <div class="available-product-description">
+            <?php if($this->getItems()->getSize()): ?>
+                <?php echo $this->__('Available as a gift when purchased with the item(s) below.'); ?>
+            <?php else: ?>
+                <?php echo array_rand(Mage::helper('giftpromo')->getDescriptionByProductId($_product->getId())); ?>
+            <?php endif; ?>
+        </div>
+        <div class="iosSlider" id="group-product-<?php echo $_product->getId(); ?>">
+            <ul class="slider clearer">
+                <?php foreach ($availableProducts as $product){  ?>
+                    <?php if($product->getGiftedCategoryId()): ?>
+                    <li class="item">
+                        <div class="block thumbnail"><a
+                                href="<?php echo $this->helper('catalog/product')->getProductUrl($product) ?>"><img
+                                    src="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail')->resize(70); ?>"
+                                    alt=""/></a></div>
+                        <div class="block detail">
+                            <p> <?php echo $product->getAttributeText('brand'); ?></p>
+
+                            <p> <?php echo $name = $this->helper('catalog/output')->productAttribute($product, $product->getName(), 'name'); ?></p>
+
+                            <p class="available">
+                                <?php
+                                $_taxHelper = $this->helper('tax');
+                                $_coreHelper = $this->helper('core');
+                                $_finalPrice = $_taxHelper->getPrice($product, $product->getPrice());
+                                echo $_coreHelper->currency($_finalPrice, true, true);
+                                ?>
+                            </p>
+                        </div>
+                    </li>
+                    <?php endif; ?>
+                <?php } ?>
+            </ul>
+        </div>
+        <?php if ($totalCount > 1) { ?>
+            <a href="javascript:void(0);" class="prev"> < </a>
+            <a href="javascript:void(0);" class="next"> > </a>
+        <?php } ?>
+    </div>
+</div>
+<script type="text/javascript">
+    <?php
+        //doc: https://www.iosscripts.com/iosslider/
+    ?>
+    (function ($) {
+        var group = $('#group-product-<?php echo $_product->getId(); ?>'), slider = group.children('.slider');
+        slider.css({height: slider.children('.item').outerHeight()});
+        group.iosSlider({
+            startAtSlide: 1,
+            snapToChildren: true,
+            navNextSelector: group.siblings('.next'),
+            navPrevSelector: group.siblings('.prev')
+            // onSlideStart: loadGroupProducts,
+            // onSlideComplete: loadGroupProducts
+        });
+    })(jQuery);
+</script>

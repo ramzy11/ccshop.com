@@ -1,0 +1,11 @@
+<?php
+    /* @var $_helper Gri_CatalogCustom_Helper_Product */
+    $_helper = Mage::helper('gri_catalogcustom/product');
+    /* @var $this Gri_CatalogCustom_Block_Product_View_Nav */
+    $urls = $_helper->getNavUrl($this->getProduct());  ?>
+<div class="nav-link">
+   <?php if(count($urls)): ?>
+       <a class="prev" href="<?php echo $urls['pre']; ?>"><span class="prev-arrow">&nbsp;&nbsp;</span><?php echo $_helper->__('Prev'); ?></a>
+       <a class="next" href="<?php echo $urls['next']; ?>"><?php echo $_helper->__('Next')?><span class="next-arrow">&nbsp;&nbsp;</span></a>
+   <?php endif; ?>
+</div>

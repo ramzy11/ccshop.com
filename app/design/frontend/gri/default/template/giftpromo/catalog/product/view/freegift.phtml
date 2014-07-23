@@ -1,0 +1,106 @@
+<?php
+    /* @var $this Gri_CatalogCustom_Block_Product_View_Share */
+    $_product = $this->getProduct();
+    $_helper = $this->helper('catalog/output');
+    /* @var $_taxHelper Mage_Tax_Helper_Data */
+    $_taxHelper = $this->helper('tax');
+    $_coreHelper = $this->helper('core');
+
+    /* @var $giftProductsCollection Mage_Catalog_Model_Resource_Product_Link_Product_Collection */
+    $giftProducts = Mage::helper('giftpromo')->getAllGiftsForProduct($_product , false, false);
+    $giftProducts = count($giftProducts) ? $giftProducts :array();
+
+    /* @var $availableProducts Varien_Data_Collection  */
+    $availableProducts =  Mage::helper('giftpromo')->getAllProductsForGift($_product);
+    $availableProducts = count($availableProducts) ? $availableProducts : array();
+    $totalCount = count($giftProducts) + count($availableProducts);
+?>
+<?php if ($totalCount): ?>
+    <div class="freegift">
+        <div class="gift-product-box">
+            <div class="iosSlider" id="group-product-<?php echo $_product->getId(); ?>">
+                <ul class="slider clearer">
+                    <!-- gift products-->
+                    <?php foreach ($giftProducts as $giftProduct): ?>
+                        <li class="item">
+                            <h1><?php echo $this->__('free gift') ?></h1>
+                            <div class="free-gift-description"><?php  echo  $this->__('Order %s to get below free gifts <br /> Gifts will be added to cart when purchased', $_product->getName()); ?></div>
+                            <div class="gift-wrapper">
+                                <div class="block thumbnail"><a
+                                    href="<?php echo $this->helper('catalog/product')->getProductUrl($giftProduct) ?>"><img
+                                        src="<?php echo $this->helper('catalog/image')->init($giftProduct, 'thumbnail')->resize(70); ?>"
+                                        alt=""/></a></div>
+                                <div class="block detail">
+                                    <p> <?php echo $giftProduct->getAttributeText('brand'); ?></p>
+                                    <p> <?php echo $name = $this->helper('catalog/output')->productAttribute($giftProduct, $giftProduct->getName(), 'name'); ?></p>
+                                    <p class="as-gift">
+                                        <?php
+                                            $originalPrice = $giftProduct->getPrice();
+                                            $_finalPrice = $_taxHelper->getPrice($giftProduct, $giftProduct->getGiftedPrice());
+                                            echo $_coreHelper->currency($originalPrice, true, true);
+                                            $_finalPrice = $_finalPrice == 0  ? $this->__('free') : $_coreHelper->currency($_finalPrice, true, true);
+                                        ?>
+                                        <span class="special-price strong"><?php echo $_finalPrice ; ?></span>
+                                     <??>
+                                    </p>
+                                 </div>
+                            </div>
+                        </li>
+                    <?php endforeach; ?>
+                    <!-- gift products end -->
+
+                    <!--availabe products-->
+                    <?php foreach ($availableProducts as $product): ?>
+                            <li class="item">
+                                <h1><?php echo $this->__('available as a gift') ?></h1>
+
+                                <div class="free-gift-description">
+                                    <?php if ($availableProducts->getSize()): ?>
+                                        <?php echo $this->__('Available as a gift when purchased with the <br />item(s) below.'); ?>
+                                    <?php endif; ?>
+                                </div>
+
+                                <div class="block thumbnail">
+                                    <a href="<?php echo $this->helper('catalog/product')->getProductUrl($product) ?>">
+                                        <img
+                                            src="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail')->resize(70); ?>"/>
+                                    </a>
+                                </div>
+                                <div class="block detail">
+                                    <p> <?php echo $product->getAttributeText('brand'); ?></p>
+
+                                    <p> <?php echo $name = $this->helper('catalog/output')->productAttribute($product, $product->getName(), 'name'); ?></p>
+
+                                    <p class="as-available">
+                                        <?php $_finalPrice = $_taxHelper->getPrice($product, $product->getPrice());
+                                            echo $_coreHelper->currency($_finalPrice, true, true);
+                                        ?>
+                                    </p>
+                                </div>
+                            </li>
+                    <?php endforeach; ?>
+                    <!--availabe products end-->
+                </ul>
+            </div>
+            <?php if ($totalCount > 1) { ?>
+                <a href="javascript:void(0);" class="prev"> < </a>
+                <a href="javascript:void(0);" class="next"> > </a>
+            <?php } ?>
+        </div>
+    </div>
+    <script type="text/javascript">
+        // doc : https://www.iosscripts.com/iosslider/
+        (function ($) {
+            var group = $('#group-product-<?php echo $_product->getId(); ?>'), slider = group.children('.slider');
+            slider.css({height: slider.children('.item').outerHeight()});
+            group.iosSlider({
+                startAtSlide: 1,
+                snapToChildren: true,
+                navNextSelector: group.siblings('.next'),
+                navPrevSelector: group.siblings('.prev')
+                // onSlideStart: loadGroupProducts,
+                // onSlideComplete: loadGroupProducts
+            });
+        })(jQuery);
+    </script>
+<?php endif; ?>

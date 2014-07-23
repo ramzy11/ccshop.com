@@ -1,0 +1,117 @@
+    <?php /* @var $this Gri_CheckoutCustom_Block_Onepage */ ?>
+
+    <div class="page-title">
+        <h1><?php echo $this->__('Checkout') ?></h1>
+    </div>
+    <script type="text/javascript" src="<?php echo $this->getJsUrl('varien/accordion.js') ?>"></script>
+    <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/opcheckout.js') ?>"></script>
+    <script type="text/javascript" src="<?php echo $this->getJsUrl('gri/checkout.js'); ?>"></script>
+
+
+    <ul class="opc" id="checkoutSteps">
+        <?php $i=0; foreach($this->getSteps() as $_stepId => $_stepInfo): ?>
+        <?php if (!$this->getChild($_stepId) || !$this->getChild($_stepId)->isShow()): continue; endif; $i++ ?>
+            <li id="opc-<?php echo $_stepId ?>" class="<?php if($_stepId != 'billing'): ?> section <?php endif; ?><?php echo !empty($_stepInfo['allow'])?' allow':'' ?><?php echo !empty($_stepInfo['complete'])?' saved':'' ?>">
+                <div class="step-title <?php if($_stepId == 'shipping_method') echo 'no-display'; ?>">
+                    <h2><?php echo $_stepInfo['label'] ?></h2>
+                    <a href="#"><?php echo $this->__('Edit') ?></a>
+                </div>
+                <div id="checkout-step-<?php echo $_stepId ?>" class="step a-item" style="display:none;">
+                    <?php echo $this->getChildHtml($_stepId) ?>
+                </div>
+            </li>
+        <?php endforeach ?>
+    </ul>
+        <?php /*
+    <script type="text/javascript">
+        //<![CDATA[
+            var accordion = new Accordion('checkoutSteps', '.step-title', true);
+            <?php if($this->getActiveStep()): ?>
+            accordion.openSection('opc-<?php echo $this->getActiveStep() ?>');
+            <?php endif ?>
+            var checkout = new Checkout(accordion,{
+                progress: '<?php echo $this->getUrl('checkout/onepage/progress') ?>',
+                review: '<?php echo $this->getUrl('checkout/onepage/review') ?>',
+                saveMethod: '<?php echo $this->getUrl('checkout/onepage/saveMethod') ?>',
+                failure: '<?php echo $this->getUrl('checkout/cart') ?>'}
+            );
+        //]]>
+    </script>
+*/ ?>
+
+    <script type="text/javascript">
+        //<![CDATA[
+        var accordion = new Accordion('checkoutSteps', '.step-title', true);
+        accordion.openSection = function(section) {
+            var section = $(section);
+
+            // Check allow
+            if (this.checkAllow && !Element.hasClassName(section, 'allow')){
+                return;
+            }
+            if (section.id == 'opc-billing') {
+                $('opc-shipping_method').addClassName('alternative');
+            }
+            else {
+                $('opc-shipping_method').removeClassName('alternative');
+                $('billing:edit_mode').value = 0;
+            }
+            if(section.id != this.currentSection) {
+//                var pageTitle = $$('.page-title h1')[0],
+//                        sectionTitle = section.select('h3')[0];
+              //  if (pageTitle && sectionTitle) pageTitle.update(sectionTitle.innerHTML);
+                this.closeExistingSection();
+                this.currentSection = section.id;
+                $(this.currentSection).addClassName('active');
+                var content = $(section.id.replace('opc-', 'checkout-step-'));
+                content.show();
+
+                if (this.disallowAccessToNextSections) {
+                    var pastCurrentSection = false;
+                    for (var i=0; i<this.sections.length; i++) {
+                        if (pastCurrentSection) {
+                            Element.removeClassName(this.sections[i], 'allow')
+                        }
+                        if (this.sections[i].id==section.id) {
+                            pastCurrentSection = true;
+                        }
+                    }
+                }
+            }
+        };
+        accordion.closeSection = function (section) {
+            $(section).removeClassName('active');
+            var content = $(section.replace('opc-', 'checkout-step-'));
+            content.hide();
+            //Effect.SlideUp(contents[0]);
+        };
+
+        Checkout.prototype.gotoSection = function (section) {
+            var sectionElement = $('opc-' + section);
+            if (sectionElement.hasClassName('active')) return;
+            sectionElement.addClassName('allow');
+            this.accordion.openSection('opc-' + section);
+            this.reloadProgressBlock(section);
+        };
+
+        var checkout = new Checkout(accordion,{
+                    progress: '<?php echo $this->getUrl('checkout/onepage/progress') ?>',
+                    review: '<?php echo $this->getUrl('checkout/onepage/review') ?>',
+                    saveMethod: '<?php echo $this->getUrl('checkout/onepage/saveMethod') ?>',
+                    failure: '<?php echo $this->getUrl('checkout/cart') ?>'}
+        );
+
+        <?php if($this->getActiveStep()): ?>
+           checkout.gotoSection('<?php echo $this->getActiveStep() ?>');
+        <?php endif ?>
+
+
+        (function($){
+            $('#opc-billing div.step-title').bind('click', function(){
+                if($('#opc-shipping_method').hasClass('allow')){
+                    checkout.gotoSection('shipping_method'); return false;
+                }
+            })
+        })(jQuery)
+        //]]>
+    </script>

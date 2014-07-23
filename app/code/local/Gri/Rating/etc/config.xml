@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Gri_Rating>
+            <version>1.0.1</version>
+        </Gri_Rating>
+    </modules>
+    <global>
+        <resources>
+            <gri_rating_setup>
+                <setup>
+                    <module>Gri_Rating</module>
+                </setup>
+            </gri_rating_setup>
+        </resources>
+        <models>
+            <gri_rating>
+                <class>Gri_Rating_Model</class>
+            </gri_rating>
+        </models>
+        <blocks>
+            <gri_rating>
+                <class>Gri_Rating_Block</class>
+            </gri_rating>
+        </blocks>
+        <helpers>
+            <gri_rating>
+                <class>Gri_Rating_Helper</class>
+            </gri_rating>
+        </helpers>
+        <events>
+        </events>
+    </global>
+</config>

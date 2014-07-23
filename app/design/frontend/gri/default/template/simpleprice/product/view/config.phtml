@@ -1,0 +1,9 @@
+<?php
+/* @var $this Gri_SimplePrice_Block_Product_View_Config */
+?>
+<?php if ($this->getSimplePriceHelper()->isEnabled() && !Mage::registry('remove_unavailable_products')) { ?>
+<script type="text/javascript">
+    var simplePriceConfig = <?php echo $this->getSimplePriceConfigJson(); ?>;
+    flashSaleConfig.availableProducts = jQuery.extend(simplePriceConfig.availableProducts, flashSaleConfig.availableProducts);
+</script>
+<?php } ?>

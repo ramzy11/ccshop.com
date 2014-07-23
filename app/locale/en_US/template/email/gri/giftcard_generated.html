@@ -1,0 +1,34 @@
+<!--@subject You have received a gift card @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image",
+"var name|escape":"Recipient Name",
+"var sender_name_with_email|escape":"Sender Name with Email",
+"var store.getFrontendName()|escape":"Store Name",
+"var giftcards":"Gift Card Codes",
+"var balance":"Gift Card Balance",
+"var gift_message|escape|nl2br":"Sender Gift Message"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+{{block type='core/template' area='frontend' template='email/header.phtml'}}
+<p style="color:#000000;font-size:16px; font-weight:normal; line-height:22px; margin:20px 0 11px 0;">Dear {{var name|escape}},</p>
+<p style="color:#000000;font-size:12px; line-height:16px; margin:0 0 16px 0;">{{var sender_name_with_email|escape}}has sent you a {{var store.getFrontendName()|escape}}gift card, and the gift card can be used to shopping.</p>
+
+<div style="color:#000000;font-size:12px; line-height:16px; margin:0 0 16px 0;">
+<p style="color:#000000;font-size:12px; line-height:16px; margin:0 0 16px 0;"><strong>Gift card code. is</strong></p>
+{{var giftcards}}
+</div>
+
+<p style="color:#000000;font-size:12px; line-height:16px; margin:0 0 16px 0;">{{if is_multiple_codes}}Each{{else}}The{{/if}}gift card balance is {{var balance}},you can use it on<a href="{{store url="/"}}">{{store url="/"}}</a>.</p>
+{{if is_redeemable}}
+<p style="color:#000000;font-size:12px; line-height:16px; margin:0 0 16px 0;">Click at the code(s) above to redeem them into Store Credit.</p>
+{{/if}}
+
+<div style="color:#000000;font-size:12px; line-height:16px; margin:0 0 16px 0;">
+{{var gift_message|escape|nl2br}}
+</div>
+<br>
+<br>
+{{block type='core/template' area='frontend' template='email/footer.phtml'}}

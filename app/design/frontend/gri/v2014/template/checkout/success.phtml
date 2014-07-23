@@ -1,0 +1,55 @@
+<?php /* @var $this Gri_CheckoutCustom_Block_Onepage_Success */ ?>
+<div class="page-title">
+    <h1><?php echo $this->__('Checkout') ?></h1>
+</div>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+<?php if ($this->getOrderId()):?>
+    <p><?php echo $this->__('Your order has been received.') ?></p>
+    <p><?php echo $this->__('Thank you for your purchase!') ?></p>
+<?php endif;?>
+<?php if ($this->getCanViewOrder()) :?>
+    <p><?php echo $this->__('Your order is #%s.', $this->escapeHtml($this->getOrderId())) ?></p>
+<?php  else :?>
+    <p><?php echo $this->__('Your order is: %s.', $this->escapeHtml($this->getOrderId())) ?></p>
+<?php endif;?>
+    <p><?php echo $this->__('You will receive an order confirmation email with details of your order and a link to track its progress.') ?></p>
+
+<br />
+<br />
+<br />
+<br />
+
+<div class="buttons-set">
+    <?php if ($this->getCanViewOrder()): ?>
+        <button type="button" class="button btn-review-your-order" onclick="window.open('<?php echo $this->escapeHtml($this->getViewOrderUrl()); ?>','_blank');"   title="<?php echo $this->__('Review Your Order'); ?>"><span><span><?php echo $this->__('Review Your Order'); ?></span></span></button>
+    <?php endif; ?>
+</div>
+
+<div class="buttons-set">
+    <?php if ($this->getCanViewOrder() && $this->getCanPrintOrder()) :?>
+        <button type="button" class="button btn-print-order-confirmation" onclick="window.open('<?php echo $this->getPrintUrl(); ?>','_blank');"  title="<?php echo $this->__('Print Your Order Confirmation') ?>"><span><span><?php echo $this->__('Print Your Order Confirmation') ?></span></span></button>
+    <?php endif; ?>
+</div>
+
+<div class="buttons-set">
+   <button type="button" class="button btn-success" title="<?php echo $this->__('Continue Shopping') ?>" onclick="window.location='<?php echo Mage::getBaseUrl(); ?>'"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
+</div>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<!--Tracking Code -->
+<img src="http://ad-apac.doubleclick.net/activity;src=4383026;type=trans441;cat=ccsho976;ord=<?php echo time(); ?>?" width="1" height="1" alt=""/>
+<!-- End tracking code-->

@@ -1,0 +1,338 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<layout version="0.1.0">
+<!--
+Default layout, loads most of the pages
+-->
+
+    <default translate="label" module="page">
+        <label>All Pages</label>
+        <block type="page/html" name="root" output="toHtml" template="page/1column.phtml">
+
+            <block type="gri_page/html_head" name="head" as="head">
+                <action method="addItem"><type>js</type><name>gri/json3.min.js</name><params/><if>lte IE 8</if></action>
+                <action method="addJs"><script>prototype/prototype.js</script></action>
+                <action method="addItem"><type>js</type><name>jquery/jquery-1.10.2.min.js</name></action>
+                <action method="addItem"><type>js</type><name>jquery/noconflict.js</name></action>
+                <action method="addItem"><type>js</type><name>jquery/jquery-ui-1.10.4.min.js</name></action>
+                <action method="addItem"><type>js</type><name>jquery/jquery-ui-1.9.0.custom.min.js</name></action>
+                <action method="addJs"><script>lib/ccard.js</script></action>
+                <action method="addJs"><script>prototype/validation.js</script></action>
+                <action method="addJs"><script>scriptaculous/builder.js</script></action>
+                <action method="addJs"><script>scriptaculous/effects.js</script></action>
+                <action method="addJs"><script>scriptaculous/dragdrop.js</script></action>
+                <action method="addJs"><script>scriptaculous/controls.js</script></action>
+                <action method="addJs"><script>scriptaculous/slider.js</script></action>
+                <action method="addJs"><script>varien/js.js</script></action>
+                <action method="addJs"><script>varien/form.js</script></action>
+                <action method="addJs"><script>gri/directory.js</script></action>
+                <action method="addJs"><script>varien/menu.js</script></action>
+                <action method="addJs"><script>mage/translate.js</script></action>
+                <action method="addJs"><script>mage/cookies.js</script></action>
+				
+                <action method="addItem"><type>skin_js</type><name>js/jquery.easing.1.3.js</name><params/></action>
+                <!--<action method="addItem"><type>skin_js</type><name>js/jquery.mobile.customized.min.js</name><params/></action>-->
+
+				<action method="addItem"><type>skin_js</type><name>js/bootstrap.js</name><params/></action>
+                <action method="addItem"><type>skin_js</type><name>js/jquery.carouFredSel-6.2.1.js</name><params/></action>
+                <action method="addItem"><type>skin_js</type><name>js/jquery.touchSwipe.js</name><params/></action>
+               
+                <action method="addItem"><type>skin_js</type><name>js/jquery.bxslider.min.js</name><params/></action>
+
+                <block type="page/js_cookie" name="js_cookies" template="page/js/cookie.phtml"/>
+
+                <action method="addItem"><type>skin_css</type><name>css/styles-ie.css</name><params/><if>lt IE 8</if></action>
+				<action method="addCss"><stylesheet>css/camera.css</stylesheet></action>
+                <action method="addCss"><stylesheet>css/widgets.css</stylesheet></action>
+                <action method="addCss"><stylesheet>css/flags.css</stylesheet></action>
+                <action method="addCss"><stylesheet>css/print.css</stylesheet><params>media="print"</params></action>
+                <action method="addItem"><type>js</type><name>lib/ds-sleight.js</name><params/><if>lt IE 7</if></action>
+                <action method="addItem"><type>skin_js</type><name>js/ie6.js</name><params/><if>lt IE 7</if></action>
+            </block>
+
+            <block type="core/text_list" name="after_body_start" as="after_body_start" translate="label">
+                <label>Page Top</label>
+            </block>
+
+            <block type="gri_page/html_topmessage" name="page_top" as="page_top" template="page/html/page_top.phtml" />
+
+            <block type="gri_page/html_topmessage" name="page_top_mobile" as="page_top_mobile" template="page/html/page_top_mobile.phtml" />
+
+            <block type="page/html_notices" name="global_notices" as="global_notices" template="page/html/notices.phtml" />
+
+            <block type="page/html" name="page.ajax.loader" as="page.ajax.loader" template="page/html/ajax_loader.phtml" />
+
+            <block type="page/html_header" name="header" as="header">
+                <block type="page/template_links" name="checkout.links" as="checkoutLinks"/>
+				<!--<block type="checkout/cart_sidebar" name="cart_header" template="checkout/cart/sidebar_header.phtml">
+                    <action method="addItemRender"><type>simple</type><block>checkout/cart_item_renderer</block><template>checkout/cart/sidebar/default.phtml</template></action>
+                    <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/cart/sidebar/default.phtml</template></action>
+                    <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/cart/sidebar/default.phtml</template></action>
+                    <block type="core/text_list" name="cart_sidebar.extra_actions" as="extra_actions" translate="label" module="checkout">
+                        <label>Shopping Cart Sidebar Extra Actions</label>
+                    </block>
+                </block>-->
+
+                <block type="page/template_links" name="top.links" as="topLinks"/>
+                <block type="page/template_links" name="top.right.links" as="toprightLinks"/>
+                <!--<block type="page/switch" name="store_language" as="store_language" template="page/switch/languages.phtml"/>-->
+                <block type="gri_core/shipsTo" name="ships_to" template="page/html/ships_to.phtml" />
+                <block type="page/html_header" name="top_wishlist" template="page/html/topWishlist.phtml" />
+                <block type="page/switch" name="store_language" as="store_language" template="page/switch/languages.phtml" ifconfig="general/store_switcher/enabled"/>
+
+                <!--swipe-->
+                <block type="page/template_links" name="top.links.swipe" as="top.links.swipe" template="page/html/topLink_swipe.phtml"/>
+                <block type="page/switch" name="store_language_swipe" as="store_language_swipe" template="page/switch/languages_swipe.phtml"/>
+                <block type="gri_core/shipsTo" name="ships_to_swipe" template="page/html/ships_to_swipe.phtml" />
+                <block type="core/template" name="follow.us.swipe" template="page/html/follow_us_swipe.phtml"/>
+
+				<block type="directory/currency" name="currency" template="directory/currency.phtml"/>
+                <block type="directory/currency" name="currency_2" template="directory/currency2.phtml"/>
+                <block type="core/text_list" name="top.menu" as="topMenu" translate="label">
+                    <label>Navigation Bar</label>
+                    <block type="gri_page/html_topmenuV2014" name="catalog.topnav" template="page/html/topmenu.phtml"/>
+                </block>
+                <block type="page/html_wrapper" name="top.container" as="topContainer" translate="label">
+                    <label>Page Header</label>
+                    <action method="setElementClass"><value>top-container</value></action>
+                </block>
+                <block type="page/html_welcome" name="welcome" as="welcome"/>
+
+            </block>
+
+            <block type="gri_page/brand" name="brand-banner" as="brand-banner" template="page/brand_banner.phtml">
+                <block type="cms/block" name="ninewest.banner" as="ninewest.banner">
+                    <action method="setBlockId"><block_id>ninewest_banner</block_id></action>
+                </block>
+                <block type="cms/block" name="eqiq.banner" as="eqiq.banner">
+                    <action method="setBlockId"><block_id>eqiq_banner</block_id></action>
+                </block>
+                <block type="cms/block" name="stevemadden.banner" as="stevemadden.banner">
+                    <action method="setBlockId"><block_id>stevemadden_banner</block_id></action>
+                </block>
+                <block type="cms/block" name="betseyjohnson.banner" as="betseyjohnson.banner">
+                    <action method="setBlockId"><block_id>betseyjohnson_banner</block_id></action>
+                </block>
+                <block type="cms/block" name="carolinnaespinosa.banner" as="carolinnaespinosa.banner">
+                    <action method="setBlockId"><block_id>carolinnaespinosa_banner</block_id></action>
+                </block>
+                <block type="cms/block" name="jeannepierre.banner" as="jeannepierre.banner">
+                    <action method="setBlockId"><block_id>jeannepierre_banner</block_id></action>
+                </block>
+            </block>
+
+            <block type="gri_page/brand" name="brand.bottom" as="brand.bottom" template="page/brand_bottom.phtml"></block>
+
+            <block type="gri_page/shop" name="shop-banner" as="shop-banner" template="page/shop_banner.phtml">
+                <block type="cms/block" name="shoes.banner" as="shoes.banner">
+                    <action method="setBlockId"><block_id>shoes_banner</block_id></action>
+                </block>
+                <block type="cms/block" name="clothing.banner" as="clothing.banner">
+                    <action method="setBlockId"><block_id>clothing_banner</block_id></action>
+                </block>
+                <block type="cms/block" name="accessories.banner" as="accessories.banner">
+                    <action method="setBlockId"><block_id>accessories_banner</block_id></action>
+                </block>
+                <block type="cms/block" name="bags.banner" as="bags.banner">
+                    <action method="setBlockId"><block_id>bags_banner</block_id></action>
+                </block>
+            </block>
+
+            <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
+                <block type="page/html_pager" name="product_list_toolbar_pager"/>
+            </block>
+
+            <block type="page/html_breadcrumbs" name="breadcrumbs" as="breadcrumbs"/>
+
+            <block type="core/text_list" name="left" as="left" translate="label">
+                <label>Left Column</label>
+            </block>
+
+            <block type="gri_message/messages" name="global_messages" as="global_messages"/>
+            <block type="gri_message/messages" name="messages" as="messages"/>
+
+            <block type="core/text_list" name="content" as="content" translate="label">
+                <label>Main Content Area</label>
+            </block>
+
+            <block type="core/text_list" name="right" as="right" translate="label">
+                <label>Right Column</label>
+            </block>
+
+            <block type="page/html_footer" name="footer" as="footer" template="page/html/footer.phtml">
+				<block type="cms/block" name="footer_list">
+					<action method="setBlockId"><block_id>footer_list</block_id></action>
+				</block>
+                <block type="page/html_wrapper" name="bottom.container" as="bottomContainer" translate="label">
+                    <label>Page Footer</label>
+                    <action method="setElementClass"><value>bottom-container</value></action>
+                </block>
+                <block type="newsletter/subscribe" name="footer.newsletter" as="left.newsletter" template="newsletter/subscribe.phtml"/>
+                <block type="page/switch" name="store_switcher" as="store_switcher" template="page/switch/stores.phtml"/>
+                <block type="page/template_links" name="footer_links" as="footer_links" template="page/template/links.phtml"/>
+                <block type="gri_customer/form_ajaxLogin"  name="ajax.login" as="ajax.login" template="customer/form/ajax.login.phtml" />
+            </block>
+
+            <block type="core/text_list" name="before_body_end" as="before_body_end" translate="label">
+                <label>Page Bottom</label>
+            </block>
+
+            <block type="gri_contacts/contacts" name="bottom.contactForm" template="contacts/bottom_form.phtml"/>
+        </block>
+
+        <block type="core/profiler" output="toHtml" name="core_profiler"/>
+    </default>
+
+    <print translate="label" module="page">
+        <label>All Pages (Print Version)</label>
+        <!-- Mage_Page -->
+        <block type="page/html" name="root" output="toHtml" template="page/print.phtml">
+
+            <block type="gri_page/html_head" name="head" as="head">
+                <action method="addJs"><script>prototype/prototype.js</script></action>
+                <action method="addJs"><script>mage/translate.js</script></action>
+                <action method="addJs"><script>lib/ccard.js</script></action>
+                <action method="addJs"><script>prototype/validation.js</script></action>
+                <action method="addJs"><script>varien/js.js</script></action>
+
+                <action method="addCss"><stylesheet>css/styles.css</stylesheet></action>
+                <action method="addItem"><type>skin_css</type><name>css/styles-ie.css</name><params/><if>lt IE 8</if></action>
+                <action method="addCss"><stylesheet>css/widgets.css</stylesheet></action>
+                <action method="addCss"><stylesheet>css/print.css</stylesheet><params>media="print"</params></action>
+
+                <action method="addItem"><type>js</type><name>lib/ds-sleight.js</name><params/><if>lt IE 7</if></action>
+                <action method="addItem"><type>skin_js</type><name>js/ie6.js</name><params/><if>lt IE 7</if></action>
+
+            </block>
+
+            <block type="core/text_list" name="content" as="content" translate="label">
+                <label>Main Content Area</label>
+            </block>
+
+        </block>
+    </print>
+
+     <!-- Custom page layout handles -->
+    <page_empty translate="label">
+        <label>All Empty Layout Pages</label>
+        <reference name="root">
+            <action method="setTemplate"><template>page/empty.phtml</template></action>
+            <!-- Mark root page block that template is applied -->
+            <action method="setIsHandle"><applied>1</applied></action>
+        </reference>
+    </page_empty>
+
+    <page_one_column translate="label">
+        <label>All One-Column Layout Pages</label>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+            <!-- Mark root page block that template is applied -->
+            <action method="setIsHandle"><applied>1</applied></action>
+        </reference>
+    </page_one_column>
+
+    <page_two_columns_left translate="label">
+        <label>All Two-Column Layout Pages (Left Column)</label>
+        <reference name="root">
+            <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+            <!-- Mark root page block that template is applied -->
+            <action method="setIsHandle"><applied>1</applied></action>
+        </reference>
+    </page_two_columns_left>
+
+    <page_two_columns_right translate="label">
+        <label>All Two-Column Layout Pages (Right Column)</label>
+        <reference name="root">
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+            <!-- Mark root page block that template is applied -->
+            <action method="setIsHandle"><applied>1</applied></action>
+        </reference>
+    </page_two_columns_right>
+
+    <page_three_columns translate="label">
+        <label>All Three-Column Layout Pages</label>
+        <reference name="root">
+            <action method="setTemplate"><template>page/3columns.phtml</template></action>
+            <!-- Mark root page block that template is applied -->
+            <action method="setIsHandle"><applied>1</applied></action>
+        </reference>
+    </page_three_columns>
+
+    <product_quick_view translate="label">
+        <label>Product Quick View Layout Pages</label>
+        <reference name="root">
+            <action method="setTemplate"><template>page/product_quick_view.phtml</template></action>
+            <!-- Mark root page block that template is applied -->
+            <action method="setIsHandle"><applied>1</applied></action>
+        </reference>
+    </product_quick_view>
+
+    <default>
+        <reference name="head">
+            <action method="addItem"><type>skin_css</type><name>css/home.css</name></action>
+            <action method="addCss"><stylesheet>css/extra_style.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/font-awesome.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/jquery.bxslider.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/photoswipe.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/bootstrap.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/styles.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/responsive.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/superfish.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/cms_responsive.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/cms_style.css</stylesheet></action>
+
+            <action method="addItem"><type>js</type><name>jquery/jquery.selectBox.min.js</name></action>
+            <action method="addItem"><type>js</type><name>jquery/jquery.easing.js</name></action>
+            <action method="addItem"><type>js</type><name>jquery/jquery.jscrollpane.min.js</name></action>
+            <action method="addItem"><type>js</type><name>jquery/jquery.jcarousel.min.js</name></action>
+            <action method="addCss"><stylesheet>css/jquery.selectBox.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/localeV2014.css</stylesheet></action>
+			<action method="addCss"><stylesheet>css/localeV2014.response.css</stylesheet></action>
+            <action method="addItem"><type>skin_js</type><name>js/scripts.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/superfish.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/jquery-migrate-1.2.1.min.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/jquery.fancybox-1.3.4.pack.js</name></action>
+            <!--for price slider-->
+            <action method="addItem"><type>skin_css</type><name>css/price-slider.css</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/jquery.ui.core.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/jquery.ui.widget.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/jquery.ui.mouse.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/jquery.ui.slider.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/jquery.ui.touch-punch.min.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/css3-mediaqueries.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/cms_script.js</name></action>
+        </reference>
+
+        <reference name="top.links">
+            <remove name="wishlist_link" />
+        </reference>
+        <reference name="footer">
+            <block type="core/template" name="follow.us" template="page/html/follow_us.phtml"/>
+        </reference>
+    </default>
+</layout>

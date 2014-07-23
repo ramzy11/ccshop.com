@@ -1,0 +1,173 @@
+<?php
+/* @var $this Gri_Customer_Block_Address_Edit_Fields */
+/* @var $checkoutHelper Mage_Checkout_Helper_Data */
+$checkoutHelper = $this->helper('checkout');
+/* @var $addressHelper Mage_Customer_Helper_Address */
+$addressHelper = $this->helper('customer/address');
+/* @var $customerSession Mage_Customer_Model_Session */
+$customerSession = Mage::getSingleton('customer/session');
+$addressType = $this->getAddressType();
+$address = $this->getAddress();
+$layout = $this->getLayout();
+?>
+<ul class="form-list address-fields-<?php echo $addressType; ?>">
+    <li class="fields"><?php echo $layout->createBlock('customer/widget_name')->setObject($address->getFirstname() ? $address : $this->getQuote()->getCustomer())->setForceUseCustomerRequiredAttributes(!$customerSession->isLoggedIn())->setFieldIdFormat($addressType ? $addressType . ':%s' : '%s')->setFieldNameFormat($addressType ? $addressType . '[%s]' : '%s')->toHtml() ?></li>
+    <?php $_streetValidationClass = $addressHelper->getAttributeValidationClass('street'); ?>
+    <li class="wide field-street-address">
+        <label for="<?php echo $this->getFullyQualifiedId('street1'); ?>" class="required"><em>*</em><?php echo $checkoutHelper->__('Address') ?>
+        </label>
+
+        <div class="input-box">
+            <input type="text" title="<?php echo $checkoutHelper->__('Street Address') ?>" name="<?php echo $this->getFullyQualifiedName('street[]'); ?>" id="<?php echo $this->getFullyQualifiedId('street1'); ?>" value="<?php echo $this->escapeHtml($address->getStreet(1)) ?>" class="input-text <?php echo $_streetValidationClass ?>"/>
+        </div>
+    </li>
+    <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
+    <?php for ($_i = 2, $_n = $addressHelper->getStreetLines(); $_i <= $_n; $_i++): ?>
+    <li class="wide">
+        <label>&nbsp;</label>
+        <div class="input-box">
+            <input type="text" title="<?php echo $checkoutHelper->__('Street Address %s', $_i) ?>" name="<?php echo $this->getFullyQualifiedName('street[]'); ?>" id="<?php echo $this->getFullyQualifiedId('street' . $_i); ?>" value="<?php echo $this->escapeHtml($address->getStreet($_i)) ?>" class="input-text <?php echo $_streetValidationClass ?>"/>
+        </div>
+    </li>
+    <?php endfor; ?>
+    <li class="wide"><label>&nbsp;</label><p class="f11 grey"><?php echo $checkoutHelper->__('If shipping to a work address, please include the company name') ?></p></li>
+    <?php if ($addressHelper->isVatAttributeVisible()) : ?>
+    <li class="wide">
+        <label for="<?php echo $this->getFullyQualifiedId('vat_id'); ?>"><?php echo $checkoutHelper->__('VAT Number') ?></label>
+
+        <div class="input-box">
+            <input type="text" id="<?php echo $this->getFullyQualifiedId('vat_id'); ?>" name="<?php echo $this->getFullyQualifiedName('vat_id'); ?>" value="<?php echo $this->escapeHtml($address->getVatId()) ?>" title="<?php echo $checkoutHelper->__('VAT Number') ?>" class="input-text <?php echo $addressHelper->getAttributeValidationClass('vat_id') ?>"/>
+        </div>
+    </li>
+    <?php endif; ?>
+    <li class="fields address-fields">
+        <div class="field field-city">
+            <label for="<?php echo $this->getFullyQualifiedId('city'); ?>" class="required"><em>*</em><span><?php echo $checkoutHelper->__('City') ?></span></label>
+
+            <div class="input-box">
+                <select id="<?php echo $this->getFullyQualifiedId('city_id'); ?>" name="<?php echo $this->getFullyQualifiedName('city_id'); ?>" title="<?php echo $checkoutHelper->__('City') ?>" class="" style="display:none;">
+                    <option value=""><?php echo $checkoutHelper->__('Please select...') ?></option>
+                </select>
+                <script type="text/javascript">
+                    //<![CDATA[
+                    $('<?php echo $this->getFullyQualifiedId('city_id'); ?>').setAttribute('defaultValue', "<?php echo $address->getCity() ?>");
+                    //]]>
+                </script>
+                <input type="text" title="<?php echo $checkoutHelper->__('City') ?>" name="<?php echo $this->getFullyQualifiedName('city'); ?>" value="<?php echo $this->escapeHtml($address->getCity()) ?>" class="input-text <?php echo $addressHelper->getAttributeValidationClass('city') ?>" id="<?php echo $this->getFullyQualifiedId('city'); ?>" style="display:none;"/>
+            </div>
+        </div>
+        <div class="field field-region">
+            <label for="<?php echo $this->getFullyQualifiedId('region_id'); ?>" class="required"><em>*</em><span><?php echo $checkoutHelper->__('State/Province') ?></span></label>
+
+            <div class="input-box">
+                <select id="<?php echo $this->getFullyQualifiedId('region_id'); ?>" name="<?php echo $this->getFullyQualifiedName('region_id'); ?>" title="<?php echo $checkoutHelper->__('State/Province') ?>" class="validate-select" style="display:none;">
+                    <option value=""><?php echo $checkoutHelper->__('Please select...') ?></option>
+                </select>
+                <script type="text/javascript">
+                    //<![CDATA[
+                    $('<?php echo $this->getFullyQualifiedId('region_id'); ?>').setAttribute('defaultValue', "<?php echo $address->getRegionId() ?>");
+                    //]]>
+                </script>
+                <input type="text" id="<?php echo $this->getFullyQualifiedId('region'); ?>" name="<?php echo $this->getFullyQualifiedName('region'); ?>" value="<?php echo $this->escapeHtml($address->getRegion()) ?>" title="<?php echo $checkoutHelper->__('State/Province') ?>" class="input-text <?php echo $addressHelper->getAttributeValidationClass('region') ?>" style="display:none;"/>
+                <?php /*<p class="remark-text"><?php echo $this->__('To collect your online order at CENTRAL/CENRTAL flagship store, please select "Central/Central Store".') ?></p>*/ ?>
+            </div>
+        </div>
+        <div class="field field-country">
+            <label for="<?php echo $this->getFullyQualifiedId('country_id'); ?>" class="required"><?php echo $checkoutHelper->__('Country') ?>
+            </label>
+
+            <div class="input-box">
+                <?php echo $this->getCountryHtmlSelect($addressType) ?>
+            </div>
+        </div>
+        <div class="field field-postcode">
+            <label for="<?php echo $this->getFullyQualifiedId('postcode'); ?>" class="required"><em>*</em><?php echo $checkoutHelper->__('Zip/Postal Code') ?>
+            </label>
+
+            <div class="input-box">
+                <input type="text" title="<?php echo $checkoutHelper->__('Zip/Postal Code') ?>" name="<?php echo $this->getFullyQualifiedName('postcode'); ?>" id="<?php echo $this->getFullyQualifiedId('postcode'); ?>" value="<?php echo $this->escapeHtml($address->getPostcode()) ?>" class="input-text validate-zip-international <?php echo $addressHelper->getAttributeValidationClass('postcode') ?>"/>
+            </div>
+        </div>
+    </li>
+    <li class="fields">
+        <?php if (!Mage::getSingleton('customer/session')->getCustomerId()) { ?>
+        <div class="field">
+            <label for="<?php echo $this->getFullyQualifiedId('email'); ?>" class="required"><em>*</em><?php echo $checkoutHelper->__('Email') ?>
+            </label>
+
+            <div class="input-box">
+                <input type="text" name="<?php echo $this->getFullyQualifiedName('email'); ?>" id="<?php echo $this->getFullyQualifiedId('email'); ?>" value="<?php echo $this->escapeHtml($address->getEmail()) ?>" title="<?php echo $checkoutHelper->__('Email') ?>" class="input-text validate-email required-entry"/>
+            </div>
+        </div>
+        <?php } ?>
+        <div class="field">
+            <label for="<?php echo $this->getFullyQualifiedId('telephone'); ?>" class="required"><em>*</em><?php echo $checkoutHelper->__('Phone') ?>
+            </label>
+
+            <div class="input-box">
+                <input type="text" name="<?php echo $this->getFullyQualifiedName('telephone'); ?>" value="<?php echo $this->escapeHtml($address->getTelephone()) ?>" title="<?php echo $checkoutHelper->__('Phone') ?>" class="input-text <?php echo $addressHelper->getAttributeValidationClass('telephone') ?>" id="<?php echo $this->getFullyQualifiedId('telephone'); ?>"/>
+                <p class="f11 grey"><?php echo $checkoutHelper->__('Please provide the country code (e.g. +852) before telephone number.') ?></p>
+            </div>
+        </div>
+    </li>
+    <?php if (!$customerSession->isLoggedIn()) { ?>
+
+    <?php $_dob = $layout->createBlock('customer/widget_dob') ?>
+    <?php $_gender = $layout->createBlock('customer/widget_gender') ?>
+    <?php if ($_dob->isEnabled() || $_gender->isEnabled()): ?>
+        <li class="fields">
+            <?php if ($_dob->isEnabled()): ?>
+            <div class="field">
+                <?php echo $_dob->setDate($this->getQuote()->getCustomerDob())->setFieldIdFormat($addressType ? $addressType . ':%s' : '%s')->setFieldNameFormat($addressType ? $addressType . '[%s]' : '%s')->toHtml() ?>
+            </div>
+            <?php endif; ?>
+            <?php if ($_gender->isEnabled()): ?>
+            <div class="field">
+                <?php echo $_gender->setGender($this->getQuote()->getCustomerGender())->setFieldIdFormat($addressType ? $addressType . ':%s' : '%s')->setFieldNameFormat($addressType ? $addressType . '[%s]' : '%s')->toHtml() ?>
+            </div>
+            <?php endif ?>
+        </li>
+        <?php endif ?>
+
+    <?php $_taxvat = $layout->createBlock('customer/widget_taxvat') ?>
+    <?php if ($_taxvat->isEnabled()): ?>
+        <li>
+            <?php echo $_taxvat->setTaxvat($this->getQuote()->getCustomerTaxvat())->setFieldIdFormat($addressType ? $addressType . ':%s' : '%s')->setFieldNameFormat($addressType ? $addressType . '[%s]' : '%s')->toHtml() ?>
+        </li>
+        <?php endif ?>
+
+    <li class="fields" id="register-customer-password">
+        <div class="field">
+            <label for="<?php echo $this->getFullyQualifiedId('customer_password'); ?>" class="required"><em>*</em><?php echo $checkoutHelper->__('Password') ?>
+            </label>
+
+            <div class="input-box">
+                <input type="password" name="<?php echo $this->getFullyQualifiedName('customer_password'); ?>" id="<?php echo $this->getFullyQualifiedId('customer_password'); ?>" title="<?php echo $checkoutHelper->__('Password') ?>" class="input-text required-entry validate-password"/>
+            </div>
+        </div>
+        <div class="field">
+            <label for="<?php echo $this->getFullyQualifiedId('confirm_password'); ?>" class="required"><em>*</em><?php echo $checkoutHelper->__('Confirm Password') ?>
+            </label>
+
+            <div class="input-box">
+                <input type="password" name="<?php echo $this->getFullyQualifiedName('confirm_password'); ?>" title="<?php echo $checkoutHelper->__('Confirm Password') ?>" id="<?php echo $this->getFullyQualifiedId('confirm_password'); ?>" class="input-text required-entry validate-cpassword"/>
+            </div>
+        </div>
+    </li>
+    <?php } ?>
+    <?php echo $this->getParentBlock()->getChildHtml('form.additional.info'); ?>
+</ul>
+<script type="text/javascript">
+    RegionUpdater.selfPickUpAddress = <?php echo $this->helper('core')->jsonEncode($this->helper('gri_directory')->__('Central/Central Stock Pick-up')); ?>;
+<?php if ($this->isAddressHighToLow()) { ?>
+    var addressRearranged = false;
+    var addressFields = ".address-fields-<?php echo $addressType; ?>";
+    if (!addressRearranged) (function ($) {
+        var region = $(addressFields + " .field-region"), country = $(addressFields + " .field-country");
+        var highLevel = country.parent(), streetAddress = $(addressFields + " .field-street-address");
+        region.prependTo(highLevel);
+        country.prependTo(highLevel);
+        highLevel.insertBefore(streetAddress);
+    })(jQuery);
+<?php } ?>
+</script>

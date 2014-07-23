@@ -1,0 +1,27 @@
+<?php
+/**
+ * Follow us on SNS sites
+ */
+/* @var $this Mage_Core_Block_Template */
+?>
+<?php
+$isCnSite = 'CN' == Mage::helper('core')->getDefaultCountry()
+?>
+<div class="follow-us-swipe">
+    <span class="rig_space"><?php echo $this->__('Follow'); ?></span>
+    <?php if ($isCnSite) { ?>
+        <a href="http://e.weibo.com/u/2967136555?ref=http%3A%2F%2Fweibo.com%2F2706313483%2Fmyfollow" target="_blank" class="follow-us-wb" title="weibo">&nbsp;</a>
+        <a href="http://e.weibo.com/u/2967136555?ref=http%3A%2F%2Fweibo.com%2F2706313483%2Fmyfollow" style="width:100px;padding-top: 2px;" ><?php echo $this->__('Follow our Official Weibo'); ?></a>
+    <?php } else { ?>
+    <?php $facebookHelper = Mage::helper('inchoo_facebook') ;?>
+    <?php if($facebookHelper->isEnabledShareAndFollowUs()):?>
+        <a target="_blank" href="<?php echo $facebookHelper->getFollowUsUrl(); ?>"  class="follow-us-wb follow-us-fb" title="Facebook">&nbsp;</a>
+        <?php endif;?>
+
+        <?php $customerHelper = Mage::helper('gri_customer') ;?>
+        <a target="_blank" href="http://instagram.com/centralcentralshop" class="follow-us-wb follow-us-insg" title="Instagram">&nbsp;</a>
+        <?php if($customerHelper->enabledYoutube()):?>
+        <a target="_blank"  href="<?php echo $customerHelper->getYoutubeFollowUsUrl() ?>"  class="follow-us-wb follow-us-yt" title="Youtube">&nbsp;</a>
+        <?php endif;?>
+    <?php } ?>
+</div>

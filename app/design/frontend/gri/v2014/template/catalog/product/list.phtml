@@ -1,0 +1,132 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+/* @var $this Gri_CatalogCustom_Block_Product_List */
+?>
+<?php
+$_productCollection=$this->getLoadedProductCollection();
+$_helper = $this->helper('catalog/output');
+/* @var $productHelper Gri_CatalogCustom_Helper_Product */
+$productHelper = $this->helper('gri_catalogcustom/product');
+
+/* @var $swatchHelper Magiatec_Colorswatch_Helper_Swatch */
+$swatchHelper = Mage::helper('magiatecolorswatch/swatch');
+$imageWidth = 180;
+$imageHeight = 181;
+?>
+<?php if(!$_productCollection->count()): ?>
+<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+
+<?php else: ?>
+<div class="category-products">
+    <?php /*if(!in_array($this->getRequest()->getRouteName(),array('catalogsearch','gri_catalogsearch')))echo $this->getToolbarHtml()*/ ?>
+    <?php // List mode ?>
+    <?php if($this->getMode() != 'grid'): ?>
+    <?php $_iterator = 0; ?>
+    <ol class="products-list" id="products-list">
+    <?php foreach ($_productCollection as $_product): ?>
+        <li class="item<?php if( ++$_iterator == sizeof($_productCollection) ): ?> last<?php endif; ?>">
+            <?php echo $productHelper->renderProduct($_product); ?>
+        </li>
+    <?php endforeach; ?>
+    </ol>
+    <script type="text/javascript">decorateList('products-list', 'none-recursive')</script>
+
+    <?php else: ?>
+
+    <?php // Grid Mode ?>
+    <?php $_collectionSize = $_productCollection->count() ?>
+    <?php $_columnCount = $this->getRequest()->getParam('column_count') ? $this->getRequest()->getParam('column_count') : $this->getColumnCount(); ?>
+        <div class="products-grid">
+            <?php foreach ($_productCollection as $_product): ?>
+                <div class="item">
+                    <?php if ($this->getChild('gifticon')) { ?><?php echo $this->getChild('gifticon')->setProduct($_product)->setIgnoreRules(false)->toHtml(); ?><?php } ?>
+                    <?php echo $productHelper->renderProduct($_product); ?>
+                </div>
+            <?php endforeach ?>
+        </div>
+        <script type="text/javascript">
+            decorateGeneric($$('ul.products-grid'), ['odd','even','first','last']);
+        </script>
+    <?php endif; ?>
+
+    <div class="toolbar-bottom">
+        <?php echo $this->getToolbarHtml() ?>
+    </div>
+</div>
+<?php endif; ?>
+
+<script type="text/javascript">
+    (function ($) {
+        window.addtoWhishlist = window.addtoWhishlist || function (url,productId) {
+            var ajaxLoader = $('#page-ajax-loader'),
+                productId = productId,
+                addtoBtn = $('#addtoWishlist'+productId);
+                ajaxLoader.show();
+           // if (url.indexOf('?') == '-1') url += '?';
+          //  if (url.indexOf('isAjax') == '-1') url += '&isAjax=1';
+            $.ajax({
+                url: url,
+                dataType: 'json',
+                type: 'post',
+                success: function (data) {
+                    ajaxLoader.hide();
+                    if(data.status == 'no-login'){
+                        parent.window.location.href = '<?php echo Mage::getUrl('customer/account/login')?>';
+                    }else{
+                        if(data.topWishlist){
+                            $(".header-container .header .header-buttons .links .top-wishlist .top-wishlist-link").replaceWith(data.topWishlist);
+                        }
+                        var messageBlock = $("#addto-message-"+productId).html(data.message).addClass('wishlist-message').show();
+                        setTimeout(function(){messageBlock.fadeOut();}, 3000);
+                    }
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                     this;
+                }
+            });
+        }
+    })(jQuery);
+
+    function changeWishlist(text){
+        _(".header-container .header .header-buttons .links .top-wishlist .top-wishlist-link").replaceWith(text);
+    }
+
+    function changeTopCart(text){
+        _('.header .top-cart-container').replaceWith(text);
+    }
+
+    function changeTopCartSwipe(text){
+        _('.top-icon-menu .top-cart-container').replaceWith(text);
+    }
+
+</script>

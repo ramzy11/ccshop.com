@@ -1,0 +1,19 @@
+<?php
+/* @var Gri_Sales_Block_Adminhtml_Creditmemo_Transaction_Form $this */
+?>
+<div class="grid">
+    <table class="data" cellspacing="0">
+        <thead>
+            <tr class="headings">
+                <th><label for="add_txn_id"><?php echo $this->__('Add Transaction ID'); ?></label></th>
+                <th class="last">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input id="add_txn_id" name="txn_id" class="input-text" value=""/></td>
+                <td class="last"><?php echo $this->getSaveButton()->toHtml(); ?></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

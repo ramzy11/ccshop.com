@@ -1,0 +1,22 @@
+<!--@subject 您已经收到从{{var store.getFrontendName()}}发送过来的礼品卡 @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image",
+"var name|escape":"Recipient Name",
+"var store.getFrontendName()|escape":"Store Name",
+"var code|escape":"Gift Card Code",
+"var balance":"Gift Card Balance"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+{{block type='core/template' area='frontend' template='email/header.phtml'}}
+<h1 style="font-size:18px;color:#000; font-weight:normal; line-height:44px; margin:10px 0 11px 0;">亲爱的 {{var name|escape}}</h1>
+<p style="font-size:12px;color:#000; line-height:16px; margin:0 0 16px 0;">你已经收到一张{{var store.getFrontendName()|escape}}礼品卡，您现在可以用于购物。</p>
+<p style="font-size:12px;color:#000; line-height:16px; margin:0 0 16px 0;"><strong>礼品卡码是:</strong> {{var code|escape}}.</p>
+<p style="font-size:12px;color:#000; line-height:16px; margin:0;">礼品卡的金额是{{var balance}}，可用于在<a href="{{store url="/"}}">{{store url="/"}}</a>消费。</p>
+<br />
+<br />
+<br />
+<br />
+{{block type='core/template' area='frontend' template='email/footer.phtml'}}

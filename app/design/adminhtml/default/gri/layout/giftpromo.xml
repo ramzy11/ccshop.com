@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_catalog_product_edit>
+        <reference name="head">
+            <action method="addItem"><type>js</type><name>giftpromo/adminhtml/rules.js</name><params/></action>
+            <action method="addItem"><type>js</type><name>giftpromo/adminhtml/set-removeable.js</name><params/></action>
+            <action method="addCss"><file>giftpromo/giftpromo.css</file></action>
+        </reference>
+    </adminhtml_catalog_product_edit>
+    <adminhtml_catalog_product_new>
+        <reference name="head">
+            <action method="addItem"><type>js</type><name>giftpromo/adminhtml/rules.js</name><params/></action>
+            <action method="addItem"><type>js</type><name>giftpromo/adminhtml/set-removeable.js</name><params/></action>
+        </reference>
+    </adminhtml_catalog_product_new>
+    <adminhtml_catalog_product_giftpromo>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="giftpromo/adminhtml_catalog_product_edit_tab_giftpromo" name="catalog.product.edit.tab.giftpromo"/>
+            <block type="adminhtml/widget_grid_serializer" name="giftpromo_grid_serializer">
+                <reference name="giftpromo_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>catalog.product.edit.tab.giftpromo</grid_block_name>
+                        <data_callback>getSelectedGiftPromo</data_callback>
+                        <hidden_input_name>links[gift_products]</hidden_input_name>
+                        <reload_param_name>gift_products</reload_param_name>
+                    </action>
+                    <action method="addColumnInputName">
+                        <input_name>position</input_name>
+                        <input_name>gifted_price</input_name>
+                        <input_name>gifted_qty</input_name>
+                        <input_name>gifted_qty_max</input_name>
+                        <input_name>gifted_message</input_name>
+                        <input_name>gifted_label</input_name>
+                        <input_name>rule_id</input_name>
+                        <input_name>can_delete</input_name>
+                        <input_name>add_method</input_name>
+                    </action>
+                </reference>
+            </block>
+        </block>
+    </adminhtml_catalog_product_giftpromo>
+
+    <adminhtml_catalog_product_giftpromogrid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="giftpromo/adminhtml_catalog_product_edit_tab_giftpromo" name="catalog.product.edit.tab.giftpromo"/>
+        </block>
+    </adminhtml_catalog_product_giftpromogrid>
+    
+    <adminhtml_catalog_category_edit>
+        <reference name="head">
+            <action method="addJs"><script>giftpromo/adminhtml/ext-form.js</script></action>
+            <action method="addItem"><type>js</type><name>giftpromo/adminhtml/rules.js</name><params/></action>
+            <action method="addCss"><file>giftpromo/giftpromo.css</file></action>
+            <action method="addItem"><type>js</type><name>giftpromo/adminhtml/set-removeable.js</name><params/></action>
+            <reference name="head">
+        </reference>
+        </reference>
+    </adminhtml_catalog_category_edit>
+    
+    
+    <!-- Shopping Cart Price Rule -->
+    <giftpromo_adminhtml_promo_rule_index>
+        <reference name="content">
+            <block type="giftpromo/adminhtml_promo_rule" name="giftpromo_promo_rule"></block>
+        </reference>
+    </giftpromo_adminhtml_promo_rule_index>
+    
+    <giftpromo_adminhtml_promo_rule_edit>
+        <reference name="head">
+            <action method="setCanLoadExtJs"><flag>1</flag></action>
+            <action method="setCanLoadRulesJs"><flag>1</flag></action>
+        </reference>
+        <reference name="left">
+            <block type="giftpromo/adminhtml_promo_rule_edit_tabs" name="giftpromo_promo_rule_edit_tabs">
+                <block type="giftpromo/adminhtml_promo_rule_edit_tab_main" name="giftpromo_promo_rule_edit_tab_main" />
+                <block type="giftpromo/adminhtml_promo_rule_edit_tab_conditions" name="giftpromo_promo_rule_edit_tab_conditions"/>
+                <block type="giftpromo/adminhtml_promo_rule_edit_tab_actions" name="giftpromo_promo_rule_edit_tab_actions"/>
+                <action method="addTab"><name>main_section</name><block>giftpromo_promo_rule_edit_tab_main</block></action>                
+                <action method="addTab"><name>conditions_section</name><block>giftpromo_promo_rule_edit_tab_conditions</block></action>
+                <action method="addTab"><name>actions_section</name><block>giftpromo_promo_rule_edit_tab_actions</block></action>
+            </block>
+        </reference>
+        <reference name="content">
+            <block type="giftpromo/adminhtml_promo_rule_edit" name="giftpromo_promo_rule_edit"></block>
+        </reference>
+    </giftpromo_adminhtml_promo_rule_edit>
+    
+    <giftpromo_adminhtml_promo_rule_grid>
+        <remove name="root" />
+        <block type="adminhtml/promo_quote_edit_tab_product" name="promo_quote_grid" output="toHtml" />
+    </giftpromo_adminhtml_promo_rule_grid>
+    
+    <giftpromo_adminhtml_promo_rule_couponsgrid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/promo_quote_edit_tab_coupons_grid" name="promo_quote_edit_tab_coupons_grid" />
+        </block>
+    </giftpromo_adminhtml_promo_rule_couponsgrid>
+    
+    
+    
+</layout>

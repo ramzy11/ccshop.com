@@ -1,0 +1,67 @@
+<?php
+/**
+ * Ships to allowed countries link
+ */
+/* @var $this Gri_Core_Block_ShipsTo */
+$shipsToCountry = $this->getAllowedShipsToCountry();
+$shipsToCountry or $shipsToCountry = $this->getDefaultCountry();
+?>
+<div class="ships-to-swipe">
+    <a href="javascript:;"><?php echo $this->__('Change shipping destination')?></a><strong></strong>
+<?php if ($this->_getIpHelper()->enabled()) { ?>
+    <?php if ($this->_getIpHelper()->enableSwitchCurrency()) { ?>
+    <!--Switch Countries-->
+<div id="ships-to-submenu" class="menu-lists">
+    <div class="ship_swipe_container">
+        <div class="menu-back"><?php echo $this->__('Back')?></div>
+        <p class="currency country clearer">
+            <ul class="sel_country selectBox" tabindex="7">
+            <?php foreach($this->getAllowedCountries() as $countryCode){ ?>
+                <li title="<?php echo $countryName = $this->getCountryNameByCode($countryCode); ?>" class="<?php if ($countryCode == $shipsToCountry) {?>active<?php } ?>">
+                <a href="javascript:;" value="<?php echo $countryCode; ?>"><?php echo Mage::helper('gri_core')->__($countryName); ?></a></li>
+            <?php } ?>
+            <?php foreach($this->getSitesCountries() as $label => $url){ ?>
+                <li ><a url="1" value="<?php echo $url; ?>" href="javascript:;"><?php echo $label ?></a></li>
+            <?php } ?>
+            </ul>
+        </p>
+    </div>
+</div>
+
+<script type="text/javascript">
+(function($){
+    // Save country`1
+    $("#ships-to-submenu li a").on("click", function(){
+        var countryCode = $(this).attr('value'),
+            url = $(this).attr('url') ;
+
+        if (url == '0' && countryCode != '#') {
+            Mage.Cookies.set("country", countryCode);
+        }else if( url == '1'){
+            window.location = countryCode;
+            return false;
+        }
+
+        window.location.reload();
+    });
+})(jQuery);
+</script>
+
+<!--END OF Switch Countries-->
+<?php } else { ?>
+<div class="no-display">
+    <div id="ships-to-popup">
+        <div class="current-ships-to row">
+            <div class="message"><?php echo $this->_getIpHelper()->getMessage(); ?></div>
+        </div>
+        <div class="actions row">
+            <div class="buttons">
+                <button class="redirect button"><span><span><?php echo $this->__('Visit Hong Kong Site'); ?></span></span></button>
+                <button class="stay button"><span><span><?php echo $this->__('Stay here'); ?></span></span></button>
+            </div>
+        </div>
+    </div>
+</div>
+<?php } ?>
+<?php } ?>
+</div>

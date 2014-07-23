@@ -1,0 +1,35 @@
+/* General ================================================================================= */
+body{background:#000;color:#333;font:13px "Microsoft JhengHei","SimSun","PMingLiU","MingLiU",serif !important;line-height:1.5em;}
+
+/* Hide Betsey Johnson and EQ:IQ*/
+.header-container #nav .nav-3-3,.header-container #nav .nav-3-4{display:inline;}
+.col2-left-layout .col-left .bottom a .img_description p.caption_action{font-size: 21px;}
+.logo_area {padding-top:0px;}
+
+/********** < Navigation */
+#nav{font:11px "Microsoft JhengHei","SimSun","PMingLiU","MingLiU",serif;font-variant:small-caps;text-align: center;}
+#nav li.level0 a.level-top{padding:6px 18px;font-family:"Microsoft JhengHei","SimSun","PMingLiU","MingLiU",serif;}
+/* Ribbons */
+body .products-grid .item .new-arrival-ribbon{background-image:url(../images/new_arrival.png);}
+body.category-new-arrivals .products-grid .item .new-arrival-ribbon,
+body.category-pre-sales .products-grid .item .presale-ribbon,
+body.category-pre-order .products-grid .item .preorder-ribbon,
+body.brand-ninewest .products-grid .item .new-arrival-ribbon,
+body.brand-stevemadden .products-grid .item .new-arrival-ribbon,
+body.brand-carolinnaespinosa .products-grid .item .new-arrival-ribbon{background:none;}
+
+body .products-grid .item .on-sale-ribbon{background-image:url(../images/on_sale.png);}
+body .products-grid .item .flash-sale-ribbon{background-image:url(../images/flash_sale.png);}
+body .products-grid .item .preorder-ribbon{background-image:url(../images/pre-order.png);}
+body .products-grid .item .presale-ribbon{background-image:url(../images/pre-sale.png);}
+body.preorder-index-index  .products-grid .item .special_offer{background:none }
+body.presale-index-index .products-grid .item .special_offer{background:none }
+
+body.categorypath-ninewest-shop-shop-by-look-html .products-grid .item  .sold-out-ribbon{background-image:url(../images/sold-out.png);}
+/* My Account */
+.block-account .block-content{font-size:13px;}
+/* Footer ================================================================================ */
+.footer .links{font-family:"Microsoft JhengHei","SimSun","PMingLiU","MingLiU",serif !important;}
+/* Shipping Method ========================================================================*/
+#checkout-step-shipping_method .sp-methods .s_method_tablerate_bestway{background:url(../images/sf_and_ems.png) no-repeat scroll 0 bottom transparent;
+padding-bottom:45px;height:24px;}

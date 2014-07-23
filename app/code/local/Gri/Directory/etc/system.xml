@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <general>
+            <groups>
+                <country>
+                    <fields>
+                        <optional_city_countries translate="label" module="gri_directory">
+                            <label>City is Optional for the following countries</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </optional_city_countries>
+                    </fields>
+                </country>
+            </groups>
+        </general>
+    </sections>
+</config>

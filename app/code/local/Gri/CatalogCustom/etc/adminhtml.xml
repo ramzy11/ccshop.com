@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <catalogcustom translate="title">
+            <title>GRI</title>
+            <sort_order>100</sort_order>
+            <depends>
+                <module>Gri_CatalogCustom</module>
+            </depends>
+            <children>
+                <editor_pick translate="title">
+                    <title>Manage Editor's Pick</title>
+                    <sort_order>60</sort_order>
+                    <action>adminhtml/catalogcustom_editorpick</action>
+                </editor_pick>
+                <!--
+                <size_map translate="title">
+                    <title>Manage Size Map</title>
+                    <sort_order>60</sort_order>
+                    <action>adminhtml/catalogcustom_sizemap</action>
+                </size_map>
+                -->
+            </children>
+        </catalogcustom>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <catalogcustom>
+                        <title>GRI</title>
+                        <children>
+                            <editor_pick translate="title" module="gri_catalogcustom">
+                                <title>Manage Editor's Pick</title>
+                                <sort_order>40</sort_order>
+                            </editor_pick>
+                            <!--
+                            <size_map>
+                                <title>Manage Size Map</title>
+                                <sort_order>30</sort_order>
+                            </size_map>
+                            -->
+                        </children>
+                    </catalogcustom>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <gri_navigation translate="title" module="gri_catalogcustom">
+                                        <title>TOP Menu Management</title>
+                                    </gri_navigation>
+                                    <gri_attribute translate="title" module="gri_catalogcustom">
+                                        <title>Attribute Management</title>
+                                    </gri_attribute>
+                                    <gri_categories translate="title" module="gri_catalogcustom">
+                                        <title>Brands Management</title>
+                                    </gri_categories>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

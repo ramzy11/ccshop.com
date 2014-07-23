@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<jstranslator>
+    <!-- hamper.js -->
+    <photos translate="message" module="hamper">
+        <message>Photos</message>
+    </photos>
+    <pick-min-items translate="message" module="hamper">
+        <message>Please pick at least %s item(s)</message>
+    </pick-min-items>
+    <select-s translate="message" module="hamper">
+        <message>Select %s</message>
+    </select-s>
+    <sold-out translate="message" module="hamper">
+        <message>Sold out</message>
+    </sold-out>
+    <!-- end hamper.js -->
+</jstranslator>

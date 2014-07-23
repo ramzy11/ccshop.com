@@ -1,0 +1,227 @@
+<?xml version="1.0"?>
+<config>
+    <api>
+        <adapters>
+            <gri_api_bdt_rest>
+                <model>gri_api/api_bdt_adapter_rest</model>
+                <handler>gri_api_bdt_rest</handler>
+                <active>1</active>
+            </gri_api_bdt_rest>
+            <gri_api_hkAs400_rest>
+                <model>gri_api/api_hkAs400_adapter_rest</model>
+                <handler>gri_api_hkAs400_rest</handler>
+                <active>1</active>
+            </gri_api_hkAs400_rest>
+        </adapters>
+        <handlers>
+            <gri_api_bdt_rest>
+                <model>gri_api/api_bdt_handler_rest</model>
+            </gri_api_bdt_rest>
+            <gri_api_hkAs400_rest>
+                <model>gri_api/api_hkAs400_handler_rest</model>
+            </gri_api_hkAs400_rest>
+        </handlers>
+        <resources>
+            <bdt translate="title" module="gri_api">
+                <model>gri_api/api_bdt</model>
+                <title>BDT API</title>
+                <acl>bdt</acl>
+                <methods>
+                    <getOrderInfo>
+                        <title>M1: Get Order Info</title>
+                        <acl>bdt/getOrderInfo</acl>
+                    </getOrderInfo>
+                    <updateOrderStatus>
+                        <title>M2: Update Order Status</title>
+                        <acl>bdt/updateOrderStatus</acl>
+                    </updateOrderStatus>
+                    <updateReturnStatus>
+                        <title>M3: Update Return Status</title>
+                        <acl>bdt/updateReturnStatus</acl>
+                    </updateReturnStatus>
+                    <updateExchangeStatus>
+                        <title>M4: Update Exchange Status</title>
+                        <acl>bdt/updateExchangeStatus</acl>
+                    </updateExchangeStatus>
+                    <updateInventory>
+                        <title>M5: Update Inventory</title>
+                        <acl>bdt/updateInventory</acl>
+                    </updateInventory>
+                </methods>
+            </bdt>
+            <hkAs400 translate="title" module="gri_api">
+                <model>gri_api/api_hkAs400</model>
+                <title>HkAs400 API</title>
+                <acl>hkAs400</acl>
+                <methods>
+                    <newProducts>
+                        <title>P1: New Products</title>
+                        <acl>hkAs400/newProducts</acl>
+                    </newProducts>
+                    <updateProducts>
+                        <title>P2: Update Products</title>
+                        <acl>hkAs400/updateProducts</acl>
+                    </updateProducts>
+                    <updateInventory>
+                        <title>P3: Update Inventory</title>
+                        <acl>hkAs400/updateInventory</acl>
+                    </updateInventory>
+                    <updatePrices>
+                        <title>P4: Update Prices</title>
+                        <acl>hkAs400/updatePrices</acl>
+                    </updatePrices>
+                    <archiveProducts>
+                        <title>P5: Archive Products</title>
+                        <acl>hkAs400/archiveProducts</acl>
+                    </archiveProducts>
+                    <createOfflineVip>
+                        <title>P6: Create Offline Vip</title>
+                        <acl>hkAs400/createOfflineVip</acl>
+                    </createOfflineVip>
+                </methods>
+             </hkAs400>
+        </resources>
+        <acl>
+            <resources>
+                <bdt translate="title" module="gri_api">
+                    <title>BDT API</title>
+                    <sort_order>-1</sort_order>
+                    <get_order_info translate="title" module="gri_api">
+                        <title>M1: Get Order Info</title>
+                        <sort_order>10</sort_order>
+                    </get_order_info>
+                    <update_order_status translate="title" module="gri_api">
+                        <title>M2: Update Order Status</title>
+                        <sort_order>20</sort_order>
+                    </update_order_status>
+                    <update_return_status translate="title" module="gri_api">
+                        <title>M3: Update Return Status</title>
+                        <sort_order>30</sort_order>
+                    </update_return_status>
+                    <update_exchange_status translate="title" module="gri_api">
+                        <title>M4: Update Exchange Status</title>
+                        <sort_order>40</sort_order>
+                    </update_exchange_status>
+                    <update_inventory translate="title" module="gri_api">
+                        <title>M5: Update Inventory</title>
+                        <sort_order>50</sort_order>
+                    </update_inventory>
+                </bdt>
+                <hkAs400 translate="title" module="gri_api">
+                    <title>HkAs400 API</title>
+                    <sort_order>-1</sort_order>
+                    <newProducts translate="title" module="gri_api">
+                        <title>P1: New Products</title>
+                        <sort_order>20</sort_order>
+                    </newProducts>
+                    <updateProducts translate="title" module="gri_api">
+                        <title>P2: Update Products</title>
+                        <sort_order>30</sort_order>
+                    </updateProducts>
+                    <updateInventory translate="title" module="gri_api">
+                        <title>P3: Update Inventory</title>
+                        <sort_order>40</sort_order>
+                    </updateInventory>
+                    <updatePrices translate="title" module="gri_api">
+                        <title>P4: Update Prices</title>
+                        <sort_order>50</sort_order>
+                    </updatePrices>
+                    <archiveProducts translate="title" module="gri_api">
+                        <title>P5: Archive Products</title>
+                        <sort_order>60</sort_order>
+                    </archiveProducts>
+                    <createOfflineVip translate="title" module="gri_api">
+                        <title>P6: Create Offline Vip</title>
+                        <sort_order>60</sort_order>
+                    </createOfflineVip>
+                </hkAs400>
+            </resources>
+        </acl>
+        <faults>
+            <exchange_not_found>
+                <code>501</code>
+                <message>换货不存在</message>
+            </exchange_not_found>
+            <exchange_item_not_found> 
+                <code>502</code>
+                <message>换货项不存在</message>
+            </exchange_item_not_found> 
+            <invalid_exchange_time>
+                <code></code>
+                <message>没有找到</message>  
+            </invalid_exchange_time>
+            <exchange_processed>
+                <code></code>
+                <message>没有找到</message>
+            </exchange_processed> 
+            <exchange_items_required>
+                <code>502</code>
+                <message>换货项不存在</message>    
+            </exchange_items_required>
+            <invalid_exchange_qty>
+                <code></code>
+                <message></message>    
+            </invalid_exchange_qty>
+            <invalid_shipping_time>
+                <code></code>
+                <message></message>    
+            </invalid_shipping_time> 
+            <order_not_ready>
+                <code></code>
+                <message></message>
+            </order_not_ready>
+            <order_has_been_shipped>
+                <code></code>
+                <message></message>  
+            </order_has_been_shipped> 
+            <order_items_required>
+                <code>202</code>
+                <message>订单项不存在</message>  
+            </order_items_required>
+            <order_item_not_found>
+                <code>202</code>
+                <message>订单项不存在</message>  
+            </order_item_not_found>
+            <invalid_shipped_qty>
+                <code></code>
+                <message></message>  
+            </invalid_shipped_qty>
+            <rma_not_found>
+                <code>501</code>
+                <message>换货不存在</message>  
+            </rma_not_found>
+            <rma_items_required>
+                <code>502</code>
+                <message>换货项不存在</message>  
+            </rma_items_required> 
+            <rma_item_not_found>
+                <code>402</code>
+                <message>退款项不存在</message>  
+            </rma_item_not_found>  
+            <rma_closed>
+                <code></code>
+                <message></message>  
+            </rma_closed>
+            <invalid_rma_time>
+                <code></code>
+                <message></message>  
+            </invalid_rma_time>
+            <invalid_returned_qty>
+                <code>305</code>
+                <message>退货数量超过可退数量</message>   
+            </invalid_returned_qty>
+            <order_not_found>
+                <code>200</code>
+                <message>订单不存在</message>
+            </order_not_found>
+            <order_has_been_shipped>
+                <code>201</code>
+                <message>订单项不存在</message>
+            </order_has_been_shipped>
+            <sku_not_found>
+                <code>601</code>
+                <message>找不到sku</message>    
+            </sku_not_found>
+        </faults>
+    </api>
+</config>

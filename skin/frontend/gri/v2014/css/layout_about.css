@@ -1,0 +1,158 @@
+@charset "utf-8";
+/* Simple fluid media
+   Note: Fluid media requires that you remove the media's height and width attributes from the HTML
+   http://www.alistapart.com/articles/fluid-images/ 
+*/
+img, object, embed, video {
+	max-width: 100%;
+}
+/* IE 6 does not support max-width so default to width 100% */
+.ie6 img {
+	width:100%;
+}
+
+/*
+	Dreamweaver Fluid Grid Properties
+	----------------------------------
+	dw-num-cols-mobile:		5;
+	dw-num-cols-tablet:		9;
+	dw-num-cols-desktop:	15;
+	dw-gutter-percentage:	25;
+	
+	Inspiration from "Responsive Web Design" by Ethan Marcotte 
+	http://www.alistapart.com/articles/responsive-web-design
+	
+	and Golden Grid System by Joni Korpi
+	http://goldengridsystem.com/
+*/
+
+/* Mobile Layout: 480px and below. */
+
+.gridContainer {
+	margin-left: auto;
+	margin-right: auto;
+	width: 87.36%;
+	padding-left: 1.82%;
+	padding-right: 1.82%;
+}
+#menu {
+	clear: both;
+	float: left;
+	margin-left: 0;
+	width: 100%;
+	display: none;
+}
+#title {
+	clear: both;
+	float: left;
+	margin-left: 0;
+	width: 100%;
+	display: block;
+}
+#banner {
+	clear: both;
+	float: left;
+	margin-left: 0;
+	width: 100%;
+	display: block;
+	margin-bottom:20px;
+}
+#content {
+	clear: both;
+	float: left;
+	margin-left: 0;
+	width: 100%;
+	display: block;
+}
+
+/* Tablet Layout: 481px to 768px. Inherits styles from: Mobile Layout. */
+
+@media only screen and (min-width: 481px) {
+.gridContainer {
+	width: 90.9333%;
+	padding-left: 1.0333%;
+	padding-right: 1.0333%;
+}
+#menu {
+	clear: both;
+	float: left;
+	margin-left: 0;
+	width: 100%;
+	display: none;
+}
+#title {
+	clear: both;
+	float: left;
+	margin-left: 0;
+	width: 100%;
+	display: block;
+}
+#banner {
+	clear: both;
+	float: left;
+	margin-left: 0;
+	width: 54.5%;
+	display: block;
+}
+#content {
+	clear: none;
+	float: left;
+	margin-left: 45.5%;
+	width: 46%;
+	display: block;
+	position:relative;
+	margin-top:-65%;
+	background-color:#fff;
+	padding:30px;
+}
+
+}
+
+/* Desktop Layout: 769px to a max of 1232px.  Inherits styles from: Mobile Layout and Tablet Layout. */
+
+@media only screen and (min-width: 769px) {
+.gridContainer {
+	width: 88.8%;
+	max-width: 1232px;
+	padding-left: 0.6%;
+	padding-right: 0.6%;
+	margin: auto;
+}
+#menu {
+	clear: both;
+	float: left;
+	margin-left: 0;
+	width: 18%;	
+	min-height:600px;
+	display: block;
+	background-color:green;
+}
+#title {
+	clear: none;
+	float: left;
+	margin-left: 1.3513%;
+	width: 79.6%;
+	display: block;
+}
+#banner {
+	clear: none;
+	float: left;
+	margin-left: 1.3513%;
+	width: 51.3%;
+	display: block;	
+}
+#content {
+	clear: none;
+	float: left;
+	margin-left: 61%;
+	width: 33.8%;
+	display: block;
+	position:relative;
+	margin-top:-60%;
+	background-color:#fff;
+	padding:30px;
+}
+
+}
+
+.cms-about-us .std{padding-left: 28px; }

@@ -1,0 +1,33 @@
+<?php
+/* @var $this Mage_Core_Block_Template */
+/* @var $emailHelper Gri_Core_Helper_Email */
+$emailHelper = Mage::helper('gri_core/email');
+?>
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+<td align="center" width="100%">
+<table width="650" cellpadding="0" cellspacing="0" border="0">
+	<!-- Central Central Logo -->
+	<tr>
+		<td height="92" style="text-align:center;"><a title="<?php echo $this->__('Central/Central'); ?>" href="<?php echo $this->getUrl('/'); ?>"><img style="border:none;" src="<?php echo $emailHelper->getLogoUrl(); ?>" alt="<?php echo $emailHelper->getLogoAlt(); ?>" border="0"/></a></td>
+	</tr>
+	<!-- Categories Top -->
+	<tr>
+		<td width="650" height="11">
+		<span style="font-size:0pt"></span>
+		<table width="650" cellpadding="0" cellspacing="0" border="0">
+		<tbody>
+		<tr>
+			<td><a href="<?php echo $this->getUrl('/'); ?>new-arrivals.html" style="font-size:12px;font-family:Verdanna,Arial,San-Serif;text-decoration:none;color:#000000" target="_blank" alt="New Arrival"><img src="<?php echo $this->getBaseUrl();?>media/email/images/en_US/new_arrivals.jpg" border="0" title="New Arrival"/></a></td>
+			<td><a href="<?php echo $this->getUrl('/'); ?>all-brands/" style="font-size:12px;font-family:Verdanna,Arial,San-Serif;text-decoration:none;color:#000000" target="_blank" alt="Brands"><img src="<?php echo $this->getBaseUrl();?>media/email/images/en_US/brands.jpg" border="0" title="Brands"/></a></td>
+			<td><a href="<?php echo $this->getUrl('/'); ?>shoes.html" style="font-size:12px;font-family:Verdanna,Arial,San-Serif;text-decoration:none;color:#000000" target="_blank" alt="Shoes"><img src="<?php echo $this->getBaseUrl();?>media/email/images/en_US/shoes.jpg" border="0" title="Shoes"/></a></td>
+			<td><a href="<?php echo $this->getUrl('/'); ?>clothing.html" style="font-size:12px;font-family:Verdanna,Arial,San-Serif;text-decoration:none;color:#000000" target="_blank" alt="Clothing"><img src="<?php echo $this->getBaseUrl();?>media/email/images/en_US/clothing.jpg" border="0" title="Clothing"/></a></td>
+			<td><a href="<?php echo $this->getUrl('/'); ?>bags.html" style="font-size:12px;font-family:Verdanna,Arial,San-Serif;text-decoration:none;color:#000000" target="_blank" alt="Bags"><img src="<?php echo $this->getBaseUrl();?>media/email/images/en_US/bags.jpg" border="0" title="Bags"/></a></td>
+			<td><a href="<?php echo $this->getUrl('/'); ?>accessories.html" style="font-size:12px;font-family:Verdanna,Arial,San-Serif;text-decoration:none;color:#000000" target="_blank" alt="Accessories"><img src="<?php echo $this->getBaseUrl();?>media/email/images/en_US/accessories.jpg" border="0" title="Accessories"/></a></td>
+		</tr>
+		</tbody>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<td>

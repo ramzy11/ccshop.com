@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_promo_quote_edit>
+        <reference name="head">
+            <action method="addJs"><script>gri/adminhtml/rules.js</script></action>
+        </reference>
+    </adminhtml_promo_quote_edit>
+
+    <gri_sales_order_creditmemo_edit>
+        <update handle="adminhtml_sales_order_creditmemo_new" />
+        <reference name="order_items">
+            <block type="adminhtml/sales_order_comments_view" name="creditmemo_comments" as="comments" template="sales/order/creditmemo/create/comments.phtml" />
+        </reference>
+    </gri_sales_order_creditmemo_edit>
+
+    <adminhtml_sales_order_creditmemo_view>
+        <reference name="order_info">
+            <action method="setTemplate"><value>gri/sales/creditmemo/view/info.phtml</value></action>
+        </reference>
+    </adminhtml_sales_order_creditmemo_view>
+</layout>

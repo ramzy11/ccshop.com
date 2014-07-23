@@ -1,0 +1,111 @@
+<?php
+/**
+ * Ships to allowed countries link
+ */
+/* @var $this Gri_Core_Block_ShipsTo */
+$countryCollection = Mage::getModel('directory/country')->getCollection();
+foreach ($countryCollection as $country) {
+	$clist[$country->getName()] = $country->getCountryId();
+}
+$shipsToCountry = $this->getAllowedShipsToCountry();
+$shipsToCountry or $shipsToCountry = $this->getDefaultCountry();
+?>
+<div class="ships-to left">
+<!--   <span class="nation-flag nation-flag---><?php //echo $shipsToCountry; ?><!--"></span>-->
+    <a href="<?php echo $this->getSwitcherUrl(); ?>" id="ships-to-handler"><?php
+        if ($this->getAllowedShipsToCountry()) {
+            echo $this->__('SHIP TO: %s', Mage::helper('gri_core')->__($this->getCountryNameByCode($shipsToCountry)));
+        } else {
+            echo $this->__('SHIP TO: %s only!', Mage::helper('gri_core')->__($this->getCountryNameByCode($shipsToCountry)));
+        }
+    ?></a>
+    (<?php echo $this->getCurrencySymbol(); ?>)
+</div>
+<div class="ship_popup" style="display: none;"></div>
+<?php if ($this->_getIpHelper()->enabled()) { ?>
+<?php if ($this->_getIpHelper()->enableSwitchCurrency()) { ?>
+<!--Switch Countries-->
+<div id="ships-to-popup" class="ship_popup">
+    <div class="ship_popup_container">
+        <p class="currency country clearer">
+            <ul class="sel_country selectBox" tabindex="7">
+            <?php foreach($this->getAllowedCountries() as $countryCode){ ?>
+                <li title="<?php echo $countryName = $this->getCountryNameByCode($countryCode); ?>"
+                    <?php if ($countryCode == $shipsToCountry) {?>selected="selected"<?php } ?>>
+                    <span class="nation-flag nation-flag-<?php echo $countryCode; ?>"></span>
+                    <a url='0' href="javascript:;" value="<?php echo $countryCode; ?>"><?php echo Mage::helper('gri_core')->__($countryName); ?>
+                    (<?php echo $this->getCurrencySymbolByCountryCode($countryCode)?>)</a>
+                </li>
+            <?php } ?>
+            <?php foreach($this->getSitesCountries() as $label => $url){ 
+				$code = $clist[$label];
+?>		
+                <li> <a url='1' value="<?php echo $url; ?>" href="javascript:;">
+                     <span class="nation-flag nation-flag-<?php echo $code;?>"></span><?php echo $label ?>
+                     (<?php echo $this->getCurrencySymbolByCountryCode($code); //temporary hard-coding ?>)</a>
+                </li>
+            <?php } ?>
+            </ul>
+        </p>
+    </div>
+</div>
+<script type="text/javascript">
+    (function($){
+        $(".ships-to").on('click', function(){
+            $("#ships-to-popup").toggle();
+            return false
+        });
+        // Save country`1
+        $("#ships-to-popup li a").on("click", function(){
+            var countryCode = $(this).attr('value'),
+                 url = $(this).attr('url') ;
+
+            if (url == '0' && countryCode != '#') {
+                Mage.Cookies.set("country", countryCode);
+            }else if( url == '1'){
+                window.location = countryCode;
+                return false;
+            }
+
+            window.location.reload();
+        });
+
+        <?php if ($this->_getIpHelper()->showPopUp()) { ?>
+             $("#ships-to-popup").show();
+        <?php } ?>
+    })(jQuery);
+</script>
+<!--END OF Switch Countries-->
+<?php } else { ?>
+<div class="no-display">
+    <div id="ships-to-popup">
+        <div class="current-ships-to row">
+            <div class="message"><?php echo $this->_getIpHelper()->getMessage(); ?></div>
+        </div>
+        <div class="actions row">
+            <div class="buttons">
+                <button class="redirect button"><span><span><?php echo $this->__('Visit Hong Kong Site'); ?></span></span></button>
+                <button class="stay button"><span><span><?php echo $this->__('Stay here'); ?></span></span></button>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        (function($){
+            $("#ships-to-handler").fancybox();
+
+            // forward country:
+            $("#ships-to-popup .actions button.redirect").on("click", function(){
+                window.setLocation("<?php echo Mage::getBaseUrl(); ?>");
+                $.fancybox.close();
+            });
+
+            // Stay Here
+            $("#ships-to-popup .actions button.stay").on("click", function(){
+                Mage.Cookies.set("skipIpRedirection", 1, new Date(new Date().getTime() + 365 * 86400 * 1000));
+                $.fancybox.close();
+            });
+        })(jQuery);
+    </script>
+</div>
+<?php } ?>
+<?php } ?>

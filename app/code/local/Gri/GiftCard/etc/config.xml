@@ -1,0 +1,242 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Gri
+ * @package     Gri_GiftCard
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+-->
+<config>
+    <modules>
+        <Gri_GiftCard>
+             <version>0.0.9</version>
+        </Gri_GiftCard>
+    </modules>
+    <global>
+        <resources>
+            <gri_giftcard_setup>
+                <setup>
+                    <module>Gri_GiftCard</module>
+                    <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+                </setup>
+            </gri_giftcard_setup>
+        </resources>
+
+        <models>
+            <gri_giftcard>
+                <class>Gri_GiftCard_Model</class>
+                <resourceModel>gri_giftcard_mysql4</resourceModel>
+            </gri_giftcard>
+
+            <gri_giftcard_mysql4>
+                <class>Gri_GiftCard_Model_Mysql4</class>
+                <entities>
+                    <amount>
+                        <table>gri_giftcard_amount</table>
+                    </amount>
+                </entities>
+            </gri_giftcard_mysql4>
+        </models>
+
+        <blocks>
+            <gri_giftcard>
+                <class>Gri_GiftCard_Block</class>
+            </gri_giftcard>
+        </blocks>
+
+        <helpers>
+            <gri_giftcard>
+                <class>Gri_GiftCard_Helper</class>
+            </gri_giftcard>
+        </helpers>
+
+        <catalog>
+            <product>
+                <type>
+                    <giftcard translate="label" module="gri_giftcard">
+                        <label>Gift Card</label>
+                        <model>gri_giftcard/catalog_product_type_giftcard</model>
+                        <price_model>gri_giftcard/catalog_product_price_giftcard</price_model>
+<!--                        <index_data_retreiver>gri_giftcard/catalogIndex_data_giftcard</index_data_retreiver>-->
+                        <index_priority>45</index_priority>
+                        <composite>0</composite>
+                        <is_qty>1</is_qty>
+                        <price_indexer>gri_giftcard/indexer_price</price_indexer>
+                    </giftcard>
+                </type>
+            </product>
+        </catalog>
+
+        <template>
+            <email>
+               <giftcard_email_template translate="label" module="gri_giftcard">
+                   <label>Gift Card Accounts Generated From Gift Card</label>
+                   <file>gri/giftcard_generated.html</file>
+                   <type>html</type>
+               </giftcard_email_template>
+            </email>
+        </template>
+
+        <sales>
+            <quote>
+                <item>
+                    <product_attributes>
+                        <giftcard_type />
+                        <giftcard_amounts />
+                        <allow_open_amount />
+                        <open_amount_min />
+                        <open_amount_max />
+                        <use_config_lifetime />
+                        <lifetime />
+                        <use_config_is_redeemable />
+                        <is_redeemable />
+                        <use_config_email_template />
+                        <email_template />
+                    </product_attributes>
+                </item>
+            </quote>
+        </sales>
+
+        <events>
+            <sales_convert_quote_item_to_order_item>
+                <observers>
+                    <gri_giftcard_append_additional_data>
+                        <class>gri_giftcard/observer</class>
+                        <method>appendGiftcardAdditionalData</method>
+                    </gri_giftcard_append_additional_data>
+                </observers>
+            </sales_convert_quote_item_to_order_item>
+            <sales_order_save_after>
+                <observers>
+                    <gri_giftcard_generate_giftcardaccounts>
+                        <class>gri_giftcard/observer</class>
+                        <method>generateGiftCardAccounts</method>
+                    </gri_giftcard_generate_giftcardaccounts>
+                </observers>
+            </sales_order_save_after>
+            <catalog_product_collection_load_after>
+                <observers>
+                    <gri_giftcard>
+                        <class>gri_giftcard/observer</class>
+                        <method>loadAttributesAfterCollectionLoad</method>
+                    </gri_giftcard>
+                </observers>
+            </catalog_product_collection_load_after>
+        </events>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <gri_giftcard module="Gri_GiftCard">
+                    <file>giftcard.xml</file>
+                </gri_giftcard>
+            </updates>
+        </layout>
+        <product>
+            <collection>
+                <attributes>
+                    <giftcard_type />
+                    <giftcard_amounts />
+                    <allow_open_amount />
+                    <open_amount_min />
+                    <open_amount_max />
+                    <use_config_lifetime />
+                    <lifetime />
+                    <use_config_is_redeemable />
+                    <is_redeemable />
+                </attributes>
+            </collection>
+        </product>
+        <translate>
+            <modules>
+                <Gri_GiftCard>
+                    <files>
+                        <default>Gri_GiftCard.csv</default>
+                    </files>
+                </Gri_GiftCard>
+            </modules>
+        </translate>
+        <secure_url>
+            <giftcard_customer>/giftcard/customer/</giftcard_customer>
+        </secure_url>
+    </frontend>
+    <adminhtml>
+        <layout>
+            <updates>
+                <gri_giftcard>
+                    <file>gri/giftcard.xml</file>
+                </gri_giftcard>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Gri_GiftCard>
+                    <files>
+                        <default>Gri_GiftCard.csv</default>
+                    </files>
+                </Gri_GiftCard>
+            </modules>
+        </translate>
+        <sales>
+            <order>
+                <create>
+                    <available_product_types>
+                        <giftcard/>
+                    </available_product_types>
+                </create>
+            </order>
+        </sales>
+        <events>
+            <adminhtml_catalog_product_edit_prepare_form>
+                <observers>
+                    <gri_giftcard_product_edit_prepare_form>
+                        <class>gri_giftcard/observer</class>
+                        <method>setAmountsRendererInForm</method>
+                    </gri_giftcard_product_edit_prepare_form>
+                </observers>
+            </adminhtml_catalog_product_edit_prepare_form>
+            <adminhtml_catalog_product_form_prepare_excluded_field_list>
+                <observers>
+                    <gri_giftcard_product_excluded_field_list>
+                        <class>gri_giftcard/observer</class>
+                        <method>updateExcludedFieldList</method>
+                    </gri_giftcard_product_excluded_field_list>
+                </observers>
+            </adminhtml_catalog_product_form_prepare_excluded_field_list>
+        </events>
+    </adminhtml>
+    <default>
+        <giftcard>
+            <email>
+                <identity>general</identity>
+                <template>giftcard_email_template</template>
+            </email>
+            <general>
+                <is_redeemable>1</is_redeemable>
+                <lifetime>0</lifetime>
+                <order_item_status>9</order_item_status>
+                <allow_message>1</allow_message>
+                <message_max_length>255</message_max_length>
+            </general>
+        </giftcard>
+    </default>
+</config>

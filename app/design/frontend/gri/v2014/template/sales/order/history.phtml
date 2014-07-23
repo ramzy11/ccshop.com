@@ -1,0 +1,70 @@
+<?php /* @var $this Gri_Sales_Block_Order_History */ ?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php
+/* @var $_griSalesHelper Gri_Sales_Helper_Data */
+$_griSalesHelper = $this->helper('gri_sales');
+$dateFormat = $this->__('dd/MM/yyyy');
+?>
+<?php $_orders = $this->getOrders();
+?>
+<div class="page-title">
+    <h1><?php echo $_griSalesHelper->__('Orders') ?></h1><a href="javascript:;" class="dashboard-dropdown-menu"></a>
+</div>
+
+<?php if($_orders->getSize()): ?>
+    <?php
+           echo $this->getLayout()
+                     ->createBlock('cms/block')
+                     ->setBlockId('my_account_my_order_thank_you')
+                     ->toHtml();
+    ?>
+    <?php echo $this->getPagerHtml(); ?>
+    <table class="data-table" id="my-orders-table">
+    <col width="1" />
+    <col width="1" />
+    <col />
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <thead>
+        <tr>
+            <th><?php echo $_griSalesHelper->__('Order No.') ?></th>
+            <th><?php echo $_griSalesHelper->__('Date') ?></th>
+            <th><?php echo $_griSalesHelper->__('Recipient') ?></th>
+            <th><span class="nobr"><?php echo $_griSalesHelper->__('Order Total') ?></span></th>
+            <th><span class="nobr"><?php echo $_griSalesHelper->__('Order Status') ?></span></th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php $_odd = ''; ?>
+        <?php foreach ($_orders as $_order): ?>
+        <tr>
+            <td class="order-id"><span class="sf-order-title"><?php echo $_griSalesHelper->__('Order No.') ?>: </span><?php echo $_order->getRealOrderId() ?></td>
+            <td class="order-date"><span class="sf-order-title"><?php echo $_griSalesHelper->__('Date') ?>: </span><?php echo Mage::app()->getLocale()->date($_order->getCreatedAtStoreDate())->toString($dateFormat) ?></td>
+            <td class="order-ship"><span class="sf-order-title"><?php echo $_griSalesHelper->__('Recipient') ?>: </span><?php echo $_order->getShippingAddress() ? $this->escapeHtml($_order->getShippingAddress()->getName()) : '&nbsp;' ?></td>
+            <td class="order-total"><span class="sf-order-title"><?php echo $_griSalesHelper->__('Order Total') ?>: </span><?php echo $_order->formatPrice($_order->getGrandTotal()) ?></td>
+            <td class="order-status"><span class="sf-order-title"><?php echo $_griSalesHelper->__('Order Status') ?>: </span><?php echo $_order->getStatusLabel() ?></td>
+            <td>
+                <span class="nobr"><a  href="<?php echo $this->getViewUrl($_order) ?>"><?php echo $this->__('View Order') ?></a>
+                    <?php /*<span class="separator">|</span><a href="<?php echo $this->getTrackUrl($_order) ?>"><?php echo $this->__('Track Order') ?></a>&nbsp;*/ ?>
+                    <?php if (($_order->getStatus() == 'pending') && ($_payUrl = $_griSalesHelper->getPaymentUrl($_order))) { ?>
+                        <span class="separator">|</span>
+                        <a href="<?php echo $_payUrl ?>" class="link-payment"><strong><?php echo $_griSalesHelper->__('Pay') ?></strong></a>
+                    <?php } else if ($_payNowUrl = $_griSalesHelper->getPayNowUrl($_order)) { ?>
+                        <span class="separator">|</span>
+                        <a href="<?php echo $_payNowUrl ?>" class="link-pay-now"><?php echo $_griSalesHelper->__('Pay Now') ?></a>
+                    <?php } else if ($this->helper('sales/reorder')->canReorder($_order)) { ?>
+                        <span class="separator">|</span> <a href="<?php echo $this->getReorderUrl($_order) ?>" class="link-reorder"><?php echo $_griSalesHelper->__('Reorder') ?></a>
+                    <?php } ?>
+                </span>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<script type="text/javascript">decorateTable('my-orders-table');</script>
+<?php echo $this->getPagerHtml(); ?>
+<?php else: ?>
+    <p><?php echo $this->__('You have placed no orders.'); ?></p>
+<?php endif ?>

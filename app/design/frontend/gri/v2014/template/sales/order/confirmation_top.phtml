@@ -1,0 +1,116 @@
+<?php
+$_griSalesHelper = $this->helper('gri_sales');
+$_order = $this->getOrder();
+
+/* @var $locale Mage_Core_Model_Locale */
+$locale = Mage::getSingleton('core/locale') ;
+//$createdAt = $_order->getCreatedAtStoreDate();
+$createdAt = $locale->date($_order->getCreatedAtStoreDate(),Varien_Date::DATETIME_INTERNAL_FORMAT)->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
+?>
+<div class="confirmation-top">
+    <h2><?php echo $_griSalesHelper->__('Order Confirmation')?></h2>
+    <?php echo $this->getStatusHistoryRssUrl($_order) ?>
+    <div class="order_detail">
+        <!--<dl class="order-info">
+        <?php /*<dt><?php echo $this->__('About This Order:') ?></dt> */ ?>
+        <dd>
+            <?php $_links = $this->getLinks(); ?>
+            <ul id="order-info-tabs">
+                <?php foreach ($_links as $_link): ?>
+                    <?php if ($_link->getUrl()): ?>
+                        <li><a href="<?php echo $_link->getUrl() ?>"><?php echo $_link->getLabel() ?></a></li>
+                    <?php else: ?>
+                        <li class="current"><?php echo $_link->getLabel() ?></li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </ul>
+            <script type="text/javascript">decorateGeneric($('order-info-tabs').select('LI'),['first','last']);</script>
+        </dd>
+    </dl-->
+
+    <p class="customer-name"><?php echo $_griSalesHelper->__('Dear ')?>
+        <span><?php echo $this->__($_order->getCustomerFirstname())?></span>
+        <span><?php echo $this->__($_order->getCustomerLastname())?></span>
+    </p>
+    <p class="welcome-text"><?php echo $_griSalesHelper->__('Thank you for shopping with CCSHOP.COM! Here are your order details:')?></p>
+    <p class="order-no"><?php echo $_griSalesHelper->__('Order No: #%s', $_order->getRealOrderId()) ?></p>
+    <p class="order-date"><?php echo $_griSalesHelper->__('Date: %s', $createdAt) ?></p>
+    <div class="clear"></div>
+    </div>
+
+
+    <?php if (!$_order->getIsVirtual()): ?>
+        <div class="col2-set order-info-box">
+            <div class="col-1">
+                <div class="box">
+                    <div class="box-title">
+                        <h2><?php echo $_griSalesHelper->__('Shipping Information') ?></h2>
+                    </div>
+                    <div class="box-content">
+                        <address><?php echo $_order->getShippingAddress()->format('html') ?></address>
+                        <?php if($_order->getData('fapiao')) :?>
+                        <p class="fapiao"><span><?php echo $this->__('Invoice Title') ?>: <?php echo $_order->getData('fapiao')?></span></p>
+                        <?php endif;?>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="box">
+                    <div class="box-title">
+                        <h2><?php echo $_griSalesHelper->__('Shipping Method') ?><?php /* | <a href="#"><?php echo $this->__('Track Order') ?></a> */ ?></h2>
+                    </div>
+                    <div class="box-content">
+                        <?php if ($_order->getShippingDescription()): ?>
+                            <?php echo $_order->getShippingDescription() ?>
+                        <?php else: ?>
+                            <p><?php echo $_griSalesHelper->__('No shipping information available'); ?></p>
+                        <?php endif; ?>
+                        <?php if($_order->getData('remarks')) :?>
+                        <p class="fapiao"><span><?php echo $_griSalesHelper->__('Remarks') ?>: <?php echo $_order->getData('remarks')?></span></p>
+                        <?php endif;?>
+                        <?php if ($_order->getTracksCollection()->count()) foreach($_order->getTracksCollection() as $track) { ?>
+                            <p class="tracking-info">
+                                <?php echo $this->__('Waybill No.') ?>
+                                <?php echo $this->escapeHtml($track->getTitle()) ?>:
+                                <strong class="tracking-no"><?php echo $this->escapeHtml($track->getNumber()) ?></strong>
+                                <?php if (!$track->isCustom()) { ?>
+                                    <a href="#" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopupUrlBySalesModel($track) ?>','trackorder','width=800,height=600,left=0,top=0,resizable=yes,scrollbars=yes');return false;" ><?php echo $this->__('Track your order') ?></a>
+                                <?php } ?>
+                            </p>
+                        <?php } ?>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="box-title">
+                        <h2><?php echo $_griSalesHelper->__('Payment Method') ?></h2>
+                    </div>
+                    <div class="box-content">
+                        <?php echo $this->getPaymentInfoHtml() ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
+    <?php /* <div class="col2-set order-info-box">
+        <div class="col-1">
+            <div class="box">
+                <div class="box-title">
+                    <h2><?php echo $this->__('Billing Address') ?></h2>
+                </div>
+                <div class="box-content">
+                    <address><?php echo $_order->getBillingAddress()->format('html') ?></address>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="box box-payment">
+                <div class="box-title">
+                    <h2><?php echo $this->__('Payment Method') ?></h2>
+                </div>
+                <div class="box-content">
+                    <?php echo $this->getPaymentInfoHtml() ?>
+                </div>
+            </div>
+        </div>
+    </div> */ ?>
+</div>

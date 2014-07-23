@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<layout>
+
+<!--
+Layout handle for hamper products
+-->
+    <adminhtml_catalog_product_hamper>
+        <reference name="product_tabs">
+            <action method="addTab"><name>hamper_items</name><block>hamper/adminhtml_catalog_product_edit_tab_hamper</block></action>
+            <action method="addTab"><name>extra_gifts</name><block>hamper/adminhtml_catalog_product_edit_tab_extraGifts</block></action>
+            <action method="bindShadowTabs"><first>hamper_items</first><second>customer_options</second></action>
+        </reference>
+    </adminhtml_catalog_product_hamper>
+
+    <adminhtml_sales_order_view>
+        <reference name="order_items">
+            <action method="addItemRender"><type>hamper</type><block>hamper/adminhtml_sales_order_view_items_renderer</block><template>gri/hamper/sales/order/view/items/renderer.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_view>
+
+    <adminhtml_sales_order_invoice_new>
+        <reference name="order_items">
+            <action method="addItemRender"><type>hamper</type><block>hamper/adminhtml_sales_order_items_renderer</block><template>gri/hamper/sales/invoice/create/items/renderer.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_invoice_new>
+
+    <adminhtml_sales_order_invoice_updateqty>
+        <reference name="order_items">
+            <action method="addItemRender"><type>hamper</type><block>hamper/adminhtml_sales_order_items_renderer</block><template>gri/hamper/sales/invoice/create/items/renderer.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_invoice_updateqty>
+
+    <adminhtml_sales_order_invoice_view>
+        <reference name="invoice_items">
+            <action method="addItemRender"><type>hamper</type><block>hamper/adminhtml_sales_order_items_renderer</block><template>gri/hamper/sales/invoice/view/items/renderer.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_invoice_view>
+
+    <adminhtml_sales_order_shipment_new>
+        <reference name="order_items">
+            <action method="addItemRender"><type>hamper</type><block>hamper/adminhtml_sales_order_items_renderer</block><template>gri/hamper/sales/shipment/create/items/renderer.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_shipment_new>
+
+    <adminhtml_sales_order_shipment_view>
+        <reference name="shipment_items">
+            <action method="addItemRender"><type>hamper</type><block>hamper/adminhtml_sales_order_items_renderer</block><template>gri/hamper/sales/shipment/view/items/renderer.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_shipment_view>
+
+    <adminhtml_sales_order_creditmemo_new>
+        <reference name="order_items">
+            <action method="addItemRender"><type>hamper</type><block>hamper/adminhtml_sales_order_items_renderer</block><template>gri/hamper/sales/creditmemo/create/items/renderer.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_creditmemo_new>
+
+    <adminhtml_sales_order_creditmemo_updateqty>
+        <reference name="order_items">
+            <action method="addItemRender"><type>hamper</type><block>hamper/adminhtml_sales_order_items_renderer</block><template>gri/hamper/sales/creditmemo/create/items/renderer.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_creditmemo_updateqty>
+
+    <adminhtml_sales_order_creditmemo_view>
+        <reference name="creditmemo_items">
+            <action method="addItemRender"><type>hamper</type><block>hamper/adminhtml_sales_order_items_renderer</block><template>gri/hamper/sales/creditmemo/view/items/renderer.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_creditmemo_view>
+
+    <adminhtml_customer_wishlist>
+        <reference name="customer.wishlist.edit.tab">
+            <action method="addProductConfigurationHelper"><type>hamper</type><name>hamper/catalog_product_configuration</name></action>
+        </reference>
+    </adminhtml_customer_wishlist>
+
+    <PRODUCT_TYPE_hamper>
+        <reference name="product.composite.fieldset">
+            <block type="bundle/adminhtml_catalog_product_composite_fieldset_bundle" before="product.composite.fieldset.options" name="product.composite.fieldset.bundle" template="bundle/product/composite/fieldset/options/bundle.phtml">
+                <action method="addRenderer"><type>radio</type><block>bundle/adminhtml_catalog_product_composite_fieldset_options_type_radio</block></action>
+                <action method="addRenderer"><type>checkbox</type><block>bundle/adminhtml_catalog_product_composite_fieldset_options_type_checkbox</block></action>
+            </block>
+        </reference>
+    </PRODUCT_TYPE_hamper>
+</layout>

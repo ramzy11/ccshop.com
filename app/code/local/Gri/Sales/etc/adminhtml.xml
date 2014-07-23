@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <gri_sales translate="title" module="gri_sales">
+                        <title>GRI Sales</title>
+                        <children>
+                            <order translate="title">
+                                <title>Orders</title>
+                                <children>
+                                    <actions translate="title">
+                                        <title>Actions</title>
+                                        <children>
+                                            <cancel translate="title"><title>Cancel</title></cancel>
+                                        </children>
+                                    </actions>
+                                </children>
+                            </order>
+                        </children>
+                    </gri_sales>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

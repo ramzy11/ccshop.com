@@ -1,0 +1,14 @@
+<?php
+/* @var $this Gri_CatalogCustom_Block_Category_Group */
+/* @var $category Mage_Catalog_Model_Category */
+?>
+<ul>
+<?php foreach ($this->getCategories() as $category) {
+    $categoryProducts = $this->getCategoryProducts($category);
+    foreach ($categoryProducts as $product) { ?>
+    <li class="item">
+        <?php echo $this->getProductHelper()->renderProduct($product); ?>
+    </li>
+    <?php } ?>
+<?php } ?>
+</ul>

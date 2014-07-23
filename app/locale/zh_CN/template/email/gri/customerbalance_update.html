@@ -1,0 +1,21 @@
+<!--@subject 店铺信用升级  @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image",
+"var name|escape":"Customer Name",
+"var balance":"Customer Store Credit Balance"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+{{block type='core/template' area='frontend' template='email/header.phtml'}}
+<h1 style="font-size:22px; font-weight:normal; line-height:22px; margin:20px 0 11px 0;"">亲爱的{{var name|escape}}</h1>
+<p style="font-size:12px; line-height:16px; margin:0;">我们已经在<a href="{{store url=""}}">{{store url=""}}</a>上更新了您的账户，您的账户上已经有了可用于购物的存款。</p>
+<p style="font-size:12px; line-height:16px; margin:0;">您现在的店铺存款额是{{var balance}}</p>
+<p style="font-size:12px; line-height:16px; margin:0;">感谢您的购买。</p>
+<p style="font-size:12px; line-height:16px; margin:0;">谢谢</p>
+<br>
+<br>
+<br>
+<br>
+{{block type='core/template' area='frontend' template='email/footer.phtml'}}

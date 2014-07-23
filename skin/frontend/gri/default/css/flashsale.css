@@ -1,0 +1,33 @@
+.flash-sale-list .col-main{padding:0 20px;}
+.flash-sale-list .flash_ban_area{margin-bottom:20px;}
+.flash-sale-list .flash_title{line-height:20px;}
+.flash_ban_area .banner-image{float:left;height:128px;overflow:hidden;width:717px;}
+.flash-sale-list .flash_ban_area .flash_sal_time{float:right;width:200px;}
+.flash-sale-list .flash_ban_area .flash_sal_time .fl_time_title
+{font-size:15px;font-weight:bold;margin:20px 0 5px;text-transform:uppercase;}
+.flash-sale-list .desc{margin:5px -7px;}
+.flash-sale-list .flash_ban_area .desc{margin:5px 0px;}
+.flash-sale-list .flash_ban_area .desc div{color:#555;float:left;font-size:12px;margin-left:46px;}
+.flash-sale-list .flash_ban_area .desc div.first{margin-left:24px;}
+.flash-sale-list #counter{width:200px;}
+.flash-sale-list .cntSeparator{color:#000;font-family:Arial,Helvetica,sans-serif;font-size:24px;line-height:44px;}
+
+.flash-sale-list .products-grid .actions .shop-now{padding:3px 25px 3px 10px;}
+.flash-sale-list .products-grid{border-bottom:2px solid #d8d8d7;width:auto;}
+.flash-sale-list .products-grid.last{border-bottom:none;}
+.flash-sale-list .special_offer{display:none;}
+.flash-sale-list .item .sold-out-ribbon{background-image:url("../images/sold-out.png");display:block;}
+.products-grid .item .flash-sale-ribbon{background-image:url(../images/flash_sale.png);}
+
+.cms-home .flash_ban_area{background:#fff;margin:10px 0;height:128px;}
+.cms-home .flash_title{line-height:20px;}
+.cms-home .flash_ban_area .flash_sal_time{float:right;width:228px;}
+.cms-home .flash_ban_area .flash_sal_time .fl_time_title
+{font-size:15px;font-weight:bold;margin:20px 0 5px;text-transform:uppercase;}
+.cms-home .desc{margin:5px -7px;}
+.cms-home .flash_ban_area .desc{margin:5px 0px;}
+.cms-home .flash_ban_area .desc div{color:#555;float:left;font-size:12px;margin-left:46px;}
+.cms-home .flash_ban_area .desc div.first{margin-left:24px;}
+.cms-home .flash_ban_area .desc div.last{margin-left:44px;}
+.cms-home #counter{width:200px;}
+.cms-home .cntSeparator{color:#000;font-family:Arial,Helvetica,sans-serif;font-size:24px;line-height:44px;}

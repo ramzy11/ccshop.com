@@ -1,0 +1,10 @@
+<?php
+/* @var $this Gri_ShopByLook_Block_Product_View_Navigate */
+?>
+<div class="look_pagination">
+    <a class="prev" href="<?php echo $this->getUponProduct('previous')->getId() ?
+        $this->getUponProduct('previous')->getProductUrl() : 'javascript:void(0);';?>"><?php echo $this->__('Prev<br/>Look'); ?></a>
+    <img alt="slash" src="<?php echo $this->getSkinUrl('images/slash.png'); ?>">
+    <a class="next" href="<?php echo $this->getUponProduct('next')->getId() ?
+        $this->getUponProduct('next')->getProductUrl() : 'javascript:void(0);';?>"><?php echo $this->__('Next<br/>Look'); ?></a>
+</div>

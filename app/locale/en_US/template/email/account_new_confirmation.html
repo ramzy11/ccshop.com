@@ -1,0 +1,31 @@
+<!--@subject Your New Account with CentralCentralShop.com @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"store url=\"customer/account/\"":"Customer Account Url",
+"htmlescape var=$customer.name":"Customer Name",
+"var customer.email":"Customer Email",
+"store url=\"customer/account/confirm/\" _query_id=$customer.id _query_key=$customer.confirmation _query_back_url=$back_url":"Confirmation Url",
+"htmlescape var=$customer.password":"Customer password"}
+@-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+{{block type='core/template' area='frontend' template='email/header.phtml'}}
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:18px;color:#000;">Dear {{htmlescape var=$customer.name}},<br />
+  <br />
+  Thank you for joining us.<br />
+  <br />
+  To complete your registration, please click the link below to activate your personal account. This link is only valid once. <br />
+  <a href="{{store url="customer/account/confirm/" _query_id=$customer.id _query_key=$customer.confirmation _query_back_url=$back_url}}"  style="color:#999;text-decoration:underline;font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:14px">{{store url="customer/account/confirm/" _query_id=$customer.id _query_key=$customer.confirmation _query_back_url=$back_url}}</a> <br />
+  <br />
+  When visiting CentralCentralShop.com, simply log in with details below to view your account information.</p>
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:12px;background:#F7F7F7;line-height:20px;padding:15px"> <strong>Email:</strong> <span style="text-decoration: none;color: #000000;"> <a style="color:#000;text-decoration:none">{{var customer.email}}</a></span><br/>
+  <strong>Password:</strong> {{htmlescape var=$customer.password}}</p>
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:18px;color:#000;">Should you have any questions, please feel free to contact our customer service by email at <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#999;text-decoration:underline">{{config path='trans_email/ident_support/email'}}</a> or by phone on {{config path='general/store_information/phone'}}. We will provide assistance at once.</p>
+<br />
+<br />
+{{block type='core/template' area='frontend' template='email/footer.phtml'}}

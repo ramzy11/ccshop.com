@@ -1,0 +1,51 @@
+<?php
+/**
+ * Magento
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Academic Free License (AFL 3.0)
+* that is bundled with this package in the file LICENSE_AFL.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/afl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@magentocommerce.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade Magento to newer
+* versions in the future. If you wish to customize Magento for your
+* needs please refer to http://www.magentocommerce.com for more information.
+*
+* @category    design
+* @package     base_default
+* @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+* @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+*/
+/* @var $this Mage_Page_Block_Html_Footer */
+?>
+<div class="footer-container">
+    <div class="footer">
+        <div class="top_footer clearer">
+            <?php echo $this->getChildHtml('left.newsletter') ?>
+            <?php echo $this->getChildHtml('follow.us') ?>
+        </div>
+        <div class="links clearer"><?php echo $this->getChildHtml('cms_footer_links') ?></div>
+        <div class="bot_footer a-center">
+            <div class="georgia">
+                <a href="<?php echo $this->getUrl('legal/privacy-policy'); ?>"> <?php echo $this->__('PRIVACY POLICY') ?></a> |
+                <a href="<?php echo $this->getUrl('legal/terms-of-use'); ?>"><?php echo $this->__('TERMS OF USE') ?></a>
+            </div>
+            <p class="copyright"><?php echo $this->getCopyright() ?></p>
+        </div>
+    </div>
+    <?php echo $this->getChildHtml('ajax.login'); ?>
+</div>
+<script type="text/javascript" src="<?php echo $this->getJsUrl('gri/load.js'); ?>"></script>
+
+<?php if(Mage::helper('gri_customer')->enabledOnlineChat()): ?>
+<!-- Live800在线客服图标:Live Chat[固定图标] 开始-->
+<div style='display:none;'><a href='http://www.live800.com'>web聊天</a></div><script language="javascript" src="https://v2.live800.com/live800/chatClient/staticButton.js?jid=6096733381&companyID=230990&configID=122568&codeType=custom"></script><div style='display:none;'><a href='http://en.live800.com'>live chat</a></div>
+<!-- 在线客服图标:Live Chat 结束-->
+<?php endif;?>

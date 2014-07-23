@@ -1,0 +1,23 @@
+<!--@subject Pre-Order Notification: Your Favorite Item is Available now! @-->
+<!--@vars
+{"var customerName":"Customer Name",
+"var alertGrid":"Alert Data Grid",
+"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"store url=\"customer/account/\"":"Customer Account Url",
+"htmlescape var=$customer.name":"Customer Name",
+"var customer.email":"Customer Email",
+"store url=\"customer/account/confirm/\" _query_id=$customer.id _query_key=$customer.confirmation _query_back_url=$back_url":"Confirmation Url",
+"htmlescape var=$customer.password":"Customer password"}
+@-->
+{{block type='core/template' area='frontend' template='email/header.phtml'}}
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:18px;color:#000;">Dear {{htmlescape var=$customer.name}},<br />
+    <br />We are excited to inform you that your favorite items are now available at <a href="{{store url=""}}" style="color:#999;text-decoration:underline">CentralCentralShop.com</a>.<br />
+    Please click the items below to buy your personal must-have.<br />
+    {{var alertGrid}}
+</p>
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:18px;color:#000;">Should you have any questions, please feel free to contact our customer service by email at <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#999;text-decoration:underline">{{config path='trans_email/ident_support/email'}}</a> or by phone on {{config path='general/store_information/phone'}}. We will provide assistance at once.</p>
+<br />
+<br />
+{{block type='core/template' area='frontend' template='email/footer.phtml'}}

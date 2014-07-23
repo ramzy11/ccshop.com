@@ -1,0 +1,35 @@
+<!--@subject 歡迎來到CentralCentralShop.com! @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"htmlescape var=$customer.name":"Customer Name",
+"store url=\"customer/account/\"":"Customer Account Url"}
+@-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+{{block type='core/template' area='frontend' template='email/header.phtml'}}
+<span style="font-size:13px; font-weight: normal; line-height: 22px;color:#000;display: block;">親愛的{{htmlescape var=$customer.name}},</span><br />
+<span style="font-size:12px; line-height:20px;">恭喜您! 您已成功建立  CentralCentralShop.com 的會員帳戶。</span><br />
+<span style="font-size:12px; line-height:20px;">在瀏覽我們的購物網站時，如需登錄，請點擊頁面右上方的「<a href="{{store url="customer/account/"}}" style="color:#000;text-decoration: none;">登錄</a>」，然後輸入您的電郵地址及密碼。</span><br />
+<span style="font-size:12px; line-height:20px;">登錄個人賬戶後，您可以：</span><br />
+<p style="font-size:12px; line-height:20px; padding:0;margin:0px;">
+<span style="line-height:20px;">&ndash; 更快捷地完成交易</span><br />
+<span style="line-height:20px;">&ndash; 便於檢視訂單處理狀態</span><br />
+<span style="line-height:20px;">&ndash; 檢視過往訂單</span><br />
+<span style="line-height:20px;">&ndash; 修改帳戶資料及密碼</span><br />
+<span style="line-height:20px;">&ndash; 儲存額外地址</span><br />
+<span style="line-height:20px;">&ndash; 查看和修改我的最愛</span><br />
+<span style="line-height:20px;">&ndash; 當貨品重新上架時第一時間獲取通知</span><br />
+<span style="line-height:20px;">&ndash; 更方便地申請退換貨手續</span><br />
+</p>
+<p style="font-size:12px; line-height:20px; padding:0;margin:0px;">想了解更多購物信息，請查看<a href="{{store url='shopping-flow'}}" style="color:#000;padding:10px 0px; font-size:14px;">購物流程</a>。</p>
+<p style="font-size:13px; line-height:20px; padding:0;">如果您對您的帳戶有任何問題，歡迎透過電郵 <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#000000;">{{config path='trans_email/ident_support/email'}}</a> 或電話{{config path='general/store_information/phone'}}聯絡客戶服務部，我們會盡力提供協助。</p>
+<br />
+<br />
+<br />
+<br />
+{{block type='core/template' area='frontend' template='email/footer.phtml'}}

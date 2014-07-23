@@ -1,0 +1,144 @@
+<?php
+/**
+ * Product description template
+ *
+ * @see Mage_Catalog_Block_Product_View_Description
+ * @see Mage_Review_Block_Product_View
+ */
+/* @var $this Mage_Catalog_Block_Product_View_Description */
+/* @var $_helper Mage_Catalog_Helper_Output */
+/* @var $griSalesHelper Gri_Sales_Helper_Data */
+$griSalesHelper = Mage::helper('gri_sales');
+/* @var $productHelper Gri_CatalogCustom_Helper_Product */
+$productHelper = Mage::helper('gri_catalogcustom/product');
+$_helper = $this->helper('catalog/output');
+$product = $this->getProduct();
+$pid = $product->getId();
+$this->setShowReview(true);
+/* @var $productHelper Gri_CatalogCustom_Helper_Product */
+$productHelper = Mage::helper('gri_catalogcustom/product');
+/* @var $outputHelper Mage_Catalog_Helper_Output */
+$outputHelper = $this->helper('catalog/output');
+$attributes = $this->getAttributes();
+$attributes or $attributes = array (
+    // Shoes
+    11 => array(
+        'material',
+        'insole_material',
+        'toe_box_shape',
+        'trend',
+        'occasion',
+    ),
+    // Clothing
+    9 => array(
+        'material',
+        'with_lining',
+        'with_accessories',
+    ),
+    // Bag
+    10 => array(
+        'material',
+        'with_accessories',
+        'internal_structure',
+        'closure',
+    )
+);
+?>
+<?php
+$_description = $product->getDescription();
+$_sizeNFit = $product->getSizeN_fit();
+$_fittingReport = $product->getFittingReport();
+?>
+<div id="tab_box<?php echo $pid; ?>" class="tab_box">
+    <div id="tabs-1-<?php echo $pid; ?>" class="tabs-content">
+        <a id="detail-description-head" class="detail-head closed" href="javascript:void(0);" style="text-decoration:none;">
+            <h2 id="detail-description-head-title"><?php echo $outputHelper->__($productHelper->isGift($product) ? 'Details' : 'Details'); ?></h2>
+        </a>
+
+        <div id="detail-description-content" class="detail-content scroll-pane" style="display:none;">
+            <?php if ($_description): ?>
+                <div class="description-content">
+                    <?php echo $outputHelper->productAttribute($product, $_description, 'description') ?>
+                </div>
+            <?php endif; ?>
+            <?php if (isset($attributes[$product->getAttributeSetId()])) { ?>
+                <ul>
+                    <?php foreach ($attributes[$product->getAttributeSetId()] as $code) {
+                        /* @var $attribute Gri_CatalogCustom_Model_Resource_Eav_Attribute */
+                        $attribute = $product->getResource()->getAttribute($code);
+                        if ($attribute->getSourceModel()) {
+                            ?>
+                            <li><?php echo $attribute->getStoreLabel(); ?>:
+                                <?php echo $product->getAttributeText($code); ?></li>
+                        <?php } else if ($product->getData($code)) { ?>
+                            <li><?php echo $attribute->getStoreLabel(); ?>:
+                                <?php echo $outputHelper->productAttribute($product, $product->getData($code), $code); ?></li>
+                        <?php } ?>
+                    <?php } ?>
+                </ul>
+            <?php } ?>
+            <?php if ($product->getTypeId() != Mage_Catalog_Model_Product_Type::TYPE_GROUPED) { ?>
+                <div class="product-sku">
+                    <?php echo $this->__('Style No.') ?>:
+                    <?php echo $_helper->productAttribute($product, $product->getSku(), 'sku') ?>
+                </div>
+            <?php } ?>
+            <div class="product-season product-sku">
+                <?php echo $this->__('Season') ?>:
+                <?php echo $product->getSeason(); ?>
+            </div>
+        </div>
+    </div>
+    <?php if ($product->getTypeId() != 'grouped') { ?>
+        <div id="tabs-2-<?php echo $pid; ?>" class="tabs-content">
+            <a id="size-fit-head" class="detail-head closed" href="javascript:void(0);" style="text-decoration:none;">
+                <h2 id="size-fit-head-title"><?php echo $this->__('Size & Fit'); ?></h2>
+            </a>
+
+            <div id="size-fit-content" class="detail-content scroll-pane" style="display:none;">
+                <?php echo $outputHelper->productAttribute($product, $_sizeNFit, 'size_n_fit'); ?>
+            </div>
+        </div>
+    <?php } ?>
+    <?php if ($this->getShowReview()) { ?>
+        <div id="tabs-5-<?php echo $pid; ?>" class="tabs-content">
+            <a id="review-head" class="detail-head closed" href="javascript:void(0); " style="text-decoration:none;">
+                <h2 id="review-head-title"><?php echo $this->__('Reviews'); ?></h2>
+            </a>
+
+            <div id="review-content" class="detail-content scroll-pane" style="display:none;">
+                <?php echo $this->getReviewsSummaryHtml($product, false, true)?>
+                <?php echo $this->getChildHtml('review'); ?>
+            </div>
+        </div>
+    <?php } ?>
+</div>
+<script type="text/javascript">
+    <?php if ($this->getShowReview()) { ?>
+        (function($){
+            $(".review_button").fancybox({
+                'autoDimensions': false, // over-flow
+                'width': 424,
+                'height': 441,
+                'transitionIn'	: 'fade',
+                'transitionOut': 'fade',
+                'overlayColor': '#fff',
+                'overlayOpacity': 0.7
+            });
+        })(jQuery);
+    <?php } ?>
+
+    (function($){
+        $(".detail-head").click(function () {
+            if($(this).hasClass('closed')){
+                $(this).removeClass('closed');
+                $(this).addClass('opened');
+                $(this).siblings(".detail-content").slideDown("fast");
+            }else if($(this).hasClass('opened')) {
+                $(this).removeClass('opened');
+                $(this).addClass('closed');
+                $(this).siblings(".detail-content").slideUp("fast");
+            }
+        });
+    })(jQuery);
+</script>

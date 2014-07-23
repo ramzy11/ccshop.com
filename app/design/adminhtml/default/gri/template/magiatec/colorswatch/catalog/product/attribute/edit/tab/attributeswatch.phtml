@@ -1,0 +1,54 @@
+<script type="text/javascript">
+    document.observe("dom:loaded", function() {
+        $('edit_form').writeAttribute('enctype', 'multipart/form-data');
+    });
+</script>
+<div>
+    <ul class="messages">
+        <li class="notice-msg">
+            <ul>
+                <li><?php echo $this->__("If you made any changes, save attribute before adding swatches images.") ?></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div class="entry-edit custom-options product-custom-options">
+    <div class="entry-edit-head">
+        <h4><?php echo $this->__('Manage Images') ?></h4>
+        <div class="right"><?php echo $this->getUploadImagesButtonHtml() ?></div>
+    </div>
+    <div id="magiatecolorswatch_attribute_options_container" class="box">           
+        <div class="option-box">
+            <table cellspacing="5">
+            <tr>
+                <th width="200"><?php echo $this->__('Option') ?></th>
+                <th width="10"></th>
+                <th><?php echo $this->__('Upload image') ?></th>
+                <th width="10"></th>
+                <th><?php echo $this->__('Preview') ?></th>
+                <th width="10"></th>
+                <th><?php echo $this->__('Delete') ?></th>
+            </tr>
+            <?php foreach($this->getOptions() as $option): ?>
+            <tr>
+                <td><?php echo $option->getData('value'); ?></td>
+                <td></td>
+                <td><input type="file" name="attribute_magiatecolorswatch[<?php echo $option->getId() ?>]"></td>
+                <td></td>
+                <td align="left">
+                    <?php if ($option->getData('image')): ?>
+                        <?php $iconUrl = $this->helper('magiatecolorswatch')
+                                ->getSwatchPath($option->getData('image')); ?>
+                        <img src="<?php echo $iconUrl; ?>" alt="" /><br />
+                    <?php else: ?>
+                        <?php echo $this->__('[none]') ?>
+                    <?php endif; ?>
+                </td>
+                <td></td>
+                <td align="center"><input type="checkbox" value="1" name="attribute_magiatecolorswatch_delete[<?php echo $option->getId() ?>]"></td>
+            </tr>    
+            <?php endforeach; ?>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<?php
+/* @var $this Gri_Alipay_Block_Form */
+?>
+<?php $_code = $this->getMethodCode() ?>
+<ul class="net-payment-choose" id="payment_form_<?php echo $_code ?>">
+    <?php foreach ($this->getBanks() as $_bank): ?>
+    <?php if ($_bank['value'] == 'abc1003') { ?><li class="section-title"><p class="section-title"><?php echo $this->__('Pay with credit card'); ?></p></li><?php } ?>
+    <li class="<?php echo $_bank['value']; ?>">
+        <?php if ($_bank['value'] == 'ALIPAY') { ?><p><?php echo $this->__('Pay with Alipay'); ?></p><?php } ?>
+        <input id="p_method_bank_<?php echo $_bank['value'] ?>" value="<?php echo $_bank['value'] ?>" type="radio" name="payment[alipay_pay_bank]" title="<?php echo $this->escapeHtml($_bank['label']) ?>" onclick="switchBank('<?php echo $_bank['value'] ?>')" class="radio" <?php if ($this->getSelectedBankCode() == $_bank['value']) { ?>checked="checked"<?php } ?> />
+        <label for="p_method_bank_<?php echo $_bank['value'] ?>">
+            <span class="<?php echo $_bank['value'] ?>"><?php echo $_bank['value'] ?></span>
+        </label>
+        <?php if ($_bank['value'] == 'ALIPAY') { ?><p class="section-title"><?php echo $this->__('Pay with local bank account'); ?></p><?php } ?>
+    </li>
+    <?php endforeach; ?>
+</ul>
+<input id="p_method_alipay_payment_paymethod" value="bankPay" type="hidden" name="payment[alipay_pay_method]"/>
+
+<script type="text/javascript">
+    //<![CDATA[
+    function switchBank(bank) {
+        if (bank != 'ALIPAY') {
+            $('p_method_alipay_payment').checked = 'checked';
+            switchMethod('alipay_payment');
+        }
+    }
+    //]]>
+    function switchMethod(method) {
+        $$('#checkout-payment-method-load dt').invoke('removeClassName', 'active');
+        if($('p_method_'+method)){
+            $('p_method_'+method).up(0).addClassName('active');
+        }
+        /* $$('#checkout-payment-method-load dd ul').each(Element.hide);
+        if ($('payment_form_'+method)){
+            changeVisible(method, false);
+        }*/
+    }
+</script>

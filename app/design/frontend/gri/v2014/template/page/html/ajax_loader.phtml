@@ -1,0 +1,191 @@
+<?php
+$isEnable = 1;
+?>
+<?php if($isEnable): ?>
+    <style type="text/css">
+        #floatingCircles{
+            position:relative;
+            width:128px;
+            height:128px;
+            -moz-transform:scale(0.6);
+            -webkit-transform:scale(0.6);
+            -ms-transform:scale(0.6);
+            -o-transform:scale(0.6);
+            transform:scale(0.6);
+        }
+
+        .loader_circle{
+            position:absolute;
+            background-color:#FFFFFF;
+            height:23px;
+            width:23px;
+            -moz-border-radius:12px;
+            -moz-animation-name:loader_circle_fade;
+            -moz-animation-duration:1.28s;
+            -moz-animation-iteration-count:infinite;
+            -moz-animation-direction:linear;
+            -webkit-border-radius:12px;
+            -webkit-animation-name:loader_circle_fade;
+            -webkit-animation-duration:1.28s;
+            -webkit-animation-iteration-count:infinite;
+            -webkit-animation-direction:linear;
+            -ms-border-radius:12px;
+            -ms-animation-name:loader_circle_fade;
+            -ms-animation-duration:1.28s;
+            -ms-animation-iteration-count:infinite;
+            -ms-animation-direction:linear;
+            -o-border-radius:12px;
+            -o-animation-name:loader_circle_fade;
+            -o-animation-duration:1.28s;
+            -o-animation-iteration-count:infinite;
+            -o-animation-direction:linear;
+            border-radius:12px;
+            animation-name:loader_circle_fade;
+            animation-duration:1.28s;
+            animation-iteration-count:infinite;
+            animation-direction:linear;
+        }
+
+        #loader_circle_01{
+            left:0;
+            top:52px;
+            -moz-animation-delay:0.48s;
+            -webkit-animation-delay:0.48s;
+            -ms-animation-delay:0.48s;
+            -o-animation-delay:0.48s;
+            animation-delay:0.48s;
+        }
+
+        #loader_circle_02{
+            left:15px;
+            top:15px;
+            -moz-animation-delay:0.64s;
+            -webkit-animation-delay:0.64s;
+            -ms-animation-delay:0.64s;
+            -o-animation-delay:0.64s;
+            animation-delay:0.64s;
+        }
+
+        #loader_circle_03{
+            left:52px;
+            top:0;
+            -moz-animation-delay:0.8s;
+            -webkit-animation-delay:0.8s;
+            -ms-animation-delay:0.8s;
+            -o-animation-delay:0.8s;
+            animation-delay:0.8s;
+        }
+
+        #loader_circle_04{
+            right:15px;
+            top:15px;
+            -moz-animation-delay:0.96s;
+            -webkit-animation-delay:0.96s;
+            -ms-animation-delay:0.96s;
+            -o-animation-delay:0.96s;
+            animation-delay:0.96s;
+        }
+
+        #loader_circle_05{
+            right:0;
+            top:52px;
+            -moz-animation-delay:1.12s;
+            -webkit-animation-delay:1.12s;
+            -ms-animation-delay:1.12s;
+            -o-animation-delay:1.12s;
+            animation-delay:1.12s;
+        }
+
+        #loader_circle_06{
+            right:15px;
+            bottom:15px;
+            -moz-animation-delay:1.28s;
+            -webkit-animation-delay:1.28s;
+            -ms-animation-delay:1.28s;
+            -o-animation-delay:1.28s;
+            animation-delay:1.28s;
+        }
+
+        #loader_circle_07{
+            left:52px;
+            bottom:0;
+            -moz-animation-delay:1.44s;
+            -webkit-animation-delay:1.44s;
+            -ms-animation-delay:1.44s;
+            -o-animation-delay:1.44s;
+            animation-delay:1.44s;
+        }
+
+        #loader_circle_08{
+            left:15px;
+            bottom:15px;
+            -moz-animation-delay:1.6s;
+            -webkit-animation-delay:1.6s;
+            -ms-animation-delay:1.6s;
+            -o-animation-delay:1.6s;
+            animation-delay:1.6s;
+        }
+
+        @-moz-keyframes loader_circle_fade{
+            0%{
+                background-color:#000000}
+
+            100%{
+                background-color:#FFFFFF}
+
+        }
+
+        @-webkit-keyframes loader_circle_fade{
+            0%{
+                background-color:#000000}
+
+            100%{
+                background-color:#FFFFFF}
+
+        }
+
+        @-ms-keyframes loader_circle_fade{
+            0%{
+                background-color:#000000}
+
+            100%{
+                background-color:#FFFFFF}
+
+        }
+
+        @-o-keyframes loader_circle_fade{
+            0%{
+                background-color:#000000}
+
+            100%{
+                background-color:#FFFFFF}
+
+        }
+
+        @keyframes loader_circle_fade{
+            0%{
+                background-color:#000000}
+
+            100%{
+                background-color:#FFFFFF}
+
+        }
+
+    </style>
+<div id="page-ajax-loader">
+    <div class="light">
+        <div id="floatingCircles">
+            <div class="loader_circle" id="loader_circle_01"></div>
+            <div class="loader_circle" id="loader_circle_02"></div>
+            <div class="loader_circle" id="loader_circle_03"></div>
+            <div class="loader_circle" id="loader_circle_04"></div>
+            <div class="loader_circle" id="loader_circle_05"></div>
+            <div class="loader_circle" id="loader_circle_06"></div>
+            <div class="loader_circle" id="loader_circle_07"></div>
+            <div class="loader_circle" id="loader_circle_08"></div>
+        </div>
+    </div>
+    <div class="fade"></div>
+</div>
+
+<?php endif; ?>

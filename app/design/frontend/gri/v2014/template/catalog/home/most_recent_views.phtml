@@ -1,0 +1,42 @@
+<?php /* @var $this Gri_CatalogCustom_Block_Home_MostRecentViews */ ?>
+<?php
+    /* @var $productCollection Mage_Catalog_Model_Resource_Product_Collection */
+    $productCollection = $this->getMostRecentViews();
+?>
+    <?php if($productCollection->getSize()): ?>
+    <div class="most_recent_views" id="most_recent_views">
+        <h2><span><?php echo $this->__('Recently Viewed'); ?></span></h2>
+        <a class="prev" href="javascript:void(0);" style="cursor: pointer;">&lt;</a>
+        <div class="jcarousel">
+            <ul class="slider clearer">
+                <?php foreach( $productCollection as $product ){ ?>
+                    <li class="slide item">
+                        <?php echo Mage::helper('gri_catalogcustom/product')->getProductListItemBlock()
+                            ->setProduct($product)
+                            ->setShowActions(FALSE)
+                            ->setShowColorSwatch(FALSE)
+                            ->toHtml() ;
+                        ?>
+                    </li>
+                <?php } ?>
+            </ul>
+        </div>
+        <a class="next" href="javascript:void(0);" style="cursor: pointer;">&gt;</a>
+    </div>
+    <script type="text/javascript" src="<?php echo Mage::getBaseUrl('js').'jquery/jquery.iosslider.min.js' ?>"></script>
+    <script type="text/javascript">
+        (function($) {
+            var scroll = $('#most_recent_views .jcarousel'), slider = scroll.children('ul');
+            slider.css({height: slider.children('li').height()+100});
+            scroll.iosSlider({
+                infiniteSlider: true,
+                snapToChildren: true,
+                navNextSelector: scroll.siblings('.next'),
+                navPrevSelector: scroll.siblings('.prev')
+            });
+        })(jQuery);
+    </script>
+    <script type="text/javascript">
+        decorateGeneric($$('ul.slider li'), ['odd','even','first','last']);
+    </script>
+<?php endif; ?>

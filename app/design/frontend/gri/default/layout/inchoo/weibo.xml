@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @category    Inchoo
+ * @package     Inchoo_Weibo
+ * @author      Ivan Weiler <ivan.weiler@gmail.com>
+ * @copyright   Inchoo (http://inchoo.net)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<layout>
+    <inchoo_weibo_customer_account_rebind>
+        <label>Customer Account Rebind WeiBo Account Form</label>
+        <!-- Mage_Customer -->
+        <remove name="right"/>
+        <remove name="left"/>
+        
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <action method="setTemplate"><template>persistent/customer/form/login.phtml</template></action>
+            <block type="inchoo_weibo/rebind" name="customer_form_register" template="inchoo/weibo/rebind.phtml" />
+        </reference>
+        
+        
+<!--    <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="customer_form_login">
+            <action method="setTemplate"><template>persistent/customer/form/login.phtml</template></action>
+            <block type="persistent/form_remember" name="persistent.remember.me" template="persistent/remember_me.phtml" />
+            <block type="customer/form_register" name="customer_form_register" template="persistent/customer/form/login_register.phtml">
+                <block type="page/html_wrapper" name="customer.form.register.fields.before" as="form_fields_before" translate="label">
+                    <label>Form Fields Before</label>
+                </block>
+            </block>
+        </reference>-->
+    </inchoo_weibo_customer_account_rebind>
+    
+    <inchoo_weibo_customer_account_connect>
+       <update handle="inchoo_weibo_customer_account_rebind"/>     
+    </inchoo_weibo_customer_account_connect>
+    
+    <inchoo_weibo_customer_account_rebindpost>
+       <update handle="inchoo_weibo_customer_account_rebind"/>     
+    </inchoo_weibo_customer_account_rebindpost>
+       
+</layout>

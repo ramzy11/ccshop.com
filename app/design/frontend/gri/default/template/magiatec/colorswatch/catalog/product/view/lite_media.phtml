@@ -1,0 +1,62 @@
+<?php
+/* @var $this Mage_Catalog_Block_Product_View_Media */
+$_product = $this->getProduct();
+$_helper  = $this->helper('catalog/output');
+$_width   = Mage::getStoreConfig('magiatecolorswatch/imageswitcher/width');
+$_height  = Mage::getStoreConfig('magiatecolorswatch/imageswitcher/height');
+$_twidth  = Mage::getStoreConfig('magiatecolorswatch/imageswitcher/twidth');
+$_theight = Mage::getStoreConfig('magiatecolorswatch/imageswitcher/theight');
+$this->getImageWidth() and $_width = $this->getImageWidth();
+$this->getImageHeight() and $_height = $this->getImageHeight();
+$this->getThumbnailWidth() and $_twidth = $this->getThumbnailWidth();
+$this->getThumbnailHeight() and $_theight = $this->getThumbnailHeight();
+/* @var $swatchHelper Magiatec_Colorswatch_Helper_Swatch */
+$swatchHelper = Mage::helper('magiatecolorswatch/swatch');
+$swatchHelper->setCurrentProduct($_product);
+/* @var $videoHelper Gri_CatalogCustom_Helper_Video */
+$videoHelper = Mage::helper('gri_catalogcustom/video');
+/* @var $imageHelper Mage_Catalog_Helper_Image */
+$imageHelper = $this->helper('catalog/image');
+?>
+<div class="product-view"><div class="product-img-box">
+<div class="more-views">
+    <?php
+    // For color swatch
+    if ($swatchHelper->isApplicable()) foreach ($swatchHelper->rearrangeGalleryImages($this->getProduct()->getMediaGalleryImages()) as $swatch => $galleryImages) {
+        $imageCount = count($galleryImages);
+    ?>
+        <div class="swatch-<?php echo $swatch; ?>" swatch="<?php echo $swatch; ?>" style="display:none;">
+            <?php if($imageCount > 4) { ?><a href="javascript:void(0);" class="prev"></a><?php } ?>
+            <div class="vjcarousel"><ul class="magiatecolorswatch-gallery">
+                <?php foreach ($galleryImages as $_image) { ?>
+                    <li>
+                        <a href="javascript:;" title="<?php echo $this->escapeHtml($_image->getLabel()) ?>" onclick="switchMainImage(this, '<?php echo $imageHelper->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize($_width, $_height); ?>')">
+                            <img url="<?php echo $imageHelper->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize($_twidth, $_theight); ?>" width="<?php echo $_twidth ?>" height="<?php echo $_theight ?>" />
+                        </a>
+                    </li>
+                <?php } ?>
+            </ul></div>
+            <?php if($imageCount > 4) { ?><a href="javascript:void(0);" class="next"></a><?php } ?>
+        </div>
+    <?php }
+    // For normal gallery
+    else { ?>
+        <a href="javascript:void(0);" class="prev"></a>
+        <div class="vjcarousel"><ul class="magiatecolorswatch-gallery">
+            <?php foreach ($galleryImages = $this->getGalleryImages() as $_image) { ?>
+                <li>
+                    <a href="javascript:;" title="<?php echo $this->escapeHtml($_image->getLabel()) ?>" onclick="switchMainImage(this, '<?php echo $imageHelper->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize($_width, $_height); ?>')">
+                        <img url="<?php echo $imageHelper
+                        ->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize($_twidth, $_theight); ?>"
+                         width="<?php echo $_twidth ?>" height="<?php echo $_theight ?>" />
+                    </a>
+                </li>
+            <?php } ?>
+        </ul></div>
+        <a href="javascript:void(0);" class="next"></a>
+    <?php } ?>
+</div>
+<p class="product-image">
+    <img url="<?php echo $imageHelper->init($_product, 'image')->resize($_width, $_height)?>" width="<?php echo $_width ?>" height="<?php echo $_height ?>" title="<?php echo $this->escapeHtml($this->getImageLabel())?>" />
+</p>
+</div></div>

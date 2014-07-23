@@ -1,0 +1,27 @@
+<!--@subject Unsubscribe from CentralCentralShop.com @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"store url=\"customer/account/\"":"Customer Account Url",
+"var subscriber.getSubscriberFullName()":"Customer Name",
+"var customer.email":"Customer Email",
+"store url=\"customer/account/confirm/\" _query_id=$customer.id _query_key=$customer.confirmation _query_back_url=$back_url":"Confirmation Url",
+"htmlescape var=$customer.password":"Customer password"}
+@-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+{{block type='core/template' area='frontend' template='email/header.phtml'}}
+<p style="font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:18px;color:#000;">Dear Customer,<br/>
+  <br/>
+  You have successfully unsubscribed from CentralCentralShop.com newsletter.<br />
+  <br/>
+  If you want to receive our latest news and promotion, please click <a href="{{store url='/'}}" style="color:#999;text-decoration:underline">here</a> to re-subscribe at any time.<br/>
+  <br/>
+  Thank you for your support.</p>
+<br />
+<br />
+{{block type='core/template' area='frontend' template='email/footer.phtml'}} 

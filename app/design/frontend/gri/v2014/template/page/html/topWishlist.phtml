@@ -1,0 +1,11 @@
+<?php
+$session = Mage::getSingleton('customer/session');
+$wishlistCount = Mage::helper('wishlist')->getItemCount();
+$customerHelper = Mage::helper('gri_customer');
+?>
+
+<?php if ($session->getCustomerId()) { ?>
+    <a href="<?php echo $this->getUrl('wishlist'); ?>" class="top-wishlist-link"><p class="top-wishlist-name"><?php echo $customerHelper->__('Wish List'); ?></p>
+        <span><?php echo $wishlistCount ?></span>
+    </a>
+<?php } ?>

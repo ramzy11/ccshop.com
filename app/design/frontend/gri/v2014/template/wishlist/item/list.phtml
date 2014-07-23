@@ -1,0 +1,111 @@
+<?php
+/* @var $this Mage_Wishlist_Block_Customer_Wishlist_Items */
+/* @var $category Mage_Catalog_Model_Category */
+?>
+<?php
+$columns = $this->getColumns();
+/* @var $productHelper Gri_CatalogCustom_Helper_Product */
+$productHelper = $this->helper('gri_catalogcustom/product');
+$productHelper->getProductListItemBlock()->setShowActions(FALSE);
+$grouping = $itemIds = array();
+$wishlistId = '';
+foreach ($this->getItems() as $item) {
+    $wishlistId = $item->getWishlistId();
+    $itemIds[] = $item->getId();
+    $grouping[$item->getProduct()->getAttributeSetId()][] = $item;
+}
+
+$items = array();
+foreach ($grouping as $attributeSetId => $_items) {
+    foreach ($_items as $item) {
+        $items[] = $item;
+    }
+}
+$attributeSetId = 'x';
+
+$productListItemBlock = Mage::app()->getLayout()->createBlock('gri_catalogcustom/product_list_item');
+?>
+<?php if (count($items)): ?>
+<script type="text/javascript" src="<?php echo $this->getJsUrl('jquery/jquery.iosslider.min.js'); ?>"></script>
+<?php endif; ?>
+<div class="data-table" id="wishlist-table">
+    <?php if ($items) { ?>
+        <div class="attribute-set products-grid attribute-set-<?php echo $attributeSetId; ?>">
+            <script type="text/javascript">
+                (function ($) {
+                    $('.data-table').prepend($('.attribute-set-14'));
+                })(jQuery)
+            </script>
+            <div class="slider_container">
+                <?php if (($itemCount = count($items)) > 5) : ?>
+                    <a href="javascript:void(0);" class="prev"><?php echo $this->__('Prev'); ?></a>
+                <?php endif; ?>
+                <div class="iosSlider" id="wishlist-grid-<?php echo $attributeSetId; ?>">
+                    <ul class="slider clearer">
+
+                        <?php foreach ($items as $item): ?>
+                            <li id="item_<?php echo $item->getId(); ?>" class="product_item item">
+                                <?php //echo $productHelper->renderProduct($item->getProduct());
+                                   echo $productListItemBlock->setProduct($item->getProduct())
+                                                            ->setImageWidth(160)
+                                                            ->setImageHeight(240)
+                                                            ->setShowGiftProduct(FALSE)
+                                                            ->toHtml();
+                                ?>
+                                <?php foreach ($columns as $column): ?>
+                                    <?php $column->setItem($item);
+                                    echo $column->toHtml($item); ?>
+                                <?php endforeach; ?>
+                            </li>
+                        <?php endforeach ?>
+                    </ul>
+                </div>
+                <?php if ($itemCount > 5): ?>
+                    <a href="javascript:void(0);" class="next"><?php echo $this->__('Next'); ?></a>
+                <?php endif; ?>
+            </div>
+            <?php if ($itemCount > 5): ?>
+                <script type="text/javascript">
+                    (function ($) {
+                        var list = $('#wishlist-grid-<?php echo $attributeSetId; ?>'), slider = list.children('.slider');
+                        slider.css({height: slider.children('.product_item').height()});
+                        list.iosSlider({
+//                            infiniteSlider: true,
+                            snapToChildren: true,
+                            navNextSelector: list.siblings('.next'),
+                            navPrevSelector: list.siblings('.prev')
+                        });
+                    })(jQuery);
+                </script>
+            <?php endif; ?>
+            <div class="wishlist-button-set">
+                <ul>
+                    <li class="li-share">
+                        <a href="<?php  echo $this->getUrl('wishlist/index/share', array('wishlist_id'=> $wishlistId) )?>" class="button btn-share-all"><?php echo $this->__('Share  All To Friend'); ?></a>
+                    </li>
+                   <!-- <li class="li-add">
+                        <a href="#" onclick="addWAllItemsToCart()" class="button btn-add-all"><?php /*echo $this->__('Add All To Tote'); */?></a>
+                    </li>-->
+                </ul>
+            </div>
+        </div>
+    <?php } else { ?>
+        <div class="wishlist-empty"><?php echo $this->__('This Wishlist has no Items');?></div>
+    <?php } ?>
+</div>
+
+<script type="text/javascript">
+    //<![CDATA[
+    decorateTable('wishlist-table');
+    function confirmRemoveWishlistItem(obj) {
+        if (confirm("<?php echo $this->helper('gri_message')->__('Are you sure you want to remove this product from your wishlist?') ;?>")) {
+            setLocation(obj.href);
+        }
+        return false;
+    }
+
+    <?php foreach ($columns as $column): ?>
+    <?php echo $column->getJs();?>
+    <?php endforeach; ?>
+    //]]>
+</script>

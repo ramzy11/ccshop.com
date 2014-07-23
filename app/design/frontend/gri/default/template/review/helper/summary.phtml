@@ -1,0 +1,28 @@
+<?php
+/* @var $this Mage_Review_Block_Helper */
+?>
+<div class="ratings">
+    <?php if ($this->getRatingSummary()):?>
+        <div class="rating-box">
+            <div class="rating" style="width:<?php echo $this->getRatingSummary() ?>%"></div>
+        </div>
+    <?php endif;?>
+    <p class="rating-links">
+        <?php if ($this->getReviewsCount()) { ?>(<?php } ?>
+        <a href="#tabs-5"><?php echo
+            $this->__($this->getReviewsCount() == 1 ? '%d Review' : '%d Reviews', $this->getReviewsCount())
+        ?></a>
+        <span class="separator">|</span>
+        <a href="#review_form" class="review_button"><?php echo $this->__('Write a review') ?></a>
+        <?php if ($this->getReviewsCount()) { ?>)<?php } ?>
+    </p>
+</div>
+<script type="text/javascript">
+    (function($){
+        $('.rating-links a[href="#tabs-5"]').click(function(){
+            $('.product-collateral')[0] && $('.product-collateral')[0].scrollIntoView();
+            $('#tab_box a[href="#tabs-5"]').click();
+            return false;
+        });
+    })(jQuery);
+</script>

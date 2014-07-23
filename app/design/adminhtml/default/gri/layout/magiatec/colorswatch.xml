@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<layout>
+    <adminhtml_catalog_product_edit>
+        <reference name="product_tabs">
+            <action method="addTabAfter" ifconfig="magiatecolorswatch/settings/enabled">
+                <name>magiatecolorswatch_configurable</name>
+                <block>magiatecolorswatch/adminhtml_catalog_product_edit_tab_productswatch</block>
+                <after>configurable</after>
+            </action>
+        </reference>
+    </adminhtml_catalog_product_edit>
+    
+    <adminhtml_catalog_product_attribute_edit>
+    	<reference name="attribute_edit_tabs">
+            <action method="addTabAfter" ifconfig="magiatecolorswatch/settings/enabled">
+                <name>magiatecolorswatch_atrribute</name>
+                <block>magiatecolorswatch/adminhtml_catalog_product_attribute_edit_tab_attributeswatch</block>
+                <after>labels</after>
+            </action>
+        </reference>
+    </adminhtml_catalog_product_attribute_edit>
+</layout>

@@ -1,0 +1,16 @@
+<?php
+/* @var $this Gri_Page_Block_Brand */
+if($brand = $this->getBrand()) {
+    echo $this->getChildHtml(strtolower($brand->getUrlKey()) . '.banner');
+}
+?>
+<script type="text/javascript">
+    // <![CDATA[
+    (function($){
+        var subMenu = $("#sub_menu .child_menu");
+        if (subMenu.length == 1) {
+            subMenu.parent().hoverDropDown(subMenu);
+        }
+    })(jQuery);
+    // ]]>
+</script>

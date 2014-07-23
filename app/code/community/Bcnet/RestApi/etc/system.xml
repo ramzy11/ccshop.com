@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <tabs>
+        <Bcnet translate="label" module="restapi">
+            <label>Bcnet Mobile API</label>
+            <sort_order>100</sort_order>
+        </Bcnet>
+    </tabs>
+    <sections>
+        <Bcnet translate="label" module="restapi">
+            <label>General</label>
+            <tab>Bcnet</tab>
+            <sort_order>100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <Bcnet_group translate="label">
+                    <label>Activation</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>100</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <!-- New fields go here -->
+                        <Bcnet_activeapi translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <config_path>bcnetrestapi/active</config_path>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </Bcnet_activeapi>
+                        <Bcnet_appkey translate="label">
+                            <label>Bcnet AppKey </label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <depends><Bcnet_activeapi>1</Bcnet_activeapi></depends>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </Bcnet_appkey>
+                        <Bcnet_appsecret translate="label">
+                            <label>Bcnet AppSecret </label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <depends><Bcnet_activeapi>1</Bcnet_activeapi></depends>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </Bcnet_appsecret>
+                    </fields>
+                </Bcnet_group>
+            </groups>
+        </Bcnet>
+    </sections>
+</config>

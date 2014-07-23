@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/newcomer.css</stylesheet></action>
+        </reference>
+        <reference name="content">
+            <block type="newcomer/popup" name="newcomer.popup" template="newcomer/popup.phtml"/>
+        </reference>
+    </default>
+</layout>

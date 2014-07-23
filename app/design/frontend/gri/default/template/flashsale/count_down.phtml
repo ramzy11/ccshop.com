@@ -1,0 +1,20 @@
+<?php
+/* @var $this Gri_FlashSale_Block_CountDown */
+?>
+<div class="fl_time_title"><?php echo $this->__('Sale Ends'); ?></div>
+<div id="flash-sale-countdown" class="clearer"></div>
+<div class="desc clearer">
+    <div class="first"><?php echo $this->__('Hrs.'); ?></div>
+    <div><?php echo $this->__('Min.'); ?></div>
+    <div class="last"><?php echo $this->__('Sec.'); ?></div>
+</div>
+
+<script type="text/javascript">
+    (function ($) {
+        $("#flash-sale-countdown").countdown({
+            format:"hh:mm:ss",
+            image:"<?php echo $this->getSkinUrl('images/flashsale/digits2.png'); ?>",
+            startTime:"<?php echo $this->getStartTime(); ?>"
+        });
+    })(jQuery);
+</script>

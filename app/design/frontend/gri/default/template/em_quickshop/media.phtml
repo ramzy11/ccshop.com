@@ -1,0 +1,55 @@
+<?php
+/* @var $this Mage_Catalog_Block_Product_View_Media */
+    $_product = $this->getProduct();
+    $_helper  = $this->helper('catalog/output');
+    $_width   = Mage::getStoreConfig('magiatecolorswatch/imageswitcher/width');
+    $_height  = Mage::getStoreConfig('magiatecolorswatch/imageswitcher/height');
+    $_twidth  = Mage::getStoreConfig('magiatecolorswatch/imageswitcher/twidth');
+    $_theight = Mage::getStoreConfig('magiatecolorswatch/imageswitcher/theight');
+/* @var $swatchHelper Magiatec_Colorswatch_Helper_Swatch */
+$swatchHelper = Mage::helper('magiatecolorswatch/swatch');
+$swatchHelper->setCurrentProduct($_product);
+/* @var $videoHelper Gri_CatalogCustom_Helper_Video */
+$videoHelper = Mage::helper('gri_catalogcustom/video');
+?>
+<div id="magiatecolorswatch-gallery-wrapper" class="more-views"<?php if (count($this->getGalleryImages()) == 0): ?> style="display:none;"<?php endif; ?>>
+    <ul id="magiatecolorswatch-gallery">
+    <?php foreach ($this->getGalleryImages() as $_image): ?>
+        <li<?php if ($swatchHelper->isApplicable()) { ?> class="swatch-<?php echo $_image->getSwatch(); ?>" swatch="<?php echo $_image->getSwatch(); ?>" style="display:none;"<?php }?>>            <?php if (Mage::getStoreConfig('magiatecolorswatch/zoom/enabled')): ?>
+            <a href="javascript:void(0);" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>"
+               rel="{gallery: 'magiatecolorswatch',smallimage: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize($_width, $_height); ?>',largeimage: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile()); ?>'}">
+            <?php else: ?>
+            <a href="javascript:void(0);" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>" onclick="javascript:switchMainImage(this, '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize($_width, $_height); ?>')">
+            <?php endif; ?>
+                <img src="<?php echo $this->helper('catalog/image')
+                    ->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize($_twidth, $_theight); ?>"
+                    width="<?php echo $_twidth ?>" height="<?php echo $_theight ?>" /></a>
+        </li>
+    <?php endforeach; ?>
+    </ul>
+</div>
+<script type="text/javascript">
+    <?php if(Mage::getStoreConfig('magiatecolorswatch/zoom/enabled')): ?>
+    (function($) {
+        var zoomOptions = <?php echo Mage::helper('magiatecolorswatch')
+                ->getZoomOptions() ?>;
+        $('a#magiatecolorswatch-anchor').jqzoom(zoomOptions);
+        $.extend({
+            refreshZoom: function() {
+                $('.zoomPup, .zoomPreload, .zoomWindow').remove();
+                $("a#magiatecolorswatch-anchor").removeData('jqzoom')
+                    .find('img').first().unwrap();
+                $("a#magiatecolorswatch-anchor").jqzoom(zoomOptions);
+            }
+        })
+    })(jQuery);
+    <?php else: ?>
+    function switchMainImage(element, src) {
+        $('magiatecolorswatch-image').writeAttribute('src', src);
+        $('magiatecolorswatch-gallery').select('a.zoomThumbActive').each(function(a){
+            a.removeClassName('zoomThumbActive');
+        });
+        element.addClassName('zoomThumbActive');
+    }
+    <?php endif; ?>
+</script>

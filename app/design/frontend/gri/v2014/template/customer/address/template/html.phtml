@@ -1,0 +1,16 @@
+<?php
+/* @var $_directoryHelper Gri_Directory_Helper_Data */
+$_directoryHelper = Mage::helper('gri_directory');
+$internalCode = $_directoryHelper->getInternalCode();
+$_address = $this->getAddress();
+?>
+<?php if ($_address): ?>
+    <div class="name"><?php echo ($_address->getLastname() ? $_address->getLastname() : '') . ' ' . ($_address->getFirstname() ? $_address->getFirstname() : ''); ?></div>
+    <div class="address">
+        <?php echo  (count($_address->getStreet()) ? implode(',', $_address->getStreet()) . ', ': '') . ($_address->getCity() ? $_address->getCity().', ' : '')  . $_address->getRegion() .  ($_address->getPostcode() ? ', ' .$_address->getPostcode() : '' ) ; ?>
+    </div>
+    <div class="country"><?php echo $_address->getCountryModel()->getName(); ?></div>
+    <div class="phone"><?php echo $this->helper('gri_customer')->__('T'); ?><span>:</span> <?php echo $_address->getTelephone();?></div>
+<?php  else: ?>
+    <?php echo $this->__('Address Not Found'); ?>
+<?php endif; ?>

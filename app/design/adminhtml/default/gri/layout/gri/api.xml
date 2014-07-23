@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_sales_order_view>
+        <reference name="sales_order_edit">
+            <block type="gri_api/adminhtml_edit_resetApiRetryCounter" name="reset.api.retry.counter">
+                <action method="setObjectName"><value>Order</value></action>
+                <action method="addResetButton"></action>
+            </block>
+        </reference>
+    </adminhtml_sales_order_view>
+
+    <adminhtml_sales_order_creditmemo_view>
+        <reference name="sales_creditmemo_view">
+            <block type="gri_api/adminhtml_edit_resetApiRetryCounter" name="reset.api.retry.counter">
+                <action method="setObjectName"><value>Creditmemo</value></action>
+                <action method="addResetButton"></action>
+            </block>
+        </reference>
+    </adminhtml_sales_order_creditmemo_view>
+
+    <!-- RMA layout is defined in the controller
+    <awrma_admin_adminhtml_rma_edit>
+        <reference name="rma_edit">
+            <block type="gri_api/adminhtml_edit_resetApiRetryCounter" name="reset.api.retry.counter">
+                <action method="setObjectName"><value>RmaRequest</value></action>
+                <action method="addResetButton"></action>
+            </block>
+        </reference>
+    </awrma_admin_adminhtml_rma_edit>-->
+</layout>

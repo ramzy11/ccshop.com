@@ -1,0 +1,21 @@
+<!--@subject 店舖信用升級  @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image",
+"var name|escape":"Customer Name",
+"var balance":"Customer Store Credit Balance"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+{{block type='core/template' area='frontend' template='email/header.phtml'}}
+<h1 style="font-size:22px; font-weight:normal; line-height:22px; margin:20px 0 11px 0;"">親愛的{{var name|escape}}</h1>
+<p style="font-size:12px; line-height:16px; margin:0;">我們已經在<a href="{{store url=""}}">{{store url=""}}</a>上更新了您的賬戶，您的賬戶上已經有了可用於購物的存款。</p>
+<p style="font-size:12px; line-height:16px; margin:0;">您現在的店舖存款額是{{var balance}}</p>
+<p style="font-size:12px; line-height:16px; margin:0;">感謝您的購買。</p>
+<p style="font-size:12px; line-height:16px; margin:0;">謝謝</p>
+<br>
+<br>
+<br>
+<br>
+{{block type='core/template' area='frontend' template='email/footer.phtml'}}

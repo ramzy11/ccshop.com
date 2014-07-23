@@ -1,0 +1,32 @@
+<?php
+/* @var $this Gri_CatalogCustom_Block_Product_List_Toolbar */
+?>
+<div class="filter-item sort-by">
+    <?php $this->setDefaultDirection('desc');?>
+<!--    <a class="sort_by_title filter-name"><?php echo $this->__('Sort by') ;?></a>-->
+    <a class="sort_by_title filter-name"><?php echo $this->geSortByTitle();?></a>
+
+    <div id="sort_by_item" class="filter-value" style="display:none">
+        <ul>
+            <?php foreach ($this->getAvailableOrders() as $_key => $_order): ?>
+            <?php if (!is_array($_order)) : ?>
+                <li value="<?php echo $this->getOrderUrl($_key, 'desc') ?>">
+                    <input type="radio" name="sortby" <?php if ($this->isOrderNow($_key, 'desc')) {
+                        echo " checked=checked";
+                    }?> onclick="sendFilter('<?php echo $this->getOrderUrl($_key, 'desc');?>')" id="sort_by_<?php echo $_key; ?>"/>
+                    <label for="sort_by_<?php echo $_key; ?>"><?php echo $this->__($_order) ?></label>
+                </li>
+                <?php else : ?>
+                <?php foreach ($_order as $_suborder) : ?>
+                    <li value="<?php echo $this->getOrderUrl($_key, $_suborder['dir']) ?>">
+                        <input type="radio" name="sortby"<?php if ($this->isOrderNow($_key, $_suborder['dir'])) {
+                            echo " checked=checked";
+                        }?> onclick="sendFilter('<?php echo $this->getOrderUrl($_key, $_suborder['dir']);?>')" id="sort_by_<?php echo $_key . '_' . $_suborder['dir']; ?>"/>
+                        <label for="sort_by_<?php echo $_key . '_' . $_suborder['dir']; ?>"><?php echo $this->__($_suborder['label']) ?></label>
+                    </li>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            <?php endforeach?>
+        </ul>
+    </div>
+</div>

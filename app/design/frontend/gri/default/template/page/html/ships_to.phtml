@@ -1,0 +1,104 @@
+<?php
+/**
+ * Ships to allowed countries link
+ */
+/* @var $this Gri_Core_Block_ShipsTo */
+$shipsToCountry = $this->getAllowedShipsToCountry();
+$shipsToCountry or $shipsToCountry = $this->getDefaultCountry();
+?>
+<div class="ships-to left">
+    <span class="nation-flag nation-flag-<?php echo $shipsToCountry; ?>"></span>
+    <a href="<?php echo $this->getSwitcherUrl(); ?>" id="ships-to-handler"><?php
+        if ($this->getAllowedShipsToCountry()) {
+            echo $this->__('Ships to %s', $this->getCountryNameByCode($shipsToCountry));
+        } else {
+            echo $this->__('Ships to %s only!', $this->getCountryNameByCode($shipsToCountry));
+        }
+    ?></a>
+    (<?php echo $this->getCurrencySymbol(); ?>)
+</div>
+<div class="ship_popup" style="display: none;">
+</div>
+<?php if ($this->_getIpHelper()->enabled()) { ?>
+<?php if ($this->_getIpHelper()->enableSwitchCurrency()) { ?>
+<!--Switch Countries-->
+<div id="ships-to-popup" class="ship_popup">
+    <div class="ship_popup_container">
+        <p><?php echo $this->__('Please select or verify your shipping destination:') ?></p>
+        <p class="currency country clearer">
+            <select class="sel_country selectBox" tabindex="7">
+            <?php foreach($this->getAllowedCountries() as $countryCode){ ?>
+                <option value="<?php echo $countryCode; ?>" title="<?php echo $countryName = $this->getCountryNameByCode($countryCode); ?>" <?php if ($countryCode == $shipsToCountry) {?>selected="selected"<?php } ?>><?php echo $countryName; ?></option>';
+            <?php } ?>
+            <?php foreach($this->getSitesCountries() as $label => $url){ ?>
+                <option url="1" value="<?php echo $url; ?>"><?php echo $label ?></option>
+            <?php } ?>
+            </select>
+        </p>
+        <p class="clearer">
+            <a href="javascript:;" class="save_btn"><?php echo $this->__('Save and continue');?></a>
+        </p>
+        <br/>
+        <p><?php echo $this->__('*A country not appearing as a selection means that we currently cannot ship to that country.'); ?></p>
+    </div>
+    <a href="javascript:;" class="fancybox-item fancybox-close" title="<?php echo $this->__('Close'); ?>>"></a>
+</div>
+<script type="text/javascript">
+    (function($){
+        $("#ships-to-handler").on('click', function(){
+            $("#ships-to-popup").toggle();
+            return false;
+        });
+        $("#ships-to-popup .fancybox-close").on('click', function(){
+            $("#ships-to-popup").hide();
+        });
+        // Save country
+        $("#ships-to-popup .save_btn").on("click", function(){
+            var countrySelect = $("#ships-to-popup select.sel_country"), useUrl = countrySelect.find(":selected").attr('url');
+            if (useUrl) {
+                window.location = countrySelect.val();
+            } else {
+                Mage.Cookies.set("country", countrySelect.val());
+                window.location.reload();
+            }
+        });
+        <?php if ($this->_getIpHelper()->showPopUp()) { ?>
+        $("#ships-to-popup").show();
+        <?php } ?>
+    })(jQuery);
+</script>
+<!--END OF Switch Countries-->
+<?php } else { ?>
+<div class="no-display">
+    <div id="ships-to-popup">
+        <div class="current-ships-to row">
+            <div class="message"><?php echo $this->_getIpHelper()->getMessage(); ?></div>
+        </div>
+        <div class="actions row">
+            <p><?php echo $this->__('Other Central/Central sites will be launched soon. Stay tuned!'); ?></p>
+            <div class="buttons">
+                <button class="redirect button"><span><span><?php echo $this->__('Visit Hong Kong Site'); ?></span></span></button>
+                <button class="stay button"><span><span><?php echo $this->__('Stay here'); ?></span></span></button>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        (function($){
+            $("#ships-to-handler").fancybox();
+
+            // forward country:
+            $("#ships-to-popup .actions button.redirect").on("click", function(){
+                window.setLocation("http://www.centralcentralshop.com");
+                $.fancybox.close();
+            });
+
+            // Stay Here
+            $("#ships-to-popup .actions button.stay").on("click", function(){
+                Mage.Cookies.set("skipIpRedirection", 1, new Date(new Date().getTime() + 365 * 86400 * 1000));
+                $.fancybox.close();
+            });
+        })(jQuery);
+    </script>
+</div>
+<?php } ?>
+<?php } ?>

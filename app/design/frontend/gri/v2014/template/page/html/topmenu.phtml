@@ -1,0 +1,41 @@
+<?php
+/**
+ * Top menu for store
+ *
+ * @see Gri_Page_Block_Html_TopmenuV2014
+ */
+?>
+<?php $_menu = $this->getHtml('level-top','menu-lists') ?>
+<?php if($_menu): ?>
+    <div class="nav-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul id="nav" class="sf-menu">
+                        <?php echo $_menu ?>
+                    </ul>
+                    <div class="sf-menu-block">
+                        <ul class="sf-menu-phone">
+                            <?php echo $_menu ?>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+<?php endif ?>
+<script>
+jQuery(function(){
+    jQuery("#nav li.level0").eq(jQuery("#nav li.level0").length - 2).hover(function(){
+        jQuery(this).children(".menu-lists").addClass("menustyle")
+    },function(){
+        jQuery(this).children(".menu-lists").removeClass("menustyle")
+    })
+    jQuery("#nav li.level0").eq(jQuery("#nav li.level0").length - 1).hover(function(){
+        jQuery(this).children(".menu-lists").addClass("menustyle")
+    },function(){
+        jQuery(this).children(".menu-lists").removeClass("menustyle")
+    })
+})
+</script>

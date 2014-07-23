@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author      Branko Ajzele, ajzele@gmail.com
+ * @category    Inchoo
+ * @package     Inchoo_Api
+ * @copyright   Copyright (c) Inchoo LLC (http://inchoo.net)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Inchoo_Api2>
+            <version>1.1.1.0</version>
+        </Inchoo_Api2>
+    </modules>
+    <global>
+        <models>
+            <inchoo_api2>
+                <class>Inchoo_Api2_Model</class>
+            </inchoo_api2>
+        </models>
+        <helpers>
+            <inchoo_api2>
+                <class>Inchoo_Api2_Helper</class>
+            </inchoo_api2>
+        </helpers>
+    </global>
+    <frontend>
+        <routers>
+            <inchoo_api2>
+                <use>standard</use>
+                <args>
+                    <module>Inchoo_Api2</module>
+                    <frontName>inchoo-api2</frontName>
+                </args>
+            </inchoo_api2>		
+            
+            <!--            
+                Here we add rewrite of the default Mage_Api router. 
+                However, we will not change or extend any of the existing API service controllers, 
+                we merely want our REST/JSON API to be available under the sub-url 
+                of http://{my_store}/index.php/api/ for more nicer look & feel. 
+
+                With that in mind, we will use InchooController with rest/json actions 
+                so we can access them like http://{my_store}/index.php/api/inchoo/rest 
+                and http://{my_store}/index.php/api/inchoo/json. 
+
+                This way we are safe if in the future Magento itself adds REST/JSON API, 
+                so we do not override it with our code.
+            -->
+            
+            <api>
+                <args>
+                    <modules>
+                        <Inchoo_Api2 before="Mage_Api2">Inchoo_Api2</Inchoo_Api2>
+                    </modules>
+                </args>
+            </api>
+        </routers>
+        <translate>
+            <modules>
+                <inchoo_api2>
+                    <files>
+                        <default>inchoo_api2.csv</default>
+                    </files>
+                </inchoo_api2>
+            </modules>
+        </translate>       
+    </frontend>
+</config>

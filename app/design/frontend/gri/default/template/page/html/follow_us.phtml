@@ -1,0 +1,45 @@
+<?php
+/**
+ * Follow us on SNS sites
+ */
+/* @var $this Mage_Core_Block_Template */
+?>
+<?php
+     $homeCmsPage = Mage::getSingleton('cms/page')->load('home','identifier');
+     if($isCnSite = 'CN' == Mage::helper('core')->getDefaultCountry()){
+        $logoImgSrc = 'images/logo_chi.png';
+     }else{
+        $logoImgSrc = 'images/logo.jpg';
+     }
+
+     $logoImgSrc = $this->getSkinUrl($logoImgSrc);
+     $shareUrl = $this->getBaseUrl();
+     $shareTitle= $homeCmsPage->getTitle();
+     $shareDescription = $homeCmsPage->getMetaDescription();
+?>
+<div class="follow-us right">
+    <span class="rig_space"><?php echo $this->__('Connect with Us'); ?></span>
+    <?php if ($isCnSite) { ?>
+    <a href="http://e.weibo.com/u/2967136555?ref=http%3A%2F%2Fweibo.com%2F2706313483%2Fmyfollow" target="_blank" class="follow-us-wb" title="weibo">&nbsp;</a>
+    <a href="http://e.weibo.com/u/2967136555?ref=http%3A%2F%2Fweibo.com%2F2706313483%2Fmyfollow" style="width:100px;padding-top: 2px;" ><?php echo $this->__('Follow our Official Weibo'); ?></a>
+    <?php } else { ?>
+    <?php $facebookHelper = Mage::helper('inchoo_facebook') ;?>
+       <?php if($facebookHelper->isEnabledShareAndFollowUs()):?>
+           <a target="_blank" href="<?php echo $facebookHelper->getFollowUsUrl(); ?>"  class="follow-us-wb follow-us-fb" title="Facebook">&nbsp;</a>
+       <?php endif;?>
+       <?php if( 1 == 0 ):?>
+<!--        https://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com&send=false&layout=button_count&width=450&show_faces=true&colorscheme=light&action=like&height=21&appId=148726678645247&ret=optin&act=connect&hash=AQDLO64sCeduDJ0T-->
+           <iframe width="100" height="50" src="http://www.facebook.com/plugins/like.php?href=<?php echo $facebookHelper->getFollowUsUrl();?>&send=false&layout=button_count&width=100&show_faces=true&font&colorscheme=light&action=like&height=50&appId=<?php echo $facebookHelper->getApiKey() ?>">
+           </iframe>
+       <?php endif;?>
+    <?php $customerHelper = Mage::helper('gri_customer') ;?>
+    <?php if($customerHelper->enabledYoutube()):?>
+        <a target="_blank"  href="<?php echo $customerHelper->getYoutubeFollowUsUrl() ?>"  class="follow-us-wb follow-us-yt" title="Youtube">&nbsp;</a>
+    <?php endif;?>
+    <?php if(1 == 0):?>
+      <iframe src="http://www.youtube.com/subscribe_widget?p=HKCentralCentral" style="overflow: hidden; height: 105px;width: 300px; border: 0;" scrolling="no" frameBorder="0">
+      </iframe>
+    <?php endif;?>
+    <a target="_blank" href="http://instagram.com/centralcentralshop" class="follow-us-wb follow-us-insg" title="Instagram">&nbsp;</a>
+    <?php } ?>
+</div>

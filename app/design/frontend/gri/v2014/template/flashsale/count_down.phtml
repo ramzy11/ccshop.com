@@ -1,0 +1,29 @@
+<?php
+/* @var $this Gri_FlashSale_Block_CountDown */
+?>
+<div class="fl_time_title">
+    <span><?php echo $this->__('Ends in'); ?></span>
+</div>
+<div id="flash-sale-countdown" class="clearer"></div>
+<div class="desc clearer">
+    <div class="first"><?php echo $this->__('Hrs'); ?></div>
+    <div><?php echo $this->__('Min'); ?></div>
+    <div class="last"><?php echo $this->__('Sec'); ?></div>
+</div>
+
+<script type="text/javascript">
+    jQuery(function () {
+        jQuery("#flash-sale-countdown").countdown({
+            date: "<?php echo $this->getNewStartTime(); ?>",
+            render: function(data) {
+                    var el = jQuery(this.el);
+                    var y = this.leadingZeros(data.years, 4)
+                    var d = this.leadingZeros(data.days, 3)
+                    var h = parseInt(this.leadingZeros(data.hours, 2)) + parseInt(y * 365 * 24 + d * 24)
+                    var m = this.leadingZeros(data.min, 2)
+                    var s = this.leadingZeros(data.sec, 2)
+                    el.empty().append("<div class='count_down_time'>" + h + " <span>:</span> " +  m + " <span>:</span> " + s + " </div>")
+            }
+        })
+    })
+</script>

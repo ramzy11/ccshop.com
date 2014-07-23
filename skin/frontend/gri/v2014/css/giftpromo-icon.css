@@ -1,0 +1,32 @@
+/* catalog category gift icon */
+.gift-icon{/*right:0px;*/z-index:99;cursor :pointer;display:inline-block;margin-right:10px;margin-top: -5px;position: relative;padding: 2px 10px;background: #000;}
+.item .gift-icon span{color:#fff;text-transform:uppercase;padding-left: 5px;}
+.gift-title{margin-bottom:10px;line-height:16px;font:13px Arial;color:#333;}
+.gift-icon-hover{z-index:1;padding:10px;background:#fff;left:3px;margin-right:3px;margin-left:-70px;display:inline-block;width:240px;text-align: left;color: #000;box-shadow: 0 2px 2px 3px #e3e3e3;}
+.gift-icon-hover h2{font:15px Futura Hv Bt,"Microsoft YaHei","微軟雅黑";margin-bottom: 10px;}
+.gift-icon-hover .gift-item{padding-bottom:10px;display: table;width: 100%;}
+.gift-icon-hover .gift-item img{width:67px;height:100px;}
+.gift-icon-hover .gift-item .giftted-product-details img{float:left;}
+.gift-icon-hover .gift-item .gifted-product-details{width:56%;color:#000;display: table-cell;vertical-align: middle;}
+.gift-icon-hover .gift-item .gifted-product-details .gift-brand{font:bold 15px Arial;margin-bottom: 5px;text-transform: uppercase;}
+.gift-icon-hover .gift-item .gifted-product-details .gift-name,.catalog-category-view .gift-icon-hover .gift-item .gifted-product-details .gift-tax{font:12px Arial;margin-bottom: 3px;}
+/*.catalog-category-view .item{position:relative;}*/
+
+/* catalog search gift icon*/
+/*.catalogsearch-result-index .gift-icon{right:0px;z-index:99;cursor :pointer;display:inline-block;padding-top:3px;}*/
+/*.catalogsearch-result-index .item .gift-icon span{color:#EC008C;text-transform:uppercase;}*/
+/*.catalogsearch-result-index .gift-title{margin-bottom:10px;font-weight:bold;}*/
+/*.catalogsearch-result-index .gift-icon-hover{z-index:1;padding:10px;background:#fff;border:1px solid #ccc;left:3px;margin-right:3px;margin-left:10px;display:inline-block;}*/
+/*.catalogsearch-result-index .gift-icon-hover .gift-item{padding-bottom:10px;}*/
+/*.catalogsearch-result-index .gift-icon-hover .gift-item .giftted-product-details img{float:left;}*/
+/*.catalogsearch-result-index .gift-icon-hover .gift-item .gifted-product-details{font-size:9px;float:right;width:56%;color:#838383;}*/
+/*.catalogsearch-result-index .item{position:relative;}*/
+
+
+@media only screen and (max-width:700px) and (min-width: 340px){
+    .gift-icon-hover{left:40% !important;}
+}
+
+@media only screen and (max-width: 339px) {
+    .gift-icon-hover{left:30% !important;}
+}

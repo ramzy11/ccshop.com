@@ -1,6 +1,10 @@
 <?php
-/* @var $this Mage_Catalog_Block_Product_List_Related */
+/* @var $this Gri_CatalogCustom_Block_Product_List_Upsell */
 /* @var $product Mage_Catalog_Model_Product */
+/* @var $productHelper Gri_CatalogCustom_Helper_Product */
+/* @var $simplePriceHelper Gri_SimplePrice_Helper_Data */
+$simplePriceHelper = Mage::helper('gri_simpleprice');
+$productHelper = Mage::helper('gri_catalogcustom/product');
 $this instanceof Mage_Reports_Block_Product_Viewed and $this->setItems($this->getRecentlyViewedProducts());
 $this->getImageSize() or $this->setImageSize(125);
 $count = count($this->getItems()) ;
@@ -31,11 +35,13 @@ $count = count($this->getItems()) ;
                     </a>
                     <br>
                     <?php
-                        /* @var $priceBlock Mage_Catalog_Block_Product_Price */
-                        $priceBlock = $this->getLayout()->createBlock('catalog/product_price')->setTemplate('catalog/product/price.phtml')->setProduct($product);
-                        echo $priceBlock->toHtml();
+                        if (!$productHelper->isGift($product)) {
+                            $simplePriceHelper->setUseDummyFinalPrice($product);
+                            $simplePriceHelper->updateSimplePrice($product);
+                            $simplePriceHelper->getSimplePrices($product);
+                        }
+                        echo $this->getPriceHtml($product, true);
                     ?>
-<!--                    <span class="price">--><?php ////echo  Mage::helper('core')->currency($product->getPrice(), true, false) ?><!--</span>-->
                 </div>
             </li>
             <?php } ?>

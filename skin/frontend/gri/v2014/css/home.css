@@ -58,7 +58,12 @@
 #most_recent_views .product-name{ word-break: break-all;}
 #most_recent_views .price-box{ text-align: center}
 #most_recent_views .product-image>img{padding-left: -10px;}
-#most_recent_views .minimal-price-link{display: none;}
+/*#most_recent_views .minimal-price-link{display: none;}*/
+
+#most_recent_views .price-box span.line-through{padding-bottom:0; margin-bottom:0 !important; font:12px Arial; color:#808080;font-weight:normal;}
+#most_recent_views .price-box .line-through .price{line-height:normal; color:#808080 !important;}
+#most_recent_views .minimal-price-link{display: block !important; color:#EA1E79; font-family:Arial, "Microsoft YaHei"; font-size:12px; line-height:normal; margin-top:0 !important;}
+#most_recent_views .minimal-price-link .label{margin:0; padding:0; font-weight:normal;}
 /* instagram */
 .instagram-view{float:left;width:100%;}
 .instagram-view .ikantam-instagram{margin-top:40px;}

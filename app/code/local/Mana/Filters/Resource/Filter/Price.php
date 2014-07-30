@@ -169,7 +169,11 @@ class Mana_Filters_Resource_Filter_Price extends Mage_Catalog_Model_Resource_Eav
                 $layer = Mage::getSingleton('catalog/layer');
         		$needle = "cat_index.category_id='";
                 $startPos = strpos($options['joinCondition'], $needle);
-        		if ($startPos === false)  throw new Exception('Not implemented');
+        		if ($startPos === false)
+				{
+					break;
+					//throw new Exception('Not implemented');
+				}
         		$endPos = strpos($options['joinCondition'], "'", $startPos + strlen($needle));
         		$from[$key]['joinCondition'] = 
         			substr($options['joinCondition'], 0, $startPos + strlen($needle)).

@@ -19,14 +19,13 @@
                         </li>
                         <?php
                             $attributeSets = $this->getAttributeSetIdOptions();
-                            foreach($attributeSets as $setId=>$setName):
+                            foreach($attributeSets as $setId => $setName):
                                 $_params = $params;
                                 $_params['attribute_set_id'] = $setId;
-								unset($_params['p']);
-								unset($_params['isAjax']);
+                                unset($_params['p']);
                         ?>
                         <li class="m-filter-item">
-                            <a href="javascript:;" class='<?php echo (isset($params['attribute_set_id']) && $params['attribute_set_id'] == $setId) ? 'product-type-selected':'';?>' onclick="sendFilter('<?php echo $this->getUrl('flashsale', $_params); ?>');"><?php echo $this->__($setName); ?></a>
+                            <a href="javascript:;"  class='<?php echo (isset($params["attribute_set_id"]) && $params["attribute_set_id"] == $setId) ? "product-type-selected": ""; ?>'  onclick="sendFilter('<?php echo $this->getUrl('flashsale', $_params); ?>');"><?php echo $this->__($setName); ?></a>
                         </li>
                         <?php endforeach; ?>
                     </ol>

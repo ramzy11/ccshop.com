@@ -97,7 +97,11 @@ $layout = $this->getLayout();
             <textarea cols="30" rows="3" name="<?php echo $this->getFullyQualifiedName('street[]'); ?>" id="<?php echo $this->getFullyQualifiedId('street1'); ?>"class="input-text <?php echo $_streetValidationClass ?>"><?php echo $this->escapeHtml($address->getStreet(1)) ?></textarea>
             <?php /*
             <input type="text" title="<?php echo $checkoutHelper->__('Street Address') ?>" name="<?php echo $this->getFullyQualifiedName('street[]'); ?>" id="<?php echo $this->getFullyQualifiedId('street1'); ?>" value="<?php echo $this->escapeHtml($address->getStreet(1)) ?>" class="input-text <?php echo $_streetValidationClass ?>"/> */?>
-            <p class="f11 grey"><span class="hint">*</span><?php echo $checkoutHelper->__('Please include the company name,If shipping to a work address.') ?></p>
+            <div class="tips-content">
+                <span class="tips"></span>
+                    <span class="tips-info no-display"></span>
+                    <span class="f11 grey no-display"><?php echo $checkoutHelper->__('Please include the company name,If shipping to a work address.') ?></span>
+            </div>
         </div>
     </li>
     <li class="fields telephone">
@@ -112,8 +116,12 @@ $layout = $this->getLayout();
         <div class="field">
             <label for="<?php echo $this->getFullyQualifiedId('telephone'); ?>" class="required"><!--<em>*</em>--><?php echo $checkoutHelper->__('Phone') ?></label>
             <div class="input-box input-box-telephone">
-                <p class="f11 grey"><span class="hint">*</span><?php echo $checkoutHelper->__('Please provide the country code (e.g. +852) before telephone number.') ?></p>
                 <input type="text" name="<?php echo $this->getFullyQualifiedName('telephone'); ?>" value="<?php echo $this->escapeHtml($address->getTelephone()) ?>" title="<?php echo $checkoutHelper->__('Phone') ?>" class="input-text <?php echo $addressHelper->getAttributeValidationClass('telephone') ?> valid-mobilephone" id="<?php echo $this->getFullyQualifiedId('telephone'); ?>" />
+                <div class="tips-content">
+                    <span class="tips"></span>
+                        <span class="tips-info no-display"></span>
+                        <span class="f11 grey no-display"><?php echo $checkoutHelper->__('Please provide the country code (e.g. +852) before telephone number.') ?></span>
+                </div>
                 <script type="text/javascript">
                     Validation.addAllThese([
                         ['valid-mobilephone','<?php echo $this->__('Please provide a valid telephone number.'); ?>',

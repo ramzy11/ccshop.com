@@ -66,7 +66,7 @@ foreach ($params as $code => $val) {
             foreach ($optionIds as $oid) {
                 $options[$oid] = $optionsTmp[$oid];
             }
-            $selectedOptions[$code]['label'] = strtoupper($this->__($label)) . '-' . implode('-', $options);
+            $selectedOptions[$code]['label'] = strtoupper($this->__($label)) . '&nbsp;-&nbsp;' . implode('&nbsp;-&nbsp;', $options);
 
         } else {
             /* @var $_coreHelper Mage_Core_Helper_Data */
@@ -74,7 +74,7 @@ foreach ($params as $code => $val) {
             list($from,$to) = @explode('-', $val);
             $from = $_coreHelper->currency($from);
             $to = $_coreHelper->currency($to);
-            $selectedOptions[$code]['label'] = strtoupper($this->__($label)).' '.$from.'-'.$to  ;
+            $selectedOptions[$code]['label'] = strtoupper($this->__($label)).'&nbsp;'.$from.'&nbsp;-&nbsp;'.$to  ;
         }
 
         $toFilterParams = $params;

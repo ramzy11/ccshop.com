@@ -59,10 +59,10 @@
                     <?php echo is_object($this->getChildProduct()) ? $this->getChildProduct()->getSku() : $_item->getSku(); ?>
                 </p>
                 <?php if($color): ?>
-                    <p class="product-color f11 grey"><span><?php echo $_griCheckoutHelper->__('Color') ?>:</span><?php echo $color; ?></p>
+                    <p class="product-color f11 grey"><span><?php echo $_griCheckoutHelper->__('Color') ?>:</span>&nbsp;<?php echo $color; ?></p>
                 <?php endif;?>
                 <?php if($size): ?>
-                    <p class="product-size f11 grey"><span><?php echo $_griCheckoutHelper->__('Size') ?>:</span><?php echo $size; ?></p>
+                    <p class="product-size f11 grey"><span><?php echo $_griCheckoutHelper->__('Size') ?>:</span>&nbsp;<?php echo $size; ?></p>
                 <?php endif;?>
 
                 <?php if ($_options):?>
@@ -93,14 +93,11 @@
                     <?php endforeach; ?>
                 </dl>
         <?php endif;?>
-
-        <?php /*
         <?php if ($messages = $this->getMessages()): ?>
             <?php foreach ($messages as $message): ?>
                 <p class="item-msg <?php echo $message['type'] ?>">* <?php echo $this->escapeHtml($message['text']) ?></p>
             <?php endforeach; ?>
         <?php endif; ?>
-        */ ?>
 
         <?php $addInfoBlock = $this->getProductAdditionalInformationBlock(); ?>
         <?php if ($addInfoBlock): ?>
@@ -356,8 +353,8 @@
 
         <?php ($this->helper('wishlist')->isAllowInCart()); { ?>
             <?php if ($isVisibleProduct): ?>
-                <p><a title="<?php echo $this->__('ADD TO WISH LIST'); ?>" href="<?php echo $this->helper('wishlist')->getMoveFromCartUrl($_item->getId()); ?>"
-                      class="rig_txt cart_link_btn"><?php echo $this->__('ADD TO WISH LIST'); ?></a></p>
+                <p><a title="<?php echo $this->__('ADD TO WISHLIST'); ?>" href="<?php echo $this->helper('wishlist')->getMoveFromCartUrl($_item->getId()); ?>"
+                      class="rig_txt cart_link_btn"><?php echo $this->__('ADD TO WISHLIST'); ?></a></p>
             <?php endif ?>
         <?php } ?>
 

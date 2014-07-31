@@ -599,7 +599,7 @@ tr.summary-details-excluded{font-style:italic;}
 .header-border .header-buttons .links li a.top-search-link:hover {opacity:0.7}
 .header-border .header-buttons .links li a.top-wishlist-link{text-transform:uppercase;width:105px;height:25px;margin-top:12px;display: table;}
 .header-border .header-buttons .links li a.top-wishlist-link:hover {opacity:0.7}
-.header-border .header-buttons .links li a.top-wishlist-link p{display:table-cell;vertical-align: middle;}
+.header-border .header-buttons .links li a.top-wishlist-link p{display:table-cell;vertical-align: middle;padding-bottom:1px;}
 .header-border .header-buttons .links li a.top-wishlist-link span{background:url("../images/icon/ico_wishlist.jpg") no-repeat scroll;height: 25px;width: 26px;display: inline-block;color: #fff;position: relative;padding-bottom: 11px;margin-left:8px;text-align: center;line-height: 200%;font:13px Futura Bk Bt;padding-top: 4px;}
 .header-border .header-buttons .links li a span{font:12px Arial;}
 .header .header-border .block-title h3{font:13px Futura Bk Bt;color:#808080;}
@@ -998,8 +998,7 @@ button.button > span,
 .wrapper-hover{padding:0 0 15px;overflow:hidden; box-shadow:0 0px 13px rgba(0,0,0,0.15); -moz-box-shadow:0 0px 13px rgba(0,0,0,0.15);-webkit-box-shadow:0 0px 13px rgba(0,0,0,0.15);}
 .wrapper-hover:hover{	box-shadow:0 0px 20px rgba(0,0,0,0.09);-moz-box-shadow:0 0px 20px rgba(0,0,0,0.09);-webkit-box-shadow:0 0px 20px rgba(0,0,0,0.09);}
 .products-grid .product-shop{padding:0 20px;}
-.ribbon-space{display: inline-block;}
-.cms-index-index .ribbon-space{display:block;text-align:center;}
+.ribbon-space{display:block;text-align:center;}
 /* Type:List and Grid */
 .products-grid .product-name ,.products-list .product-name{margin:0 0 5px;}
 .products-grid .product-name a,.products-list .product-name a{font-size:14px;line-height:17px;font-weight:normal;text-decoration:none;}
@@ -1072,7 +1071,7 @@ button.button > span,
 /* Regular price */
 .regular-price{display:block;}
 .col-main .regular-price .price,
-.col-main .price-box.map-info .old-price .price{font-size:12px;color:#fa3333;font-weight:normal;line-height:22px;}
+.col-main .price-box.map-info .old-price .price{font-size:12px;color:#fa3333;font-weight:normal;}
 .products-grid .old-price .price{font: 12px Arial;color:#808080;margin-right:5px;}
 .products-list .old-price .price,
 .block .old-price .price{font-size:12px;font-weight:normal;color:#808080;margin-right:5px;}
@@ -2284,8 +2283,9 @@ div.star-rating{/* background:transparent!important; *//* overflow:hidden!import
 .dashboard .membership .request_info .vip_info_area ul{margin-bottom:20px;}
 .dashboard .membership .request_info .vip_info_area ul li{font: 13px Arial;line-height: 180%;}
 .dashboard .membership .request_info .vip_info_area p{text-transform: uppercase;}
-.dashboard .membership .request_info .vip_info_area p a.point_btn{padding-left:10px;}
-.dashboard .membership .request_info .vip_info_area p a.point_btn:hover{color:#000;text-decoration: underline;}
+.dashboard .membership .request_info .vip_info_area p a.point_btn{padding:10px; background-color:#000; color:#fff;}
+.dashboard .membership .request_info .vip_info_area p a.point_btn:hover{opacity: 0.7; color:#fff; background-color:#000; }
+/*.dashboard .membership .request_info .vip_info_area p a.point_btn:hover{color:#000;text-decoration: underline;}*/
 .dashboard .membership .con_table .vip-slider .vip-slider-moving-bag{background: url("../images/img_cart_bag.png") no-repeat scroll;width:16px;height:20px;position:relative;display:block;top:-5px;margin-left:-8px;}
 .dashboard .membership .con_table .vip-slider .vip-slider-handle{background:url("../images/sel_bg.png") no-repeat scroll;;top:-75px;width:120px;height:60px;margin-left:-59px;line-height:12px;padding:4px;}
 .dashboard .membership .con_table .sf-vip-info{display: none;}
@@ -2848,7 +2848,7 @@ span.opened:before{content:"\f068";}
 .banner-arrow{display:none;}
 .border-bottom{border-bottom:1px #000 solid;}
 .regular-price.line-through,.price.line-through{color:#808080;text-decoration:line-through;display: inline-block;font:12px Arial;}
-.price.line-through{padding-bottom: 15px;}
+.price.line-through{display:block;}
 .shop-banner,.brand-banner{min-height:50px;margin-bottom:20px;}
 .brand-banner .brand-image a span,.shop-banner .shop-image a span{font: 40px Futura Bk Bt,"Microsoft YaHei","微軟雅黑"; text-transform: uppercase;display: inline-block;color:#000;line-height: 100%; }
 .brand-banner .brand-image a:hover,.shop-banner .shop-image a:hover{ color:#000;}
@@ -2858,13 +2858,13 @@ span.opened:before{content:"\f068";}
 .category-products .products-grid .item .product_description{text-align:center;margin-top:18px;-moz-width:260px;}
 .category-products .products-grid .item .product_description .brand-name{margin-bottom:5px;font:bold 15px Arial;color:#000;text-transform:uppercase;}
 .category-products .products-grid .item .product_description .product-name{font:12px Arial;margin-bottom:-2px;color:#000;}
-.category-products .products-grid .item .product_image{width:220px;height:330px;}
+.category-products .products-grid .item .product_image{width:220px;height:330px;z-index: 66;}
 .category-products .products-grid .item .actions{text-align:center;}
 .category-products .products-grid .item .quick-view{width: 50px;text-align: center;position: absolute;margin-left:170px;margin-top:300px;top:0;display:none;}
 .category-products .products-grid .item .quick-view span{font-size:11px;text-transform: uppercase;line-height: 14px;display: inline-block;}
-.products-grid .item .product_style{position:absolute;width: 20px;margin-left:190px;top:17px;display: none;}
+.products-grid .item .product_style{position:absolute;width: 20px;margin-left:190px;top:17px;display: none;z-index: 99;}
 .products-grid .item .product_style ul{text-align:center;}
-.products-grid .item .product_style ul li{width:19px;height:19px;border:1px #fff solid;overflow:hidden;display:inline-block;}
+.products-grid .item .product_style ul li{width:19px;height:19px;border:1px #fff solid;overflow:hidden;display:inline-block;z-index: 100;}
 .products-grid .item .product_style ul li.hover{ border:1px #000 solid;padding:1px; }
 .shop-now{background:#000;color:#fff;padding:3px 10px;text-transform: uppercase;}
 .catalog-category-view .sf-prev,.catalog-category-view .sf-next,
@@ -3118,7 +3118,7 @@ span.opened:before{content:"\f068";}
 .checkout-cart-index .checkout-types{clear:both;margin-top:-30px;}
 .checkout-cart-index .checkout-types button.btn-proceed-checkout{float:right;}
 .checkout-cart-index .checkout-types button.btn-proceed-checkout:hover{opacity: 0.7;}
-.checkout-cart-index .checkout-types button.btn-proceed-checkout span{padding:5px 30px;}
+.checkout-cart-index .checkout-types button.btn-proceed-checkout span{padding:5px 30px;height:auto;}
 .checkout-cart-index .checkout-types button.btn-proceed-checkout span span{background:none;font-size:20px;font-weight:normal;text-transform:uppercase;padding:0;font-family: Futura Hv Bt,"Microsoft YaHei","微軟雅黑";}
 .checkout-cart-index .cart-collaterals{padding:0;width:530px;float:left;}
 .checkout-cart-index .cart-collaterals .col-1{width:44%;}
@@ -3181,6 +3181,7 @@ span.opened:before{content:"\f068";}
 /*.checkout-cart-index #main{margin-top:20px;}*/
 .checkout-cart-index .item-description .up_c{font: bold 15px Arial;text-transform: uppercase;color:#000;margin-bottom: 5px;text-align: left;}
 .checkout-cart-index .item-description .product-name,.checkout-cart-index .item-description .edit_cart{text-align: left;}
+.checkout-cart-index .item-description .edit_cart:hover{ opacity: 0.7; }
 .checkout-cart-index .item-description .product-name a{font: 12px Arial;color:#000;}
 .checkout-cart-index .cart_item table tr td{text-align: left !important;}
 .checkout-cart-index .cart_item table tr td p.product-sku span,.checkout-cart-index .cart_item table tr td p.product-color span,
@@ -3330,10 +3331,11 @@ fieldset .buttons-set .required{text-align: left; margin-left: 10px;}
 .wishlist-index-index .shop-now,.wishlist-index-index .new-arrival-ribbon{display:none !important;}
 .wishlist-index-index .product_image{width: 160px;height:240px;display: table;margin:0 10px;}
 .wishlist-index-index .product_image .product-image{display: table-cell !important;vertical-align: bottom;}
-.wishlist-index-index .product_description{text-align: center;height:120px;}
+.wishlist-index-index .product_description{text-align: center;}
 .wishlist-index-index .brand-name{font: bold 12px Arial;color:#000;}
 .wishlist-index-index .product-name{font: 12px Arial;color:#000;margin-bottom:5px !important;}
-.wishlist-index-index .minimal-price-link{display:none;}
+.wishlist-index-index .regular-price.line-through .price{color:#808080;}
+.wishlist-index-index .minimal-price-link{/*display:none;*/}
 .wishlist-index-index .add-to-cart .btn-cart span{height: 36px;color:#fff;background:#000;font:13px Futura Bk Bt;text-transform: uppercase;line-height: 280%;}
 .wishlist-index-index .add-to-cart .btn-cart span:hover{opacity:0.7;color:#fff;}
 .wishlist-index-index .price-box .special-price{display: block;}
@@ -3362,7 +3364,7 @@ fieldset .buttons-set .required{text-align: left; margin-left: 10px;}
 .wishlist-index-index #wishlist-table #wishlist-grid-x{width: 900px !important;margin-left:22px;}
 .wishlist-index-index .products-grid li.product_item:last-child{margin-right:20px;}
 .wishlist-index-index #wishlist-table #wishlist-grid-x .silder li.product_item{width:180px\0;*width:180px;}
-.wishlist-index-index #wishlist-table ul.slider li .add-to-cart .btn-cart{float: none !important;margin-left: 30px;margin-top:-20px;}
+.wishlist-index-index #wishlist-table ul.slider li .add-to-cart .btn-cart{float: none !important;margin-left: 30px;}
 .wishlist-index-index #wishlist-table ul.slider li .add-to-cart .share-wishlist-to-friend .share-wishlist-label{margin-top: -20px;}
 .wishlist-index-index .gift-icon{position:absolute;}
 .wishlist-index-index .products-grid li.product_item{width:180px;position:relative;}

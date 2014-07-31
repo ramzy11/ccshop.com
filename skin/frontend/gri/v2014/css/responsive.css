@@ -36,6 +36,7 @@ body{margin:auto auto;}
 /*.sf-menu-phone{position:absolute;margin-left: -20000px;}*/
 #page-top-message-mobile{display: none;}
 .home_mid_block_mobile{display: none;}
+.catalog-category-view .product_image .product-image{width:220px;height:330px;}
 }
 
 /*******         PC(width:960px;)     **********/

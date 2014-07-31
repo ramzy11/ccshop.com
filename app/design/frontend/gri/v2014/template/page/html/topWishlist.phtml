@@ -1,11 +1,6 @@
-<?php
-$session = Mage::getSingleton('customer/session');
-$wishlistCount = Mage::helper('wishlist')->getItemCount();
-$customerHelper = Mage::helper('gri_customer');
-?>
-
-<?php if ($session->getCustomerId()) { ?>
-    <a href="<?php echo $this->getUrl('wishlist'); ?>" class="top-wishlist-link"><p class="top-wishlist-name"><?php echo $customerHelper->__('Wish List'); ?></p>
-        <span><?php echo $wishlistCount ?></span>
+<?php /* @var $this Mage_Page_Block_Html_Header  */  ?>
+<?php if (Mage::getSingleton('customer/session')->getCustomerId()): ?>
+    <a href="<?php echo $this->getUrl('wishlist'); ?>" class="top-wishlist-link"><p class="top-wishlist-name"><?php echo  Mage::helper('gri_wishlist')->__('WishList'); ?></p>
+        <span><?php echo Mage::helper('wishlist')->getItemCount(); ?></span>
     </a>
-<?php } ?>
+<?php endif; ?>

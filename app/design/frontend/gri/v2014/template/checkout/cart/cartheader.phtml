@@ -46,12 +46,10 @@
 	    </div>
 	<?php else:?>
 	    <div class="block-title <?php if(!$_cartQty) { echo 'no-items'; } ?>">
-            <!--<h3><span><?php echo $this->__('Tote ')?></span>-->
                 <p class="mini-cart-qty">
-                    <a id="cartHeader" href="<?php echo $this->getUrl('checkout/cart'); ?>"><span><?php echo $this->__('Tote ')?></span><?php echo ' '.$_cartQty ?></a>
-                    <a id="sf-cartHeader" href="javascript:void(0);"><?php echo ' '.$_cartQty ?></a>
+                    <a id="cartHeader" href="<?php echo $this->getUrl('checkout/cart'); ?>"><span><?php echo $this->__('Tote ')?></span> <?php echo $_cartQty ?></a>
+                    <a id="sf-cartHeader" href="javascript:void(0);"><?php echo $_cartQty ?></a>
                 </p>
-            <!--</h3>-->
 	    </div>
 	    <div id="topCartContent" class="block-content" style="display:none">
 	        <div class="inner-wrapper"><?php // extra div to smooth slideUp and slideDown ?>
@@ -70,12 +68,13 @@
             <?php // cart empty ?>
 	        <?php else: ?>
                 <div class="cart-content">
-                    <?php echo $this->__('You have no items in your shopping cart.') ?>
+                    <?php echo $this->__('You have no items in your tote.') ?>
                 </div>
 	        <?php endif ?>
 
-	        <?php if($_cartQty && $this->isPossibleOnepageCheckout()): ?>
-	            <div class="actions">
+	        <?php //if($_cartQty && $this->isPossibleOnepageCheckout()): ?>
+            <?php if($_cartQty): ?>
+                    <div class="actions">
 	                <?php echo $this->getChildHtml('extra_actions') ?>
 	                <button class="button" type="button" onclick="setLocation('<?php echo $this->getUrl('checkout/cart'); ?>')">
                         <span><span><?php echo $this->__('View tote / Checkout') ?></span></span></button>

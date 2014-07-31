@@ -16,6 +16,9 @@ class Gri_Page_Block_Html_Topmessage extends Mage_Core_Block_Template
 
     public function getIsHomePage()
     {
-        return $this->getUrl('') == $this->getUrl('*/*/*', array('_current'=>true, '_use_rewrite'=>true));
+        $routeName = Mage::app()->getRequest()->getRouteName();
+        $identifier = Mage::getSingleton('cms/page')->getIdentifier();
+
+        return $routeName == 'cms' && $identifier == 'home' ? true : false;
     }
 }

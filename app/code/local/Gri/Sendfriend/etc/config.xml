@@ -5,6 +5,17 @@
             <version>1.0.0</version>
         </gri_sendfriend>
     </modules>
+    <frontend>
+        <routers>
+            <sendfriend>
+                <args>
+                    <modules>
+                        <Gri_Sendfriend before="Mage_Sendfriend">Gri_Sendfriend</Gri_Sendfriend>
+                    </modules>
+                </args>
+            </sendfriend>
+        </routers>
+    </frontend>
     <global>
         <models>
             <sendfriend>

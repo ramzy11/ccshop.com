@@ -17,7 +17,7 @@
 .flash_ban_area{background:#fff;/*margin:20px 0 0;*/position: relative;}
 .flash_title{line-height:20px;}
 .cms-index-index .flash_ban_area .banner-title{display: none;}
-.flash_ban_area .banner-title{font: 40px Futura Bk Bt,"Microsoft YaHei","微軟雅黑";color:#000;text-transform: uppercase;border-bottom: 1px solid #000;margin-bottom: 10px;}
+.flash_ban_area .banner-title{font: 40px Futura Bk Bt,"Microsoft YaHei","微软雅黑";color:#000;text-transform: uppercase;border-bottom: 1px solid #000;margin-bottom: 10px;}
 .flash_ban_area .flash_sal_time{float:right;width:265px;margin-right:10px;position: absolute;right: 19px;box-shadow: 0px 5px 30px 1px #e4e4e4;top:60px;top:50px\0;padding: 0 20px;display: block;background: #fff;}
 .flash_ban_area .flash_sal_time .fl_time_title{font:15px Futura Bk BT;font-weight:bold;margin:15px 0 10px;text-transform:uppercase;text-align: center;border-bottom:1px solid #000;height: 10px;}
 .flash_ban_area .flash_sal_time .fl_time_title span{padding: 0 10px; background: #fff;color:#000;}
@@ -52,7 +52,7 @@ div#flash-sale-countdown .count_down_time span{position:relative;top:-4px;}
 
 .flash-sale-list .block-layered-nav ol{margin: 0;padding: 8px;}
 .flash-sale-list .block-layered-nav #filter-value-size_clothing ol{padding:8px 13px;}
-.flash-sale-list .block-layered-nav .filter-name{font: 20px Futura bk bt,"Microsoft YaHei","微軟雅黑";color: #000;background: url(../images/flashsale_arrow.png) right 28px no-repeat;padding: 20px 20px 25px 0;display: block;}
+.flash-sale-list .block-layered-nav .filter-name{font: 20px Futura bk bt,"Microsoft YaHei","微软雅黑";color: #000;background: url(../images/flashsale_arrow.png) right 28px no-repeat;padding: 20px 20px 25px 0;display: block;}
 .flash-sale-list .block-layered-nav .filter-name:hover{cursor: pointer;text-decoration: underline;}
 .flash-sale-list .block-layered-nav .m-filter-item a{font:13px Arial;color: #808080;text-transform: none;}
 .flash-sale-list .block-layered-nav .m-filter-item a:hover{color:#000;}
@@ -75,7 +75,7 @@ div#flash-sale-countdown .count_down_time span{position:relative;top:-4px;}
     border-bottom: none; border-left: none;  border-right: none;
 }
 #flash_terms_and_condition {width: 450px !important; padding: 7px 20px;}
-#flash_terms_and_condition h1{text-transform: uppercase; text-align: left; margin-bottom: 20px;font: 30px Futura Bk BT,"Microsoft YaHei","微軟雅黑";color:#000;}
+#flash_terms_and_condition h1{text-transform: uppercase; text-align: left; margin-bottom: 20px;font: 30px Futura Bk BT,"Microsoft YaHei","微软雅黑";color:#000;}
 #flash_terms_and_condition ul{padding-left: 20px;}
 #flash_terms_and_condition ul li {text-align: left;line-height: 18px; list-style: none;margin-bottom: 10px;font: 13px Arial;list-style-type: decimal;color:#808080;}
 #terms_and_condition_popup_handler{ background: #000;color: #fff;text-transform: uppercase;padding: 6px 18px; position: absolute; right: 25px;top: -65px;}
@@ -89,7 +89,7 @@ body.gri-flashsale-index-index .note-msg{padding-top:50px;}
     #terms_and_condition_popup_handler{display:none;}
     #terms_and_condition_sf_handler{display: block !important;width:100%;padding:10px 0;background: #000;text-transform: uppercase;text-align: center;color:#fff;}
     #terms_and_condition_sf_handler:hover{opacity: 0.7;}
-    .cms-flash-sale-terms-condition .std h1{font:25px Futura Bk BT,"Microsoft YaHei","微軟雅黑";color:#000;text-transform: uppercase;border-bottom: 1px solid #000;margin-bottom:20px; }
+    .cms-flash-sale-terms-condition .std h1{font:25px Futura Bk BT,"Microsoft YaHei","微软雅黑";color:#000;text-transform: uppercase;border-bottom: 1px solid #000;margin-bottom:20px; }
     .cms-flash-sale-terms-condition .std ul li{list-style-type: decimal;margin-left: 20px;font: 13px Arial;margin-bottom: 10px;}
     .flash-sale-list .block-layered-nav .block-content{box-shadow: none;padding: 0;}
     .flash-sale-list .block-layered-nav .filter-value{padding-left: 0;margin-top: -5px;margin-bottom: 10px;}

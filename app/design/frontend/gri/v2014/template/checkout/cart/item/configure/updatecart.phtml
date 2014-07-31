@@ -1,9 +1,10 @@
 <?php
-$maxSaleQty = min(5, Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MAX_SALE_QTY));
+ /* @var $this Gri_CatalogCustom_Block_Product_View */
+ $maxSaleQty = min(5, Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MAX_SALE_QTY));
 ?>
 
 <?php $_product = $this->getProduct(); ?>
-<?php $buttonTitle = $this->__('Update Cart'); ?>
+<?php $buttonTitle = $this->__('Update Tote'); ?>
 <?php if ($_product->isSaleable()): ?>
     <div class="add-to-cart">
         <?php if (!$_product->isGrouped()): ?>

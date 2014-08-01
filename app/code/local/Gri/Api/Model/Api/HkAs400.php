@@ -188,6 +188,7 @@ class Gri_Api_Model_Api_HkAs400 extends Mage_Api_Model_Resource_Abstract
 
         Mage::app()->setCurrentStore(Mage_Core_Model_App::ADMIN_STORE_ID);
 
+        $productIds = array();
         $readAdapter = $this->getReadAdapter();
         $writeAdapter = $this->getWriteAdapter();
 
@@ -212,6 +213,8 @@ class Gri_Api_Model_Api_HkAs400 extends Mage_Api_Model_Resource_Abstract
                 $set = ",`error_info`= '{$e->getMessage()}'";
                 Mage::log($e->getMessage(), '7', self::CONST_LOG_EXCEPTION_NEW_PRODUCT);
             }
+
+            $productIds[] = Mage::getSingleton('catalog/product')->getIdBySku($product['sku']);
 
             $now = Varien_Date::now();
             $sql = "UPDATE `{$this->getTableName('gri_api_product')}` SET `status`= '1', `updated_at`='{$now}' ".$set."  WHERE `id`='".$row['id']."';";
@@ -260,10 +263,12 @@ class Gri_Api_Model_Api_HkAs400 extends Mage_Api_Model_Resource_Abstract
         $readAdapter = $this->getReadAdapter();
         $writeAdapter = $this->getWriteAdapter();
 
+        $productIds = array();
+
         $sql = "SELECT * FROM `{$this->getTableName('gri_api_product')}` WHERE `status`= 0 AND `type`='update' LIMIT 20;";
         $result = $readAdapter->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
-	Mage::log(date("Y-m-d H:i:s")." update Product started with sql = $sql",7,"update_product_message.log");
+    	Mage::log(date("Y-m-d H:i:s")." update Product started with sql = $sql",7,"update_product_message.log");
 
         try{
             $start_time = $_SERVER["REQUEST_TIME"];
@@ -282,6 +287,9 @@ class Gri_Api_Model_Api_HkAs400 extends Mage_Api_Model_Resource_Abstract
                     $set = ",`error_info`= '{$e->getMessage()}'";
                 }
 
+                /* clear fpc cache */
+                $productIds[] = Mage::getSingleton("catalog/product")->getIdBySku($product['sku']);
+
                 $now = Varien_Date::now();
                 $sql = "UPDATE `{$this->getTableName('gri_api_product')}` SET `status`= 1, `updated_at`='{$now}' {$set} WHERE `id`='".$row['id']."';";
                 $writeAdapter->query($sql);
@@ -291,6 +299,7 @@ class Gri_Api_Model_Api_HkAs400 extends Mage_Api_Model_Resource_Abstract
             Mage::log($e->getMessage(), '7',self::CONST_LOG_EXCEPTION_UPDATE_PRODUCT);
         }
 
+        $this->clearFpcCache($productIds);
         return $this;
     }
 
@@ -389,6 +398,9 @@ class Gri_Api_Model_Api_HkAs400 extends Mage_Api_Model_Resource_Abstract
             }catch (Exception $e){
                 Mage::log($e->getMessage(), 7, self::CONST_LOG_EXCEPTION_INDEX_PRODUCT);
             }
+
+        $this->clearFpcCache($skuExecuted);
+
         return $skuExecuted;
     }
 
@@ -537,6 +549,8 @@ class Gri_Api_Model_Api_HkAs400 extends Mage_Api_Model_Resource_Abstract
             Mage::log($e->getMessage(), 7, self::CONST_LOG_EXCEPTION_INDEX_PRODUCT);
         }
 
+        $this->clearFpcCache($skuExecuted);
+
         return $skuExecuted;
     }
 
@@ -589,6 +603,8 @@ class Gri_Api_Model_Api_HkAs400 extends Mage_Api_Model_Resource_Abstract
         }catch (Exception $e){
             Mage::log($e->getMessage(), 7, self::CONST_LOG_EXCEPTION_ARCHIVE_PRODUCT);
         }
+
+        $this->clearFpcCache($skuExecuted);
 
         return $skuExecuted;
     }
@@ -906,5 +922,33 @@ class Gri_Api_Model_Api_HkAs400 extends Mage_Api_Model_Resource_Abstract
         }
 
         return $result;
+    }
+
+    private function clearFpcCache($productIds=array())
+    {
+        $fpc = Mage::getModel('fpc/fpc');
+        if($fpc->isActive())
+        {
+            $cat = array();
+            foreach($productIds as $productId)
+            {
+                $prod = Mage::getModel('catalog/product')->load($productId);
+                if($prod->getTypeId != 'configurable') continue;
+                $prodCat = $prod->getCategoryIds();
+                foreach($prodCat as $catid)
+                {
+                    $cat[$catid] = 1;
+                }
+
+                $fpc->clean(sha1('product_'.$productId));
+                Mage::log('Clearing product cache for product_'.$productId,7,'gri-clear-cache.log');
+            }
+
+            foreach($cat as $cid=>$ni)
+            {
+                $fpc->clean(sha1('category_'.$cid));
+                Mage::log('Clearing category cache for category_'.$cid,7,'gri-clear-cache.log');
+            }
+        }
     }
 }

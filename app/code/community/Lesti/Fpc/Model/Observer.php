@@ -243,6 +243,17 @@ class Lesti_Fpc_Model_Observer
 
             foreach($productIds as $productId) {
                 $fpc->clean(sha1('product_' . $productId));
+                Mage::Log('cleaning product cache product_'.$productId,7,'gri-debug-cache.log');
+                $prod = Mage::getModel('catalog/product')->load($productId);
+                if($prod)
+                {
+                    $category = $prod->getCategoryIds();
+                    foreach($category as $cat)
+                    {
+                        $fpc->clean(sha1('category_'.$cat));
+                        Mage::Log('cleaning category cache category_'.$cat,7,'gri-debug-cache.log');
+                    }
+                }
             }
         }
     }
@@ -257,6 +268,19 @@ class Lesti_Fpc_Model_Observer
             $product = $observer->getEvent()->getProduct();
             if ($product->getId()) {
                 $fpc->clean(sha1('product_' . $product->getId()));
+                Mage::Log('cleaning product cache product_'.$product->getId(),7,'gri-debug-cache.log');
+                $prod = Mage::getModel('catalog/product')->load($product->getId());
+                if($prod)
+                {
+                    $category = $prod->getCategoryIds();
+                    foreach($category as $cat)
+                    {
+                        $fpc->clean(sha1('category_'.$cat));
+                        Mage::Log('cleaning category cache category_'.$cat,7,'gri-debug-cache.log');
+                    }
+                }
+
+                unset($prod);
             }
         }
     }

@@ -44,6 +44,7 @@
     $griCatalogHelper = $this->helper('gri_catalogcustom');
 
     $_product = $this->getProduct();
+    $_product->getFinalPrice(); // recalculate final price via fireing event#catalog_product_get_final_price
     $_storeId = $_product->getStoreId();
     $_id = $_product->getId();
     $_weeeSeparator = '';
@@ -102,13 +103,11 @@
         <?php $_weeeTaxAmountInclTaxes = $_weeeHelper->getAmountInclTaxes($_attributes); ?>
     <?php endif; ?>
 
-	<!--Jack -->
     <div class="price-box">
     <?php $_price = $_taxHelper->getPrice($_product, $_product->getPrice()) ?>
     <?php $_regularPrice = $_taxHelper->getPrice($_product, $_product->getPrice(), $_simplePricesTax) ?>
     <?php $_finalPriceInclTax = $_taxHelper->getPrice($_product, $_product->getFinalPrice(), true) ?>
     <?php $_weeeDisplayType = $_weeeHelper->getPriceDisplayType(); ?>
-    <?php //$_finalPrice = round($_finalPrice ,2);?>
     <?php if ($_finalPrice >= $_price): ?>
         <?php if ($_taxHelper->displayBothPrices()): ?>
             <?php if ($_weeeTaxAmount && $_weeeHelper->typeOfDisplay($_product, 0)): // including ?>

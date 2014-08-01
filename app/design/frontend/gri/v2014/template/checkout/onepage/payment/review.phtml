@@ -21,14 +21,12 @@
    <!--<h2><?php /*echo $this->__('Order Review')*/?></h2>-->
    <?php endif; ?>
    <table>
-       <tr class="blank"><td></td><td></td></tr>
-       <tr><td><span class="title"><?php echo $this->__('Items'); ?></span></td><td><span class="data x-icon"><?php echo $qty; ?></span></td></tr>
+       <tr><td><span class="title"><?php echo $this->__('Items'); ?></span></td><td><span class="data">X <?php echo $qty; ?></span></td></tr>
        <tr><td><span class="title"><?php echo $this->__('Subtotal'); ?></span></td><td><span class="data"><?php echo $_coreHelper->formatPrice($quote->getSubtotal()); ?></span></td></tr>
        <tr><td><span class="title"><?php echo $this->__('Shipping'); ?></span></td><td><span class="data"><?php echo $_coreHelper->formatPrice($quote->getShippingAddress()->getShippingAmount()); ?></span></td></tr>
        <tr><td><span class="title"><?php echo $this->__('Discount'); ?></span></td><td><span class="data"><?php echo $_coreHelper->formatPrice($quote->getShippingAddress()->getDiscountAmount()); ?></span></td></tr>
        <tr class="blank"><td></td><td></td></tr>
        <tr><td><span class="title last"><?php echo $this->__('Grand Total'); ?></span></td><td><span class="data last"><?php echo $_coreHelper->formatPrice($quote->getGrandTotal()); ?></span></td></tr>
-       <tr class="blank"><td></td><td></td></tr>
    </table>
 </div>
 <script type="text/javascript">

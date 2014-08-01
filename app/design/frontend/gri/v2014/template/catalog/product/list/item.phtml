@@ -22,11 +22,6 @@ $maxSwatches = $this->getMaxSwatches();
 $classes = $productHelper->getRibbonClass($product);
 
 $isLimitedEdition = $product->getLimitedEdition();
-
-$request = Mage::app()->getRequest();
-$port = $request->getServer('SERVER_PORT');
-$secure = $port == 443 ? TRUE : FALSE ;
-
 ?>
 
 <div class="product_image">
@@ -36,7 +31,9 @@ $secure = $port == 443 ? TRUE : FALSE ;
 
         <img src="<?php echo $this->helper('catalog/image')->init($product, 'small_image')->resize($imageWidth, $imageHeight); ?>"
              alt="<?php echo $this->stripTags($this->getImageLabel($product, 'small_image'), null, true) ?>"/>
-        <img class="rotatingImage" style="display:none;"/>
+        <img class="rotatingImage" src="<?php echo $this->helper('catalog/image')->init($product, 'small_image')->resize($imageWidth, $imageHeight); ?>"
+             alt="<?php echo $this->stripTags($this->getImageLabel($product, 'small_image'), null, true) ?>"
+             style="display:none;"/>
     </a>
 </div>
 
@@ -134,9 +131,8 @@ $secure = $port == 443 ? TRUE : FALSE ;
         </ul>
     <?php } ?>
   <?php } ?>
-    <?php if ($swatchHelper->isApplicable()) { ?></div><?php } ?>
-
-<?php if($this->useShowQuickview()): ?>
+    <?php if ($swatchHelper->isApplicable()): ?></div><?php endif; ?>
+<?php if($this->useShowQuickview() && $product->isSaleable()): ?>
     <div class="quick-view"><a id ="quick-view-<?php echo $product->getId()?>" href="#product-quick-view-<?php echo $product->getId()?>"><span><?php echo $this->__('Quick View')?></span></a></div>
     <div style="display: none;">
         <div id="product-quick-view-<?php echo $product->getId()?>"></div>

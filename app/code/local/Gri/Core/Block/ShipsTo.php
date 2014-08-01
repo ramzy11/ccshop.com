@@ -9,7 +9,8 @@ class Gri_Core_Block_ShipsTo extends Mage_Core_Block_Template
         'SG' => 'USD',
         'TW' => 'USD',
         'TH' => 'USD',
-        'CN' => 'CNY'
+        'CN' => 'CNY',
+		'JP' => 'JPY',
     );
 
     /**

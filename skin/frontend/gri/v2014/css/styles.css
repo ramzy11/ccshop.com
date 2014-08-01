@@ -1096,7 +1096,8 @@ button.button > span,
 
 /* Minimal price (as low as) */
 .minimal-price .price-label{font-weight:bold;white-space:nowrap;}
-.minimal-price-link{display:inline-block;margin-top:2px;}
+.minimal-price-link{display:block;font: 12px Arial;color:#EA1E79;}
+.minimal-price-link .label{font-weight: normal;padding:0;display: inline-block !important;}
 .minimal-price-link .price{font-weight:normal;}
 .minimal-price-link span{	display:inline-block;text-decoration:none;}
 

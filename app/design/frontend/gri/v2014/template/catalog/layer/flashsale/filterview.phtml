@@ -65,7 +65,7 @@ foreach ($params as $code => $val) {
             foreach ($optionIds as $oid) {
                 $options[$oid] = $optionsTmp[$oid];
             }
-            $selectedOptions[$code]['label'] = strtoupper($this->__($label)) . ' - ' . implode(', ', $options);
+            $selectedOptions[$code]['label'] = strtoupper($this->__($label)) . " - " . implode(', ', $options);
         }
 
         $toFilterParams = $params;
@@ -82,7 +82,7 @@ foreach ($params as $code => $val) {
         $_params = $params; unset($_params['attribute_set_id']);
         $attributeSet = Mage::getModel('eav/entity_attribute_set')->load($attributeSetId);
         $selectedOptions['attribute_set_id']['clear_url'] = $this->getUrl('flashsale',$_params);
-        $selectedOptions['attribute_set_id']['label'] = $this->__('Product Type-') .$this->__($attributeSet->getAttributeSetName());
+        $selectedOptions['attribute_set_id']['label'] = $this->__('Product Type - ') .$this->__($attributeSet->getAttributeSetName());
     }
 }
 ?>

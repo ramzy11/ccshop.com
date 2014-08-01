@@ -186,8 +186,7 @@ Product.Config = Class.create(Product.Config, {
                             img_el = new Element('img', {
                                 src: options[i].swatch,
                                 width: this.config.swatchWidth,
-                                height: this.config.swatchHeight,
-                                title: options[i].label
+                                height: this.config.swatchHeight
                             });
                         }
                         else {

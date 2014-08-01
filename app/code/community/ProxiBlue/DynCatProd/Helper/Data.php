@@ -203,8 +203,15 @@ class ProxiBlue_DynCatProd_Helper_Data extends Mage_Core_Helper_Abstract
                             continue;
                             break;
 						case 'boolean':
+							$type = 'eq';
 							$valmap = array('Yes'=>1,'No'=>0);
-							$filterList[] = array('value'=>array('eq'=>(isset($valmap[$filter['value']])?$valmap[$filter['value']]:($filter['value']?1:0))),'attribute'=>$attribute, 'join'=>'left','link'=>'AND');
+							if(preg_match('/^![.]*$/',$filter['value']))
+							{
+								$filter['value'] = preg_replace('/^!/','',$filter['value']);
+								$type = 'neq';
+							}
+						
+							$filterList[] = array('value'=>array($type=>(isset($valmap[$filter['value']])?$valmap[$filter['value']]:($filter['value']?1:0))),'attribute'=>$attribute, 'join'=>'left','link'=>'AND');
 							
 							break;
                     }

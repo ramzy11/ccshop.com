@@ -363,6 +363,18 @@ if ($swatchHelper->isApplicable() && $_options) {
              $('td.unit-price span.cart-original-price').addClass('line-through');
              $('td.unit-price span.cart-price span').addClass('highlight-red');
         }
+
+        //Mobile
+        var mobileOriginalPrice = $.trim($('.sf-price span.cart-original-price span').html()),
+            mobileFinalPrice = $.trim($('.sf-price span.cart-price span').html());
+        if( mobileOriginalPrice == mobileFinalPrice) {
+            $('.sf-price span.cart-price').remove();
+        } else if(finalPrice) {
+            $('.sf-price span.cart-original-price').addClass('line-through');
+            $('.sf-price span.cart-price span').addClass('highlight-red');
+        }
+
+
     })(jQuery)
 </script>
 

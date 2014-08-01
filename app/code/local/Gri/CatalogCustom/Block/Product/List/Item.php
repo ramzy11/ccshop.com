@@ -96,15 +96,9 @@ class Gri_CatalogCustom_Block_Product_List_Item extends Mage_Catalog_Block_Produ
 
     public function getProductUrl($product, $additional = array())
     {
-       if (Mage::registry('disable_sold_out_links') && !$product->isSalable())
-            return FALSE;
-
-        if ($product->getUrl() !== NULL)
-            return $product->getUrl();
-
-        if ($product->getData('product_url'))
-            return Mage::getUrl($product->getData('product_url'), $additional);
-
+        if ($product->getUrl() !== NULL) return $product->getUrl();
+        if (Mage::registry('disable_sold_out_links') && !$product->isSalable()) return FALSE;
+        if ($product->getData('product_url')) return Mage::getUrl($product->getData('product_url'), $additional);
         if (($category = $product->getCategory()) && isset($GLOBALS['specialCategories'][$category->getUrlKey()])) {
             $requestPath = $product->getRequestPath() ? $product->getRequestPath() :
                 $product->getUrlKey() . Mage::getStoreConfig(Mage_Catalog_Helper_Product::XML_PATH_PRODUCT_URL_SUFFIX);

@@ -181,53 +181,60 @@ class Mana_Filters_Model_Filter_Price extends Mage_Catalog_Model_Layer_Filter_Pr
     public function getPriceRange()
     {
         $range = $this->getData('price_range');
-        if (!$range) {
-            if (Mage::helper('mana_db')->hasOverriddenValueEx($this->getFilterOptions(), 24)) {
-                $range = (float)$this->getFilterOptions()->getRangeStep();
-            }
-            elseif (Mage::helper('mana_db')->hasOverriddenValueEx($this->getFilterOptions(), 24, 'global_default_mask')) {
-                $range = (float)$this->getFilterOptions()->getGlobalRangeStep();
-            }
+		try{
+			if (!$range) {
+				if (Mage::helper('mana_db')->hasOverriddenValueEx($this->getFilterOptions(), 24)) {
+					$range = (float)$this->getFilterOptions()->getRangeStep();
+				}
+				elseif (Mage::helper('mana_db')->hasOverriddenValueEx($this->getFilterOptions(), 24, 'global_default_mask')) {
+					$range = (float)$this->getFilterOptions()->getGlobalRangeStep();
+				}
+			}
+			if (!$range) {
+				$currentCategory = Mage::registry('current_category_filter');
+				if ($currentCategory) {
+					$range = $currentCategory->getFilterPriceRange();
+				} else {
+					$range = $this->getLayer()->getCurrentCategory()->getFilterPriceRange();
+				}
+
+				$maxPrice = $this->getMaxPriceInt();
+				if (!$range) {
+					$calculation = Mage::app()->getStore()->getConfig('catalog/layered_navigation/price_range_calculation');
+					if (!$calculation) {
+						$calculation = 'auto';
+					}
+					if ($calculation == 'auto') {
+						$index = 1;
+						do {
+							$range = pow(10, (strlen(floor($maxPrice)) - $index));
+							$items = $this->getRangeItemCounts($range);
+							$index++;
+						}
+						while($range > self::MIN_RANGE_POWER && count($items) < 2);
+
+
+						while (ceil($maxPrice / $range) > 25) {
+							$range *= 10;
+						}
+					} else {
+						$range = Mage::app()->getStore()->getConfig('catalog/layered_navigation/price_range_step');
+					}
+				}
+
+				if( $range == 1 ){
+					//$range = Mage::app()->getStore()->getConfig('catalog/layered_navigation/price_range_step');
+					$range = 1;
+				}
+
+				$this->setData('price_range', $range);
+			}
         }
-        if (!$range) {
-            $currentCategory = Mage::registry('current_category_filter');
-            if ($currentCategory) {
-                $range = $currentCategory->getFilterPriceRange();
-            } else {
-                $range = $this->getLayer()->getCurrentCategory()->getFilterPriceRange();
-            }
-
-            $maxPrice = $this->getMaxPriceInt();
-            if (!$range) {
-                $calculation = Mage::app()->getStore()->getConfig('catalog/layered_navigation/price_range_calculation');
-                if (!$calculation) {
-                    $calculation = 'auto';
-                }
-                if ($calculation == 'auto') {
-                    $index = 1;
-                    do {
-                        $range = pow(10, (strlen(floor($maxPrice)) - $index));
-                        $items = $this->getRangeItemCounts($range);
-                        $index++;
-                    }
-                    while($range > self::MIN_RANGE_POWER && count($items) < 2);
-
-
-                    while (ceil($maxPrice / $range) > 25) {
-                        $range *= 10;
-                    }
-                } else {
-                    $range = Mage::app()->getStore()->getConfig('catalog/layered_navigation/price_range_step');
-                }
-            }
-
-            if( $range == 1 ){
-                //$range = Mage::app()->getStore()->getConfig('catalog/layered_navigation/price_range_step');
-                $range = 1;
-            }
-
-            $this->setData('price_range', $range);
-        }
+		catch(Exception $e)
+		{
+			$range = 1;
+			$this->setData('price_range', 1);
+		}
 
         return $range;
     }

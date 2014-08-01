@@ -205,7 +205,7 @@ class ProxiBlue_DynCatProd_Helper_Data extends Mage_Core_Helper_Abstract
 						case 'boolean':
 							$type = 'eq';
 							$valmap = array('Yes'=>1,'No'=>0);
-							if(preg_match('/^![.]*$/',$filter['value']))
+							if(preg_match('/^![A-Za-z0-9]+$/',$filter['value']))
 							{
 								$filter['value'] = preg_replace('/^!/','',$filter['value']);
 								$type = 'neq';

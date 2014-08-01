@@ -214,7 +214,7 @@ class Gri_Api_Model_Api_HkAs400 extends Mage_Api_Model_Resource_Abstract
                 Mage::log($e->getMessage(), '7', self::CONST_LOG_EXCEPTION_NEW_PRODUCT);
             }
 
-            $productIds[] = Mage::getSingleton('catalog/product')->getIdBySku($product['sku']);
+            $productIds[] = Mage::getModel('catalog/product')->getIdBySku($product['sku']);
 
             $now = Varien_Date::now();
             $sql = "UPDATE `{$this->getTableName('gri_api_product')}` SET `status`= '1', `updated_at`='{$now}' ".$set."  WHERE `id`='".$row['id']."';";
@@ -288,7 +288,7 @@ class Gri_Api_Model_Api_HkAs400 extends Mage_Api_Model_Resource_Abstract
                 }
 
                 /* clear fpc cache */
-                $productIds[] = Mage::getSingleton("catalog/product")->getIdBySku($product['sku']);
+                $productIds[] = Mage::getModel("catalog/product")->getIdBySku($product['sku']);
 
                 $now = Varien_Date::now();
                 $sql = "UPDATE `{$this->getTableName('gri_api_product')}` SET `status`= 1, `updated_at`='{$now}' {$set} WHERE `id`='".$row['id']."';";
@@ -635,7 +635,7 @@ class Gri_Api_Model_Api_HkAs400 extends Mage_Api_Model_Resource_Abstract
         $statusOptions = $this->getAttributeOptions($statusAttribute);
         $status = isset($statusOptions[strtolower($status)]) ? $statusOptions[strtolower($status)] : 0;
 
-        $productId = Mage::getSingleton('catalog/product')->getIdBySku($sku);
+        $productId = Mage::getModel('catalog/product')->getIdBySku($sku);
 
         try{
             $writeAdapter->insertOnDuplicate($statusBackendTable, array (
@@ -926,7 +926,7 @@ class Gri_Api_Model_Api_HkAs400 extends Mage_Api_Model_Resource_Abstract
 
     private function clearFpcCache($productIds=array())
     {
-        $fpc = Mage::getModel('fpc/fpc');
+        $fpc = Mage::getSingleton('fpc/fpc');
         if($fpc->isActive())
         {
             $cat = array();

@@ -90,7 +90,15 @@ class ProxiBlue_DynCatProd_Model_Resource_Catalog_Layer_Filter_Price extends Man
         $where = array_values(array_filter($where));
         if (isset($where[0]) && substr($where[0], 0, 4) == 'AND ') $where[0] = substr($where[0], 4);
         $select->setPart('where', $where);
-        return $this->_getReadAdapter()->fetchPairs($select);
+        try
+        {
+            return $this->_getReadAdapter()->fetchPairs($select);
+        }
+        catch(Exception $e)
+        {
+            return null;
+        }
+
     }
 
 }

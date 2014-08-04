@@ -2,7 +2,7 @@
 /* @var $this Gri_Page_Block_Brand */
 /* @var $brand ProxiBlue_DynCatProd_Model_Category */
 ?>
-<?php if ($brandCategory = $this->getBrand()): ?>
+<?php if('category' == $this->getRequest()->getControllerName() && $brandCategory = $this->getBrand()): ?>
     <div class="brand-banner border-bottom">
         <div class="brand-image">
             <a href="javascript:;" title="<?php echo $brandCategory->getName(); ?>" class="title-image">

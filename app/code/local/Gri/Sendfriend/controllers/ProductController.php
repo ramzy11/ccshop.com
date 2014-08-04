@@ -46,8 +46,8 @@ class Gri_Sendfriend_ProductController extends Mage_Sendfriend_ProductController
                 $model->send();
                 Mage::getSingleton('catalog/session')->addSuccess($this->__('The link to a friend was sent.'));
 
-                //$this->_redirectSuccess($product->getProductUrl());
-                $this->_redirectSuccess($product->getUrlInStore(array('_ignore_category'=>1)));
+                $this->_redirectSuccess($product->getProductUrl());
+             // $this->_redirectSuccess($product->getUrlInStore(array('_ignore_category'=>1)));
                 return;
             }
             else {

@@ -56,6 +56,12 @@ class AW_Rma_Adminhtml_RmaController extends AW_Rma_Adminhtml_AbstractController
         }
         $_data = $rmaRequest->getData();
 
+        if(!isset($_data['order_entity_id']))
+        {
+            $order = Mage::getModel('sales/order')->load($_data['order_id'],'increment_id');
+            $_data['order_entity_id'] = $order->getId();
+        }
+
         $_data['status'] = $this->getRequest()->getParam('status');
         // Request type won't be changed
         $_data['request_type'] = $rmaRequest->getId() ?

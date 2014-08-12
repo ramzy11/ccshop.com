@@ -85,22 +85,22 @@
                     <model>gri_api/api_hkAs400_client::methodNotifyErrorInfo</model>
                 </run>
             </hkas400_notify_error_info>
-            <!--<hkas400_new_orders>-->
-                <!--<schedule>-->
-                    <!--<cron_expr>4-58/2 * * * *</cron_expr>-->
-                <!--</schedule>-->
-                <!--<run>-->
-                    <!--<model>gri_api/api_hkAs400_client::methodNewOrders</model>-->
-                <!--</run>-->
-            <!--</hkas400_new_orders>-->
-            <!--<hkas400_cancel_orders>-->
-                <!--<schedule>-->
-                    <!--<cron_expr>5-58/2 * * * *</cron_expr>-->
-                <!--</schedule>-->
-                <!--<run>-->
-                    <!--<model>gri_api/api_hkAs400_client::methodCancelOrders</model>-->
-                <!--</run>-->
-            <!--</hkas400_cancel_orders>-->
+            <hkas400_new_orders>
+                <schedule>
+                    <cron_expr>4-58/2 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>gri_api/api_hkAs400_client::methodNewOrders</model>
+                </run>
+            </hkas400_new_orders>
+            <hkas400_cancel_orders>
+                <schedule>
+                    <cron_expr>5-58/2 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>gri_api/api_hkAs400_client::methodCancelOrders</model>
+                </run>
+            </hkas400_cancel_orders>
             <!--<hkas400_new_rmas>-->
                 <!--<schedule>-->
                     <!--<cron_expr>6-58/2 * * * *</cron_expr>-->

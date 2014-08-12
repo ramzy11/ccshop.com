@@ -78,6 +78,14 @@
                         <title>P6: Create Offline Vip</title>
                         <acl>hkAs400/createOfflineVip</acl>
                     </createOfflineVip>
+                    <updateOrderStatus>
+                        <title>M1: Update Order Status</title>
+                        <acl>hkAs400/updateOrderStatus</acl>
+                    </updateOrderStatus>
+                    <updateRmaStatus>
+                        <title>M2: Update Rma Status</title>
+                        <acl>hkAs400/updateRmaStatus</acl>
+                    </updateRmaStatus>
                 </methods>
              </hkAs400>
         </resources>
@@ -134,29 +142,37 @@
                         <title>P6: Create Offline Vip</title>
                         <sort_order>60</sort_order>
                     </createOfflineVip>
+                    <updateOrderStatus translate="title" module="gri_api">
+                        <title>M1: Update Order Status</title>
+                        <acl>hkAs400/updateOrderStatus</acl>
+                    </updateOrderStatus>
+                    <updateRmaStatus translate="title" module="gri_api">
+                        <title>M2: Update Rma Status</title>
+                        <acl>hkAs400/updateRmaStatus</acl>
+                    </updateRmaStatus>
                 </hkAs400>
             </resources>
         </acl>
         <faults>
             <exchange_not_found>
                 <code>501</code>
-                <message>换货不存在</message>
+                <message>?�货不�???/message>
             </exchange_not_found>
             <exchange_item_not_found> 
                 <code>502</code>
-                <message>换货项不存在</message>
+                <message>?�货项�?存在</message>
             </exchange_item_not_found> 
             <invalid_exchange_time>
                 <code></code>
-                <message>没有找到</message>  
+                <message>没�??�到</message>  
             </invalid_exchange_time>
             <exchange_processed>
                 <code></code>
-                <message>没有找到</message>
+                <message>没�??�到</message>
             </exchange_processed> 
             <exchange_items_required>
                 <code>502</code>
-                <message>换货项不存在</message>    
+                <message>?�货项�?存在</message>    
             </exchange_items_required>
             <invalid_exchange_qty>
                 <code></code>
@@ -176,11 +192,11 @@
             </order_has_been_shipped> 
             <order_items_required>
                 <code>202</code>
-                <message>订单项不存在</message>  
+                <message>订�?项�?存在</message>  
             </order_items_required>
             <order_item_not_found>
                 <code>202</code>
-                <message>订单项不存在</message>  
+                <message>订�?项�?存在</message>  
             </order_item_not_found>
             <invalid_shipped_qty>
                 <code></code>
@@ -188,15 +204,15 @@
             </invalid_shipped_qty>
             <rma_not_found>
                 <code>501</code>
-                <message>换货不存在</message>  
+                <message>?�货不�???/message>  
             </rma_not_found>
             <rma_items_required>
                 <code>502</code>
-                <message>换货项不存在</message>  
+                <message>?�货项�?存在</message>  
             </rma_items_required> 
             <rma_item_not_found>
                 <code>402</code>
-                <message>退款项不存在</message>  
+                <message>?�款项不�???/message>  
             </rma_item_not_found>  
             <rma_closed>
                 <code></code>
@@ -208,19 +224,19 @@
             </invalid_rma_time>
             <invalid_returned_qty>
                 <code>305</code>
-                <message>退货数量超过可退数量</message>   
+                <message>?�货数?��?过可?�?��?</message>   
             </invalid_returned_qty>
             <order_not_found>
                 <code>200</code>
-                <message>订单不存在</message>
+                <message>订�?不�???/message>
             </order_not_found>
             <order_has_been_shipped>
                 <code>201</code>
-                <message>订单项不存在</message>
+                <message>订�?项�?存在</message>
             </order_has_been_shipped>
             <sku_not_found>
                 <code>601</code>
-                <message>找不到sku</message>    
+                <message>?��??�sku</message>    
             </sku_not_found>
         </faults>
     </api>

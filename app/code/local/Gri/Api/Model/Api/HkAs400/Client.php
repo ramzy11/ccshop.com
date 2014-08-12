@@ -444,21 +444,22 @@ class Gri_Api_Model_Api_HkAs400_Client extends Varien_Object
                $rma->setStatus(8);
                $order->addStatusHistoryComment('A3: New RMAS')
                    ->setIsCustomerNotified(FALSE);
-               $transactionSave->addObject($rma)->addObject($order);
                $commentHelper::postComment($rma->getId(), $commentHelper->__('RMA request sent to HkAs400.'), array(
                    'owner' => AW_Rma_Model_Source_Owner::SYSTEM,
                ), FALSE);
+
+               $transactionSave->addObject($rma)->addObject($order);
+               $transactionSave->save();
+
            }
        }
 
-       $transactionSave->save();
    }
 
     protected function getAllRmaItems(AW_Rma_Model_Entity $rma)
     {
-        $orderItems = $rma->load(null)->getOrderItems();
-        $exchangeItems = $rma->load(null)->getExchangeItems();
-
+        $orderItems = $rma->load(NULL)->getOrderItems();
+        $exchangeItems = $rma->load(NULL)->getExchangeItems();
         $allRmaItems = array();
 
         /* @var $orderItem Mage_Sales_Model_Order_Item */
@@ -479,8 +480,15 @@ class Gri_Api_Model_Api_HkAs400_Client extends Varien_Object
                     'qty' => $qty,
                     'exchangeSku' => $exchangeSku
                 );
+                $isExisted = FALSE;
+                foreach($allRmaItems as $_rma){
+                    if($_rma['sku'] == $orderItem->getSku()){
+                        $isExisted = TRUE;
+                        break;
+                    }
+                }
 
-                $allRmaItems[] = $rmaItem;
+                $isExisted == FALSE && $allRmaItems[] = $rmaItem;
             }
         }
 

@@ -214,7 +214,7 @@ class Gri_Api_Model_Api_HkAs400 extends Mage_Api_Model_Resource_Abstract
                 Mage::log($e->getMessage(), '7', self::CONST_LOG_EXCEPTION_NEW_PRODUCT);
             }
 
-            $productIds[] = Mage::getModel('catalog/product')->getIdBySku($product['sku']);
+            //$productIds[] = Mage::getModel('catalog/product')->getIdBySku($product['sku']);
 
             $now = Varien_Date::now();
             $sql = "UPDATE `{$this->getTableName('gri_api_product')}` SET `status`= '1', `updated_at`='{$now}' ".$set."  WHERE `id`='".$row['id']."';";
@@ -263,12 +263,10 @@ class Gri_Api_Model_Api_HkAs400 extends Mage_Api_Model_Resource_Abstract
         $readAdapter = $this->getReadAdapter();
         $writeAdapter = $this->getWriteAdapter();
 
-        $productIds = array();
+       // $productIds = array();
 
         $sql = "SELECT * FROM `{$this->getTableName('gri_api_product')}` WHERE `status`= 0 AND `type`='update' LIMIT 20;";
         $result = $readAdapter->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-
-    	Mage::log(date("Y-m-d H:i:s")." update Product started with sql = $sql",7,"update_product_message.log");
 
         try{
             $start_time = $_SERVER["REQUEST_TIME"];
@@ -288,7 +286,7 @@ class Gri_Api_Model_Api_HkAs400 extends Mage_Api_Model_Resource_Abstract
                 }
 
                 /* clear fpc cache */
-                $productIds[] = Mage::getModel("catalog/product")->getIdBySku($product['sku']);
+               // $productIds[] = Mage::getModel("catalog/product")->getIdBySku($product['sku']);
 
                 $now = Varien_Date::now();
                 $sql = "UPDATE `{$this->getTableName('gri_api_product')}` SET `status`= 1, `updated_at`='{$now}' {$set} WHERE `id`='".$row['id']."';";
@@ -299,7 +297,7 @@ class Gri_Api_Model_Api_HkAs400 extends Mage_Api_Model_Resource_Abstract
             Mage::log($e->getMessage(), '7',self::CONST_LOG_EXCEPTION_UPDATE_PRODUCT);
         }
 
-        $this->clearFpcCache($productIds);
+        //$this->clearFpcCache($productIds);
         return $this;
     }
 
@@ -322,9 +320,9 @@ class Gri_Api_Model_Api_HkAs400 extends Mage_Api_Model_Resource_Abstract
         $stockStatusTable = $resource->getTableName('cataloginventory/stock_status');
         $stockStatusIdxTable = $resource->getTableName('cataloginventory/stock_status_indexer_idx');
 
+        $write->beginTransaction();
 
         $skuExecuted = array();
-		$write->beginTransaction();
         foreach ($data as $sku => $qty) {
             if ($productId = $product->getIdBySku($sku)) {
                 if ($qty > 0) {
@@ -388,8 +386,8 @@ class Gri_Api_Model_Api_HkAs400 extends Mage_Api_Model_Resource_Abstract
                     $skuExecuted[] = $sku;
                 }
             }
-			$write->commit();
 
+            $write->commit();
             try{
                 /* @var $indexProcessPrice Mage_Index_Model_Process */
                 //$indexProcessPrice = Mage::getModel('index/process')->load('catalog_product_price', 'indexer_code');
@@ -399,7 +397,7 @@ class Gri_Api_Model_Api_HkAs400 extends Mage_Api_Model_Resource_Abstract
                 Mage::log($e->getMessage(), 7, self::CONST_LOG_EXCEPTION_INDEX_PRODUCT);
             }
 
-        $this->clearFpcCache($skuExecuted);
+       // $this->clearFpcCache($skuExecuted);
 
         return $skuExecuted;
     }
@@ -549,7 +547,7 @@ class Gri_Api_Model_Api_HkAs400 extends Mage_Api_Model_Resource_Abstract
             Mage::log($e->getMessage(), 7, self::CONST_LOG_EXCEPTION_INDEX_PRODUCT);
         }
 
-        $this->clearFpcCache($skuExecuted);
+       // $this->clearFpcCache($skuExecuted);
 
         return $skuExecuted;
     }
@@ -604,7 +602,7 @@ class Gri_Api_Model_Api_HkAs400 extends Mage_Api_Model_Resource_Abstract
             Mage::log($e->getMessage(), 7, self::CONST_LOG_EXCEPTION_ARCHIVE_PRODUCT);
         }
 
-        $this->clearFpcCache($skuExecuted);
+      //  $this->clearFpcCache($skuExecuted);
 
         return $skuExecuted;
     }
@@ -635,7 +633,7 @@ class Gri_Api_Model_Api_HkAs400 extends Mage_Api_Model_Resource_Abstract
         $statusOptions = $this->getAttributeOptions($statusAttribute);
         $status = isset($statusOptions[strtolower($status)]) ? $statusOptions[strtolower($status)] : 0;
 
-        $productId = Mage::getModel('catalog/product')->getIdBySku($sku);
+        $productId = Mage::getSingleton('catalog/product')->getIdBySku($sku);
 
         try{
             $writeAdapter->insertOnDuplicate($statusBackendTable, array (
@@ -744,7 +742,7 @@ class Gri_Api_Model_Api_HkAs400 extends Mage_Api_Model_Resource_Abstract
      */
     public function updateOrderStatus(array $data)
     {
-        Mage::log(var_export($data,true), Zend_Log::DEBUG, self::CONST_LOG_EXCEPTION_UPDATE_ORDER_STATUS);
+        Mage::log($data, Zend_Log::DEBUG, self::CONST_LOG_EXCEPTION_UPDATE_ORDER_STATUS);
         /* @var $order Mage_Sales_Model_Order */
         $order = Mage::getModel('sales/order');
         $locale = Mage::app()->getLocale();
@@ -802,6 +800,7 @@ class Gri_Api_Model_Api_HkAs400 extends Mage_Api_Model_Resource_Abstract
             if ($skip) continue;
             /* @var $service Mage_Sales_Model_Service_Order */
             $service = Mage::getModel('sales/service_order', $order);
+            /* @var $shipment Mage_Sales_Model_Order_Shipment */
             $shipment = $service->prepareShipment($qtyToShip);
             if (isset($update['carrier']) && isset($update['trackingCode'])) {
                 /* @var $track Mage_Sales_Model_Order_Shipment_Track */
@@ -822,6 +821,7 @@ class Gri_Api_Model_Api_HkAs400 extends Mage_Api_Model_Resource_Abstract
                 ->addObject($shipment)
                 ->addObject($order)
                 ->save();
+            $shipment->sendEmail(TRUE);
             $result[] =  $orderId;
         }
 

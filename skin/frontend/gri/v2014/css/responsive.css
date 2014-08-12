@@ -1230,7 +1230,7 @@ box-shadow:0 0px 13px rgba(0,0,0,0.15);
     .checkout-onepage-index #checkout-review-table tbody tr td:nth-child(2),
     .checkout-onepage-index #checkout-review-table tbody tr td:nth-child(3){display: none;}
     .checkout-onepage-index #payment-buttons-container,.checkout-onepage-index #payment-buttons-container button,.checkout-onepage-index #payment-buttons-container .payment-tips{width:100%;}
-    .checkout-onepage-index .paypal-image{margin-top: -20px;float: none;text-align: center;}
+    .checkout-onepage-index .paypal-image{display:inline-block;width:100%;text-align: center;}
     .checkout-onepage-index #payment-buttons-container button.button span{width:100%;}
     #checkout-review-table tfoot tr td:first-child{display: inline-block;float: right;}
     #checkout-review-table tfoot td{padding:5px;}

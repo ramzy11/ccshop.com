@@ -49,26 +49,60 @@ class Gri_Reports_Model_Report_Order_Item extends Mage_Core_Model_Abstract
             $productCategories = $product->getCategoryCollection()
                 ->setStoreId($order->getStoreId())
                 ->joinAttribute('name', 'catalog_category/name', 'entity_id');
-            foreach ($productCategories as $category) {
-                foreach ($shopCategories as $shopCategory) {
-                    if ($category->getId() == $shopCategory->getId() ||
-                        strpos($category->getPath(), '/' . $shopCategory->getId() . '/')
-                    ) {
-                        switch ($category->getLevel()) {
-                            case 2:
-                                $baseCategory = $category;
-                                break;
-                            case 3:
-                                $subCategory = $category;
-                                break;
-                            case 4:
-                                $bottomCategory = $category;
-                                break;
-                        }
-                        break;
-                    }
-                }
-            }
+			try
+			{
+				foreach ($productCategories as $category) {
+					foreach ($shopCategories as $shopCategory) {
+						if ($category->getId() == $shopCategory->getId() ||
+							strpos($category->getPath(), '/' . $shopCategory->getId() . '/')
+						) {
+							switch ($category->getLevel()) {
+								case 2:
+									$baseCategory = $category;
+									break;
+								case 3:
+									$subCategory = $category;
+									break;
+								case 4:
+									$bottomCategory = $category;
+									break;
+							}
+							break;
+						}
+					}
+				}
+			}
+			catch(Exception $e)
+			{
+				Mage::log("getCategoryCollection() does not work for product ID:".$product->getId().".Try getCategoryIds().",7,"gri-debug.log");
+				$checked = array();
+				$catids = $product->getCategoryIds();
+				foreach ($catids as $catid) {
+					$category = Mage::getModel('catalog/category')->setStoreId($order->getStoreId())->load($catid);
+					if(isset($checked[$catid])) continue;
+					foreach ($shopCategories as $shopCategory) {
+						if ($category->getId() == $shopCategory->getId() ||
+							strpos($category->getPath(), '/' . $shopCategory->getId() . '/')
+						) {
+							switch ($category->getLevel()) {
+								case 2:
+									$baseCategory = $category;
+									break;
+								case 3:
+									$subCategory = $category;
+									break;
+								case 4:
+									$bottomCategory = $category;
+									break;
+							}
+							break;
+						}
+					}
+					$checked[$category->getId()] = 1;
+				}
+				
+				unset($checked);
+			}
             $data = array(
                 'order_item_id' => $item->getId(),
                 'order_created_day' => $createdDay,

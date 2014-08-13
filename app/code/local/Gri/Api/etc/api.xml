@@ -156,23 +156,23 @@
         <faults>
             <exchange_not_found>
                 <code>501</code>
-                <message>?�货不�???/message>
+                <message>換貨不存在</message>
             </exchange_not_found>
             <exchange_item_not_found> 
                 <code>502</code>
-                <message>?�货项�?存在</message>
+                <message>換貨項不存在</message>
             </exchange_item_not_found> 
             <invalid_exchange_time>
                 <code></code>
-                <message>没�??�到</message>  
+                <message>沒有找到</message>  
             </invalid_exchange_time>
             <exchange_processed>
                 <code></code>
-                <message>没�??�到</message>
+                <message>沒有找到</message>
             </exchange_processed> 
             <exchange_items_required>
                 <code>502</code>
-                <message>?�货项�?存在</message>    
+                <message>換貨項不存在</message>    
             </exchange_items_required>
             <invalid_exchange_qty>
                 <code></code>
@@ -192,11 +192,11 @@
             </order_has_been_shipped> 
             <order_items_required>
                 <code>202</code>
-                <message>订�?项�?存在</message>  
+                <message>訂單項不存在</message>  
             </order_items_required>
             <order_item_not_found>
                 <code>202</code>
-                <message>订�?项�?存在</message>  
+                <message>訂單項不存在</message>  
             </order_item_not_found>
             <invalid_shipped_qty>
                 <code></code>
@@ -204,15 +204,15 @@
             </invalid_shipped_qty>
             <rma_not_found>
                 <code>501</code>
-                <message>?�货不�???/message>  
+                <message>換貨項不存在</message>  
             </rma_not_found>
             <rma_items_required>
                 <code>502</code>
-                <message>?�货项�?存在</message>  
+                <message>換貨項不存在</message>  
             </rma_items_required> 
             <rma_item_not_found>
                 <code>402</code>
-                <message>?�款项不�???/message>  
+                <message>退款項不存在</message>  
             </rma_item_not_found>  
             <rma_closed>
                 <code></code>
@@ -224,19 +224,19 @@
             </invalid_rma_time>
             <invalid_returned_qty>
                 <code>305</code>
-                <message>?�货数?��?过可?�?��?</message>   
+                <message>退貨數量過可退數量</message>   
             </invalid_returned_qty>
             <order_not_found>
                 <code>200</code>
-                <message>订�?不�???/message>
+                <message>訂單不存在</message>
             </order_not_found>
             <order_has_been_shipped>
                 <code>201</code>
-                <message>订�?项�?存在</message>
+                <message>訂單項不存在</message>
             </order_has_been_shipped>
             <sku_not_found>
                 <code>601</code>
-                <message>?��??�sku</message>    
+                <message>找不到SKU</message>    
             </sku_not_found>
         </faults>
     </api>

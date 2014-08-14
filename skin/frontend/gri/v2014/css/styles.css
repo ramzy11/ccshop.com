@@ -340,7 +340,7 @@ div.alert button:hover{cursor:pointer;background-position:0 -9px;}
 .page-title,
 .category-title{margin:0 0 28px;}
 .page-title{padding-bottom: 5px;border-bottom: 1px solid #000;}
-.category-title{display:block;}
+.category-title{display:block; text-align:left !important;}
 .page-title h1,
 .page-title h2{font-size:23px;line-height:23px;color:#000;	font-weight:normal;text-transform:uppercase;}
 .page-title .separator{margin:0 3px;}

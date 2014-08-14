@@ -971,7 +971,7 @@ button.button > span,
 .category-products{width:100%;}
 .category-products .toolbar-top{display: none;}
 /* View Type:Grid */
-.products-grid{position:relative;margin-bottom:18px;clear:both;margin-top:20px;padding-left:20px;}
+.products-grid{position:relative;margin-bottom:18px;clear:both;margin-top:20px;padding-left:20px; text-align:left !important;}
 .products-grid.last{margin-bottom:0;}
 .price-box.map-info a{text-decoration:none;margin-top:5px;}
 .products-grid.last{border-bottom:0;}
@@ -3041,7 +3041,7 @@ span.opened:before{content:"\f068";}
 .catalog-category-view .brand-banner #sub_menu .container ul li.first{margin-bottom:30px;}
 .catalog-category-view .brand-banner #sub_menu .container ul li{line-height: 200%;}
 .catalog-category-view .brand-banner #sub_menu .container{margin-top:10px;padding-left: 0;}
-.catalog-category-view .col-main{width: 960px;float: left;margin-left:5px;/*text-align:right;*/}
+.catalog-category-view .col-main{width: 960px;float: left;margin-left:5px;text-align:right;}
 .catalog-category-view .col-main .slides_container{height:auto;}
 .catalog-category-view .col-main .slides_container .slides_control .slide div:first-child{margin:0!important;}
 .catalog-category-view .block-layered-nav .refine-result{padding:10px 0;clear:both;}

@@ -105,7 +105,7 @@
             <?php if ($this->isNewsletterEnabled()): ?>
             <li>
                 <div class="input-box input-box-newsletter">
-                    <input type="checkbox" name="is_subscribed" checked="checked" title="<?php echo $griCustomerHelper->__('Sign up for newsletter') ?>" value="1" id="is_subscribed"<?php if($this->getFormData()->getIsSubscribed()): ?> <?php endif; ?> class="checkbox" />
+                    <input type="checkbox" name="is_subscribed" title="<?php echo $griCustomerHelper->__('Sign up for newsletter') ?>" value="1" id="is_subscribed"<?php if($this->getFormData()->getIsSubscribed()): ?> <?php endif; ?> class="checkbox" />
                     <label for="is_subscribed"><?php echo $griCustomerHelper->__('Sign up for special promotions') ?></label>
                 </div>
             </li>

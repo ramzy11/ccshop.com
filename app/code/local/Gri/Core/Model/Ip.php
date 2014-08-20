@@ -28,6 +28,13 @@ class Gri_Core_Model_Ip extends Mage_Core_Model_Abstract
         return $this->getData('_statement');
     }
 
+	public function isFromChinaOffice($ip)
+	{
+		//China Office IP: 116.246.15.194 - 198 
+		!is_numeric($ip) or $ip = sprintf('%s', long2ip($ip));
+		return preg_match("/116\.246\.15\.19[4-8]{1}/", $ip);
+	}
+	
     public function ipToCountry($ip)
     {
         is_numeric($ip) or $ip = sprintf('%u', ip2long($ip));

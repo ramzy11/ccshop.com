@@ -60,6 +60,8 @@ class Gri_Core_Model_Observer extends Varien_Object
         $controller = $observer->getEvent()->getControllerAction();
         // Skip admin controllers
         if (!$controller instanceof Mage_Core_Controller_Front_Action) return;
+		//Skip China Office Checking
+		if($this->_getIpSingleton()->isFromChinaOffice($request->getClientIp())) return;
         // Skip API and GRI Core controllers
         if ($controller instanceof Mage_Api_Controller_Action ||
             $controller instanceof Gri_Core_Controller_Abstract) return;

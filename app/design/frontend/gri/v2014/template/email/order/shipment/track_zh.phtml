@@ -31,17 +31,10 @@
 <p>
     您的追蹤號碼: <?php echo $_item->getNumber()?>
 </p>
-<?php
-    $tracking_url = '#';
-    if(preg_match("/順豐/",$shipment_description))
-    {
-        $tracking_url = "http://www.sf-express.com";
-    }
-    else if(preg_match("/香港郵政/",$shipment_description))
-    {
-        $tracking_url = "http://app3.hongkongpost.hk/CGI/mt/c_mtZresult.jps?tracknbr=".str_replace(" ",null,$_item->getNumber());
-    }
-?>
+        <?php
+        $tracking_url = '#';
+        $tracking_url = Mage::helper('shipping')->getTrackingPopupUrlBySalesModel($_item);
+        ?>
 <p>
     <a href="<?php echo $tracking_url;?>"><img src="<?php echo Mage::getBaseUrl()?>media/email/images/zh_HK/btn_track_order.jpg" border="0" alt="Track my order"/></a>
 </p>

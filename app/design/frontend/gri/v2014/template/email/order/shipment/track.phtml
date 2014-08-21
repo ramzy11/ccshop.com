@@ -32,17 +32,10 @@
 <p>
     Your Tracking No. <?php echo $_item->getNumber()?><br/>
 </p>
-<?php
-    $tracking_url = '#';
-    if(preg_match("/SF Express/",$shipment_description))
-    {
-        $tracking_url = "http://www.sf-express.com";
-    }
-    else if(preg_match("/Hong Kong Speed Post/",$shipment_description))
-    {
-        $tracking_url = "http://app3.hongkongpost.hk/CGI/mt/mtZresult.jps?tracknbr=".str_replace(" ",null,$_item->getNumber());
-    }
-?>
+        <?php
+        $tracking_url = '#';
+        $tracking_url = Mage::helper('shipping')->getTrackingPopupUrlBySalesModel($_item);
+        ?>
 <p>
     <a href="<?php echo $tracking_url?>" target="_track"><img src="<?php echo Mage::getBaseUrl()?>media/email/images/en_US/btn_track_order.jpg" border="0" alt="Track my order"/></a>
 </p>

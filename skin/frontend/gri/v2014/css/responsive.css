@@ -845,8 +845,9 @@ box-shadow:0 0px 13px rgba(0,0,0,0.15);
     /****             Create & Login Page           ****/
     .customer-account-logoutsuccess{margin-top: 50px;}
     .main .col-main .page-title h1{font: 25px Futura bk bt,"Microsoft YaHei","微軟雅黑";margin-bottom: -15px;}
-    .col-xs-12 .main .col-main .padding-s .page-title{width: auto;border-bottom: 0 !important;padding-bottom: 15px;display: table;width:100%; margin-top:20px;}
-	.col-x2-12 .main .col-main .padding-s img.page-banner{margin-top:20px;}
+    .col-xs-12 .main .col-main .padding-s .page-title{width: auto;border-bottom:solid 1px #000;padding-bottom: 15px;display: table;width:100%;}
+	.catalog_category_view .col-xs-12 .main .col-main .padding-s .page-title{width: auto;border-bottom: 0 !important;padding-bottom: 15px;display: table;width:100%; margin-top:20px;}
+	.catalog_category_view .col-x2-12 .main .col-main .padding-s img.page-banner{margin-top:20px;}
     .customer-account-create .container .page-title h1{font: 24px Futura bk bt,"Microsoft YaHei","微軟雅黑";}
     .account-login{margin-top: 0px;}
     .account-create{margin-top: 0px;}

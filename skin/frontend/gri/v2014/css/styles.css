@@ -354,8 +354,8 @@ div.alert button:hover{cursor:pointer;background-position:0 -9px;}
 .title-buttons h6{float:left;}
 .subtitle,
 .sub-title{clear:both;}
-.col-main .padding-s .page-title {border-bottom:1px solid #000; float:right; text-align:left !important;}
-.category_category_view .col-main .padding-s .page-title {border-bottom:0 ! important; width:940px; float:right; text-align:left !important;}
+.col-main .padding-s .page-title {border-bottom:1px solid #000; width:100%;}
+.category-category-view .col-main .padding-s .page-title {border-bottom:0 ! important; width:940px; float:right; text-align:left !important;}
 .col-main .padding-s .page-banner {float:right;}
 /* Button */
 .buttons-set .button span{background:#000;color:#fff;height:35px;font:13px Futura Bk BT;line-height: 280%;}

@@ -354,7 +354,7 @@ div.alert button:hover{cursor:pointer;background-position:0 -9px;}
 .title-buttons h6{float:left;}
 .subtitle,
 .sub-title{clear:both;}
-
+.col-main .padding-s .page-title {border-bottom:0 ! important; width:940px; float:right;}
 
 /* Button */
 .buttons-set .button span{background:#000;color:#fff;height:35px;font:13px Futura Bk BT;line-height: 280%;}

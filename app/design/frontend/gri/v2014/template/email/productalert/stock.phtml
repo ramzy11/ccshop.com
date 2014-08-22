@@ -30,10 +30,10 @@
             <?php $price = Mage::helper('tax')->getPrice($_product, $_product->getPrice());?>
             <tr>
                 <td width="100%" align="center">
-                    <img src="<?php echo Mage::helper('catalog/image')->init($_product,'small_image')->resize(95);?>" border="0" width="95"/>
-                    <p style="font-size:16px; color:#000; font-family:Arial; font-style:bold; margin-bottom:0 !important; margin-top:18px !important;"><?php echo strtoupper(htmlspecialchars($_product->getAttributeText('brand')));?></p>
-                    <p style="font-size:13px; color:#000; font-family:Arial; margin-bottom:0 !important; margin-top:6px !important;" ><?php echo htmlspecialchars($_product->getName());?></p>
-                    <p style="font-size:13px; color:#000; font-family:Arial;margin-bottom:15px !important; margin-top:6px !important; "><?php echo Mage::helper('core')->currency($price, true, false);?></p>
+                    <img src="<?php echo Mage::helper('catalog/image')->init($_product,'small_image')->resize(160,240);?>" border="0" width="160"/>
+                    <p style="font-size:15px; color:#000; font-family:Arial; font-style:bold; margin-bottom:0 !important; margin-top:18px !important;"><?php echo strtoupper(htmlspecialchars($_product->getAttributeText('brand')));?></p>
+                    <p style="font-size:13px; color:#000; font-family:Arial; margin-bottom:0 !important; margin-top:10px !important;" ><?php echo htmlspecialchars($_product->getName());?></p>
+                    <p style="font-size:12px; color:#000; font-family:Arial;margin-bottom:15px !important; margin-top:10px !important; "><?php echo Mage::helper('core')->currency($price, true, false);?></p>
                     <a href="<?php echo $_product->getUrlInStore();?>" target="_blank" "style="text-decoration:none;"><img src="<?php echo Mage::getBaseUrl()?>/media/email/images/<?php echo Mage::app()->getLocale()->getLocaleCode();?>/btn_shop_now.gif" border="0" title="Shop Now"/></a>
                 </td>
             </tr>

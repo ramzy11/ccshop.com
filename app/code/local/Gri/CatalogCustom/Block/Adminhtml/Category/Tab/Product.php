@@ -219,7 +219,7 @@ class Gri_CatalogCustom_Block_Adminhtml_Category_Tab_Product extends Mage_Adminh
 			return $this;
 		}
 
-		$this->getCollection()->addAttributeToFilter("ref_no"=>array('like'=> "%$value%"));
+		$this->getCollection()->addAttributeToFilter("ref_no",array('like'=>"%$value%"));
 		
 		return $this;
 	}

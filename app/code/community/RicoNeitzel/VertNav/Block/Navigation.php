@@ -454,7 +454,8 @@ class RicoNeitzel_VertNav_Block_Navigation extends Mage_Catalog_Block_Navigation
 
                 if( count($categoryIds) > 2 &&
                     $index = $_reverseCategoryIds[$currentCategory->getId()] ) {
-                    $parentCategory = Mage::getModel('catalog/model')->load($categoryIds[2]);
+                    //$parentCategory = Mage::getModel('catalog/model')->load($categoryIds[2]);
+					$parentCategory = Mage::getModel('catalog/category')->load($categoryIds[2]);
                 }
             }
 

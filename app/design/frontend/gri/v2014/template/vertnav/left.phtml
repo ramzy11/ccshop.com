@@ -51,6 +51,7 @@
         <?php $storeCategories = $this->getNewStoreCategories();
         $store_categories = $this->toLinearArray($storeCategories);
         $parentCategory = $currentCategory;
+		$skip = 0;
         ?>
         <?php if ($count = count($store_categories)): ?>
         <ul id="vertnav">
@@ -78,14 +79,18 @@
 
                 if( count($categoryIds) >= 3 &&
                     $index = $_reverseCategoryIds[$currentCategory->getId()] ) {
-                    $parentCategory = Mage::getModel('catalog/model')->load($categoryIds[2]);
+                    $parentCategory = Mage::getModel('catalog/category')->load($categoryIds[2]);
+					$skip = 1;
                 }
             }
             ?>
+			<?php if(!$skip) { ?>
             <li class="<?php if($parentCategory->getId() == $currentCategory->getId()): ?>active<?php endif; ?>">
                 <span class="vertnav-cat"><a href="<?php echo $this->getCategoryUrl($parentCategory); ?>"><span><?php echo $this->__('All')?></span></a></span>
             </li>
             <?php endif; ?>
+			<?php } ?>
+			<?php if(!$skip) { ?>
             <?php foreach ($store_categories as $i => $_category): ?><?php $class = array() ?>
                 <?php if ($count == 1): ?>
                     <?php $class[] = 'only' ?>
@@ -98,6 +103,7 @@
                 <?php if (isset($store_categories[$i - 1]) && $this->isCategoryActive($store_categories[$i - 1])) $class[] = 'next'; ?>
                 <?php echo $this->drawOpenCategoryItem($_category, 0, $class) ?>
             <?php endforeach ?>
+			<?php } ?>
             <?php if ($count): ?>
         </ul>
     <?php endif; ?>

@@ -21,7 +21,7 @@ class Gri_CatalogCustom_Block_Adminhtml_Category_Tab_Product extends Mage_Adminh
             'header' => Mage::helper('catalog')->__('Editor\'s Pick'),
             'index' => 'editors_pick',
             'width' => '100',
-            'type' => 'number',
+            'type' => 'text',
 			'filter_condition_callback'=>array($this,'_epFilter'),
 			'order_callback'=>array($this, '_epOrder'),
         ), 'price');
@@ -112,6 +112,8 @@ class Gri_CatalogCustom_Block_Adminhtml_Category_Tab_Product extends Mage_Adminh
 		
         $this->_isExport = $isExport;
 
+		$this->setCollection($collection);
+		
         if (!$this->_isExport) {
             $this->getCollection()->load();
             $this->_afterLoadCollection();
@@ -141,17 +143,9 @@ class Gri_CatalogCustom_Block_Adminhtml_Category_Tab_Product extends Mage_Adminh
 			return $this;
 		}
 		
-		$from = $value['from'];
-		$to = $value['to'];
-		
-		if(!is_null($from))
+		if(!is_null(trim($value)))
 		{
-			$this->getCollection()->getSelect()->where('editors_pick >= ?',$from);
-		}
-		
-		if(!is_null($to))
-		{
-			$this->getCollection()->getSelect()->where('editors_pick <= ?',$to);
+			$this->getCollection()->addAttributeToFilter('editors_pick',array('like'=>"%$value%"));
 		}
 		
 		return $this;
@@ -174,12 +168,12 @@ class Gri_CatalogCustom_Block_Adminhtml_Category_Tab_Product extends Mage_Adminh
 		
 		if(!is_null($from))
 		{
-			$this->getCollection()->getSelect()->where('special_price >= ?',$from);
+			$this->getCollection()->addAttributeToFilter('special_price',array('gteq'=>$from));
 		}
 		
 		if(!is_null($to))
 		{
-			$this->getCollection()->getSelect()->where('special_price <= ?',$to);
+			$this->getCollection()->addAttributeToFilter('special_price',array('lteq'=>$to));
 		}
 		
 		return $this;
@@ -202,12 +196,12 @@ class Gri_CatalogCustom_Block_Adminhtml_Category_Tab_Product extends Mage_Adminh
 		
 		if(!is_null($from))
 		{
-			$this->getCollection()->getSelect()->where('best_seller >= ?',$from);
+			$this->getCollection()->addAttributeToFilter('best_seller',array('gteq'=>$from));
 		}
 		
 		if(!is_null($to))
 		{
-			$this->getCollection()->getSelect()->where('best_seller <= ?',$to);
+			$this->getCollection()->addAttributeToFilter('best_seller',array('lteq'=>$to));
 		}
 		
 		return $this;
@@ -225,7 +219,7 @@ class Gri_CatalogCustom_Block_Adminhtml_Category_Tab_Product extends Mage_Adminh
 			return $this;
 		}
 
-		$this->getCollection()->getSelect()->where("ref_no LIKE '%?%'",$from);
+		$this->getCollection()->addAttributeToFilter("ref_no"=>array('like'=> "%$value%"));
 		
 		return $this;
 	}

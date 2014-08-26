@@ -88,8 +88,8 @@
             <li class="<?php if($parentCategory->getId() == $currentCategory->getId()): ?>active<?php endif; ?>">
                 <span class="vertnav-cat"><a href="<?php echo $this->getCategoryUrl($parentCategory); ?>"><span><?php echo $this->__('All')?></span></a></span>
             </li>
-            <?php endif; ?>
 			<?php } ?>
+            <?php endif; ?>
 			<?php if(!$skip) { ?>
             <?php foreach ($store_categories as $i => $_category): ?><?php $class = array() ?>
                 <?php if ($count == 1): ?>

@@ -169,7 +169,8 @@ class Gri_Vip_Model_Observer
 			$vipPk = Mage::getModel('gri_vip/offline_pk');
 			/*$mobile = $user->getMobilePhone();
 			$country = $user->getCountry();
-			$name = $user->getFirstname()." ".$user->getLastName();
+			$firstName = $user->getFirstname();
+			$lastName = $user->getLastName();
 			$email = $user->getEmail();
 
 			
@@ -199,11 +200,6 @@ class Gri_Vip_Model_Observer
 			Mage::Log($vipGroup." ".$vipPoint." ".$vipCardNo." ".$vipOfflinePk." ".$vipExpiryDate." ".$vipLastUpdate,7,'gri-debug.log');
 
 			$localVipGroup = $vipAs400->offlineGradeMapping($vipGroup);
-		//	$vipGroup = 'gold';
-		//	$vipPoint = 22000;
-		//	$vipCardNo = 'HKG0000188';
-		//	$vipOfflinePk = 11888;
-		//	$vipExpiryDate = '2015-08-13';
 
 			$vipPk->setVipGrade($vipGroup);
 			$vipPk->setVipPoint($vipPoint);

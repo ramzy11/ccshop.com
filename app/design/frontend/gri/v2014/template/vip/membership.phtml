@@ -38,7 +38,7 @@
                     <!--<li class="vip_area"><?php echo $this->__('Discounts') ;?>: <strong><?php echo $this->getVipDiscount();?></strong><?php echo $this->__(' Off') ;?></li>-->
 					<li class="vip_area"><span class="field"><?php echo $this->__('Earned Points') ;?>*</span><span class="value"> - </span>
 					<li class="vip_area"><span class="field"><?php echo $this->__('Redeemed Points') ;?>*</span><span class="value"> - </span>
-                    <li class="vip_area"><span class="field"><?php echo $this->__('Bonus Points') ;?>:</span><span class="value">
+                    <li class="vip_area"><span class="field"><?php echo $this->__('Current POint Balance') ;?>:</span><span class="value">
                         <!--<strong>-->
                             <?php
                                 $bonusPoints = $this->getGainedPoints(12);
@@ -56,7 +56,7 @@
                 <span><a class="point_btn" href="<?php echo $this->getUrl('membership/vip.html')?>" style="padding-left: 0;"><?php echo $this->__('How to earn reward points?')?></a></span>
                 <?php /*
                 <span><a class="point_btn" href="<?php echo $this->getUrl('how-2-earn-reward-points')?>"><?php echo $this->__('How to earn reward points?')?></a></span>*/ ?>
-				<div><?php echo $this->__("From September 1, 2014");?></div>
+				<div class="vip_stat_date">*<?php echo $this->__("From September 1, 2014");?></div>
                 </p>
             </div>
             <div class="sf-vip-info">* <?php echo $this->getPointsToUpgrade() ;?><?php echo $this->getLevelUpgradeTo() ;?></div>

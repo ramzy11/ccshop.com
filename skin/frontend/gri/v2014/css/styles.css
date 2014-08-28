@@ -2294,14 +2294,16 @@ div.star-rating{/* background:transparent!important; *//* overflow:hidden!import
 .dashboard .membership .con_table .sf-vip-info{display: none;}
 #slider-range-min .vip-slider-handle{position:absolute;text-align:center;color:#fff;}
 #slider-range-min{background:url("../images/img_vip_points.png") no-repeat scroll;width:401px;float:right;position:relative;height:10px;margin-top: 80px;right:50px;}
-#slider-range-min .first-points,#slider-range-min .second-points,#slider-range-min .last-points{position:absolute;bottom:-56px;color:#000;font-family:Futura Bk Bt;}
+#slider-range-min .first-points,#slider-range-min .second-points,#slider-range-min .third-points, #slider-range-min .last-points{position:absolute;bottom:-56px;color:#000;font-family:Futura Bk Bt;}
 #slider-range-min .first-points{left:0;}
 #slider-range-min .second-points{left:124px;}
+#slider-range-min .third-points{left:220px;}
 #slider-range-min .vip-slider-handle .sel_message{font:12px Arial;}
 #slider-range-min .vip-slider-handle .sel_message strong{font:12px Arial;font-weight:normal;}
 #slider-range-min .last-points{right:0;}
 #slider-range-min .first-points span,
 #slider-range-min .second-points span,
+#slider-range-min .third-points span,
 #slider-range-min .last-points span{text-transform:uppercase;font-size:20px;}
 #slider-range-min .vip-slider-handle strong{color:#fff;}
 

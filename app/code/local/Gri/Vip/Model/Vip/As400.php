@@ -34,7 +34,7 @@ class Gri_Vip_Model_Vip_As400 extends Mage_Core_Model_Abstract
 
 	public function offlineGradeMapping($level)
 	{
-		$mapping = array('light grey'=>'general','light_grey'=>'general','black'=>'platinum');
+		$mapping = array('light grey'=>'grey','light_grey'=>'grey','black'=>'platinum');
 	
 		return isset($mapping[strtolower($level)])?$mapping[strtolower($level)]:$level;
 	}

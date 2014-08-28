@@ -35,11 +35,11 @@
 class Gri_Vip_Block_Account_Membership extends Mage_Core_Block_Template
 {
     const START = '8.5';
-	const STEPONE = '34.0';
-	const STEPTWO = '68.0';
+	const STEPONE = '22.0';
+	const STEPTWO = '54.0';
     const END = '99.5';
     const TIME_RULE = 'y-MM-dd H:m:s'; //2012-01-01 01:01:01
-    const EXPIRED_DATE_RULE = 'y/MM/dd';// 29/11/2012
+    const EXPIRED_DATE_RULE = 'dd/MM/y';// 29/11/2012
 
     protected $_gainedPoints = array();
 
@@ -145,7 +145,8 @@ class Gri_Vip_Block_Account_Membership extends Mage_Core_Block_Template
 
 		
         $nextLevel = $customerGroup->unsetData()->load($nextLevel)->getCode();
-        return $this->_getHelper()->__('Points to upgrade to %s', $this->_getHelper()->__($nextLevel));
+        //return $this->_getHelper()->__('Points to upgrade to %s', $this->_getHelper()->__($nextLevel));
+		return $this->_getHelper()->__($nextLevel);
     }
 
     protected function _getPercentPosition($pointsUsed)

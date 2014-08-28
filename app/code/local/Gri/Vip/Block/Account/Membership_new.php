@@ -35,8 +35,6 @@
 class Gri_Vip_Block_Account_Membership extends Mage_Core_Block_Template
 {
     const START = '8.5';
-	const STEPONE = '34.0';
-	const STEPTWO = '68.0';
     const END = '99.5';
     const TIME_RULE = 'y-MM-dd H:m:s'; //2012-01-01 01:01:01
     const EXPIRED_DATE_RULE = 'y/MM/dd';// 29/11/2012
@@ -69,8 +67,7 @@ class Gri_Vip_Block_Account_Membership extends Mage_Core_Block_Template
      */
     public function getRedeemPoints()
     {
-        //$pointsBalance = $this->getRewardInstance($this->getCustomer())->getPointsBalance();
-		$pointsBalance = $this->getVipPk()->getVipPoint();
+        $pointsBalance = $this->getRewardInstance($this->getCustomer())->getPointsBalance();
         return (int)$pointsBalance;
     }
 
@@ -82,13 +79,10 @@ class Gri_Vip_Block_Account_Membership extends Mage_Core_Block_Template
     public function getVipExpirationDate()
     {
         $customerId = $this->getCustomer()->getId();
-        //$onlineVip = Mage::getSingleton('gri_vip/relation_online')->load($customerId, 'customer_id');
-        $onlineVip = Mage::getSingleton('gri_vip/offline_pk')->load($customerId, 'customer_id');
+        $onlineVip = Mage::getSingleton('gri_vip/relation_online')->load($customerId, 'customer_id');
 
-        //if ($onlineVip->getId() && $onlineVip->getState()) {
-        if ($onlineVip->getId()) {
-            //$annual_time = $onlineVip->getAnnualTime();
-            $annual_time = $onlineVip->getExpiryDate();
+        if ($onlineVip->getId() && $onlineVip->getState()) {
+            $annual_time = $onlineVip->getAnnualTime();
             $annual_time = strtotime($annual_time);
             $date = Mage::getSingleton('core/locale')->date($annual_time)->toString(self::EXPIRED_DATE_RULE);
 
@@ -103,7 +97,7 @@ class Gri_Vip_Block_Account_Membership extends Mage_Core_Block_Template
      */
     public function getLeftPercentPosition()
     {
-        return $this->_getPercentPosition($this->getVipPk()->getVipPoint());
+        return $this->_getPercentPosition($this->getDynamicPoints());
     }
 
     public function getDynamicPoints()
@@ -129,63 +123,22 @@ class Gri_Vip_Block_Account_Membership extends Mage_Core_Block_Template
         $groupId = $this->getCustomer()->getGroupId();
         $customerGroup = clone $this->getCustomer()->getGroup();
         //if ($groupId == $gold = $this->_getHelper()->getGroupIdByVipLevel('gold')) {
-        if ($groupId == $platinum = $this->_getHelper()->getGroupIdByVipLevel('platinum')) {
+        if ($groupId == $gold = $this->_getHelper()->getGroupIdByVipLevel('platinum')) {
             return $this->__('You are already %s Member!', $this->_getHelper()->__($customerGroup->getCode()));
         }
-		elseif ($groupId == $gold = $this->_getHelper()->getGroupIdByVipLevel('gold')) {
-			$nextLevel = $platinum;
-		}
-		elseif($groupId == $silver = $thi->_getHelper()->getGtroupIdByVipLevel('silver')) {
-	        $nextLevel = $gold;
-		}
-		else
-		{
-			$nextLevel = $silver;
-		}
-
-		
+        $nextLevel = ($groupId == $silver = $this->_getHelper()->getGroupIdByVipLevel('silver')) ? $gold : $silver;
         $nextLevel = $customerGroup->unsetData()->load($nextLevel)->getCode();
         return $this->_getHelper()->__('Points to upgrade to %s', $this->_getHelper()->__($nextLevel));
     }
 
     protected function _getPercentPosition($pointsUsed)
     {
-		$type = 0;
-		if($pointsUsed > $this->getPointsOfSilverUpgrade() && $pointsUsed <= $this->getPointsOfGoldUpgrade())
-		{
-			$type = 1;
-		}
-		if($pointsUsed > $this->getPointsOfGoldUpgrade() && $pointsUsed <= $this->getPointsOfPlatinumUpgrade())
-		{
-			$type = 2;
-		}
-		if($pointsUsed > $this->getPOintsOfPlatinumUpgrade())
-		{
-			$type = 3;
-		}
-		
-		Mage::log('slider type:'.$type,7,'gri-debug.log');
-		switch($type)
-		{
-			case 0:
-			$delta = $pointsUsed / $this->getPointsOfSilverUpgrade() * self::STEPONE;
-			$left_percent = max($delta, self::START);
-			break;
-
-			case 1:
-			$delta = ($pointsUsed - $this->getPointsOfSilverUpgrade()) / ($this->getPointsOfGoldUpgrade() - $this->getPointsOfSilverUpgrade) * (self::STEPTWO - self::STEPONE);
-			$left_percent = self::STEPONE + $delta;
-			break;
-
-			case 2:
-			$delta = ($pointsUsed - $this->getPointsOfGoldUpgrade()) / ($this->getPointsOfPlatinumUpgrade() - $this->getPointsOfGoldUpgrade) * (self::END - self::STEPTWO);
-			$left_percent = self::STEPTWO + $delta;
-			break;
-
-			case 3:
-			$left_percent = self::END;
-			break;
-		}
+        if ($pointsUsed <= $this->getPointsOfGoldUpgrade()) {
+            $left_percent = self::START
+                    + $pointsUsed * (self::END - self::START) / $this->getPointsOfGoldUpgrade();
+        } else {
+            $left_percent = self::END;
+        }
 
         //output
         return $left_percent;
@@ -198,7 +151,7 @@ class Gri_Vip_Block_Account_Membership extends Mage_Core_Block_Template
      */
     public function getGainedPoints($months)
     {
-        /*if (!isset($this->_gainedPoints[$months])) {
+        if (!isset($this->_gainedPoints[$months])) {
             $from = Mage::getSingleton('core/locale')->date()->subMonth($months)->toString(self::TIME_RULE);
             $to = Mage::getSingleton('core/locale')->date()->toString(self::TIME_RULE);
 
@@ -216,9 +169,7 @@ class Gri_Vip_Block_Account_Membership extends Mage_Core_Block_Template
             }
             $this->_gainedPoints[$months] = $points;
         }
-        return $this->_gainedPoints[$months];*/
-		$vipPk = $this->getVipPk();
-		return $vipPk->getVipPoint();
+        return $this->_gainedPoints[$months];
     }
 
     /**
@@ -229,11 +180,8 @@ class Gri_Vip_Block_Account_Membership extends Mage_Core_Block_Template
     public function getPointsToUpgrade()
     {
         $incrementPoints = $this->getGainedPoints(12);
-        if ($this->_getHelper()->getCustomerVipLevel($this->getCustomer()) == 'platinum') {
-			return '';
-		}
-        elseif ($this->_getHelper()->getCustomerVipLevel($this->getCustomer()) == 'gold') {
-            $targetPoints = $this->getPointsOfPlatinumUpgrade();
+        if ($this->_getHelper()->getCustomerVipLevel($this->getCustomer()) == 'gold') {
+            return '';
         } elseif ($this->_getHelper()->getCustomerVipLevel($this->getCustomer()) == 'silver') {
             $targetPoints = $this->getPointsOfGoldUpgrade();
         } else {
@@ -258,10 +206,8 @@ class Gri_Vip_Block_Account_Membership extends Mage_Core_Block_Template
     public function getCustomer()
     {
         if ($this->getData('customer') === NULL) {
-			$customer = Mage::getSingleton('customer/session')->getCustomer();
-            $this->setData('customer', $customer);
+            $this->setData('customer', Mage::getSingleton('customer/session')->getCustomer());
 			$this->setData('vip_pk', Mage::getSingleton('gri_vip/offline_pk')->load($customer->getId(),'customer_id'));
-			unset($customer);
         }
         return $this->getData('customer');
     }
@@ -274,7 +220,7 @@ class Gri_Vip_Block_Account_Membership extends Mage_Core_Block_Template
 			{
 				$this->setData('customer',Mage::getSingleton('customer/session')->getCustomer());			
 			}
-			$this->setData('vip_pk',Mage::getSingleton('gri_vip/offline_pk')->load($this->getCustomer()->getId(),'customer_id'));
+			$this->setData('vip_pk',Mage::getSingleton('gri_vip/offline_pk')->load($customer->getId(),'customer_id'));
 		}
 
 		return $this->getData('vip_pk');

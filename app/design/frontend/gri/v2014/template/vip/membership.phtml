@@ -48,8 +48,8 @@
                     <li class="vip_area"><?php echo $this->__('Expiry Date') ;?>: <strong><?php echo $this->getVipExpirationDate();?><span class="vip_sp_txt">*</span></strong></li>
                 </ul>
                 <p>
-                <span class="no-display"><a class="redeem-gifts" href="#"><?php echo $this->__('Redeem Gifts Now')?></a></span>
-                <span><a class="point_btn" href="<?php echo $this->getUrl('membership/vip.html')?>"><?php echo $this->__('How to earn reward points?')?></a></span>
+                <span style="display: none;"><a class="redeem-gifts" href="#"><?php echo $this->__('Redeem Gifts Now')?></a></span>
+                <span><a class="point_btn" href="<?php echo $this->getUrl('membership/vip.html')?>" style="padding-left: 0;"><?php echo $this->__('How to earn reward points?')?></a></span>
                 <?php /*
                 <span><a class="point_btn" href="<?php echo $this->getUrl('how-2-earn-reward-points')?>"><?php echo $this->__('How to earn reward points?')?></a></span>*/ ?>
                 </p>
@@ -57,12 +57,13 @@
             <div class="sf-vip-info">* <?php echo $this->getPointsToUpgrade() ;?><?php echo $this->getLevelUpgradeTo() ;?></div>
             <div id="slider-range-min" class="vip-slider">
                 <span class="first-points"><span><?php echo $this->__('General')?></span><br />0 <?php echo $this->__('Point')?></span>
-                <span class="second-points"><span><?php echo $this->__('Silver')?></span><br />3,000 <?php echo $this->__('Points')?></span>
+                <span class="second-points"><span><?php echo $this->__('Silver')?></span><br />2,500 <?php echo $this->__('Points')?></span>
                 <a href="javascript:;" class="vip-slider-moving-bag" style="left: <?php echo $this->getLeftPercentPosition() ;?>%;"></a>
                 <a href="javascript:;" class="vip-slider-handle" style="left: <?php echo $this->getLeftPercentPosition() ;?>%;">
                      <span class="sel_message"><strong><?php echo $this->getPointsToUpgrade() ;?></strong><br /><?php echo $this->getLevelUpgradeTo() ;?></span>
                 </a>
-                <span class="last-points"><span><?php echo $this->__('Gold')?></span><br />10,000 <?php echo $this->__('Points')?></span>
+                <span class="third-points"><span><?php echo $this->__('Gold')?></span><br />20,000 <?php echo $this->__('Points')?></span>
+                <span class="last-points"><span><?php echo $this->__('Platinum')?></span><br />50,000 <?php echo $this->__('Points')?></span>
             </div>
 
         </div>

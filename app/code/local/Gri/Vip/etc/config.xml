@@ -69,6 +69,9 @@
                     <relation_offline>
                         <table>gri_vip_relation_offline</table>
                     </relation_offline>
+					<offline_pk>
+						<table>gri_vip_offline_pk</table>
+					</offline_pk>
                 </entities>
             </gri_vip_mysql4>
         </models>
@@ -90,14 +93,14 @@
             </gri_vip>
         </helpers>
         <events>
-           <gri_reward_update_reward_points>
+           <!--<gri_reward_update_reward_points>
                <observers>
                   <gri_vip>
                      <class>gri_vip/observer</class>
                      <method>upgradeVip</method>
                   </gri_vip>
                </observers>
-           </gri_reward_update_reward_points>
+           </gri_reward_update_reward_points>-->
             <adminhtml_block_html_before>
                 <observers>
                     <awrma>
@@ -112,14 +115,23 @@
                   <gri_vip>
                      <class>gri_vip/observer</class>
                      <method>bindOffline</method>
+                     <method>getVipInfo</method>
                   </gri_vip>
                </observers>
             </customer_register_success>
-          </events>
+			<customer_login>
+				<observers>
+					<gri_vip>
+						<class>gri_vip/observer</class>
+						<method>getVipInfo</method>
+					</gri_vip>
+				</observers>
+			</customer_login>	
+		</events>
     </global>
     <crontab>
         <jobs>
-            <annual_renew>
+            <!--<annual_renew>
                 <schedule>
                     <cron_expr>0 1 * * *</cron_expr>
                 </schedule>
@@ -134,7 +146,7 @@
                 <run>
                    <model>gri_vip/vip::createOfflineVipRec</model>
                 </run>
-            </import_csv_file_to_database>
+            </import_csv_file_to_database>-->
             <!--<export_csv_file_to_folder>
                 <schedule>
                    <cron_expr>0 2 * * *</cron_expr>
@@ -152,11 +164,14 @@
             </general>
             <requirement>
                 <silver_entry>2000</silver_entry>
-                <silver_upgrade>3000</silver_upgrade>
-                <silver_renewal>3000</silver_renewal>
-                <gold_entry>8000</gold_entry>
-                <gold_upgrade>10000</gold_upgrade>
-                <gold_renewal>10000</gold_renewal>
+                <silver_upgrade>2000</silver_upgrade>
+                <silver_renewal>2000</silver_renewal>
+                <gold_entry>20000</gold_entry>
+                <gold_upgrade>20000</gold_upgrade>
+                <gold_renewal>20000</gold_renewal>
+                <platinum_entry>50000</platinum_entry>
+                <platinum_upgrade>50000</platinum_upgrade>
+                <platinum_renewal>50000</platinum_renewal>
             </requirement>
             <discount>
                 <offlinevip>15</offlinevip>

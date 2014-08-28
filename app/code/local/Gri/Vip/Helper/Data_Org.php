@@ -12,8 +12,6 @@ class Gri_Vip_Helper_Data extends Mage_Core_Helper_Abstract
     const OFFLINEVIP_LEVEL = 'offlinevip';
     const SILVER_LEVEL = 'silver';
     const GOLD_LEVEL = 'gold';
-	const PLATINUM_LEVEL = 'platinum';
-
     public function getCustomerVipLevel(Mage_Customer_Model_Customer $customer)
     {
         if ($customer->getData('vip_level') === NULL) {

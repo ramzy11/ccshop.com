@@ -58,7 +58,7 @@
                 <span class="first-points"><span><?php echo $this->__('General')?></span><br /><span class="point">0 <?php echo $this->__('Point')?></span></span>
                 <span class="second-points"><span><?php echo $this->__('Silver')?></span><br /><span class="point">2,500 <?php echo $this->__('Points')?></span></span>
                 <a href="javascript:;" class="vip-slider-moving-bag" style="left: <?php echo $this->getLeftPercentPosition(); ?>%;"></a>
-                <a href="javascript:;" class="vip-slider-handle" style="left: <?php echo min($this->getLeftPercentPosition(), 93) ;?>%;">
+                <a href="javascript:;" class="vip-slider-handle" style="left: <?php echo min($this->getLeftPercentPosition() + 7, 93) ;?>%;">
                      <span class="sel_message"><?php echo $this->__('Earned Points');?><br/><strong><?php echo number_format($bonusPoints,1,'.',',');?></strong></span>
                 </a>
                 <span class="third-points"><span><?php echo $this->__('Gold')?></span><br /><span class="point">20,000 <?php echo $this->__('Points')?></span></span>

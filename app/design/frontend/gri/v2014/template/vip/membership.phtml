@@ -33,25 +33,30 @@
         <div class="padding_20">
             <div class="vip_info_area">
                 <ul>
-                    <li class="vip_area"><?php echo $this->__('Member Class') ;?>: <strong><?php echo $this->getVipClass();?></strong></li>
-                    <li class="vip_area"><?php echo $this->__('Discounts') ;?>: <strong><?php echo $this->getVipDiscount();?></strong><?php echo $this->__(' Off') ;?></li>
-                    <li class="vip_area"><?php echo $this->__('Bonus Points') ;?>:
-                        <strong>
+                    <!--<li class="vip_area"><?php echo $this->__('Member Class') ;?>: <strong><?php echo $this->getVipClass();?></strong></li>-->
+					<li class="vip_area"><span class="field"><?php echo $this->__('Member Tier') ;?></span><span><?php echo $this->getVipClass();?></span></li>
+                    <!--<li class="vip_area"><?php echo $this->__('Discounts') ;?>: <strong><?php echo $this->getVipDiscount();?></strong><?php echo $this->__(' Off') ;?></li>-->
+					<li class="vip_area"><span class="field"><?php echo $this->__('Earned Points') ;?>*</span><span class="value"> - </span>
+					<li class="vip_area"><span class="field"><?php echo $this->__('Redeemed Points') ;?>*</span><span class="value"> - </span>
+                    <li class="vip_area"><span class="field"><?php echo $this->__('Bonus Points') ;?>:</span><span class="value">
+                        <!--<strong>-->
                             <?php
                                 $bonusPoints = $this->getGainedPoints(12);
-                                if($bonusPoints == '0') echo $this->__('Nil');
-                                else echo $bonusPoints;
+                                /*if($bonusPoints == '0') echo $this->__('Nil');
+                                else*/ echo $bonusPoints;
                             ?>
-                        </strong>
+                        <!--</strong>--></span>
                     </li>
-                    <li class="vip_area"><?php echo $this->__('Redeemable Points') ;?>: <strong><?php echo $this->getRedeemPoints();?></strong></li>
-                    <li class="vip_area"><?php echo $this->__('Expiry Date') ;?>: <strong><?php echo $this->getVipExpirationDate();?><span class="vip_sp_txt">*</span></strong></li>
+                    <!--<li class="vip_area"><?php echo $this->__('Redeemable Points') ;?>: <strong><?php echo $this->getRedeemPoints();?></strong></li>-->
+                    <!--<li class="vip_area"><?php echo $this->__('Expiry Date') ;?>: <strong><?php echo $this->getVipExpirationDate();?><span class="vip_sp_txt">*</span></strong></li>-->
+					<li class="vip_area"><span class="field"><?php echo $this->__('Membership Expiry Date') ;?></span><span class="value"><?php echo $this->getVipExpirationDate();?></span>
                 </ul>
                 <p>
                 <span style="display: none;"><a class="redeem-gifts" href="#"><?php echo $this->__('Redeem Gifts Now')?></a></span>
                 <span><a class="point_btn" href="<?php echo $this->getUrl('membership/vip.html')?>" style="padding-left: 0;"><?php echo $this->__('How to earn reward points?')?></a></span>
                 <?php /*
                 <span><a class="point_btn" href="<?php echo $this->getUrl('how-2-earn-reward-points')?>"><?php echo $this->__('How to earn reward points?')?></a></span>*/ ?>
+				<div><?php echo $this->__("From September 1, 2014");?></div>
                 </p>
             </div>
             <div class="sf-vip-info">* <?php echo $this->getPointsToUpgrade() ;?><?php echo $this->getLevelUpgradeTo() ;?></div>

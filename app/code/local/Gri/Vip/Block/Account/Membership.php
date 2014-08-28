@@ -135,7 +135,7 @@ class Gri_Vip_Block_Account_Membership extends Mage_Core_Block_Template
 		elseif ($groupId == $gold = $this->_getHelper()->getGroupIdByVipLevel('gold')) {
 			$nextLevel = $platinum;
 		}
-		elseif($groupId == $silver = $thi->_getHelper()->getGtroupIdByVipLevel('silver')) {
+		elseif($groupId == $silver = $this->_getHelper()->getGroupIdByVipLevel('silver')) {
 	        $nextLevel = $gold;
 		}
 		else
@@ -174,12 +174,12 @@ class Gri_Vip_Block_Account_Membership extends Mage_Core_Block_Template
 			break;
 
 			case 1:
-			$delta = ($pointsUsed - $this->getPointsOfSilverUpgrade()) / ($this->getPointsOfGoldUpgrade() - $this->getPointsOfSilverUpgrade) * (self::STEPTWO - self::STEPONE);
+			$delta = ($pointsUsed - $this->getPointsOfSilverUpgrade()) / ($this->getPointsOfGoldUpgrade() - $this->getPointsOfSilverUpgrade()) * (self::STEPTWO - self::STEPONE);
 			$left_percent = self::STEPONE + $delta;
 			break;
 
 			case 2:
-			$delta = ($pointsUsed - $this->getPointsOfGoldUpgrade()) / ($this->getPointsOfPlatinumUpgrade() - $this->getPointsOfGoldUpgrade) * (self::END - self::STEPTWO);
+			$delta = ($pointsUsed - $this->getPointsOfGoldUpgrade()) / ($this->getPointsOfPlatinumUpgrade() - $this->getPointsOfGoldUpgrade()) * (self::END - self::STEPTWO);
 			$left_percent = self::STEPTWO + $delta;
 			break;
 

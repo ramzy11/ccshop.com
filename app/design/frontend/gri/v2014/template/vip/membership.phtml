@@ -32,16 +32,12 @@
     <div class="con_table">
         <div class="padding_20">
             <div class="vip_info_area">
+                <?php $bonusPoints = $this->getGainedPoints(12);?>
                 <ul>
 					<li class="vip_area"><span class="field"><?php echo $this->__('Member Tier') ;?></span><span><?php echo $this->getVipClass();?></span></li>
-					<li class="vip_area"><span class="field"><?php echo $this->__('Earned Points') ;?>*</span><span> - </span></li>
+					<li class="vip_area"><span class="field"><?php echo $this->__('Earned Points') ;?>*</span><span><?php echo $bonusPoint;?></span></li>
 					<li class="vip_area"><span class="field"><?php echo $this->__('Redeemed Points') ;?>*</span><span> - </span></li>
-                    <li class="vip_area"><span class="field"><?php echo $this->__('Current Point Balance') ;?></span><span>
-                            <?php
-                                $bonusPoints = $this->getGainedPoints(12);
-                                echo $bonusPoints;
-                            ?>
-                        </span>
+                    <li class="vip_area"><span class="field"><?php echo $this->__('Current Point Balance') ;?></span><?php echo $bonusPoint;?><span></span>
                     </li>
 					<li class="vip_area"><span class="field"><?php echo $this->__('Membership Expiry Date') ;?></span><span><?php echo $this->getVipExpirationDate();?></span></li>
                 </ul>

@@ -1023,6 +1023,8 @@ box-shadow:0 0px 13px rgba(0,0,0,0.15);
     .awrma-customer-rma-view #awrma-requested-items tr td:nth-child(3),
     .awrma-customer-rma-view #awrma-requested-items tr td:nth-child(4){display: none;}
     .customer-account-index .vip_info_area a.point_btn{display: block;margin-top: 20px;color:#000;font: 13px Futura bk bt;text-transform: uppercase;}
+	.customer-account-index .vip_info_area a.point_btn2{display: block;margin-top:10px;font: 13px Futura bk bt;text-transform: uppercase;}
+	.customer-account-index .vip_info_area span.btn_space{padding:0 ! important;}
     .col-xs-12 .block-content{box-shadow: 0 1px 2px 2px #e4e4e4;padding: 10px;display: none;}
     .customer-account-index .col-xs-12 .form-list .selectBox{width: 260px !important}
     .customer-account-edit .form-list .selectBox{width:260px !important;}
@@ -1054,7 +1056,7 @@ box-shadow:0 0px 13px rgba(0,0,0,0.15);
     .col2-left-layout .col-main{width:100%;}
     .my-account{margin-top: 10px;}
     .my-account .dashboard{margin-top:0px;}
-    .dashboard .membership{padding:21px 21px 70px 21px;width:100%;margin-top: 30px;}
+    .dashboard .membership{padding:21px 21px 140px 21px;width:100%;margin-top: 30px;}
     .dashboard .membership .request_info .vip_info_area{float: none;width: 100%;}
     #slider-range-min .last-points{left:230px;width: 60px;}
     .dashboard .membership .request_info{font: 13px Arial;color:#808080;}
@@ -1062,8 +1064,10 @@ box-shadow:0 0px 13px rgba(0,0,0,0.15);
     .customer-account-index .padding-s{padding:0;}
     .dashboard .membership .con_table .ui-slider-horizontal .ui-slider-moving-bag{position: relative;top:-5px;}
     #slider-range-min{width:260px;margin-top:160px;float:none;background:url("../images/img_vip_points_phone.png") no-repeat scroll;right:0;}
-    #slider-range-min .first-points span, #slider-range-min .second-points span, #slider-range-min .last-points span{font-size:13px;}
-    #slider-range-min .second-points{left:80px;}
+    #slider-range-min .first-points span, #slider-range-min .second-points span, #slider-range-min .last-points span{font-size:13px; width:30px;}
+    #slider-range-min .second-points{left:70px;}
+	#slider-range-min .third-points{left:144px;}
+	#slider-range-min .upgrade{width:100% !important;}
     .dashboard .box-info{display: none;}
     .my-account .form-list .fields label,.fieldset .form-list label{color:#808080;font: 13px Arial;width: 100%;}
     .my-account .fieldset .form-list li .change-password label:hover{color:#808080;text-decoration: underline;}

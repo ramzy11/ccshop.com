@@ -2288,6 +2288,7 @@ div.star-rating{/* background:transparent!important; *//* overflow:hidden!import
 .dashboard .membership .request_info .vip_info_area ul li span.field{width:180px; float:left;}
 .dashboard .membership .request_info .vip_info_area div.vip_stat_date {padding-top:10px; font-family:Arial, "微軟雅黑"; font-size:13px;}
 .dashboard .membership .request_info .vip_info_area p{text-transform: uppercase;}
+.dashboard .membership .request_info .vip_info_area p span.btn_space{padding-left:10px;}
 .dashboard .membership .request_info .vip_info_area p a.point_btn{padding:10px; background-color:#000; color:#fff;}
 .dashboard .membership .request_info .vip_info_area p a.point_btn:hover{opacity: 0.7; color:#fff; background-color:#; }
 .dashboard .membership .request_info .vip_info_area p a.point_btn2{padding:10px; background-color:#e3e3e3; color:#000;}

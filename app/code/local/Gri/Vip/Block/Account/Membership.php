@@ -53,7 +53,7 @@ class Gri_Vip_Block_Account_Membership extends Mage_Core_Block_Template
 
     public function getVipClass()
     {
-        return $this->__('%s Member', $this->__($this->getGroupCode()));
+        return $this->__('%s', $this->__($this->getGroupCode()));
     }
 
     public function getVipDiscount()

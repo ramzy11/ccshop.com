@@ -2282,30 +2282,39 @@ div.star-rating{/* background:transparent!important; *//* overflow:hidden!import
 .dashboard .membership .request_info,.dashboard .membership .request_info strong{color:#808080;font-size:13px;font-weight:normal;}
 .dashboard .membership .request_info .vip_info_area .redeem-gifts{background: #000;padding: 5px 10px;color: #fff;text-transform: uppercase;}
 .dashboard .membership .request_info .vip_info_area .redeem-gifts:hover{opacity:0.7;}
-.dashboard .membership .request_info .vip_info_area{float:left;}
+.dashboard .membership .request_info .vip_info_area{float:left; width:360px;}
 .dashboard .membership .request_info .vip_info_area ul{margin-bottom:20px;}
 .dashboard .membership .request_info .vip_info_area ul li{font: 13px Arial;line-height: 180%;}
+.dashboard .membership .request_info .vip_info_area ul li span.field{width:180px; float:left;}
+.dashboard .membership .request_info .vip_info_area div.vip_stat_date {padding-top:10px; font-family:Arial, "微軟雅黑"; font-size:13px;}
 .dashboard .membership .request_info .vip_info_area p{text-transform: uppercase;}
 .dashboard .membership .request_info .vip_info_area p a.point_btn{padding:10px; background-color:#000; color:#fff;}
-.dashboard .membership .request_info .vip_info_area p a.point_btn:hover{opacity: 0.7; color:#fff; background-color:#000; }
+.dashboard .membership .request_info .vip_info_area p a.point_btn:hover{opacity: 0.7; color:#fff; background-color:#; }
+.dashboard .membership .request_info .vip_info_area p a.point_btn2{padding:10px; background-color:#e3e3e3; color:#000;}
+.dashboard .membership .request_info .vip_info_area p a.point_btn2:hover{opacity: 0.7; color:#000; background-color:#e3e3e3; }
 /*.dashboard .membership .request_info .vip_info_area p a.point_btn:hover{color:#000;text-decoration: underline;}*/
-.dashboard .membership .con_table .vip-slider .vip-slider-moving-bag{background: url("../images/img_cart_bag.png") no-repeat scroll;width:16px;height:20px;position:relative;display:block;top:-5px;margin-left:-8px;}
-.dashboard .membership .con_table .vip-slider .vip-slider-handle{background:url("../images/sel_bg.png") no-repeat scroll;;top:-75px;width:120px;height:60px;margin-left:-59px;line-height:12px;padding:4px;}
+.dashboard .membership .con_table .vip-slider .vip-slider-moving-bag{background: url("../images/img_cart_bag.png") no-repeat scroll;width:32px;height:28px;position:relative;display:block;top:-21px;margin-left:-8px;}
+.dashboard .membership .con_table .vip-slider .vip-slider-handle{background:url("../images/sel_bg.png") no-repeat scroll;top:-105px;width:127px;height:76px;margin-left:-59px;line-height:12px;padding:13px;}
 .dashboard .membership .con_table .sf-vip-info{display: none;}
 #slider-range-min .vip-slider-handle{position:absolute;text-align:center;color:#fff;}
-#slider-range-min{background:url("../images/img_vip_points.png") no-repeat scroll;width:401px;float:right;position:relative;height:10px;margin-top: 80px;right:50px;}
+#slider-range-min{background:url("../images/img_vip_points.png") no-repeat scroll;width:500px;float:right;position:relative;height:15px;margin-top: 80px;right:20px;}
 #slider-range-min .first-points,#slider-range-min .second-points,#slider-range-min .third-points, #slider-range-min .last-points{position:absolute;bottom:-56px;color:#000;font-family:Futura Bk Bt;}
 #slider-range-min .first-points{left:0;}
-#slider-range-min .second-points{left:124px;}
-#slider-range-min .third-points{left:220px;}
-#slider-range-min .vip-slider-handle .sel_message{font:12px Arial;}
-#slider-range-min .vip-slider-handle .sel_message strong{font:12px Arial;font-weight:normal;}
+#slider-range-min .second-points{left:110px;}
+#slider-range-min .third-points{left:270px;}
+#slider-range-min .vip-slider-handle .sel_message{font:12px "Futura Bk Bt"; text-transform:uppercase;}
+#slider-range-min .vip-slider-handle .sel_message strong{font:18px "Futura Bk Bt";font-weight:bold;line-height:120%;}
 #slider-range-min .last-points{right:0;}
 #slider-range-min .first-points span,
 #slider-range-min .second-points span,
 #slider-range-min .third-points span,
 #slider-range-min .last-points span{text-transform:uppercase;font-size:20px;}
+#slider-range-min .first-points span.point,
+#slider-range-min .second-points span.point,
+#slider-range-min .third-points span.point,
+#slider-range-min .last-points span.point{color:#808080; text-transform:none !important; font-size:13px;}
 #slider-range-min .vip-slider-handle strong{color:#fff;}
+#slider-range-min .upgrade {width:500px; text-align:center; margin-top:70px; font:15px "Futura Bk Bt"; color:#ea1d78;}
 
 .dashboard .membership .request_info .vip_area{line-height:23px;}
 .dashboard .data-table{}

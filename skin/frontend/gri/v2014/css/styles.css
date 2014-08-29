@@ -217,10 +217,10 @@ p.control input.checkbox,p.control input.radio{margin-right:6px;}
 .form-list li.control label{float:none;}
 .form-list li.control input.radio,.form-list li.control input.checkbox{margin-right:6px;}
 .form-list li.control .input-box{clear:none;display:inline;width:auto;}
-.form-list .input-box{display:block;clear:both;margin-bottom:7px;width:260px;}
+.form-list .input-box{display:block;clear:both;margin-bottom:7px;position: relative;}
 .form-list .field{float:left;width:360px;}
-.form-list input.input-text{width:333px;}
-.form-list textarea{resize:none;width:254px;height:10em;}
+.form-list input.input-text{width:320px;}
+.form-list textarea{resize:none;width:254px;height:10em;display:inline;}
 .form-list select{width:100%;}
 .form-list li.wide .input-box{width:535px;}
 .form-list li.wide input.input-text{width:529px;}
@@ -275,12 +275,12 @@ p.control input.checkbox,p.control input.radio{margin-right:6px;}
 .opc .form-list .customer-name-middlename-suffix .name-firstname input.input-text,
 .opc .form-list .customer-name-middlename-suffix .name-lastname input.input-text{width:171px;}
 .form-list .customer-dob .dob-month,
-.form-list .customer-dob .dob-day,
-.form-list .customer-dob .dob-year{float:left;width:85px;}
+.form-list .customer-dob .dob-day{float:left;width:85px;}
+.form-list .customer-dob .dob-year{display:none;}
 .form-list .customer-dob input.input-text{display:block;width:74px;}
 .form-list .customer-dob label{font-size:10px;font-weight:normal;color:#888;}
 .form-list .customer-dob .dob-day,
-.form-list .customer-dob .dob-month{width:60px;}
+.form-list .customer-dob .dob-month{width:90px;margin-right:20px;}
 .form-list .customer-dob .dob-day input.input-text,
 .form-list .customer-dob .dob-month input.input-text{width:35px;}
 .form-list .customer-dob .dob-year{width:140px;}
@@ -292,9 +292,21 @@ p.control input.checkbox,p.control input.radio{margin-right:6px;}
 .fieldset > p{margin-bottom:10px;}
 .fieldset .legend{font-weight:bold;font-size:12px;text-transform:uppercase;position:relative;padding-bottom:8px;color:#fa3333;}
 p.back-link a{font:12px Arial;color:#808080;}
+#firstname,#lastname,#password,#confirmation{width:200px;clear: both;float: left;}
+#email_address, .name-firstname input, .name-lastname input{width:320px;}
+#area_code{display:inline;width:80px;margin:0 5px;}
+#mobile{display:inline;width:150px;margin:0 5px;}
+#mailing_address{width:320px;height:96px;}
+.customer_title{width:90px;}
+.customer-country{width:320px;}
+.disabled-formcontrol{background:#EFEFEF;}
 /* Form Validation */
 .validation-advice{clear:both;min-height:13px;margin:5px 0 0;font:11px Arial;line-height:13px;color:#f00;}
 .validation-failed{border:1px dashed #f00 !important;background:#faebe7 !important;}
+.hint-icon{display:inline-block;*display:inline;*zoom:1;width:27px;height:27px;background:url(../images/icon_attention.png);}
+.hint{position:absolute;top:-10px;left:335px;width:300px;padding:10px;background-color:#EFEFEF;font-size: 90%;font-style: italic; clear:both;}
+.hint:after{display:block;position:absolute;left:-9px;top:10px;width: 0;height: 0;border-bottom: 10px solid transparent;border-top: 10px solid transparent;border-right: 10px solid #EFEFEF;content:' ';}
+.customer-dob .hint{left:270px;}
 p.required{font-size:10px;text-align:right;color:#f00;}
 /* Expiration date and CVV number validation fix */
 .v-fix{float:left;}
@@ -354,9 +366,8 @@ div.alert button:hover{cursor:pointer;background-position:0 -9px;}
 .title-buttons h6{float:left;}
 .subtitle,
 .sub-title{clear:both;}
-.col-main .padding-s .page-title {border-bottom:1px solid #000; width:100%;}
-.category-category-view .col-main .padding-s .page-title {border-bottom:0 ! important; width:940px; float:right; text-align:left !important;}
-.col-main .padding-s .page-banner {float:right;}
+
+
 /* Button */
 .buttons-set .button span{background:#000;color:#fff;height:35px;font:13px Futura Bk BT;line-height: 280%;}
 .buttons-set .button span:hover{opacity: 0.7}
@@ -1810,7 +1821,6 @@ div.star-rating{/* background:transparent!important; *//* overflow:hidden!import
 .checkout-onepage-index .opc label{padding-bottom:5px;}
 .checkout-onepage-index .opc #opc-billing label{width: 100%;}
 .checkout-onepage-index .opc .input-box{margin-bottom:15px;}
-.checkout-onepage-index .opc .fields select, .checkout-onepage-index .opc .field select{width:380px;}
 .checkout-onepage-index #billing-buttons-container{/*padding-left: 10px;*/ padding-top: 0; }
 .checkout-onepage-index #billing-buttons-container button{float:left;font:13px Futura Bk Bt;}
 .checkout-onepage-index #shipping-method-buttons-container button{float:left;}
@@ -1900,18 +1910,17 @@ div.star-rating{/* background:transparent!important; *//* overflow:hidden!import
 #checkout-step-login button.btn-facebook:hover{opacity:0.7;}
 
 #co-billing-form > fieldset{/*padding:10px;*/moz-box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;}
-.checkout-onepage-index #billing-new-address-form .form-list  li.wide textarea{width: 380px;}
+.checkout-onepage-index #billing-new-address-form .form-list  li.wide textarea{width: 320px;}
 .checkout-onepage-index #billing-new-address-form .form-list .field{float: none;}
 .checkout-onepage-index .opc .step{padding-top:10px;position:relative;}
 .checkout-onepage-index .opc .step .tool-tip{right:20px;top:20px!important;}
 .checkout-onepage-index .opc .buttons-set{border:0;}
 .checkout-onepage-index .opc .field{width:380px;}
-.checkout-onepage-index .opc .fields input,.opc .field input{width:200px;}
 .checkout-onepage-index .opc .name-lastname,.opc .field-2{width:292px;float:left;}
 .checkout-onepage-index .opc .field-2 input{width:310px;}
 .checkout-onepage-index .opc .field-2 select{width:315px;}
-.checkout-onepage-index .opc .name-firstname{width:334px;}
-.checkout-onepage-index .opc .name-firstname input{width:200px;}
+.checkout-onepage-index .opc .name-firstname input,
+.checkout-onepage-index .opc .name-lastname input{width:320px;}
 .checkout-onepage-index .opc .name-middlename{width:144px;}
 .checkout-onepage-index .opc .name-middlename input{width:124px!important;}
 .checkout-onepage-index .opc .sp-methods dt{}
@@ -1924,7 +1933,18 @@ div.star-rating{/* background:transparent!important; *//* overflow:hidden!import
 #multishipping-billing-form h2{font-size:12px;text-transform:uppercase;font-weight:normal;color:#333;margin-bottom:0;}
 #multishipping-billing-form .sp-methods dt{font-weight:bold;padding-bottom:10px;}
 #multishipping-billing-form .sp-methods .form-list input.input-text{width:100%;}
-
+#billing_area_code{width:80px;!important}
+#billing_telephone{width:150px;!important}
+.personal-information{float:left;width:470px;overflow:hidden;}
+.shipping-information{float:left;width:470px;overflow:hidden;}
+.personal-information .hint, .shipping-information .hint{position:relative;left:auto;width:300px;padding:10px;background-color:#EFEFEF;font-size: 90%;font-style: italic; clear:both; top:10px;}
+.personal-information .hint:after, .shipping-information .hint:after{display:block;position:absolute;top:-9px;left:30px;width: 0;height: 0;border-left: 10px solid transparent;border-right: 10px solid transparent;border-bottom: 10px solid #EFEFEF;content:' ';border-top:0;}
+#billing_firsttname, #billing_lastname, #billing_city, #billing_postcode{width:320px;!important}
+.field-country .input-box,field-region .input-box,field-region .input-box, .name-lastname input, field-city input, .field-postcode input{width:320px;!important}
+.form-list .field-city input.input-text,.form-list .field-postcode input.input-text, #billing_region_id, #billing_city_id, .field-country select{width:320px;}
+.form-list .input-box-telephone input.form-control{width:80px;}
+.form-list .input-box-telephone input.valid-mobilephone{width:150px;display:inline;}
+#country, #region_id{width:320px;}
 /* Multiple Addresses Checkout Pages ============================================================ */
 .button.multi-btn{float:right;}
 #checkout-progress-state{overflow:hidden;}
@@ -2006,7 +2026,6 @@ div.star-rating{/* background:transparent!important; *//* overflow:hidden!import
 .account-create .form-list div.input-box-term-of-use label a{text-decoration: underline; color:#808080;}
 .account-create .form-list div.input-box-term-of-use label a:hover{text-decoration: none;}
 .customer-account-create .form-list .field{float:none;width:360px;}
-.customer-account-create .form-list .selectBox-dropdown{width:334px;}
 .account-forgotpassword .buttons-set button{float: left; text-transform: uppercase;}
 .account-forgotpassword .back-to-login .back-link{padding-top: 20px;}
 .account-forgotpassword .back-to-login .back-link a{text-transform: uppercase;color: #808080;background:url(../images/back_link.png) 1px no-repeat;width: 8px;height:12px;padding-left:15px;}
@@ -2144,14 +2163,12 @@ div.star-rating{/* background:transparent!important; *//* overflow:hidden!import
 .block-account .block-content li.current a{color:#000;}
 .my-account .form-list .input-box{margin-bottom:8px;}
 .my-account .form-list .field{width:auto;float:none;}
-.my-account .form-list input.input-text{width:381px;height:31px;}
+.my-account .form-list input.input-text{height:31px;}
 .my-account .form-list .control{display:block;}
 .my-account .form-list li.control input.checkbox{display:none;}
 .my-account .fieldset .form-list li .change-password label{padding-left:0;cursor:pointer;text-transform:uppercase;font-size:13px;color:#000;font-family:Futura Bk Bt;}
-.my-account .fieldset .form-list .input-box{width:381px;}
-.my-account .fieldset .form-list .input-box textarea{width: 381px;}
+.my-account .fieldset .form-list .input-box textarea{width: 320px;margin-left:0;}
 .my-account .fieldset .form-list .field-street-address .input-box,.my-account .fieldset .form-list .telephone .input-box{width: 100% !important;}
-.my-account .fieldset .form-list .field-street-address .input-box textarea,.my-account .fieldset .form-list .telephone .input-box #telephone{float: left;}
 .my-account .fieldset .form-list .field-street-address .input-box p{float: left;margin: 20px;font-family: futura_bk_btbook_italic;}
 .my-account .fieldset .form-list .telephone .input-box p{float: left;margin-left:400px;position:absolute;font-family: futura_bk_btbook_italic;}
 .my-account .fieldset .form-list .select-box{clear:both;}
@@ -2470,7 +2487,6 @@ div.star-rating{/* background:transparent!important; *//* overflow:hidden!import
 .addresses-list .addresses-additional .item .change-default-address a:hover{text-decoration:underline;}
 .addresses-primary button span{height:auto;line-height:0;}
 .addresses-primary button span span{line-height:0px;padding:14px 18px;text-transform:uppercase;}
-.my-account .form-list .selectBox-dropdown{width:381px !important;}
 .my-account .form-list .selectBox-dropdown .selectBox-label{text-align:left;}
 .my-account .form-list .fieldset .legend{color:#000;font-size:15px;}
 .my-account .selectBox-options LI A{padding:0 15px;text-align:left;}
@@ -3293,7 +3309,6 @@ span.opened:before{content:"\f068";}
 .checkout-onepage-index #checkout-step-payment .payment-order-review table tr.first{}
 .checkout-onepage-index #opc-review{ display:none;}
 .checkout-onepage-index #opc-payment .checkout-review-table-wrapper{}
-.checkout-onepage-index .field-country .input-box a.selectBox{width:386px !important;}
 .checkout-onepage-index .opc-block-progress .payment-order-review {width: 200px;right: 16px;top: 2px;}
 .checkout-onepage-index .opc-block-progress .payment-order-review h2 {text-transform: uppercase;color: #000;padding-bottom: 15px;}
 .checkout-onepage-index .opc-block-progress .payment-order-review table tr.blank{height: 20px;}
@@ -3303,7 +3318,7 @@ span.opened:before{content:"\f068";}
 .checkout-onepage-index .opc-block-progress .payment-order-review tr td span.last{font-size: 12px; font-weight: bold;color: #000;}
 .checkout-onepage-index .opc-block-progress .payment-order-review tr td span.x-icon{padding-left: 21px;margin-left: 10px; background: url('../images/x-icon.png') 0 3px no-repeat;}
 .checkout-onepage-index #checkout-step-payment #checkout-review-submit{display: none;}
-.checkout-onepage-index #checkout-step-billing fieldset .form-list .field-street-address .input-box textarea{float: left;}
+.checkout-onepage-index #checkout-step-billing fieldset .form-list .field-street-address .input-box textarea{float: left;margin-right:5px;}
 .tips-content{float:left;margin-left:20px;position:relative;}
 .tips-content .tips{background:url("../images/tips.png") no-repeat;width:25px;height:25px;display:inline-block;position:absolute;}
 .tips-content .tips:hover{cursor:pointer;}
@@ -3315,12 +3330,13 @@ span.opened:before{content:"\f068";}
 .checkout-onepage-index #checkout-step-billing fieldset .form-list .telephone .input-box .field p{padding-top: 10px;padding-left: 337px;}
 .checkout-onepage-index select#billing-address-select-shipping_method{ width: 400px;}
 
-.checkout-onepage-index #checkout-step-billing fieldset .form-list li.wide .input-box{width:900px;}
 .checkout-onepage-index li.telephone div.field{width: 800px;}
 .checkout-onepage-index .input-box-telephone{position: relative; }
-.checkout-onepage-index .input-box-telephone p,.checkout-onepage-index .input-box-telephone input{ float:left}
+.checkout-onepage-index .input-box-telephone p,.checkout-onepage-index .input-box-telephone input{display:inline; margin:0 5px;}
 .checkout-onepage-index .input-box-telephone p{ padding-left: 390px; position: absolute;   }
 .checkout-onepage-index span.please-wait{float:none;}
+
+.billing-new-address-form .selectBox-dropdown{min-width:auto;}
 
 /* Checkout Onepage Success============================================================================== */
 .checkout-onepage-success .col-main{width: 940px;}

@@ -1043,26 +1043,42 @@ box-shadow:0 0px 13px rgba(0,0,0,0.15);
 
 
     .page-title .dashboard-dropdown-menu{display: block;background: url("../images/filter-arrow-down.png") no-repeat scroll;float: right;width: 20px;height: 7px;}
-    .dashboard .membership .con_table .vip-slider .vip-slider-handle{display: none;}
-    .dashboard .membership .con_table .sf-vip-info{display: block;margin-top:50px;color:#ff0099}
-    #slider-range-min{margin-top: 50px !important;}
+    /*.dashboard .membership .con_table .vip-slider .vip-slider-handle{display: none;}*/
+    /*.dashboard .membership .con_table .sf-vip-info{display: block;margin-top:50px;color:#ff0099}*/
+    /*#slider-range-min{margin-top: 50px !important;}*/
     .dashboard .welcome-msg p{display:none;}
     .dashboard .welcome-msg p.hello{display:block;}
     .col2-left-layout .col-main{width:100%;}
     .my-account{margin-top: 10px;}
     .my-account .dashboard{margin-top:0px;}
-    .dashboard .membership{padding:21px 21px 140px 21px;width:100%;margin-top: 30px;}
+    .dashboard .membership{padding:21px 21px 21px 21px;width:100%;margin-top: 30px;}
     .dashboard .membership .request_info .vip_info_area{float: none;width: 100%;}
     #slider-range-min .last-points{left:230px;width: 60px;}
     .dashboard .membership .request_info{font: 13px Arial;color:#808080;}
     .dashboard .membership .das_tit_btn .point_btn{position: relative;top:-150px;font: 13px Futura bk bt;text-transform: uppercase;color:#000;font-weight: 700;}
     .customer-account-index .padding-s{padding:0;}
     .dashboard .membership .con_table .ui-slider-horizontal .ui-slider-moving-bag{position: relative;top:-5px;}
-    #slider-range-min{width:260px;margin-top:160px;float:none;background:url("../images/img_vip_points_phone.png") no-repeat scroll;right:0;}
-    #slider-range-min .first-points span, #slider-range-min .second-points span, #slider-range-min .last-points span{font-size:13px; width:30px;}
+    #slider-range-min{width:260px;margin-top:160px;float:none;background:url("../images/img_vip_points_phone.png") no-repeat scroll;right:0;margin-left:auto;margin-right:auto;}
+    #slider-range-min .first-points span, 
+    #slider-range-min .second-points span, 
+    #slider-range-min .third-points span,
+    #slider-range-min .last-points span {
+        font-size:12px;
+        width: 40px;
+    }
+    #slider-range-min .first-points, #slider-range-min .second-points, #slider-range-min .third-points, #slider-range-min .last-points {
+            position:absolute;
+            bottom:-30px;
+    }
     #slider-range-min .second-points{left:70px;}
-	#slider-range-min .third-points{left:144px;}
+	#slider-range-min .third-points{left:140px;}
 	#slider-range-min .upgrade{width:100% !important;}
+    .request_info .con_table .upgrade{width:100% !important;margin-top:50px;}
+    .dashboard .membership .con_table .vip-slider .vip-slider-moving-bag { margin-left:20px; }
+    .dashboard .membership .con_table .vip-slider .vip-slider-handle{margin-left:-11px;}
+    .dashboard .membership .con_table .vip_info_area a.point_btn{display: block;margin-top: 20px;color:#000;font: 13px Futura bk bt;text-transform: uppercase;text-align:center;}
+    .dashboard .membership .con_table  .vip_info_area a.point_btn2{display: block;margin-top:10px;font: 13px Futura bk bt;text-transform: uppercase;text-align:center;}
+	#slider-range-min span.point{display:none;}
     .dashboard .box-info{display: none;}
     .my-account .form-list .fields label,.fieldset .form-list label{color:#808080;font: 13px Arial;width: 100%;}
     .my-account .fieldset .form-list li .change-password label:hover{color:#808080;text-decoration: underline;}

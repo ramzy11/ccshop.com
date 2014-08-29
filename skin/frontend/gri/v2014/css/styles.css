@@ -2333,6 +2333,8 @@ div.star-rating{/* background:transparent!important; *//* overflow:hidden!import
 #slider-range-min .last-points span.point{color:#808080; text-transform:none !important; font-size:13px;}
 #slider-range-min .vip-slider-handle strong{color:#fff;}
 #slider-range-min .upgrade {width:500px; text-align:center; margin-top:70px; font:15px "Futura Bk Bt"; color:#ea1d78;}
+.request_info .con_table .upgrade {float: right; width:516px; text-align:center; margin-top:70px; font:15px "Futura Bk Bt"; color:#ea1d78;}
+.request_info .con_table .sf-vip-info{display: none;}
 
 .dashboard .membership .request_info .vip_area{line-height:23px;}
 .dashboard .data-table{}

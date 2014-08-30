@@ -105,28 +105,7 @@ class Gri_Vip_Model_Observer
 		$event = $observer->getEvent();
         $request = $event->getAccountController()->getRequest();
         $customer = $event->getCustomer();
-		$this->vipHandle($customer);		
-
-		/*
-         //request
-         $mobile = $request->getPost('mobilephone');
-         $offlineVip = Mage::getModel('gri_vip/relation_offline')->load($mobile, 'mobilephone');
-         $checkVip = $request->getPost('checkbox2');
-        
-         if ($checkVip && $offlineVip->getId() && !$offlineVip->getCustomerId()) {
-            $offlineVip->setCustomerId($customer->getId());
-            $updated_time = Mage::getSingleton('core/locale')->date()->toString('y-MM-dd H:m:s');
-            $offlineVip->setUpdateTime($updated_time);
-            $offlineVip->save();
-
-            //update offline vip group id
-            if ($this->getOfflineVipGroupId()) {
-                $customer->setGroupId($this->getOfflineVipGroupId());
-                $customer->save();
-            }
-         }*/
-       //}
-     //return $this;
+		$this->vipHandle($customer);
     }
 
     /**
@@ -159,35 +138,38 @@ class Gri_Vip_Model_Observer
 		$last_update = "";		
 		if($vipPk->getId())
 		{
-			
+			return;
 			$last_update = date('Ymd',strtotime($vipPk->getLastUpdate()));
 			$vipContent = $vipAs400->checkVipInfo($vipPk->getOfflineVipId());
+            if($vipContent == null)
+            {
+                Mage::Log('Error getting result from VipInfo',7,'gri-debug.log');
+            }
 			$offVip = $vipContent['vipinfo'][0];
 		}
 		else
 		{
+            $data = $vipAs400->createAddArray($user);
+			Mage::Log(json_encode($data),7,'gri-debug.log');
+			return;
+            Mage::Log(json_encode($data),7,'gri-debug.log');
 			$vipPk = Mage::getModel('gri_vip/offline_pk');
-			/*$mobile = $user->getMobilePhone();
-			$country = $user->getCountry();
-			$firstName = $user->getFirstname();
-			$lastName = $user->getLastName();
-			$email = $user->getEmail();
-
-			
-			$vipContent = $vipAs400->checkVipAccount(array('mobile'=>$mobile,'country'=>$country,'name'=>$name,'email'=>$email));
-			$offVip = $vipContent['viplist'][0];
-			*/
-			$vipPk->setCustomerId($user->getId());
+            $vipContent = $vipAs400->checkVipAccount($user);
+            if($vipContent == null)
+            {
+                Mage::Log('Error getting result from VipAdd', 7, 'gri-debug.log');
+                return;
+            }
+            $offVip = $vipContent['vipinfo'][0];
 		}			
 		
 
 		$mobile = preg_replace("/[^0-9]/","",$offVip['mobile']);
 
 		$offline_last_update = date('Ymd',strtotime($offVip['last_update']));
-		
-		/* We only update
-		if($offline_last_update > $last_update)
-		{*/
+
+		if(!$last_update || $offline_last_update > $last_update)
+		{
 			
 			$vipGroup = $offVip['grade'];
 			$vipPoint = $offVip['current vip point'];
@@ -229,6 +211,6 @@ class Gri_Vip_Model_Observer
 			{
 				Mage::Log('Error saving customer group Id for customer '.$user->getId(),7,'gri-debug.log');
 			}
-		//}
+		}
 	}
 }

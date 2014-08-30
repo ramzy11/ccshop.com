@@ -34,7 +34,7 @@
  */
 class Gri_Vip_Block_Account_Membership extends Mage_Core_Block_Template
 {
-    const START = '8.5';
+    const START = '0.0';
 	const STEPONE = '22.0';
 	const STEPTWO = '54.0';
     const END = '99.5';
@@ -165,7 +165,6 @@ class Gri_Vip_Block_Account_Membership extends Mage_Core_Block_Template
 			$type = 3;
 		}
 		
-		Mage::log('slider type:'.$type,7,'gri-debug.log');
 		switch($type)
 		{
 			case 0:

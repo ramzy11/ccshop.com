@@ -100,6 +100,7 @@ class Gri_Vip_Model_Vip_As400 extends Mage_Core_Model_Abstract
         $countryMapping = $this->getAs400CountryMapping();
         $data = array();
 
+		$expiry_date = '20991231';
         $email = $customer->getEmail();
         $firstname = $customer->getFirstname();
         $surname = $customer->getLastname();

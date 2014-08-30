@@ -315,4 +315,25 @@ class Gri_Vip_Block_Account_Membership extends Mage_Core_Block_Template
         }
         return $customer->getData('reward_instance');
     }
+
+	public function getUpgradeMessage()
+	{
+		$ret = "";
+
+		$point = $this->getPointsToUpgrade();
+		$grade = $this->_getHelper()->getCustomerVipLevel($this->getCustomer());
+		$customerGroup = clone $this->getCustomer()->getGroup();
+
+		if($grade == 'platinum')
+		{
+			$ret = $this->__('You are already %s Member!', $this->_getHelper()->__($customerGroup->getCode()));
+		}
+		else
+		{
+			$nextGrade = array('grey'=>$this->__('Silver'),'general'=>$this->__('Silver'),'silver'=>$this->__('Gold'),'gold'=>$this->__('Platinum'));
+			$ret = $this->__('%1$s points to upgrade to %2$s',$point,$nextGrade[$grade]);
+		}
+
+		return $ret;
+	}
 }

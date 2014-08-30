@@ -35,8 +35,8 @@
                 <?php $bonusPoints = $this->getGainedPoints(12);?>
                 <ul>
 					<li class="vip_area"><span class="field"><?php echo $this->__('Member Tier') ;?></span><span><?php echo $this->getVipClass();?></span></li>
-					<li class="vip_area"><span class="field"><?php echo $this->__('Earned Points') ;?>*</span><span><?php echo $bonusPoints;?></span></li>
-					<li class="vip_area"><span class="field"><?php echo $this->__('Redeemed Points') ;?>*</span><span> - </span></li>
+					<li class="vip_area"><span class="field"><?php echo $this->__('Earned Points') ;?> *</span><span><?php echo $bonusPoints;?></span></li>
+					<li class="vip_area"><span class="field"><?php echo $this->__('Redeemed Points') ;?> *</span><span> - </span></li>
                     <li class="vip_area"><span class="field"><?php echo $this->__('Current Point Balance') ;?></span><?php echo $bonusPoints;?><span></span>
                     </li>
 					<li class="vip_area"><span class="field"><?php echo $this->__('Membership Expiry Date') ;?></span><span><?php echo $this->getVipExpirationDate();?></span></li>
@@ -56,7 +56,7 @@
                 <span class="second-points"><span><?php echo $this->__('Silver')?></span><br /><span class="point">2,500 <?php echo $this->__('Points')?></span></span>
                 <a href="javascript:;" class="vip-slider-moving-bag" style="left: <?php echo $this->getLeftPercentPosition(); ?>%;"></a>
                 <a href="javascript:;" class="vip-slider-handle" style="left: <?php echo min($this->getLeftPercentPosition() + 7, 93) ;?>%;">
-                     <span class="sel_message"><?php echo $this->__('Earned Points');?><br/><strong><?php echo number_format($bonusPoints,1,'.',',');?></strong></span>
+                     <span class="sel_message"><?php echo $this->__('Earned Points');?><br/><strong><?php echo number_format($bonusPoints);?></strong></span>
                 </a>
                 <span class="third-points"><span><?php echo $this->__('Gold')?></span><br /><span class="point">20,000 <?php echo $this->__('Points')?></span></span>
                 <span class="last-points"><span><?php echo $this->__('Platinum')?></span><br /><span class="point">50,000 <?php echo $this->__('Points')?></span></span>

@@ -35,7 +35,7 @@ class Gri_Vip_Model_Vip_As400 extends Mage_Core_Model_Abstract
 
     public function offlineGradeMapping($level)
     {
-        $mapping = array('light grey'=>'grey','light_grey'=>'grey','black'=>'platinum');
+        $mapping = array('grey'=>'grey','light grey'=>'grey','light_grey'=>'grey','black'=>'platinum');
 
         return isset($mapping[strtolower($level)])?$mapping[strtolower($level)]:$level;
     }
@@ -102,6 +102,7 @@ class Gri_Vip_Model_Vip_As400 extends Mage_Core_Model_Abstract
 
 		$expiry_date = '20991231';
         $email = $customer->getEmail();
+        $expiry_date = '20991231';
         $firstname = $customer->getFirstname();
         $surname = $customer->getLastname();
         $salulation = strtoupper($customer->getTitle());
@@ -130,4 +131,3 @@ class Gri_Vip_Model_Vip_As400 extends Mage_Core_Model_Abstract
     }
 
 }
-

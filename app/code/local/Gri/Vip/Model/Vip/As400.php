@@ -4,8 +4,7 @@
 class Gri_Vip_Model_Vip_As400 extends Mage_Core_Model_Abstract
 {
     const API_DOMAIN = 'http://as400.griretail.com';
-    const API_PORT = '62051';
-    const API_DEV_PORT = '62151';
+    const API_PORT = '62151';
 
     private $customerGroup;
 
@@ -42,14 +41,14 @@ class Gri_Vip_Model_Vip_As400 extends Mage_Core_Model_Abstract
 
     private function getAPIUrl($method="api", $isDev=0)
     {
-        return self::API_DOMAIN.':'.($isDev?self::API_DEV_PORT:self::API_PORT).'/'.$method;
+        return self::API_DOMAIN.':'.self::API_PORT.'/'.$method;
     }
 
     public function checkVipAccount($data=array())
     {
         $method = 'VipAdd';
         $json = $this->createJson($method, $data);
-        $ret =	$this->callWebService($this->getAPIUrl('api',1),array('data'=>$json));
+        $ret =	$this->callWebService($this->getAPIUrl('api'),array('data'=>$json));
 
         return $ret;
     }
@@ -123,7 +122,7 @@ class Gri_Vip_Model_Vip_As400 extends Mage_Core_Model_Abstract
         $address = $customer->getMailingAddress();
 
         //$data = compact('vip_country','expiry_date','cardno','grade','salulation','firstname','surname','gender','mobile','country','age_group','birthday','other_phone','email','address','join_date','amend_user','amend_date','amend_time',);
-        $data = compact('vip_country','expiry_date','cardno','grade','salulation','firstname','surname','gender','mobile','country','age_group','birthday','other_phone','email','join_date');
+        $data = compact('vip_country','expiry_date','cardno','grade','salulation','firstname','surname','gender','mobile','country','age_group','birthday','other_phone','email','join_date','address');
 
         $data['pk#'] = '0';
         //$data['current vip point'] = $currentVipPoint;
@@ -133,4 +132,4 @@ class Gri_Vip_Model_Vip_As400 extends Mage_Core_Model_Abstract
         return $data;
     }
 
-}
+} 

@@ -7,6 +7,10 @@ $formData = $this->getData('form_data');
     <div class="input-box customer-country">
         <select id="customer_country" name="<?php echo $this->getFieldName('customer_country_id');?>">
             <?php
+            $customerCountryId=$formData->getData('customer_country_id');
+            if(empty($customerCountryId)){
+                $formData->setData('customer_country_id','HK');
+            }
             $countries = $this->GetAllowedCountries();
             foreach($countries as $country) {
                 if(!empty($country['value']))
@@ -35,7 +39,7 @@ $formData = $this->getData('form_data');
         <div class="hint-icon"></div>
         <div class="hint">
     <span><?php
-        echo $this->__('Please provide the country code (e.g. +852) before mobile number');
+        echo $this->__('Please provide the country code (e.g. +852) before mobile number.');
         ?></span></div>
     </div>
 </li>

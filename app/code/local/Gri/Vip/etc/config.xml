@@ -115,7 +115,6 @@
                   <gri_vip>
                      <class>gri_vip/observer</class>
                      <method>bindOffline</method>
-                     <method>getVipInfo</method>
                   </gri_vip>
                </observers>
             </customer_register_success>

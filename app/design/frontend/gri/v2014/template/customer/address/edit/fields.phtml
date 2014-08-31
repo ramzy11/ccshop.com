@@ -100,7 +100,7 @@ $layout = $this->getLayout();
             <div class="tips-content">
                 <span class="tips"></span>
                     <span class="tips-info no-display"></span>
-                    <span class="f11 grey no-display"><?php echo $checkoutHelper->__('Please include the company name,If shipping to a work address.') ?></span>
+                    <span class="f11 grey no-display"><?php echo $checkoutHelper->__('Please include the company name, if shipping to a work address.') ?></span>
             </div>
         </div>
     </li>
@@ -114,7 +114,7 @@ $layout = $this->getLayout();
         </div>
         <?php } ?>
         <div class="field">
-            <label for="<?php echo $this->getFullyQualifiedId('telephone'); ?>" class="required"><!--<em>*</em>--><?php echo $checkoutHelper->__('Phone') ?></label>
+            <label for="<?php echo $this->getFullyQualifiedId('telephone'); ?>" class="required"><!--<em>*</em>--><?php echo $checkoutHelper->__('Telephone Number') ?></label>
             <div class="input-box input-box-telephone">
                 <div class="d1m-customer-address-telephone">
                     <span>+</span><input type="text" name="<?php echo $this->getFullyQualifiedName('area_code'); ?>" value="<?php echo $this->escapeHtml($address->getData('area_code')) ?>" title="<?php echo $checkoutHelper->__('Area Code') ?>" class="billing_area_code input-text <?php echo $addressHelper->getAttributeValidationClass('area_code') ?>" id="<?php echo $this->getFullyQualifiedId('area_code'); ?>" />
@@ -126,13 +126,6 @@ $layout = $this->getLayout();
                         <span class="f11 grey no-display"><?php echo $checkoutHelper->__('Please provide the country code (e.g. +852) before telephone number.') ?></span>
                 </div>
                 <script type="text/javascript">
-                    Validation.addAllThese([
-                        ['valid-mobilephone','<?php echo $this->__('Please provide a valid telephone number.'); ?>',
-                            function(v) {
-                                return /^[0-9|\+|\-\(\)]{8,13}$/.test(v) ? true : false;
-                            }
-                        ]
-                    ]);
                 </script>
             </div>
         </div>

@@ -75,7 +75,7 @@
         <?php endif ?>
             <?php
             $existingData = new Varien_Object();
-            $existingData->setData('customer_country', $this->getCustomer()->getData('customer_country'));
+            $existingData->setData('customer_country_id', $this->getCustomer()->getData('customer_country_id'));
             $existingData->setData('customer_area_code', $this->getCustomer()->getData('customer_area_code'));
             $existingData->setData('mobile', $this->getCustomer()->getData('mobile'));
             $existingData->setData('mailing_address', $this->getCustomer()->getData('mailing_address'));

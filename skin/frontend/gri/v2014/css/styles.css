@@ -2044,9 +2044,9 @@ input.input-text, select, textarea, .form-control {
 .account-create .input-box-submit button span{text-transform: uppercase}
 .account-create .back-to-login{padding-top: 20px;}
 .account-create .back-to-login a{text-transform: uppercase; color: #808080;background:url(../images/back_link.png) 1px no-repeat;width: 8px;height:12px;padding-left:15px;}
-.account-create .form-list div.input-box-newsletter{margin-top:20px;}
+.account-create .form-list div.input-box-newsletter,.account-create .form-list div.input-box-term-of-use{margin-top:5px;}
 .account-create .form-list div.input-box-newsletter label,
-.account-create .form-list div.input-box-term-of-use label{float: none;}
+.account-create .form-list div.input-box-term-of-use label{float: none; width: 90%}
 .account-create .form-list div.input-box-term-of-use label a{text-decoration: underline; color:#808080;}
 .account-create .form-list div.input-box-term-of-use label a:hover{text-decoration: none;}
 .customer-account-create .form-list .field{float:none;width:360px;}
@@ -3104,6 +3104,7 @@ span.opened:before{content:"\f068";}
 .catalog-category-view .block-layered-nav .refine-result ul li a span img{padding-top:4px;padding-right:5px;}
 .cms-all-brands .main .page-title{width:1180px !important;}
 .catalog-product-view .brand-banner{margin-bottom:45px;}
+.categorypath-editor-picks-html.brand-editor-picks .block-layered-nav,
 .categorypath-anne-klein-html.brand-anne-klein .block-layered-nav,
 .categorypath-anne-klein-html.brand-anne-klein .block-layered-nav,
 .categorypath-betseyjohnson-html.brand-betseyjohnson .block-layered-nav,

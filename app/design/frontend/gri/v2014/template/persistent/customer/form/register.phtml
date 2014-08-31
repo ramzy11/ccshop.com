@@ -79,8 +79,8 @@
             <?php if ($this->isNewsletterEnabled()): ?>
             <li>
                 <div class="input-box input-box-newsletter">
-                    <input type="checkbox" name="is_subscribed" title="<?php echo $griCustomerHelper->__('I do not wish to receive any special promotional messages.') ?>" value="0" id="is_subscribed"<?php if($this->getFormData()->getIsSubscribed()): ?> <?php endif; ?> class="checkbox" />
-                    <label for="is_subscribed"><?php echo $griCustomerHelper->__('I do not wish to receive any special promotional messages.') ?></label>
+                    <input type="checkbox" name="is_subscribed" title="<?php echo $griCustomerHelper->__('I do not wish to receive any special promotional messages') ?>" value="0" id="is_subscribed"<?php if($this->getFormData()->getIsSubscribed()): ?> <?php endif; ?> class="checkbox" />
+                    <label for="is_subscribed"><?php echo $griCustomerHelper->__('I do not wish to receive any special promotional messages') ?></label>
                 </div>
             </li>
             <?php endif ?>
@@ -132,8 +132,8 @@
             <li>
                 <div class="input-box input-box-term-of-use">
                     <input type="checkbox" name="terms" title="<?php echo $griCustomerHelper->__('Terms of Use') ?>" value="1" id="terms"  <?php if($this->getFormData()->getTerms()): ?> <?php endif; ?> class="checkbox required-entry" />
-                    <label for="terms"><?php echo $griCustomerHelper->__("I agree to CCSHOP.COM's ")?>
-                        <a href="<?php echo $this->getUrl('legal/terms-of-use.html')?>"><?php echo $griCustomerHelper->__("Terms of Use and CC Club's Terms and conditions")?></a></label>
+                    <label for="terms"><?php echo $griCustomerHelper->__("I agree to ")?>
+                        <a href="<?php echo $this->getUrl('legal/terms-of-use.html')?>"><?php echo $griCustomerHelper->__("CCSHOP.COM's Terms of Use")?></a><?php echo $griCustomerHelper->__(" and ")?><a href="<?php echo $this->getUrl('cc-club/terms-and-conditions.html')?>"><?php echo $griCustomerHelper->__("CC Club's Terms and Conditions")?></a></label>
                 </div>
             </li>
             <?php echo $this->getChildHtml('form.additional.info'); ?>

@@ -49,7 +49,7 @@ NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
  * @var D1m_Customer_Block_Widget_Dob $this
  */
 ?>
-<label for="<?php echo $this->getFieldId('month')?>"<?php if ($this->isRequired()) echo ' class="required"' ?>><?php echo $this->__('Date of Birth (Optional)'); ?></label>
+<label for="customer-d1m-month')?>"<?php if ($this->isRequired()) echo ' class="required"' ?>><?php echo $this->__('Date of Birth (Optional)'); ?></label>
 <div class="input-box customer-dob">
 <?php
     $this->setDateInput('y','');
@@ -58,7 +58,7 @@ NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
     if(is_numeric($this->getDay())){
         $dayOption.='<div class="disable">'.$this->getDay().'</div>';
     }else{
-        $dayOption.='<select id="' . $this->getFieldId('day') . '" name="' . $this->getFieldName('day') . '" class="input-text validate-custom" ' . $this->getFieldParams() . '>';
+        $dayOption.='<select id="customer-d1m-day" name="' . $this->getFieldName('day') . '" class="input-text validate-custom" ' . $this->getFieldParams() . '>';
         $dayOption.='<option value="">'.$this->__('Day').'</option>'
             .implode('', $this->GetDayNumbers('option', $this->getDay()));
         $dayOption.='</select>';
@@ -69,7 +69,7 @@ NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
     if(is_numeric($this->getMonth())){
         $monthOption.='<div class="disable">'.$this->getMonth().'</div>';
     }else{
-        $monthOption.='<select id="' . $this->getFieldId('month') . '" name="' . $this->getFieldName('month') . '" class="input-text validate-custom" ' . $this->getFieldParams().'>';
+        $monthOption.='<select id="customer-d1m-month" name="' . $this->getFieldName('month') . '" class="input-text validate-custom" ' . $this->getFieldParams().'>';
         $monthOption.='<option value="">'.$this->__('Month').'</option>'
             .implode('', $this->GetMonthNumbers('option', $this->getMonth()));
         $monthOption.='</select>';
@@ -82,15 +82,30 @@ NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
     <div class="hint-icon"></div>
     <div class="dob">
         <input type="hidden" id="<?php echo $this->getFieldId('year') ?>" name="<?php echo $this->getFieldName('year')?>" value="1996" />
-        <input type="hidden" id="<?php echo $this->getFieldId('dob')?>" name="<?php echo $this->getFieldName('dob')?>" value="<?php echo $this->getDateFormatStr();?>"/>
+        <input type="hidden" id="customer-d1m-dob" name="<?php echo $this->getFieldName('dob')?>" value="<?php echo '%Y年%m月%e日'==$this->getDateFormat()?$this->getDateFormatStr('Y-m-d'):$this->getDateFormatStr('m-d-Y');?>"/>
     </div>
     <script type="text/javascript">
         (function ($) {
-            $("#<?php echo $this->getFieldId('day');?>").change(function(){
+            $("#customer-d1m-day").change(function(){
                 var day=$(this).val();
-                var month=$("#<?php echo $this->getFieldId('month');?>").val();
+                var month=$("#customer-d1m-month").val();
                 if($.isNumeric(day)&& $.isNumeric(month)){
-                    $("#<?php echo $this->getFieldId('dob');?>").val(month+'-'+day+'-1996');
+                    <?php if('%Y年%m月%e日'==$this->getDateFormat()):?>
+                    $("#customer-d1m-dob").val('1996-'+month+'-'+day);
+                    <?php else:?>
+                    $("#customer-d1m-dob").val(month+'-'+day+'-1996');
+                    <?php endif;?>
+                }
+            });
+            $("#customer-d1m-month").change(function(){
+                var month=$(this).val();
+                var day=$("#customer-d1m-day").val();
+                if($.isNumeric(day)&& $.isNumeric(month)){
+                    <?php if('%Y年%m月%e日'==$this->getDateFormat()):?>
+                    $("#customer-d1m-dob").val('1996-'+month+'-'+day);
+                    <?php else:?>
+                    $("#customer-d1m-dob").val(month+'-'+day+'-1996');
+                    <?php endif;?>
                 }
             });
         })(jQuery);
@@ -99,10 +114,10 @@ NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
     <div class="hint">
     <span><?php
         if($this->getData('use_type') == 'register') {
-            echo $this->__('This data cannot be edited once you click submit. If you would like to change the data, please email cs@ccshop.com');
+            echo $this->__('This data cannot be edited once you click submit. If you would like to change the data, please email cs@ccshop.com.');
         }
         else {
-            echo $this->__('This data cannot be edited once you click save changes. If you would like to change the data, please email cs@ccshop.com');
+            echo $this->__('This data cannot be edited once you click save changes. If you would like to change the data, please email cs@ccshop.com.');
         }
         ?></span></div>
     <div class="validation-advice" style="display:none;"></div>

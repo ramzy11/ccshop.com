@@ -1161,6 +1161,7 @@ jQuery(function(){
     })
 })
 
+
 /* telecom country/area code*/
 var D1 = D1 || {};
 D1.teleJson = eval('({"HK":"852","MO":"853","MY":"60","SG":"65","TW":"886","TH":"66","CN":"86","JP":"81"})');

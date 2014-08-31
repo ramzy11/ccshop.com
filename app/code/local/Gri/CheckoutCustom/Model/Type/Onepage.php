@@ -62,11 +62,14 @@ class Gri_CheckoutCustom_Model_Type_Onepage extends Mage_Checkout_Model_Type_One
         }
         $this->getQuote()->setTotalsCollectedFlag(TRUE);
         $result = parent::saveBilling($data, $customerAddressId);
-        if (!$this->getQuote()->getCustomerId() && self::METHOD_REGISTER == $this->getQuote()->getCheckoutMethod()) {
 
-            $mobile=$this->getQuote()->getData('customer_mobile');
-            $mobileMessage=null;
-            if(!empty($mobile)) {
+        $this->getQuote()->setTotalsCollectedFlag(FALSE);
+        if (!isset($result['error'])) {
+            if (!$this->getQuote()->getCustomerId() && self::METHOD_REGISTER == $this->getQuote()->getCheckoutMethod()) {
+
+                $mobile=$this->getQuote()->getData('customer_mobile');
+                $mobileMessage=null;
+                if(!empty($mobile)) {
                     /** @var Mage_Customer_Model_Customer $customerModel **/
                     $customerModel = Mage::getModel('customer/customer');
                     /** @var Varien_Data_Collection_Db $exitingCollection **/
@@ -76,15 +79,13 @@ class Gri_CheckoutCustom_Model_Type_Onepage extends Mage_Checkout_Model_Type_One
                         $mobileMessage =  Mage::helper('customer')->__('There is already an account associated with this mobile number.Please try another.');
                     }else {
                     }
-            }else{
-                $mobileMessage =  Mage::helper('customer')->__('Please fill all required field.');
+                }else{
+                    $mobileMessage =  Mage::helper('customer')->__('Please fill all required field.');
+                }
+                if($mobileMessage){
+                    return array('error' => 1, 'message' => $mobileMessage);
+                }
             }
-            if($mobileMessage){
-                return array('error' => 1, 'message' => $mobileMessage);
-            }
-        }
-        $this->getQuote()->setTotalsCollectedFlag(FALSE);
-        if (!isset($result['error'])) {
             /* @var $customerAddress Mage_Customer_Model_Address */
             $customerAddress = Mage::getModel('customer/address');
             if (($addressId = $this->getQuote()->getBillingAddress()->getCustomerAddressId()) &&

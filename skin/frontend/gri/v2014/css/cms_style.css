@@ -58,7 +58,14 @@
 .cms #mag .arrow_left{position:relative;margin-top:-42%;float:left;}
 .cms #mag .arrow_right{position:relative;margin-top:-42%;float:right;}
 .cms #mag .arrow_left:hover,.cms  #mag .arrow_right:hover{opacity:0.7;}
-.cms #cms-delivery-content ul li,.cms #cms-delivery-content2 ul li,.cms #cms-delivery-content ul li,.cms #cms-vip-content ul li,.cms #cms-size-content ul li{list-style-type: disc;font-family: Arial;}
+.cms #cms-delivery-content ul li,
+.cms #cms-delivery-content2 ul li,
+.cms #cms-delivery-content ul li,
+.cms #cms-vip-content ul li,
+.cms #cms-size-content ul li,
+.cms .cms-cc-club-membership-privileges-detail ul li,
+.cms #cms-cc-club-tandc ul li
+{list-style-type: disc;font-family: Arial;}
 .cms #cms-delivery-content ol li, .cms #cms-delivery-content2 ol li{font-family:Arial;}
 /*.cms #cms-delivery-content2 ul:nth-child(2) li{list-style-type:decimal; }*/
 #cms-delivery-content .tablebreak{border-top:1px solid #e3e3e3; line-height:0pt !important;}

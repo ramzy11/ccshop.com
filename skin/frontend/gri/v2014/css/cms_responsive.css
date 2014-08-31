@@ -74,6 +74,154 @@ img, object, embed, video {
     /***Payment Page***/
     #cms-payment-content  {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
     #cms-payment-banner {clear: both;float: left;margin-left: 0;width: 100%;display: block;text-align:center;margin-top:50px;}
+
+	/*** How To Earn Points ***/
+	.cms #cms-cc-club-how-to-earn-points {
+		width:100%;
+		margin: auto;
+	}
+	.cms #cms-cc-club-how-to-earn-points-top {
+		text-align: center;
+	}
+	.cms #cms-cc-club-how-to-earn-points-gap {
+		clear: both;
+		width: 100%;
+		height: 20px;
+	}	
+	.cms #cms-cc-club-how-to-earn-points-graph {
+		text-align: center;
+		display: none;
+	}
+	.cms #cms-cc-club-how-to-earn-points-graph-m {
+		text-align: center;
+		display: block;
+	}
+
+	/*** Membership Privileges ***/
+	#cms-cc-club-membership-privileges-top {
+		width: 100%;
+		margin: auto;
+	}
+	.cms #cms-cc-club-membership-privileges-top h2,
+	.cms #cms-cc-club-membership-privileges-top h4
+	{
+		text-align: center;
+	}
+	.cms #cms-cc-club-membership-privileges-top h4
+	{
+		font: 18px futura_lt_btlight_italic,"Microsoft YaHei";
+	}
+	.cms #cms-cc-club-membership-privileges-gap {
+		clear: both;
+		width: 100%;
+		height: 40px;
+	}
+    .cms .cms-cc-club-membership-privileges-icon {
+        text-align: center;
+        padding: 30px;
+    }
+    .cms .cms-cc-club-membership-privileges-desc {
+        text-align: center;
+    }
+    .cms .cms-cc-club-membership-privileges-desc h2 {
+        font-size: 20px;
+    }
+    .cms .cms-cc-club-membership-privileges-desc h4 {
+		font-family: "Futura Hv Bt";
+		font-size: 16px;
+        text-align: center;
+    }        
+    .cms .cms-cc-club-membership-privileges-detail h3 {
+        font-size: 16px;
+    }    
+    .cms .cms-cc-club-membership-privileges-detail h4 {
+		font-family: "Futura Hv Bt";
+		font-size: 12px;
+    }
+    .cms #cms-cc-club-membership-privileges-terms {
+		clear: both;
+		float: left;
+		width: 100%;
+    }
+    .cms #cms-cc-club-membership-privileges-buttons {
+        clear: both;
+        float: left;
+        width: 96%;
+		margin: auto;
+    }
+    .cms #cms-cc-club-membership-privileges-buttons .button {
+        background-color:#000;
+        color:#fff !important;
+        font-family: Futura Bk Bt;
+        font-size:23px;
+        text-transform:uppercase;
+        padding:15px;
+        display:block;
+		text-align: center;
+    }
+    .cms #cms-cc-club-membership-privileges-buttons a.button:link {text-decoration:none;}
+    .cms #cms-cc-club-membership-privileges-buttons a.button:visited {text-decoration:none;}
+    .cms #cms-cc-club-membership-privileges-buttons a.button:hover {text-decoration:none;opacity:0.7;}
+    .cms #cms-cc-club-membership-privileges-buttons a.button:active {text-decoration:none;}
+    .cms #cms-cc-club-membership-privileges-buttons .button_space {margin-top:20px;}
+    .cms #cms-cc-club-membership-privileges-buttons .grey_button {
+        background-color:#E3E3E3;
+        color:#000 !important;
+        font-family: Futura Bk Bt;
+        font-size: 13px;
+        text-transform:uppercase;
+        padding: 5px 15px 5px 15px;
+        display: block;
+		text-align: center;
+    }
+    .cms #cms-cc-club-membership-privileges-buttons a.grey_button:link {text-decoration:none;}
+    .cms #cms-cc-club-membership-privileges-buttons a.grey_button:visited {text-decoration:none;}
+    .cms #cms-cc-club-membership-privileges-buttons a.grey_button:hover {text-decoration:none;opacity:0.7;}
+    .cms #cms-cc-club-membership-privileges-buttons a.grey_button:active {text-decoration:none;}
+
+    .cms #cms-cc-club-membership-privileges-content1 {
+		clear: both;
+        float: left;
+        width: 100%;
+        border-width: 1px 0 0 0;
+        border-style: solid;
+        border-color: #808080;        
+    }
+    .cms #cms-cc-club-membership-privileges-content2 {
+		clear: both;
+        float: left;
+        width: 100%;
+        border-width: 1px 0 1px 0;
+        border-style: solid;
+        border-color: #808080;
+    }
+    .cms #cms-cc-club-membership-privileges-content3 {
+		clear: both;
+        float: left;
+        width: 100%;
+        border-width: 0 0 1px 0;
+        border-style: solid;
+        border-color: #808080;        
+    }
+
+	.cms-cc-club-membership-privileges-pc {
+		display: none;
+	}   
+
+	.cms-cc-club-membership-privileges-phone {
+		background:url(../images/filter-close.png) 100% 20px no-repeat;
+		display: block;
+	}
+
+	.cms-cc-club-membership-privileges-phone-open {
+		background:url(../images/filter-open.png) 100% 20px no-repeat !important;
+	}	
+
+	.cms-cc-club-membership-privileges-detail {
+		display: none;
+	}
+
+
     /*** footer shipping n delivery, returns***/
     #cms-delivery-content {clear: both;float: left;margin-left: 0;width: 100%;display: block;}
 	#cms-delivery-content ul li a{text-decoration:none;}
@@ -350,6 +498,14 @@ img, object, embed, video {
 	.contact #contactForm .form-list .last .input-box > span#telinfo{height:34px; line-height:34px; display:inline; float:left; margin-left:15px;}
 	
 	/*** How to shop ***/
+    .shop .cms-page-left {width:44% !important;}
+    .shop .cms-page-left > h3 {line-height:30px !important;}
+    .shop .cms-page-left p.cms-content-first {line-height:22px !important;}
+    .shop .cms-page-right .cms-page-details {margin-top:0 ! important; margin-bottom:0 !important;}
+    .shop .cms-page-right {width:46% !important; margin-left:10% !important; margin-top:-10px !important;}
+    .shop .cms-page-right > h2 {margin-bottom: 0 !important;}
+    .shop .cms-page-right h3{margin:0 !important;}
+    .shop .cms-page-right .cms-page-details p {line-height:18px !important; margin:13px 0 !important;}
 	.shop .cms-page-left {width:44% !important;}
 	.shop .cms-page-left > h3 {line-height:30px !important;}
 	.shop .cms-page-left p.cms-content-first {line-height:22px !important;}
@@ -362,6 +518,138 @@ img, object, embed, video {
 	/*** cleaning and care ***/
 	.shoes .cms-page-right > h2 {margin-bottom: 0 !important;}
 	.shoes .cms-page-right .cms-page-details {margin-top:20px ! important; margin-bottom:0 !important;}
+
+	/*** How To Earn Points ***/
+
+	.cms #cms-cc-club-how-to-earn-points {
+		width:600px;
+		margin: auto;
+	}
+	.cms #cms-cc-club-how-to-earn-points-top {
+		text-align: center;
+	}
+	.cms #cms-cc-club-how-to-earn-points-gap {
+		clear: both;
+		width: 100%;
+		height: 40px;
+	}	
+	.cms #cms-cc-club-how-to-earn-points-graph {
+		text-align: center;
+		display: block;
+	}
+	.cms #cms-cc-club-how-to-earn-points-graph-m {
+		text-align: center;
+		display: none;
+	}
+
+	/*** Membership Privileges ***/
+
+	.cms #cms-cc-club-membership-privileges-top {
+		width: 60%;
+		margin: auto;
+	}
+	.cms #cms-cc-club-membership-privileges-top h2,
+	.cms #cms-cc-club-membership-privileges-top h4
+	{
+		text-align: center;
+	}
+	.cms #cms-cc-club-membership-privileges-top h4
+	{
+		font: 18px futura_lt_btlight_italic,"Microsoft YaHei";
+	}
+	.cms #cms-cc-club-membership-privileges-gap {
+		clear: both;
+		width: 100%;
+		height: 40px;
+	}
+	.cms .cms-cc-club-membership-privileges-icon {
+		text-align: center;
+		padding: 30px;
+	}
+	.cms .cms-cc-club-membership-privileges-desc {
+		text-align: center;
+	}	
+    .cms .cms-cc-club-membership-privileges-desc h2 {
+        font-size: 20px;
+    }
+    .cms .cms-cc-club-membership-privileges-desc h4 {
+		font-family: "Futura Hv Bt";
+		font-size: 16px;
+        text-align: center;
+    }   
+    .cms .cms-cc-club-membership-privileges-detail h3 {
+		font-weight: bold;
+        font-size: 16px;
+    }    
+    .cms .cms-cc-club-membership-privileges-detail h4 {
+		font-family: "Futura Hv Bt";
+		font-size: 12px;
+    } 
+	.cms #cms-cc-club-membership-privileges-content1 {
+		float: left;
+		padding-left: 2%;
+		padding-right: 2%;
+		width: 33%;
+	}		
+	.cms #cms-cc-club-membership-privileges-content2 {
+		float: left;
+		padding-left: 2%;
+		padding-right: 2%;
+		width: 33%;
+		border-width: 0 1px 0 1px;
+		border-style: solid;
+		border-color: #E3E3E3;
+	}
+	.cms #cms-cc-club-membership-privileges-content3 {
+		float: left;
+		padding-left: 2%;
+		padding-right: 2%;
+		width: 33%;
+	}
+    .cms #cms-cc-club-membership-privileges-terms {
+		float: left;
+		width: 50%;
+    }
+    .cms #cms-cc-club-membership-privileges-buttons {
+        float: left;
+        width: 50%;
+		text-align: right;
+		vertical-align: bottom;
+    }
+	.cms #cms-cc-club-membership-privileges-buttons .button {
+		background-color:#000;
+		color:#fff !important;
+		font-family: Futura Bk Bt;
+		font-size:23px;
+		text-transform:uppercase;
+		padding:15px;
+		display:inline-block;
+		vertical-align: bottom;
+	}
+	.cms #cms-cc-club-membership-privileges-buttons a.button:link {text-decoration:none;}
+	.cms #cms-cc-club-membership-privileges-buttons a.button:visited {text-decoration:none;}
+	.cms #cms-cc-club-membership-privileges-buttons a.button:hover {text-decoration:none;opacity:0.7;}
+	.cms #cms-cc-club-membership-privileges-buttons a.button:active {text-decoration:none;}
+	.cms #cms-cc-club-membership-privileges-buttons .button_space {margin-left:10px;}
+	.cms #cms-cc-club-membership-privileges-buttons .grey_button {
+		background-color:#E3E3E3;
+		color:#000 !important;
+		font-family: Futura Bk Bt;
+		font-size: 13px;
+		text-transform:uppercase;
+		padding: 5px 10px 5px 10px;
+		display:inline-block;
+		vertical-align: bottom;
+	}
+	.cms #cms-cc-club-membership-privileges-buttons a.grey_button:link {text-decoration:none;}
+	.cms #cms-cc-club-membership-privileges-buttons a.grey_button:visited {text-decoration:none;}
+	.cms #cms-cc-club-membership-privileges-buttons a.grey_button:hover {text-decoration:none;opacity:0.7;}
+	.cms #cms-cc-club-membership-privileges-buttons a.grey_button:active {text-decoration:none;}
+
+	.cms-cc-club-membership-privileges-phone {
+		display: none;
+	}
+
 
 	/*** VIP ***/
 	#cms-vip-content{width:34% !important; margin-right:11% !important;}

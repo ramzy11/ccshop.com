@@ -222,7 +222,6 @@ p.control input.checkbox,p.control input.radio{margin-right:6px;}
 .form-list input.input-text{width:320px;}
 .form-list textarea{resize:none;width:254px;height:10em;display:inline;}
 .form-list select{width:100%;}
-.form-list li.wide .input-box{width:535px;}
 .form-list li.wide input.input-text{width:529px;}
 .form-list li.wide textarea{width:529px;}
 .form-list li.additional-row{border-top:1px solid #ccc;margin-top:40px;}
@@ -292,19 +291,23 @@ p.control input.checkbox,p.control input.radio{margin-right:6px;}
 .fieldset > p{margin-bottom:10px;}
 .fieldset .legend{font-weight:bold;font-size:12px;text-transform:uppercase;position:relative;padding-bottom:8px;color:#fa3333;}
 p.back-link a{font:12px Arial;color:#808080;}
-#firstname,#lastname,#password,#confirmation{width:200px;clear: both;float: left;}
 #email_address, .name-firstname input, .name-lastname input{width:320px;}
 #area_code{display:inline;width:80px;margin:0 5px;}
-#mobile{display:inline;width:150px;margin:0 5px;}
+#mobile, #telephone{display:inline;width:150px;margin:0 5px;}
 #mailing_address{width:320px;height:96px;}
 .customer_title{width:90px;}
-.customer-country{width:320px;}
+#customer_country{width:320px;}
 .disabled-formcontrol{background:#EFEFEF;}
+input.input-text, select, textarea, .form-control {
+    border: 1px solid #e3e3e3;
+    border-radius: 0;
+}
+.d1m-customer-address-telephone{float:left};
 /* Form Validation */
 .validation-advice{clear:both;min-height:13px;margin:5px 0 0;font:11px Arial;line-height:13px;color:#f00;}
 .validation-failed{border:1px dashed #f00 !important;background:#faebe7 !important;}
-.hint-icon{display:inline-block;*display:inline;*zoom:1;width:27px;height:27px;background:url(../images/icon_attention.png);}
-.hint{position:absolute;top:-10px;left:335px;width:300px;padding:10px;background-color:#EFEFEF;font-size: 90%;font-style: italic; clear:both;}
+.hint-icon{display:inline-block;*display:inline;*zoom:1;width:27px;height:32px;background:url(../images/icon_attention.png);vertical-align: top;background-position-y: 3px;background-repeat: no-repeat;}
+.hint{position:absolute;top:-10px;left:310px;width:300px;padding:10px;background-color:#EFEFEF;font-size: 90%;font-style: italic; clear:both;}
 .hint:after{display:block;position:absolute;left:-9px;top:10px;width: 0;height: 0;border-bottom: 10px solid transparent;border-top: 10px solid transparent;border-right: 10px solid #EFEFEF;content:' ';}
 .customer-dob .hint{left:270px;}
 p.required{font-size:10px;text-align:right;color:#f00;}
@@ -1920,7 +1923,7 @@ div.star-rating{/* background:transparent!important; *//* overflow:hidden!import
 .checkout-onepage-index .opc .field-2 input{width:310px;}
 .checkout-onepage-index .opc .field-2 select{width:315px;}
 .checkout-onepage-index .opc .name-firstname input,
-.checkout-onepage-index .opc .name-lastname input{width:320px;}
+.checkout-onepage-index .opc .name-lastname input{width:200px;}
 .checkout-onepage-index .opc .name-middlename{width:144px;}
 .checkout-onepage-index .opc .name-middlename input{width:124px!important;}
 .checkout-onepage-index .opc .sp-methods dt{}
@@ -1933,18 +1936,39 @@ div.star-rating{/* background:transparent!important; *//* overflow:hidden!import
 #multishipping-billing-form h2{font-size:12px;text-transform:uppercase;font-weight:normal;color:#333;margin-bottom:0;}
 #multishipping-billing-form .sp-methods dt{font-weight:bold;padding-bottom:10px;}
 #multishipping-billing-form .sp-methods .form-list input.input-text{width:100%;}
-#billing_area_code{width:80px;!important}
+#billing_area_code,#customer_area_code{width:80px;display:inline;}
 #billing_telephone{width:150px;!important}
 .personal-information{float:left;width:470px;overflow:hidden;}
+.personal-information .title,.shipping-information .title{color: #000;}
 .shipping-information{float:left;width:470px;overflow:hidden;}
 .personal-information .hint, .shipping-information .hint{position:relative;left:auto;width:300px;padding:10px;background-color:#EFEFEF;font-size: 90%;font-style: italic; clear:both; top:10px;}
 .personal-information .hint:after, .shipping-information .hint:after{display:block;position:absolute;top:-9px;left:30px;width: 0;height: 0;border-left: 10px solid transparent;border-right: 10px solid transparent;border-bottom: 10px solid #EFEFEF;content:' ';border-top:0;}
 #billing_firsttname, #billing_lastname, #billing_city, #billing_postcode{width:320px;!important}
-.field-country .input-box,field-region .input-box,field-region .input-box, .name-lastname input, field-city input, .field-postcode input{width:320px;!important}
-.form-list .field-city input.input-text,.form-list .field-postcode input.input-text, #billing_region_id, #billing_city_id, .field-country select{width:320px;}
+.field-country .input-box,.field-region .input-box,.field-region .input-box, .name-lastname input, .field-region .input-box{width:320px;!important}
+.form-list .field-city input.input-text, #billing_region_id, #billing_city_id, .form-list .field-country select, .form-list .field-region select{width:320px;}
 .form-list .input-box-telephone input.form-control{width:80px;}
 .form-list .input-box-telephone input.valid-mobilephone{width:150px;display:inline;}
-#country, #region_id{width:320px;}
+#country, #region_id, #city_id{width:320px;}
+#city, #postcode, #firstname,#lastname{width:200px;display:block;clear:left;}
+.dob-month .disable, .dob-day .disable {
+    background: #efefef;
+    border: 1px solid #c9c9c9;
+    display: inline-block;
+    font-size: 11px;
+    height: 34px;
+    line-height: 1.5;
+    padding: 6px 12px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    vertical-align: middle;
+    width: 100%;
+}
+.field-street-address textarea{display:block;float:left;}
+input.input-text, select, textarea, .form-control {
+    border: 1px solid #e3e3e3;
+    border-radius: 0;
+}
 /* Multiple Addresses Checkout Pages ============================================================ */
 .button.multi-btn{float:right;}
 #checkout-progress-state{overflow:hidden;}
@@ -3322,7 +3346,7 @@ span.opened:before{content:"\f068";}
 .checkout-onepage-index #checkout-step-payment #checkout-review-submit{display: none;}
 .checkout-onepage-index #checkout-step-billing fieldset .form-list .field-street-address .input-box textarea{float: left;margin-right:5px;}
 .tips-content{float:left;margin-left:20px;position:relative;}
-.tips-content .tips{background:url("../images/tips.png") no-repeat;width:25px;height:25px;display:inline-block;position:absolute;}
+.tips-content .tips{background:url("../images/tips.png") no-repeat;width:25px;height:25px;display:inline-block;position:absolute;top:3px;}
 .tips-content .tips:hover{cursor:pointer;}
 .tips-content .tips-info{background: url("../images/tips-info.png") no-repeat;width:9px;height:13px;display:inline-block;margin-right:-5px;margin-left:40px;position:relative;top:-20px;}
 .tips-content .f11{color:#808080;background:#efefee;font:13px futura_lt_btlight_italic;display:inline-block;width:300px;padding:10px;}

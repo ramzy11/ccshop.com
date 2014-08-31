@@ -32,7 +32,7 @@
     <div class="con_table">
         <div class="padding_20">
             <div class="vip_info_area">
-                <?php $bonusPoints = $this->getGainedPoints(12);?>
+                <?php $bonusPoints = $this->getGainedPoints(12) * 1;?>
                 <ul>
 					<li class="vip_area"><span class="field"><?php echo $this->__('Member Tier') ;?></span><span><?php echo $this->getVipClass();?></span></li>
 					<li class="vip_area"><span class="field"><?php echo $this->__('Earned Points') ;?> *</span><span><?php echo $bonusPoints;?></span></li>

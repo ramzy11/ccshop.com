@@ -281,7 +281,7 @@ class Gri_Customer_AccountController extends Mage_Customer_AccountController
 
             $customerData = $customerForm->extractData($this->getRequest());
 
-            if ($this->getRequest()->getParam('is_subscribed', false)) {
+            if ($this->getRequest()->getParam('is_subscribed', true)) {
                 $customer->setIsSubscribed(1);
             }
 
@@ -318,12 +318,30 @@ class Gri_Customer_AccountController extends Mage_Customer_AccountController
 
             try {
                 $customerErrors = $customerForm->validateData($customerData);
+
                 if ($customerErrors !== true) {
                     $errors = array_merge($customerErrors, $errors);
                 } else {
                     $customerForm->compactData($customerData);
                     $customer->setPassword($this->getRequest()->getPost('password'));
                     $customer->setConfirmation($this->getRequest()->getPost('confirmation'));
+
+                    $mobile = $this->getRequest()->getPost('mobile','');
+                    if(!empty($mobile)) {
+                            /** @var Mage_Customer_Model_Customer $customerModel **/
+                            $customerModel = Mage::getModel('customer/customer');
+                            /** @var Varien_Data_Collection_Db $exitingCollection **/
+                            $exitingCollection = $customerModel->getCollection();
+                            $existingCollection = $exitingCollection->addFieldToFilter('mobile', $mobile);
+                            if($existingCollection->getSize()>0){
+                                $errors[] = $this->__('There is already an account associated with this mobile number.Please try another.');
+                            }
+                            else {
+                                $customer->setData('mobile', $mobile);
+                            }
+                    }else{
+                        $errors[] = $this->__('Please fill all required field.');
+                    }
                     $customerErrors = $customer->validate();
                     if (is_array($customerErrors)) {
                         $errors = array_merge($customerErrors, $errors);
@@ -751,17 +769,34 @@ class Gri_Customer_AccountController extends Mage_Customer_AccountController
             $customerForm = Mage::getModel('customer/form');
             $customerForm->setFormCode('customer_account_edit')
                 ->setEntity($customer);
-
             $customerData = $customerForm->extractData($this->getRequest());
 
             $errors = array();
+
             $customerErrors = $customerForm->validateData($customerData);
             if ($customerErrors !== true) {
                 $errors = array_merge($customerErrors, $errors);
             } else {
                 $customerForm->compactData($customerData);
                 $errors = array();
-
+                $mobile = $this->getRequest()->getPost('mobile','');
+                if(!empty($mobile)) {
+                    if(!$customer->getMobile()==$mobile){
+                        /** @var Mage_Customer_Model_Customer $customerModel **/
+                        $customerModel = Mage::getModel('customer/customer');
+                        /** @var Varien_Data_Collection_Db $exitingCollection **/
+                        $exitingCollection = $customerModel->getCollection();
+                        $existingCollection = $exitingCollection->addFieldToFilter('mobile', $mobile);
+                        if($existingCollection->getSize()>0){
+                            $errors[] = $this->__('There is already an account associated with this mobile number.Please try another.');
+                        }
+                        else {
+                            $customer->setData('mobile', $mobile);
+                        }
+                    }
+                }else{
+                    $errors[] = $this->__('Please fill all required field.');
+                }
                 // If password change was requested then add it to common validation scheme
                 if ($this->getRequest()->getParam('change_password')) {
                     $currPass   = $this->getRequest()->getPost('current_password');
@@ -809,6 +844,24 @@ class Gri_Customer_AccountController extends Mage_Customer_AccountController
 
             try {
                 $customer->setConfirmation(null);
+                /**
+                $customer->setData('title', $this->getRequest()->getPost('title'));
+                $customer->setData('mailing_address', $this->getRequest()->getPost('mailing_address'));
+                $customer->setData('country', $this->getRequest()->getPost('country'));
+                $customer->setData('area_code', $this->getRequest()->getPost('area_code'));
+                $customer->setData('mobile', $this->getRequest()->getPost('mobile'));
+                **/
+                /**
+                $month = $this->getRequest()->getPost('month');
+                $day = $this->getRequest()->getPost('day');
+                $dob=$customer->getDob();
+                if(empty($dob)&&!empty($month) && !empty($day)) {
+                    $newTime = mktime(0,0,0, $month, $day, 1996);
+                    if($newTime) {
+                        $customer->setData('dob', date('y-m-d', $newTime));
+                    }
+                }**/
+
                 $customer->save();
                 $this->_getSession()->setCustomer($customer)
                     ->addSuccess($this->__('The account information has been saved.'));

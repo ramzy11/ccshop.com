@@ -32,39 +32,36 @@
     <div class="con_table">
         <div class="padding_20">
             <div class="vip_info_area">
+                <?php $bonusPoints = $this->getGainedPoints(12);?>
                 <ul>
-                    <li class="vip_area"><?php echo $this->__('Member Class') ;?>: <strong><?php echo $this->getVipClass();?></strong></li>
-                    <li class="vip_area"><?php echo $this->__('Discounts') ;?>: <strong><?php echo $this->getVipDiscount();?></strong><?php echo $this->__(' Off') ;?></li>
-                    <li class="vip_area"><?php echo $this->__('Bonus Points') ;?>:
-                        <strong>
-                            <?php
-                                $bonusPoints = $this->getGainedPoints(12);
-                                if($bonusPoints == '0') echo $this->__('Nil');
-                                else echo $bonusPoints;
-                            ?>
-                        </strong>
+					<li class="vip_area"><span class="field"><?php echo $this->__('Member Tier') ;?></span><span><?php echo $this->getVipClass();?></span></li>
+					<li class="vip_area"><span class="field"><?php echo $this->__('Earned Points') ;?> *</span><span><?php echo $bonusPoints;?></span></li>
+					<li class="vip_area"><span class="field"><?php echo $this->__('Redeemed Points') ;?> *</span><span> - </span></li>
+                    <li class="vip_area"><span class="field"><?php echo $this->__('Current Point Balance') ;?></span><?php echo $bonusPoints;?><span></span>
                     </li>
-                    <li class="vip_area"><?php echo $this->__('Redeemable Points') ;?>: <strong><?php echo $this->getRedeemPoints();?></strong></li>
-                    <li class="vip_area"><?php echo $this->__('Expiry Date') ;?>: <strong><?php echo $this->getVipExpirationDate();?><span class="vip_sp_txt">*</span></strong></li>
+					<li class="vip_area"><span class="field"><?php echo $this->__('Membership Expiry Date') ;?></span><span><?php echo $this->getVipExpirationDate();?></span></li>
                 </ul>
                 <p>
-                <span class="no-display"><a class="redeem-gifts" href="#"><?php echo $this->__('Redeem Gifts Now')?></a></span>
-                <span><a class="point_btn" href="<?php echo $this->getUrl('membership/vip.html')?>"><?php echo $this->__('How to earn reward points?')?></a></span>
+                <span style="display: none;"><a class="redeem-gifts" href="#"><?php echo $this->__('Redeem Gifts Now')?></a></span>
+				<span><a class="point_btn" href="<?php echo $this->getUrl('cc-club/membership-privileges.html')?>"><?php echo $this->__('MY BENEFITS')?></a></span>
+				<span class="btn_space"><a class="point_btn2" href="<?php echo $this->getUrl('cc-club/how-to-earn-points.html')?>"><?php echo $this->__('HOW TO EARN POINTS')?></a></span>
                 <?php /*
                 <span><a class="point_btn" href="<?php echo $this->getUrl('how-2-earn-reward-points')?>"><?php echo $this->__('How to earn reward points?')?></a></span>*/ ?>
+				<div class="vip_stat_date">* <?php echo $this->__("From September 1, 2014");?></div>
                 </p>
             </div>
             <div class="sf-vip-info">* <?php echo $this->getPointsToUpgrade() ;?><?php echo $this->getLevelUpgradeTo() ;?></div>
             <div id="slider-range-min" class="vip-slider">
-                <span class="first-points"><span><?php echo $this->__('General')?></span><br />0 <?php echo $this->__('Point')?></span>
-                <span class="second-points"><span><?php echo $this->__('Silver')?></span><br />3,000 <?php echo $this->__('Points')?></span>
-                <a href="javascript:;" class="vip-slider-moving-bag" style="left: <?php echo $this->getLeftPercentPosition() ;?>%;"></a>
-                <a href="javascript:;" class="vip-slider-handle" style="left: <?php echo $this->getLeftPercentPosition() ;?>%;">
-                     <span class="sel_message"><strong><?php echo $this->getPointsToUpgrade() ;?></strong><br /><?php echo $this->getLevelUpgradeTo() ;?></span>
+                <span class="first-points"><span><?php echo $this->__('General')?></span><br /><span class="point">0 <?php echo $this->__('Point')?></span></span>
+                <span class="second-points"><span><?php echo $this->__('Silver')?></span><br /><span class="point">2,500 <?php echo $this->__('Points')?></span></span>
+                <a href="javascript:;" class="vip-slider-moving-bag" style="left: <?php echo $this->getLeftPercentPosition(); ?>%;"></a>
+                <a href="javascript:;" class="vip-slider-handle" style="left: <?php echo min($this->getLeftPercentPosition() + 7, 93) ;?>%;">
+                     <span class="sel_message"><?php echo $this->__('Earned Points');?><br/><strong><?php echo number_format($bonusPoints);?></strong></span>
                 </a>
-                <span class="last-points"><span><?php echo $this->__('Gold')?></span><br />10,000 <?php echo $this->__('Points')?></span>
+                <span class="third-points"><span><?php echo $this->__('Gold')?></span><br /><span class="point">20,000 <?php echo $this->__('Points')?></span></span>
+                <span class="last-points"><span><?php echo $this->__('Platinum')?></span><br /><span class="point">50,000 <?php echo $this->__('Points')?></span></span>
             </div>
-
+			<div class="upgrade">- <?php echo $this->getUpgradeMessage();?> -</div>
         </div>
     </div>
 </div>

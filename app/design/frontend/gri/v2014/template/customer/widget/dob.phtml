@@ -46,42 +46,79 @@ NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
 */
 
 /**
- * @see Mage_Customer_Block_Widget_Dob
+ * @var D1m_Customer_Block_Widget_Dob $this
  */
 ?>
-<label for="<?php echo $this->getFieldId('month')?>"<?php if ($this->isRequired()) echo ' class="required"' ?>><?php if ($this->isRequired()) echo '<em>*</em>' ?><?php echo $this->__('Date of Birth') ?></label>
+<label for="customer-d1m-month')?>"<?php if ($this->isRequired()) echo ' class="required"' ?>><?php echo $this->__('Date of Birth (Optional)'); ?></label>
 <div class="input-box customer-dob">
 <?php
-    $this->setDateInput('d',
-        '<div class="dob-day">
-             <input type="text" id="' . $this->getFieldId('day') . '" name="' . $this->getFieldName('day') . '" value="' . $this->getDay() . '" title="' . $this->__('Day') . '" class="input-text validate-custom" ' . $this->getFieldParams() . ' />
-             <label for="' . $this->getFieldId('day') . '">' . $this->__('DD') . '</label>
-         </div>'
-    );
+    $this->setDateInput('y','');
+    $dayOption='<div class="dob-day">';
 
-    $this->setDateInput('m',
-        '<div class="dob-month">
-             <input type="text" id="' . $this->getFieldId('month') . '" name="' . $this->getFieldName('month') . '" value="' . $this->getMonth()  . '" title="' . $this->__('Month')  . '" class="input-text validate-custom" ' . $this->getFieldParams()  . ' />
-             <label for="' . $this->getFieldId('month') . '">' . $this->__('MM')  . '</label>
-         </div>'
-    );
+    if(is_numeric($this->getDay())){
+        $dayOption.='<div class="disable">'.$this->getDay().'</div>';
+    }else{
+        $dayOption.='<select id="customer-d1m-day" name="' . $this->getFieldName('day') . '" class="input-text validate-custom" ' . $this->getFieldParams() . '>';
+        $dayOption.='<option value="">'.$this->__('Day').'</option>'
+            .implode('', $this->GetDayNumbers('option', $this->getDay()));
+        $dayOption.='</select>';
+    }
+    $dayOption.='</div>';
+    $this->setDateInput('d',$dayOption);
+    $monthOption='<div class="dob-month">';
+    if(is_numeric($this->getMonth())){
+        $monthOption.='<div class="disable">'.$this->getMonth().'</div>';
+    }else{
+        $monthOption.='<select id="customer-d1m-month" name="' . $this->getFieldName('month') . '" class="input-text validate-custom" ' . $this->getFieldParams().'>';
+        $monthOption.='<option value="">'.$this->__('Month').'</option>'
+            .implode('', $this->GetMonthNumbers('option', $this->getMonth()));
+        $monthOption.='</select>';
+    }
+    $monthOption.='</div>';
+    $this->setDateInput('m',$monthOption);
 
-    $this->setDateInput('y',
-        '<div class="dob-year">
-             <input type="text" id="' . $this->getFieldId('year') . '" name="' . $this->getFieldName('year') . '" value="' . $this->getYear()  . '" title="' . $this->__('Year')  . '" class="input-text validate-custom" ' . $this->getFieldParams()  . ' />
-             <label for="' . $this->getFieldId('year') . '">' . $this->__('YYYY')  . '</label>
-         </div>'
-    );
 ?>
     <?php echo $this->getSortedDateInputs() ?>
-    <div class="dob-full" style="display:none;">
-        <input type="hidden" id="<?php echo $this->getFieldId('dob')?>" name="<?php echo $this->getFieldName('dob')?>" />
+    <div class="hint-icon"></div>
+    <div class="dob">
+        <input type="hidden" id="<?php echo $this->getFieldId('year') ?>" name="<?php echo $this->getFieldName('year')?>" value="1996" />
+        <input type="hidden" id="customer-d1m-dob" name="<?php echo $this->getFieldName('dob')?>" value="<?php echo '%Y年%m月%e日'==$this->getDateFormat()?$this->getDateFormatStr('Y-m-d'):$this->getDateFormatStr('m-d-Y');?>"/>
     </div>
+    <script type="text/javascript">
+        (function ($) {
+            $("#customer-d1m-day").change(function(){
+                var day=$(this).val();
+                var month=$("#customer-d1m-month").val();
+                if($.isNumeric(day)&& $.isNumeric(month)){
+                    <?php if('%Y年%m月%e日'==$this->getDateFormat()):?>
+                    $("#customer-d1m-dob").val('1996-'+month+'-'+day);
+                    <?php else:?>
+                    $("#customer-d1m-dob").val(month+'-'+day+'-1996');
+                    <?php endif;?>
+                }
+            });
+            $("#customer-d1m-month").change(function(){
+                var month=$(this).val();
+                var day=$("#customer-d1m-day").val();
+                if($.isNumeric(day)&& $.isNumeric(month)){
+                    <?php if('%Y年%m月%e日'==$this->getDateFormat()):?>
+                    $("#customer-d1m-dob").val('1996-'+month+'-'+day);
+                    <?php else:?>
+                    $("#customer-d1m-dob").val(month+'-'+day+'-1996');
+                    <?php endif;?>
+                }
+            });
+        })(jQuery);
 
+    </script>
+    <div class="hint">
+    <span><?php
+        if($this->getData('use_type') == 'register') {
+            echo $this->__('This data cannot be edited once you click submit. If you would like to change the data, please email cs@ccshop.com.');
+        }
+        else {
+            echo $this->__('This data cannot be edited once you click save changes. If you would like to change the data, please email cs@ccshop.com.');
+        }
+        ?></span></div>
     <div class="validation-advice" style="display:none;"></div>
 </div>
-<script type="text/javascript">
-//<![CDATA[
-    var customer_dob = new Varien.DOB('.customer-dob', <?php echo $this->isRequired() ? 'true' : 'false' ?>, '<?php echo $this->getDateFormat() ?>');
-//]]>
-</script>

@@ -100,31 +100,12 @@ class Gri_Vip_Model_Observer
 
     public function bindOffline(Varien_Event_Observer $observer)
     {
-       if(Mage::helper('gri_vip')->getEnableOfflineVIP()){
+       //if(Mage::helper('gri_vip')->getEnableOfflineVIP()){
          //array('account_controller' => $this, 'customer' => $customer);
-         $event = $observer->getEvent();
-         $request = $event->getAccountController()->getRequest();
-         $customer = $event->getCustomer();
-
-         //request
-         $mobile = $request->getPost('mobilephone');
-         $offlineVip = Mage::getModel('gri_vip/relation_offline')->load($mobile, 'mobilephone');
-         $checkVip = $request->getPost('checkbox2');
-        
-         if ($checkVip && $offlineVip->getId() && !$offlineVip->getCustomerId()) {
-            $offlineVip->setCustomerId($customer->getId());
-            $updated_time = Mage::getSingleton('core/locale')->date()->toString('y-MM-dd H:m:s');
-            $offlineVip->setUpdateTime($updated_time);
-            $offlineVip->save();
-
-            //update offline vip group id
-            if ($this->getOfflineVipGroupId()) {
-                $customer->setGroupId($this->getOfflineVipGroupId());
-                $customer->save();
-            }
-         }
-       }
-     return $this;
+		$event = $observer->getEvent();
+        $request = $event->getAccountController()->getRequest();
+        $customer = $event->getCustomer();
+		$this->vipHandle($customer);
     }
 
     /**
@@ -134,4 +115,117 @@ class Gri_Vip_Model_Observer
     {
         return Mage::helper('gri_vip')->getGroupIdByVipLevel('offlinevip');
     }
+
+	/**
+	 * When a customer logs in, we need to get information from AS400 for the VIP data 
+	 */
+	public function getVipInfo(Varien_Event_Observer $observer)
+	{
+		$event = $observer->getEvent();
+		$customer = $event->getCustomer();
+		
+		$this->vipHandle($customer);
+	}
+
+	private function vipHandle(Mage_Customer_Model_Customer $user)
+	{
+		$vipAs400 = Mage::getSingleton('gri_vip/vip_as400');
+
+		//send request to AS400 fetching vip information
+		$groups = $vipAs400->getCustomerGroup();
+
+		$vipPk = Mage::getModel('gri_vip/offline_pk')->load($user->getId(),'customer_id');
+		$last_update = "";		
+		if($vipPk->getId())
+		{
+			$last_update = date('Ymd',strtotime($vipPk->getLastUpdate()));
+			$vipContent = $vipAs400->checkVipInfo($vipPk->getOfflineVipId());
+            if($vipContent == null)
+            {
+                Mage::Log('Error getting result from VipInfo - empty/invalid response',7,'gri-debug.log');
+				Mage::Log(date("Y-m-d H:i:s").' Customer #'.$user->getId().' failed at VipInfo',7,'gri-vipinfo-fail.log'); 	
+				return;
+            }
+			$offVip = $vipContent['vipinfo'][0];
+			if(empty($offVip))
+			{
+                Mage::Log('Error getting result from VipInfo - empty profile',7,'gri-debug.log');
+				Mage::Log(date("Y-m-d H:i:s").' Customer #'.$user->getId().' received empty profile at VipInfo',7,'gri-vipinfo-fail.log'); 	
+				return;
+				
+			}
+		}
+		else
+		{
+            $data = $vipAs400->createAddArray($user);
+            $vipContent = $vipAs400->checkVipAccount($data);
+			Mage::Log('API return: '.$vipContent,7,'gri-debug.log');
+            if($vipContent == null)
+            {
+                Mage::Log('Error getting result from VipAdd - empty/invalid response', 7, 'gri-debug.log');
+				Mage::Log(date("Y-m-d H:i:s").' Customer #'.$user->getId().' failed at VipAdd',7,'gri-vipadd-fail.log'); 	
+                return;
+            }
+            
+			$offVip = $vipContent['vipinfo'][0];
+			if(empty($offVip))
+			{
+                Mage::Log('Error getting result from VipAdd - empty profile', 7, 'gri-debug.log');
+				Mage::Log(date("Y-m-d H:i:s").' Customer #'.$user->getId().' received empty profile at VipAdd',7,'gri-vipadd-fail.log'); 	
+                return;
+			}
+			$vipPk = Mage::getModel('gri_vip/offline_pk');
+			$vipPk->setCustomerId($user->getId());
+		}			
+		
+
+		$mobile = preg_replace("/[^0-9]/","",$offVip['mobile']);
+
+		$offline_last_update = date('Ymd',strtotime($offVip['last_update']));
+
+		if(!$last_update || $last_update == date("Ymd") ||$offline_last_update > $last_update)
+		{
+			
+			$vipGroup = $offVip['grade'];
+			$vipPoint = $offVip['current vip point'] * 1;
+			$vipCardNo = $offVip['cardno'];
+			$vipOfflinePk = $offVip['pk#'];
+			$expiryDate = $offVip['expiry_date'];
+			$vipExpiryDate =  substr($expiryDate,0,4).'-'.substr($expiryDate,4,2).'-'.substr($expiryDate,6,2);
+			$vipLastUpdate = substr($offVip['amend_date'],0,4).'-'.substr($offVip['amend_date'],4,2).'-'.substr($offVip['amend_date'],6,2);
+			
+			Mage::Log($vipGroup." ".$vipPoint." ".$vipCardNo." ".$vipOfflinePk." ".$vipExpiryDate." ".$vipLastUpdate,7,'gri-debug.log');
+
+			$localVipGroup = $vipAs400->offlineGradeMapping($vipGroup);
+
+			$vipPk->setVipGrade($vipGroup);
+			$vipPk->setVipPoint($vipPoint);
+			$vipPk->setVipCardNo($vipCardNo);
+			$vipPk->setOfflineVipId($vipOfflinePk);
+			$vipPk->setExpiryDate($vipExpiryDate);
+			$vipPk->setLastUpdate($vipLastUpdate);
+			
+			/*Save record for other use */
+			try
+			{
+				$vipPk->save();
+			}
+			catch(Exception $e)
+			{
+				Mage::Log('Error getting VIP information for customer '.$user->getId(),7,'gri-debug.log');
+			}
+		
+			/*update customer group Id */
+			try
+			{
+				//$user->setGroupId($groups[strtolower($vipGroup)]);
+				$user->setGroupId($groups[strtolower($localVipGroup)]);
+				$user->save();
+			}
+			catch(Exception $e)
+			{
+				Mage::Log('Error saving customer group Id for customer '.$user->getId(),7,'gri-debug.log');
+			}
+		}
+	}
 }

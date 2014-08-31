@@ -118,7 +118,15 @@
                   </gri_vip>
                </observers>
             </customer_register_success>
-          </events>
+			<customer_login>
+				<observers>
+					<gri_vip>
+						<class>gri_vip/observer</class>
+						<method>getVipInfo</method>
+					</gri_vip>
+				</observers>
+			</customer_login>	
+		</events>
     </global>
     <crontab>
         <jobs>
@@ -155,11 +163,14 @@
             </general>
             <requirement>
                 <silver_entry>2000</silver_entry>
-                <silver_upgrade>3000</silver_upgrade>
-                <silver_renewal>3000</silver_renewal>
-                <gold_entry>8000</gold_entry>
-                <gold_upgrade>10000</gold_upgrade>
-                <gold_renewal>10000</gold_renewal>
+                <silver_upgrade>2000</silver_upgrade>
+                <silver_renewal>2000</silver_renewal>
+                <gold_entry>20000</gold_entry>
+                <gold_upgrade>20000</gold_upgrade>
+                <gold_renewal>20000</gold_renewal>
+                <platinum_entry>50000</platinum_entry>
+                <platinum_upgrade>50000</platinum_upgrade>
+                <platinum_renewal>50000</platinum_renewal>
             </requirement>
             <discount>
                 <offlinevip>15</offlinevip>

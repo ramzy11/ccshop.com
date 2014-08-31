@@ -1,0 +1,45 @@
+<?php
+/** @var D1m_Customer_Block_Form_Additional $this */
+$formData = $this->getData('form_data');
+?>
+<li>
+    <label for="customer_country"><?php echo $this->__('Country')?></label>
+    <div class="input-box customer-country">
+        <select id="customer_country" name="<?php echo $this->getFieldName('customer_country_id');?>">
+            <?php
+            $customerCountryId=$formData->getData('customer_country_id');
+            if(empty($customerCountryId)){
+                $formData->setData('customer_country_id','HK');
+            }
+            $countries = $this->GetAllowedCountries();
+            foreach($countries as $country) {
+                if(!empty($country['value']))
+                {?>
+                    <option<?php if($formData->getData('customer_country_id') == $country['value']) { echo ' selected="selected"';}?>
+                        value="<?php echo $country['value']?>"><?php echo $country['label']?></option>
+                <?php
+                }
+            }
+            ?>
+        </select>
+    </div>
+</li>
+<li>
+    <label for="mailing_address"><?php echo $this->__('Mailing Address (Optional)'); ?></label>
+    <div class="input-box">
+        <textarea id="mailing_address" name="<?php echo $this->getFieldName('mailing_address');?>" class="" title="<?php echo $this->__('Mailing Address') ?>"><?php echo $formData->getData('mailing_address')?></textarea>
+    </div>
+</li>
+<li>
+    <label for="customer_mobile"><?php echo $this->__('Mobile Number') ?></label>
+    <div class="input-box customer-mobile">
+        <span>+</span><input type="text" id="customer_area_code" name="<?php echo $this->getFieldName('customer_area_code');?>"
+                 value="<?php echo $formData->getData('customer_area_code')?>" class="input-text required-entry" />
+        <span>-</span><input type="text" id="mobile" name="<?php echo $this->getFieldName('mobile');?>" class="input-text required-entry" value="<?php echo $formData->getData('mobile')?>">
+        <div class="hint-icon"></div>
+        <div class="hint">
+    <span><?php
+        echo $this->__('Please provide the country code (e.g. +852) before mobile number.');
+        ?></span></div>
+    </div>
+</li>

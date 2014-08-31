@@ -621,7 +621,7 @@ jQuery(function(){
 							min: 1,
 							max: 3
 						},
-						width:260,
+						width:260
 					},
 					mousewheel: true,
 					swipe: {
@@ -645,7 +645,7 @@ jQuery(function(){
 							min: 1,
 							max: 3
 						},
-						width:97,
+						width:97
 					},
 					mousewheel: true,
 					swipe: {
@@ -672,7 +672,7 @@ jQuery(function(){
 							min: 1,
 							max: 1
 						},
-						width:270,
+						width:270
 					},
 					mousewheel: true,
 					swipe: {
@@ -1151,3 +1151,70 @@ jQuery(function(){
         jQuery(this).siblings().toggleClass("no-display");
     })
 })
+
+
+/*******   CMS-PAGE-MEMBERSHIP-PRIVILEGES   ********/
+jQuery(function(){
+    jQuery(".cms-cc-club-membership-privileges-phone").click(function(){
+        jQuery(this).parent().find(".cms-cc-club-membership-privileges-detail").slideToggle(300)
+        jQuery(this).toggleClass("cms-cc-club-membership-privileges-phone-open")
+    })
+})
+
+/* telecom country/area code*/
+var D1 = D1 || {};
+D1.teleJson = eval('({"HK":"852","MO":"853","MY":"60","SG":"65","TW":"886","TH":"66","CN":"86","JP":"81"})');
+D1.telecomCode = {
+    get:function(){
+        if(jQuery('form#form-validate').length>0) this.form = jQuery('form#form-validate');
+        if(jQuery('form#co-billing-form').length>0) this.form = jQuery('form#co-billing-form');
+        if(jQuery('form#register-form').length>0) this.form = jQuery('form#register-form');
+        this.country = this.form.find('#customer_country');
+        this.sCountry = this.form.find('.field-country select');
+        this.teleCode = this.form.find('#customer_area_code');
+        if(jQuery('#area_code').length>0) this.sTeleCode = this.form.find('#area_code');
+        if(jQuery('.billing_area_code').length>0) this.sTeleCode = this.form.find('.billing_area_code');
+    },
+    _ini:function(){
+        var key;
+        for (key in D1.teleJson){
+            if(key == this.country.val()){
+                this.teleCode.val(D1.teleJson[key]);
+            }
+            if(key == this.sCountry.val()){
+                this.sTeleCode.val(D1.teleJson[key]);
+            }
+        }
+    },
+    bind:function(){
+        var that = this,
+            key,
+            c;
+        this.country.change(function(){
+            c = jQuery(this).val();
+            for (key in D1.teleJson){
+                if(key == c){
+                    that.teleCode.val(D1.teleJson[key]);
+                    break;
+                }
+            }
+        });
+        this.sCountry.change(function(){
+            c = jQuery(this).val();
+            for (key in D1.teleJson){
+                if(key == c){
+                    that.sTeleCode.val(D1.teleJson[key]);
+                    break;
+                }
+            }
+        });
+    },
+    ini:function(){
+        this.get();
+        this._ini();
+        this.bind();
+    }
+}
+jQuery(function(){
+    if((jQuery('form#form-validate').length>0) || (jQuery('form#co-billing-form').length>0) || (jQuery('form#register-form').length>0)) D1.telecomCode.ini();
+});

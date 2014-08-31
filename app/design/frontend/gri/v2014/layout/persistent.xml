@@ -39,6 +39,7 @@
             <action method="setTemplate"><template>persistent/customer/form/register.phtml</template></action>
             <block type="persistent/form_remember" name="persistent.remember.me" template="persistent/remember_me.phtml" />
             <block type="core/template" name="persistent.remember.me.tooltip" template="persistent/remember_me_tooltip.phtml" />
+            <block type="d1m_customer/form_additional" name="persistent.country.mobile" template="d1m/customer/form/additional.phtml" />
         </reference>
     </customer_account_create>
 

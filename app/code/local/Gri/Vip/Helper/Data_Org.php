@@ -8,12 +8,10 @@ class Gri_Vip_Helper_Data extends Mage_Core_Helper_Abstract
     const CONFIG_PATH_VIP_REQUIREMENT_GOLD_UPGRADE = 'gri_vip/requirement/gold_upgrade';
     const CONFIG_PATH_VIP_REQUIREMENT_PLATINUM_UPGRADE = 'gri_vip/requirement/platinum_upgrade';
     const CONFIG_PATH_VIP_DISCOUNT = 'gri_vip/discount/';
-    const CONFIG_PATH_ENABLE_OFFLINEVIP = 'gri_vip/general/enabled_offlinevip';
+    const  CONFIG_PATH_ENABLE_OFFLINEVIP = 'gri_vip/general/enabled_offlinevip';
     const OFFLINEVIP_LEVEL = 'offlinevip';
     const SILVER_LEVEL = 'silver';
     const GOLD_LEVEL = 'gold';
-	const PLATINUM_LEVEL = 'platinum';
-
     public function getCustomerVipLevel(Mage_Customer_Model_Customer $customer)
     {
         if ($customer->getData('vip_level') === NULL) {

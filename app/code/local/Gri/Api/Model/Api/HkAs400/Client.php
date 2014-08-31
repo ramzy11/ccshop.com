@@ -280,6 +280,18 @@ class Gri_Api_Model_Api_HkAs400_Client extends Varien_Object
                 $items[] = $this->_mapFields($item, $this->_orderItemFieldsMapping);
             }
 
+            /*get Customer related information */
+            $vipPk = "";
+            if($order->getCustomerId() !== NULL)
+            {
+                $vip = Mage::getModel('gri_vip/offline_pk')->load($order->getCustomerId(), 'customer_id');
+                if($vip->getId() !== NULL)
+                {
+                    $vipPk = $vip->getOfflineVipId();
+                }
+            }
+
+
             $parentRmaId = $order->getFromRmaId();
             $creditMemo = $creditMemo->unsetData()->load($order->getFromCreditmemoId());
             $parentOrderId = Mage::getSingleton('sales/order')->unsetData()->load($creditMemo->getOrderId())->getIncrementId();
@@ -299,6 +311,7 @@ class Gri_Api_Model_Api_HkAs400_Client extends Varien_Object
                 "customerName"=> $order->getCustomerLastname().' '.$order->getCustomerFirstname(),
                 "customerEmail" => $order->getCustomerEmail(),
                 "customerGroup" => Mage::helper('gri_customer')->getGroupNameById($order->getCustomerGroupId()),
+                "vipPk#" => $vipPk, /*Offline VIP primary key if any*/
                 "currency" => $order->getOrderCurrencyCode(), /* HKD or USD, assumed rate 7.7 */
                 "subtotal" => $order->getSubtotal(), /* Product summary */
                 "baseSubtotal" => $order->getBaseSubtotal(), /* base currency is HKD */

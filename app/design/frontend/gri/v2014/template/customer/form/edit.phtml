@@ -23,6 +23,7 @@
  * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+/** @var Gri_Customer_Block_Form_Edit $this */
 ?>
 <div class="page-title">
     <h1><?php echo $this->__('Account Info') ?></h1><a href="javascript:void(0)" class="dashboard-dropdown-menu"></a>
@@ -40,6 +41,16 @@
         <?php echo $this->getBlockHtml('formkey')?>
         <ul class="form-list">
             <li class="fields">
+                <label for="customer_title"><?php echo $this->__('Title') ?></label>
+                <div class="input-box customer_title">
+                    <select id="customer_title" name="title">
+                        <option value="Ms" <?php if('Ms'==$this->getCustomer()->getTitle()):?>selected="selected"<?php endif;?>><?php echo $this->__('Ms.')?></option>
+                        <option value="Mrs" <?php if('Mrs'==$this->getCustomer()->getTitle()):?>selected="selected"<?php endif;?>><?php echo $this->__('Mrs.')?></option>
+                        <option value="Mr" <?php if('Mr'==$this->getCustomer()->getTitle()):?>selected="selected"<?php endif;?>><?php echo $this->__('Mr.')?></option>
+                    </select>
+                </div>
+            </li>
+            <li class="fields">
                 <?php echo $this->getLayout()
                                 ->createBlock('customer/widget_name')
                                 ->setObject($this->getCustomer())
@@ -47,15 +58,12 @@
                                 ->toHtml()
                 ?>
             </li>
-            <li class="fields">
-                <label for="email" class="required"><?php echo $this->__('Email Address') ?></label>
-                <div class="input-box">
-                    <input type="text" name="email" id="email" value="<?php echo $this->htmlEscape($this->getCustomer()->getEmail()) ?>" title="<?php echo $this->__('Email Address') ?>" class="input-text required-entry validate-email" />
-                </div>
-            </li>
-        <?php $_dob = $this->getLayout()->createBlock('customer/widget_dob') ?>
+        <?php
+        /** @var D1m_Customer_Block_Widget_Dob $_dob */
+        $_dob = $this->getLayout()->createBlock('customer/widget_dob') ?>
         <?php if ($_dob->isEnabled()): ?>
-            <li><?php echo $_dob->setDate($this->getCustomer()->getDob())->toHtml() ?></li>
+            <li><?php echo $_dob->setData('use_type', 'edit')
+                    ->setDate($this->getCustomer()->getDob())->toHtml() ?></li>
         <?php endif ?>
         <?php $_taxvat = $this->getLayout()->createBlock('customer/widget_taxvat') ?>
         <?php if ($_taxvat->isEnabled()): ?>
@@ -65,6 +73,21 @@
         <?php if ($_gender->isEnabled()): ?>
             <li><?php echo $_gender->setGender($this->getCustomer()->getGender())->toHtml() ?></li>
         <?php endif ?>
+            <?php
+            $existingData = new Varien_Object();
+            $existingData->setData('customer_country_id', $this->getCustomer()->getData('customer_country_id'));
+            $existingData->setData('customer_area_code', $this->getCustomer()->getData('customer_area_code'));
+            $existingData->setData('mobile', $this->getCustomer()->getData('mobile'));
+            $existingData->setData('mailing_address', $this->getCustomer()->getData('mailing_address'));
+            $this->getChild('customer.additional')->setData('form_data', $existingData);
+            echo $this->getChildHtml('customer.additional')
+            ?>
+            <li class="fields">
+                <label for="email" class="required"><?php echo $this->__('Email Address') ?></label>
+                <div class="input-box">
+                    <input type="text" name="email" id="email" value="<?php echo $this->htmlEscape($this->getCustomer()->getEmail()) ?>" title="<?php echo $this->__('Email Address') ?>" class="input-text required-entry validate-email" />
+                </div>
+            </li>
             <li class="control fields">
                 <div class="input-box">
                     <div class="change-password"><label for="change_password"><?php echo $this->__('Change Password') ?><input type="checkbox" name="change_password" id="change_password" value="1" onclick="setPasswordForm(this.checked)" title="<?php echo $this->__('Change Password') ?>"<?php if($this->getCustomer()->getChangePassword()==1): ?> checked="checked"<?php endif; ?> class="checkbox" /></label></div>

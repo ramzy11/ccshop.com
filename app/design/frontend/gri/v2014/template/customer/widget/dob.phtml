@@ -82,7 +82,7 @@ NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
     <div class="hint-icon"></div>
     <div class="dob">
         <input type="hidden" id="<?php echo $this->getFieldId('year') ?>" name="<?php echo $this->getFieldName('year')?>" value="1996" />
-        <input type="hidden" id="customer-d1m-dob" name="<?php echo $this->getFieldName('dob')?>" value="<?php echo '%Y¦~%m¤ë%e¤é'==$this->getDateFormat()?$this->getDateFormatStr('Y-m-d'):$this->getDateFormatStr('m-d-Y');?>"/>
+        <input type="hidden" id="customer-d1m-dob" name="<?php echo $this->getFieldName('dob')?>" value="<?php echo '%Yå¹´%mæœˆ%eæ—¥'==$this->getDateFormat()?$this->getDateFormatStr('Y-m-d'):$this->getDateFormatStr('m-d-Y');?>"/>
     </div>
     <script type="text/javascript">
         (function ($) {
@@ -90,7 +90,7 @@ NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
                 var day=$(this).val();
                 var month=$("#customer-d1m-month").val();
                 if($.isNumeric(day)&& $.isNumeric(month)){
-                    <?php if('%Y¦~%m¤ë%e¤é'==$this->getDateFormat()):?>
+                    <?php if('%Yå¹´%mæœˆ%eæ—¥'==$this->getDateFormat()):?>
                     $("#customer-d1m-dob").val('1996-'+month+'-'+day);
                     <?php else:?>
                     $("#customer-d1m-dob").val(month+'-'+day+'-1996');
@@ -101,7 +101,7 @@ NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
                 var month=$(this).val();
                 var day=$("#customer-d1m-day").val();
                 if($.isNumeric(day)&& $.isNumeric(month)){
-                    <?php if('%Y¦~%m¤ë%e¤é'==$this->getDateFormat()):?>
+                    <?php if('%Yå¹´%mæœˆ%eæ—¥'==$this->getDateFormat()):?>
                     $("#customer-d1m-dob").val('1996-'+month+'-'+day);
                     <?php else:?>
                     $("#customer-d1m-dob").val(month+'-'+day+'-1996');

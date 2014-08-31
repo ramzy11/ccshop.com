@@ -47,9 +47,9 @@ class Gri_Vip_Model_Vip_As400 extends Mage_Core_Model_Abstract
 
     public function checkVipAccount($data=array())
     {
-        $method = 'VipDetail';
+        $method = 'VipAdd';
         $json = $this->createJson($method, $data);
-        $ret =	$this->callWebService($this->getAPIUrl('api'),array('data'=>$json));
+        $ret =	$this->callWebService($this->getAPIUrl('api',1),array('data'=>$json));
 
         return $ret;
     }
@@ -86,6 +86,8 @@ class Gri_Vip_Model_Vip_As400 extends Mage_Core_Model_Abstract
         curl_setopt($c, CURLOPT_POSTFIELDS,'data='.$data['data']);
         curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
         $tmp = curl_exec($c);
+		Mage::Log('posting '.$data['data'].' to '.$url,7,'gri-debug.log');
+		Mage::Log('result :'.$tmp,7,'gri-debug.log');
         curl_close($c);
         return json_decode($tmp, true);
     }
@@ -114,16 +116,17 @@ class Gri_Vip_Model_Vip_As400 extends Mage_Core_Model_Abstract
         $district = $customer->getCustomerAreaCode();
         $country = isset($countryMapping[$customer->getCustomerCountryId()])?$countryMapping[$customer->getCustomerCountryId()]:'HKG';
         $join_date = date("Ymd");
-        $amend_user = $amend_date = $amend_time = "";
+        //$amend_user = $amend_date = $amend_time = "";
         $currentVipPoint = ".00";
         $age_group = "0";
         $gender = ($salulation == 'MR'?'M':'F');
         $address = $customer->getMailingAddress();
 
-        $data = compact('vip_country','expiry_date','cardno','grade','salulation','firstname','surname','gender','mobile','country','age_group','birthday','other_phone','email','address','join_date','amend_user','amend_date','amend_time','address');
+        //$data = compact('vip_country','expiry_date','cardno','grade','salulation','firstname','surname','gender','mobile','country','age_group','birthday','other_phone','email','address','join_date','amend_user','amend_date','amend_time',);
+        $data = compact('vip_country','expiry_date','cardno','grade','salulation','firstname','surname','gender','mobile','country','age_group','birthday','other_phone','email','join_date');
 
         $data['pk#'] = '0';
-        $data['current vip point'] = $currentVipPoint;
+        //$data['current vip point'] = $currentVipPoint;
         $data['district#'] = $district;
         $data['birthday'] = '(DD)'.substr($dob,8,2).'(MM)'.substr($dob,5,2).'(YYYY)0';
 

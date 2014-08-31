@@ -138,29 +138,44 @@ class Gri_Vip_Model_Observer
 		$last_update = "";		
 		if($vipPk->getId())
 		{
-			return;
 			$last_update = date('Ymd',strtotime($vipPk->getLastUpdate()));
 			$vipContent = $vipAs400->checkVipInfo($vipPk->getOfflineVipId());
             if($vipContent == null)
             {
-                Mage::Log('Error getting result from VipInfo',7,'gri-debug.log');
+                Mage::Log('Error getting result from VipInfo - empty/invalid response',7,'gri-debug.log');
+				Mage::Log(date("Y-m-d H:i:s").' Customer #'.$user->getId().' failed at VipInfo',7,'gri-vipinfo-fail.log'); 	
+				return;
             }
 			$offVip = $vipContent['vipinfo'][0];
+			if(empty($offVip))
+			{
+                Mage::Log('Error getting result from VipInfo - empty profile',7,'gri-debug.log');
+				Mage::Log(date("Y-m-d H:i:s").' Customer #'.$user->getId().' received empty profile at VipInfo',7,'gri-vipinfo-fail.log'); 	
+				return;
+				
+			}
 		}
 		else
 		{
             $data = $vipAs400->createAddArray($user);
-			Mage::Log(json_encode($data),7,'gri-debug.log');
-			return;
-            Mage::Log(json_encode($data),7,'gri-debug.log');
-			$vipPk = Mage::getModel('gri_vip/offline_pk');
-            $vipContent = $vipAs400->checkVipAccount($user);
+            $vipContent = $vipAs400->checkVipAccount($data);
+			Mage::Log('API return: '.$vipContent,7,'gri-debug.log');
             if($vipContent == null)
             {
-                Mage::Log('Error getting result from VipAdd', 7, 'gri-debug.log');
+                Mage::Log('Error getting result from VipAdd - empty/invalid response', 7, 'gri-debug.log');
+				Mage::Log(date("Y-m-d H:i:s").' Customer #'.$user->getId().' failed at VipAdd',7,'gri-vipadd-fail.log'); 	
                 return;
             }
-            $offVip = $vipContent['vipinfo'][0];
+            
+			$offVip = $vipContent['vipinfo'][0];
+			if(empty($offVip))
+			{
+                Mage::Log('Error getting result from VipAdd - empty profile', 7, 'gri-debug.log');
+				Mage::Log(date("Y-m-d H:i:s").' Customer #'.$user->getId().' received empty profile at VipAdd',7,'gri-vipadd-fail.log'); 	
+                return;
+			}
+			$vipPk = Mage::getModel('gri_vip/offline_pk');
+			$vipPk->setCustomerId($user->getId());
 		}			
 		
 
@@ -168,11 +183,11 @@ class Gri_Vip_Model_Observer
 
 		$offline_last_update = date('Ymd',strtotime($offVip['last_update']));
 
-		if(!$last_update || $offline_last_update > $last_update)
+		if(!$last_update || $last_update == date("Ymd") ||$offline_last_update > $last_update)
 		{
 			
 			$vipGroup = $offVip['grade'];
-			$vipPoint = $offVip['current vip point'];
+			$vipPoint = $offVip['current vip point'] * 1;
 			$vipCardNo = $offVip['cardno'];
 			$vipOfflinePk = $offVip['pk#'];
 			$expiryDate = $offVip['expiry_date'];

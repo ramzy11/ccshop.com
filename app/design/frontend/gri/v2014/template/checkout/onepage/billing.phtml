@@ -43,7 +43,16 @@ if (!$this->isCustomerLoggedIn()) $this->_address = $this->getQuote()->getBillin
             <li id="billing-new-address-form">
                 <fieldset>
                     <input type="hidden" name="billing[address_id]" value="<?php echo $this->getAddress()->getId() ?>" id="billing:address_id"/>
-                    <?php echo $this->getChildHtml('address.fields'); ?>
+                    <?php if ($this->isCustomerLoggedIn()) :?>
+                        <?php echo $this->getChildHtml('address.fields'); ?>
+                    <?php else:?>
+                        <?php
+                        $addressField=$this->getChild('address.fields');
+                        $addressField->setTemplate('customer/address/edit/fields_nologin.phtml');
+                        echo $addressField->toHtml();
+                        ?>
+                    <?php endif;?>
+
                 </fieldset>
             </li>
         </ul>

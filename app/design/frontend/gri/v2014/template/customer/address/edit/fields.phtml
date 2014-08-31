@@ -55,7 +55,7 @@ $layout = $this->getLayout();
             <label for="<?php echo $this->getFullyQualifiedId('region_id'); ?>" class="required"><!--<em>*</em>--><span><?php echo $checkoutHelper->__('State/Province') ?></span></label>
 
             <div class="input-box">
-                <select id="<?php echo $this->getFullyQualifiedId('region_id'); ?>" name="<?php echo $this->getFullyQualifiedName('region_id'); ?>" title="<?php echo $checkoutHelper->__('State/Province') ?>" class="validate-select" style="display:none;">
+                <select id="<?php echo $this->getFullyQualifiedId('region_id'); ?>" name="<?php echo $this->getFullyQualifiedName('region_id'); ?>" title="<?php echo $checkoutHelper->__('State/Province') ?>" class="validate-select" style="width:314px;display:none;">
                     <option value=""><?php echo $checkoutHelper->__('Please select...') ?></option>
                 </select>
                 <script type="text/javascript">
@@ -71,7 +71,7 @@ $layout = $this->getLayout();
             <label for="<?php echo $this->getFullyQualifiedId('city'); ?>" class="required"><!--<em>*</em>--><span><?php echo $checkoutHelper->__('City') ?></span></label>
 
             <div class="input-box">
-                <select id="<?php echo $this->getFullyQualifiedId('city_id'); ?>" name="<?php echo $this->getFullyQualifiedName('city_id'); ?>" title="<?php echo $checkoutHelper->__('City') ?>" class="" style="display:none;">
+                <select id="<?php echo $this->getFullyQualifiedId('city_id'); ?>" name="<?php echo $this->getFullyQualifiedName('city_id'); ?>" title="<?php echo $checkoutHelper->__('City') ?>" class="" style="width:314px;display:none;">
                     <option value=""><?php echo $checkoutHelper->__('Please select...') ?></option>
                 </select>
                 <script type="text/javascript">
@@ -87,14 +87,14 @@ $layout = $this->getLayout();
             </label>
 
             <div class="input-box">
-                <input type="text" title="<?php echo $checkoutHelper->__('Zip/Postal Code (Optional)') ?>" name="<?php echo $this->getFullyQualifiedName('postcode'); ?>" id="<?php echo $this->getFullyQualifiedId('postcode'); ?>" value="<?php echo $this->escapeHtml($address->getPostcode()) ?>" class="input-text validate-zip-international <?php echo $addressHelper->getAttributeValidationClass('postcode') ?>"/>
+                <input type="text" title="<?php echo $checkoutHelper->__('Zip/Postal Code (Optional)') ?>" name="<?php echo $this->getFullyQualifiedName('postcode'); ?>" id="<?php echo $this->getFullyQualifiedId('postcode'); ?>" value="<?php echo $this->escapeHtml($address->getPostcode()) ?>" class="input-text validate-zip-international <?php echo $addressHelper->getAttributeValidationClass('postcode') ?>" style="width: 200px;"/>
             </div>
         </div>
     </li>
     <li class="wide field-street-address">
         <label for="<?php echo $this->getFullyQualifiedId('street1'); ?>" class="required"><!--<em>*</em>--><?php echo $checkoutHelper->__('Address') ?></label>
         <div class="input-box">
-            <textarea cols="30" rows="3" name="<?php echo $this->getFullyQualifiedName('street[]'); ?>" id="<?php echo $this->getFullyQualifiedId('street1'); ?>"class="input-text <?php echo $_streetValidationClass ?>"><?php echo $this->escapeHtml($address->getStreet(1)) ?></textarea>
+            <textarea cols="30" rows="3" name="<?php echo $this->getFullyQualifiedName('street[]'); ?>" id="<?php echo $this->getFullyQualifiedId('street1'); ?>"class="d1m-customer-address-street input-text <?php echo $_streetValidationClass ?>"><?php echo $this->escapeHtml($address->getStreet(1)) ?></textarea>
             <?php /*
             <input type="text" title="<?php echo $checkoutHelper->__('Street Address') ?>" name="<?php echo $this->getFullyQualifiedName('street[]'); ?>" id="<?php echo $this->getFullyQualifiedId('street1'); ?>" value="<?php echo $this->escapeHtml($address->getStreet(1)) ?>" class="input-text <?php echo $_streetValidationClass ?>"/> */?>
             <div class="tips-content">
@@ -116,7 +116,10 @@ $layout = $this->getLayout();
         <div class="field">
             <label for="<?php echo $this->getFullyQualifiedId('telephone'); ?>" class="required"><!--<em>*</em>--><?php echo $checkoutHelper->__('Phone') ?></label>
             <div class="input-box input-box-telephone">
-                <input type="text" name="<?php echo $this->getFullyQualifiedName('telephone'); ?>" value="<?php echo $this->escapeHtml($address->getTelephone()) ?>" title="<?php echo $checkoutHelper->__('Phone') ?>" class="input-text <?php echo $addressHelper->getAttributeValidationClass('telephone') ?> valid-mobilephone" id="<?php echo $this->getFullyQualifiedId('telephone'); ?>" />
+                <div class="d1m-customer-address-telephone">
+                    <span>+</span><input type="text" name="<?php echo $this->getFullyQualifiedName('area_code'); ?>" value="<?php echo $this->escapeHtml($address->getData('area_code')) ?>" title="<?php echo $checkoutHelper->__('Area Code') ?>" class="billing_area_code input-text <?php echo $addressHelper->getAttributeValidationClass('area_code') ?>" id="<?php echo $this->getFullyQualifiedId('area_code'); ?>" />
+                    <span>-</span><input type="text" name="<?php echo $this->getFullyQualifiedName('telephone'); ?>" value="<?php echo $this->escapeHtml($address->getTelephone()) ?>" title="<?php echo $checkoutHelper->__('Phone') ?>" class="input-text <?php echo $addressHelper->getAttributeValidationClass('telephone') ?> valid-mobilephone" id="<?php echo $this->getFullyQualifiedId('telephone'); ?>" />
+                </div>
                 <div class="tips-content">
                     <span class="tips"></span>
                         <span class="tips-info no-display"></span>

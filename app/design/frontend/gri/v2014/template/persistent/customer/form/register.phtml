@@ -30,7 +30,7 @@
  *
  * @see app/design/frontend/base/default/template/customer/form/register.phtml
  */
-/** @var $this Mage_Customer_Block_Form_Register */
+/** @var $this Gri_Customer_Block_Form_Register */
 ?>
 <?php
     $griCustomerHelper = Mage::helper('gri_customer');
@@ -41,19 +41,50 @@
     <div class="page-title">
         <h1><?php echo $this->__('Create an Account') ?></h1>
     </div>
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
     <form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="register-form">
            <input type="hidden" name="success_url" value="<?php echo $this->getSuccessUrl() ?>" />
-           <input type="hidden" name="error_url" value="<?php echo $this->getUrl('*/*/login') ?>" />
+           <input type="hidden" name="error_url" value="<?php echo $this->getUrl('*/*/create') ?>" />
             <ul class="form-list">
-            <li>
+                <li>
+                    <label for="customer_title"><?php echo $this->__('Title') ?></label>
+                    <div class="input-box customer_title">
+                        <select id="customer_title" name="title">
+                            <option value="Ms"><?php echo $this->__('Ms.')?></option>
+                            <option value="Mrs"><?php echo $this->__('Mrs.')?></option>
+                            <option value="Mr"><?php echo $this->__('Mr.')?></option>
+                        </select>
+                    </div>
+                </li>
+                <li>
                 <?php echo $this->getLayout()->createBlock('customer/widget_name')->setObject($this->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
             </li>
-            <li>
+                <?php
+                /** @var D1m_Customer_Block_Widget_Dob $_dob */
+                $_dob = $this->getLayout()->createBlock('customer/widget_dob') ?>
+                <?php if ($_dob->isEnabled()): ?>
+                    <li><?php echo $_dob->setData('use_type', 'register')
+                            ->setDate($this->getFormData()->getDob())->toHtml() ?></li>
+                <?php endif ?>
+                <?php
+                $this->getChild('persistent.country.mobile')->setData('form_data', $this->getFormData());
+                echo $this->getChildHtml('persistent.country.mobile')?>
+
+                <li>
                 <label for="email_address" class="required"><?php echo $this->__('Email Address') ?></label>
                 <div class="input-box">
                     <input type="text" name="email" id="email_address" value="<?php echo $this->escapeHtml($this->getFormData()->getEmail()) ?>" title="<?php echo $this->__('Email Address') ?>" class="input-text validate-email required-entry" />
                 </div>
             </li>
+            <?php if ($this->isNewsletterEnabled()): ?>
+            <li>
+                <div class="input-box input-box-newsletter">
+                    <input type="checkbox" name="is_subscribed" title="<?php echo $griCustomerHelper->__('I do not wish to receive any special promotional messages.') ?>" value="0" id="is_subscribed"<?php if($this->getFormData()->getIsSubscribed()): ?> <?php endif; ?> class="checkbox" />
+                    <label for="is_subscribed"><?php echo $griCustomerHelper->__('I do not wish to receive any special promotional messages.') ?></label>
+                </div>
+            </li>
+            <?php endif ?>
+
             <?php /*
             <li>
                 <label for="telephone"><?php echo $griCustomerHelper->__('Telephone') ?><span><?php echo $this->__('(Optional)')?></span></label>
@@ -76,10 +107,6 @@
                 </div>
             </li>
             <?php endif;?>
-            <?php $_dob = $this->getLayout()->createBlock('customer/widget_dob') ?>
-            <?php if ($_dob->isEnabled()): ?>
-                <li><?php echo $_dob->setDate($this->getFormData()->getDob())->toHtml() ?></li>
-            <?php endif ?>
             <?php $_taxvat = $this->getLayout()->createBlock('customer/widget_taxvat') ?>
             <?php if ($_taxvat->isEnabled()): ?>
                 <li><?php echo $_taxvat->setTaxvat($this->getFormData()->getTaxvat())->toHtml() ?></li>
@@ -92,7 +119,7 @@
             <li>
                 <label for="password" class="required"><?php echo $this->__('Password') ?></label>
                 <div class="input-box">
-                    <input type="password" name="password" title="<?php echo $this->__('Password') ?>" class="input-text required-entry validate-password" />
+                    <input type="password" name="password" title="<?php echo $this->__('Password') ?>" id="password" class="input-text required-entry validate-password" />
                 </div>
             </li>
             <li>
@@ -102,19 +129,11 @@
                 </div>
             </li>
 
-            <?php if ($this->isNewsletterEnabled()): ?>
-            <li>
-                <div class="input-box input-box-newsletter">
-                    <input type="checkbox" name="is_subscribed" title="<?php echo $griCustomerHelper->__('Sign up for newsletter') ?>" value="1" id="is_subscribed"<?php if($this->getFormData()->getIsSubscribed()): ?> <?php endif; ?> class="checkbox" />
-                    <label for="is_subscribed"><?php echo $griCustomerHelper->__('Sign up for special promotions') ?></label>
-                </div>
-            </li>
-            <?php endif ?>
             <li>
                 <div class="input-box input-box-term-of-use">
                     <input type="checkbox" name="terms" title="<?php echo $griCustomerHelper->__('Terms of Use') ?>" value="1" id="terms"  <?php if($this->getFormData()->getTerms()): ?> <?php endif; ?> class="checkbox required-entry" />
-                    <label for="terms"><?php echo $griCustomerHelper->__('I agree to CCSHOP.COM ')?>
-                        <a href="<?php echo $this->getUrl('legal/terms-of-use.html')?>"><?php echo $griCustomerHelper->__('Terms of Use')?></a></label>
+                    <label for="terms"><?php echo $griCustomerHelper->__("I agree to CCSHOP.COM's ")?>
+                        <a href="<?php echo $this->getUrl('legal/terms-of-use.html')?>"><?php echo $griCustomerHelper->__("Terms of Use and CC Club's Terms and conditions")?></a></label>
                 </div>
             </li>
             <?php echo $this->getChildHtml('form.additional.info'); ?>

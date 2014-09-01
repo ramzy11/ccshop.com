@@ -82,11 +82,22 @@ class Gri_Vip_Model_Vip_As400 extends Mage_Core_Model_Abstract
     {
         $c = curl_init($url);
         curl_setopt($c, CURLOPT_POST,1);
-        curl_setopt($c, CURLOPT_POSTFIELDS,'data='.$data['data']);
+        curl_setopt($c, CURLOPT_POSTFIELDS,$data['data']);
         curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
-        $tmp = curl_exec($c);
-		Mage::Log('posting '.$data['data'].' to '.$url,7,'gri-debug.log');
-		Mage::Log('result :'.$tmp,7,'gri-debug.log');
+		curl_setopt($c, CURLOPT_HTTPHEADER,array(
+					'Content-Type: text/html',
+					'Content-Length: '.strlen($data['data']);
+		));
+		$try = $ok = 0;
+		do
+		{
+			$tmp = curl_exec($c);
+			if(json_decode($tmp, true) != null)
+			{
+				$ok = 1;
+			}
+			$try++;
+		}while($try < 3 && $ok == 0);
         curl_close($c);
         return json_decode($tmp, true);
     }
@@ -118,7 +129,7 @@ class Gri_Vip_Model_Vip_As400 extends Mage_Core_Model_Abstract
         //$amend_user = $amend_date = $amend_time = "";
         $currentVipPoint = ".00";
         $age_group = "0";
-        $gender = ($salulation == 'MR'?'M':'F');
+        $gender = ($salulation == 'MR.'?'M':'F');
         $address = $customer->getMailingAddress();
 
         //$data = compact('vip_country','expiry_date','cardno','grade','salulation','firstname','surname','gender','mobile','country','age_group','birthday','other_phone','email','address','join_date','amend_user','amend_date','amend_time',);
@@ -127,7 +138,9 @@ class Gri_Vip_Model_Vip_As400 extends Mage_Core_Model_Abstract
         $data['pk#'] = '0';
         //$data['current vip point'] = $currentVipPoint;
         $data['district#'] = $district;
-        $data['birthday'] = '(DD)'.substr($dob,8,2).'(MM)'.substr($dob,5,2).'(YYYY)0';
+		$month = substr($dob,5,2);
+		$day = substr($dob,8,2);
+        $data['birthday'] = '0000'.($month?$month:'00').($day?$day:'00');
 
         return $data;
     }

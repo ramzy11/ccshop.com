@@ -86,7 +86,7 @@ class Gri_Vip_Model_Vip_As400 extends Mage_Core_Model_Abstract
         curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($c, CURLOPT_HTTPHEADER,array(
 					'Content-Type: text/html',
-					'Content-Length: '.strlen($data['data']);
+					'Content-Length: '.strlen($data['data'])
 		));
 		$try = $ok = 0;
 		do

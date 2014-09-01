@@ -81,7 +81,7 @@ img, object, embed, video {
 		margin: auto;
 	}
 	.cms #cms-cc-club-how-to-earn-points-top {
-		text-align: center;
+		text-align: left;
 	}
 	.cms #cms-cc-club-how-to-earn-points-gap {
 		clear: both;
@@ -105,7 +105,7 @@ img, object, embed, video {
 	.cms #cms-cc-club-membership-privileges-top h2,
 	.cms #cms-cc-club-membership-privileges-top h4
 	{
-		text-align: center;
+		text-align: left;
 	}
 	.cms #cms-cc-club-membership-privileges-top h4
 	{
@@ -120,23 +120,25 @@ img, object, embed, video {
         text-align: center;
         padding: 30px;
     }
-    .cms .cms-cc-club-membership-privileges-desc {
+    .cms .cms-cc-club-membership-privileges-desc h2,
+	.cms .cms-cc-club-membership-privileges-desc h4 {
+		font-family: "Futura lt bt","Microsoft YaHei","微軟雅黑";
         text-align: center;
     }
     .cms .cms-cc-club-membership-privileges-desc h2 {
-        font-size: 20px;
+        font-size: 25px;
     }
     .cms .cms-cc-club-membership-privileges-desc h4 {
-		font-family: "Futura Hv Bt";
-		font-size: 16px;
-        text-align: center;
+		font-size: 15px;
     }        
     .cms .cms-cc-club-membership-privileges-detail h3 {
-        font-size: 16px;
+		font-family: "Futura lt Bt";
+        font-size: 15px;
     }    
     .cms .cms-cc-club-membership-privileges-detail h4 {
-		font-family: "Futura Hv Bt";
-		font-size: 12px;
+		font-family: "Futura lt Bt";
+		font-size: 13px;
+		margin-top: 10px;
     }
     .cms #cms-cc-club-membership-privileges-terms {
 		clear: both;
@@ -185,7 +187,8 @@ img, object, embed, video {
         width: 100%;
         border-width: 1px 0 0 0;
         border-style: solid;
-        border-color: #808080;        
+        border-color: #E3E3E3;        
+		padding-bottom: 30px;
     }
     .cms #cms-cc-club-membership-privileges-content2 {
 		clear: both;
@@ -193,7 +196,8 @@ img, object, embed, video {
         width: 100%;
         border-width: 1px 0 1px 0;
         border-style: solid;
-        border-color: #808080;
+        border-color: #E3E3E3;
+		padding-bottom: 30px;
     }
     .cms #cms-cc-club-membership-privileges-content3 {
 		clear: both;
@@ -201,7 +205,8 @@ img, object, embed, video {
         width: 100%;
         border-width: 0 0 1px 0;
         border-style: solid;
-        border-color: #808080;        
+        border-color: #E3E3E3;        
+		padding-bottom: 30px;
     }
 
 	.cms-cc-club-membership-privileges-pc {
@@ -523,7 +528,9 @@ img, object, embed, video {
 
 	.cms #cms-cc-club-how-to-earn-points {
 		width:600px;
-		margin: auto;
+		margin-left: auto;
+        margin-right: auto;
+        margin-top: 50px;
 	}
 	.cms #cms-cc-club-how-to-earn-points-top {
 		text-align: center;
@@ -546,7 +553,9 @@ img, object, embed, video {
 
 	.cms #cms-cc-club-membership-privileges-top {
 		width: 60%;
-		margin: auto;
+		margin-left: auto;
+        margin-right: auto;
+        margin-top: 50px;
 	}
 	.cms #cms-cc-club-membership-privileges-top h2,
 	.cms #cms-cc-club-membership-privileges-top h4
@@ -560,30 +569,32 @@ img, object, embed, video {
 	.cms #cms-cc-club-membership-privileges-gap {
 		clear: both;
 		width: 100%;
-		height: 40px;
+		height: 50px;
 	}
 	.cms .cms-cc-club-membership-privileges-icon {
 		text-align: center;
 		padding: 30px;
 	}
-	.cms .cms-cc-club-membership-privileges-desc {
+	.cms .cms-cc-club-membership-privileges-desc h2,
+    .cms .cms-cc-club-membership-privileges-desc h4
+	{
+		font-family: "Futura lt bt","Microsoft YaHei","微軟雅黑";
 		text-align: center;
 	}	
     .cms .cms-cc-club-membership-privileges-desc h2 {
-        font-size: 20px;
+        font-size: 25px;
     }
     .cms .cms-cc-club-membership-privileges-desc h4 {
-		font-family: "Futura Hv Bt";
-		font-size: 16px;
-        text-align: center;
+		font-size: 15px;
     }   
     .cms .cms-cc-club-membership-privileges-detail h3 {
-		font-weight: bold;
-        font-size: 16px;
+		font-family: "Futura lt bt"; 
+        font-size: 15px;
     }    
     .cms .cms-cc-club-membership-privileges-detail h4 {
-		font-family: "Futura Hv Bt";
-		font-size: 12px;
+		font-family: "Futura lt bt";
+		font-size: 13px;
+		margin-top: 10px;
     } 
 	.cms #cms-cc-club-membership-privileges-content1 {
 		float: left;
@@ -618,11 +629,12 @@ img, object, embed, video {
     }
 	.cms #cms-cc-club-membership-privileges-buttons .button {
 		background-color:#000;
+		height: 45px;
 		color:#fff !important;
-		font-family: Futura Bk Bt;
-		font-size:23px;
+		font-family: "Futura hv bt","Microsoft YaHei","微軟雅黑";
+		font-size: 20px;
 		text-transform:uppercase;
-		padding:15px;
+		padding-top:12px;
 		display:inline-block;
 		vertical-align: bottom;
 	}
@@ -634,7 +646,7 @@ img, object, embed, video {
 	.cms #cms-cc-club-membership-privileges-buttons .grey_button {
 		background-color:#E3E3E3;
 		color:#000 !important;
-		font-family: Futura Bk Bt;
+		font-family: "Futura Bk Bt";
 		font-size: 13px;
 		text-transform:uppercase;
 		padding: 5px 10px 5px 10px;

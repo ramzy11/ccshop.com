@@ -769,7 +769,7 @@ box-shadow:0 0px 13px rgba(0,0,0,0.15);
     /*.catalog-product-view .product-detail-right .product-shop{margin-top: 60px;}*/
     .more-colors a{display:inline-block;background:url(../images/color_more.png) 0px 3px no-repeat;margin-left: 2px;}
     .catalog-product-view .top-icon-menu .swipe-control .icon-reorder{display:inline-block !important;margin-right: 10px;}
-    .catalog-product-view .top-icon-menu .logo{width:218px !Important;}
+    .catalog-product-view .top-icon-menu .logo{width:210px !Important;}
     /****  Shopping Cart  *************/
     #sf-cartHeader{background: url("../images/icon/ico_cart.jpg") no-repeat 1px 6px scroll;color: #fff;width: 23px;height: 35px;display: inline-block;padding-top: 14px;text-align: center;font:13px Futura bk bt;}
     #cartHeader{display: none;}
@@ -1298,7 +1298,9 @@ box-shadow:0 0px 13px rgba(0,0,0,0.15);
     .toolbar-bottom .toolbar .control .pages a.sf-next{float:right;}
     .toolbar .found{display: none;}
     .catalogsearch-advanced-result .toolbar-bottom .toolbar{border-top:1px solid #000; padding-top: 20px;}
+/*Keith
     .ribbon-space{display: block;position:absolute;width:100%;margin-top: 40px;}
+*/
     /* Quick View */
     .gri-catalogcustom-product-quickview{min-width: 750px;}
 

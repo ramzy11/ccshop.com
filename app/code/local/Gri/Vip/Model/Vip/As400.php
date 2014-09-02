@@ -121,7 +121,7 @@ class Gri_Vip_Model_Vip_As400 extends Mage_Core_Model_Abstract
         $grade = 'GREY';
         $vip_country = 'HKG';
         $dob = $customer->getDob();
-        $mobile = $customer->getMobile();
+        $mobile = $customer->getMobile()?$customer->getMobile():"";
         $cardno = "0";
         $district = $customer->getCustomerAreaCode();
         $country = isset($countryMapping[$customer->getCustomerCountryId()])?$countryMapping[$customer->getCustomerCountryId()]:'HKG';

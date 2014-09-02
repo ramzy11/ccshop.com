@@ -2768,7 +2768,7 @@ body div.shadow{display:block;height:100%;left:0;opacity:0.5;position:fixed;top:
 .footer-container .bottom-container{text-align:center;}
 .footer .footer-col .fb-like-box,.footer .footer-col iframe{background:#EDEFF4;}
 .footer-col{float:left;}
-.footer-col.last{margin-right:0;float:left;}
+.footer-col.last{margin-right:0;float:right;}
 .footer .footer-col p{margin-bottom:10px;}
 .footer .footer-col .tel:before{content:"\f095";font-size:23px;color:#343434;margin-right:10px;}
 .footer .footer-col .tel{	display:block;font-size:23px;line-height:23px;	color:#fa3333;font-weight:normal;margin:0;}

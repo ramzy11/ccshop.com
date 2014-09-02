@@ -58,7 +58,7 @@ NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
     if(is_numeric($this->getDay())){
         $dayOption.='<div class="disable">'.$this->getDay().'</div>';
     }else{
-        $dayOption.='<select id="customer-d1m-day" name="' . $this->getFieldName('day') . '" class="input-text validate-custom" ' . $this->getFieldParams() . '>';
+        $dayOption.='<select id="customer-d1m-day" name="' . $this->getFieldName('day') . '" class="input-text" ' . $this->getFieldParams() . '>';
         $dayOption.='<option value="">'.$this->__('Day').'</option>'
             .implode('', $this->GetDayNumbers('option', $this->getDay()));
         $dayOption.='</select>';
@@ -69,7 +69,7 @@ NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
     if(is_numeric($this->getMonth())){
         $monthOption.='<div class="disable">'.$this->getMonth().'</div>';
     }else{
-        $monthOption.='<select id="customer-d1m-month" name="' . $this->getFieldName('month') . '" class="input-text validate-custom" ' . $this->getFieldParams().'>';
+        $monthOption.='<select id="customer-d1m-month" name="' . $this->getFieldName('month') . '" class="input-text" ' . $this->getFieldParams().'>';
         $monthOption.='<option value="">'.$this->__('Month').'</option>'
             .implode('', $this->GetMonthNumbers('option', $this->getMonth()));
         $monthOption.='</select>';
